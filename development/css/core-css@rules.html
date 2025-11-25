@@ -1,0 +1,744 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CSS At-Rules Deep Examples (with Tailwind layout only)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tailwind for layout/colors ONLY -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* PURE CSS EXAMPLES BELOW (NO TAILWIND DIRECTIVES) */
+
+    /* 1. @charset example (must be first in a real file) */
+    /* @charset "UTF-8"; */
+
+    /* 2. @import example */
+    /* In a real CSS file:
+       @import url("theme.css");
+    */
+
+    /* 3. @media: change layout at 700px */
+    .media-card-columns {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .media-card-col {
+      flex: 1;
+      padding: 0.75rem;
+      border-radius: 0.75rem;
+      background: rgba(15,23,42,1);
+      border: 1px solid rgba(31,41,55,1);
+    }
+    @media (min-width: 700px) {
+      .media-card-columns {
+        flex-direction: row;
+      }
+    }
+
+    /* 4. @supports: blur only if supported */
+    .supports-card {
+      border-radius: 0.75rem;
+      background: rgba(15,23,42,0.85);
+      border: 1px solid rgba(31,41,55,1);
+      padding: 0.75rem;
+    }
+    @supports (backdrop-filter: blur(10px)) {
+      .supports-card {
+        backdrop-filter: blur(10px);
+        background: rgba(15,23,42,0.5);
+      }
+    }
+
+    /* 5. @keyframes: pulse */
+    @keyframes pulse-demo {
+      0% {
+        transform: scale(1);
+        background: #22c55e;
+      }
+      50% {
+        transform: scale(1.08);
+        background: #16a34a;
+      }
+      100% {
+        transform: scale(1);
+        background: #22c55e;
+      }
+    }
+    .pulse-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      background: #22c55e;
+      color: #022c22;
+      font-weight: 600;
+      animation: pulse-demo 1.6s infinite;
+    }
+
+    /* 6. @font-face: custom font (file must exist) */
+    @font-face {
+      font-family: "MyDemoFont";
+      src: url("MyDemoFont.woff2") format("woff2");
+      font-weight: 400;
+      font-style: normal;
+    }
+    .font-face-demo {
+      font-family: "MyDemoFont", system-ui, sans-serif;
+    }
+
+    /* 7. @page: print layout */
+    @page {
+      size: A4 portrait;
+      margin: 20mm;
+    }
+    @page :first {
+      margin-top: 40mm;
+    }
+
+    /* 8. @counter-style: custom bullets */
+    @counter-style thumbs {
+      system: cyclic;
+      symbols: "👍" "🚀" "🔥";
+      suffix: " ";
+    }
+    .list-thumbs {
+      list-style: thumbs;
+      padding-left: 1.4rem;
+    }
+
+    /* 9. @namespace: SVG example */
+    /* (Just to show syntax, not functionally needed here) */
+    @namespace svg url("http://www.w3.org/2000/svg");
+    /* svg|a { fill: red; } */
+
+    /* 10. @document: non-standard, not widely supported (shown as syntax only) */
+    /* @document url("https://example.com/profile") {
+      body { background: #0f172a; }
+    } */
+
+    /* 11. @layer is more for cascade layers; simple demo only (no real effect here) */
+    @layer base {
+      .layer-demo-base {
+        color: #e5e7eb;
+      }
+    }
+    @layer theme {
+      .layer-demo-base {
+        color: #f97316;
+      }
+    }
+
+    /* 12. @property: register custom property with animation potential */
+    @property --glow-hue {
+      syntax: "<number>";
+      initial-value: 140;
+      inherits: false;
+    }
+    .glow-chip {
+      --glow-hue: 150;
+      border-radius: 999px;
+      padding: 0.5rem 1rem;
+      border: 1px solid hsl(var(--glow-hue) 90% 50%);
+      box-shadow: 0 0 12px hsl(var(--glow-hue) 90% 50% / 0.6);
+    }
+
+    /* 13. Container queries: @container */
+    .cq-article {
+      container-type: inline-size;
+      padding: 0.75rem;
+      border-radius: 0.75rem;
+      border: 1px solid rgba(31,41,55,1);
+      background: rgba(15,23,42,0.9);
+    }
+    .cq-grid {
+      display: block;
+    }
+    @container (min-width: 550px) {
+      .cq-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 0.75rem;
+      }
+    }
+
+    /* 14. Nesting with at-rules (simple idea) */
+    .nesting-demo {
+      color: #e5e7eb;
+    }
+    @media (min-width: 600px) {
+      .nesting-demo {
+        color: #a5b4fc;
+      }
+    }
+
+    /* 15. @scope (very new, limited support; syntax demo) */
+    @scope (.scope-root) {
+      .scoped-title {
+        color: #f97316;
+      }
+    }
+
+  </style>
+</head>
+<body class="min-h-screen bg-slate-950 text-slate-100">
+  <div class="mx-auto max-w-6xl px-4 py-6 space-y-8">
+    <!-- HEADER -->
+    <header class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+      <div>
+        <h1 class="text-3xl font-bold tracking-tight">
+          CSS At-Rules – Visual HTML Demo
+        </h1>
+        <p class="mt-1 text-sm text-slate-300">
+          All examples are pure CSS at-rules. Tailwind is used only for layout and colors on this page.
+        </p>
+      </div>
+      <div class="flex items-center gap-3">
+        <img
+          src="https://images.pexels.com/photos/2706379/pexels-photo-2706379.jpeg"
+          alt="Code preview"
+          class="h-14 w-14 rounded-full object-cover ring-2 ring-emerald-400/70 shadow-lg"
+        />
+        <div class="text-xs text-slate-400">
+          You can copy each CSS block for your own practice and adjust selectors as needed.
+        </div>
+      </div>
+    </header>
+
+    <!-- LEGEND -->
+    <section class="grid gap-3 rounded-xl border border-slate-800 bg-slate-900/70 p-4 text-xs md:grid-cols-3">
+      <div class="flex items-center gap-2">
+        <span class="h-3 w-3 rounded-full bg-sky-500"></span>
+        <span>CSS at-rule concept (@media, @keyframes, etc.)</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="h-3 w-3 rounded-full bg-emerald-500"></span>
+        <span>Code block (copy-paste ready)</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <span class="h-3 w-3 rounded-full bg-amber-400"></span>
+        <span>Live visual example using that rule</span>
+      </div>
+    </section>
+
+    <!-- 1. CHARSET + IMPORT -->
+    <section class="space-y-4">
+      <h2 class="flex items-center gap-2 text-xl font-semibold">
+        <span class="h-3 w-3 rounded-full bg-sky-500"></span>
+        @charset and @import
+      </h2>
+
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <span class="badge inline-block rounded-full bg-sky-500/10 px-3 py-1 text-xs font-semibold text-sky-300">
+            Concept & Syntax
+          </span>
+          <p class="mt-3 text-sm text-slate-200">
+            @charset must be the very first rule in a CSS file and declares the encoding (now often handled by HTML/meta).
+          </p>
+          <p class="mt-2 text-sm text-slate-200">
+            @import is used to load another CSS file (for example, a theme or fonts) into the current stylesheet.
+          </p>
+          <div class="mt-3 rounded-xl bg-slate-950/90 p-3 text-xs text-slate-100">
+            <pre>
+/* Very top of your main.css file */
+@charset "UTF-8";
+
+/* Import another stylesheet */
+@import url("theme.css");
+
+/* After that, your regular rules */
+body {
+  font-family: system-ui, sans-serif;
+}</pre>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <span class="badge inline-block rounded-full bg-amber-400/10 px-3 py-1 text-xs font-semibold text-amber-300">
+            Explanation
+          </span>
+          <p class="mt-3 text-xs text-slate-300">
+            In modern projects, @charset is rarely used because the HTML document and HTTP headers already define encoding.
+          </p>
+          <p class="mt-2 text-xs text-slate-300">
+            @import is convenient but can slow loading because it adds extra HTTP requests. Using a single bundled CSS file is usually better.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. @MEDIA -->
+    <section class="space-y-4">
+      <h2 class="flex items-center gap-2 text-xl font-semibold">
+        <span class="h-3 w-3 rounded-full bg-sky-500"></span>
+        @media – responsive styles
+      </h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <p class="text-sm text-slate-200">
+            @media applies styles only when certain conditions (screen width, orientation, etc.) are true.
+          </p>
+          <div class="mt-3 rounded-xl bg-slate-950/90 p-3 text-xs">
+            <pre>
+.card {
+  padding: 1rem;
+  background: #020617;
+  color: #e5e7eb;
+}
+
+/* When viewport is at least 700px wide */
+@media (min-width: 700px) {
+  .card {
+    display: flex;
+    gap: 1rem;
+  }
+}</pre>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <p class="text-xs text-slate-400">
+            Resize the browser: below 700px, columns stack; above 700px, they go side-by-side.
+          </p>
+          <div class="mt-3 media-card-columns">
+            <div class="media-card-col">
+              <h3 class="text-sm font-semibold text-slate-100">
+                Column A
+              </h3>
+              <p class="mt-1 text-xs text-slate-300">
+                This column represents content that will align next to Column B on larger screens.
+              </p>
+            </div>
+            <div class="media-card-col">
+              <h3 class="text-sm font-semibold text-slate-100">
+                Column B
+              </h3>
+              <p class="mt-1 text-xs text-slate-300">
+                On small screens, it stacks under Column A because the @media condition is not met.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. @supports -->
+    <section class="space-y-4">
+      <h2 class="flex items-center gap-2 text-xl font-semibold">
+        <span class="h-3 w-3 rounded-full bg-sky-500"></span>
+        @supports – feature queries
+      </h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <p class="text-sm text-slate-200">
+            @supports checks if the browser supports a given CSS property/value and applies styles conditionally.
+          </p>
+          <div class="mt-3 rounded-xl bg-slate-950/90 p-3 text-xs">
+            <pre>
+.card-supports {
+  background: rgba(15,23,42,0.9);
+}
+
+/* Only if browser supports backdrop-filter */
+@supports (backdrop-filter: blur(10px)) {
+  .card-supports {
+    backdrop-filter: blur(10px);
+    background: rgba(15,23,42,0.5);
+  }
+}</pre>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <div class="supports-card">
+            <h3 class="text-sm font-semibold text-slate-100">
+              @supports live card
+            </h3>
+            <p class="mt-1 text-xs text-slate-300">
+              If your browser supports <code>backdrop-filter</code>, this card will look like frosted glass.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. @keyframes -->
+    <section class="space-y-4">
+      <h2 class="flex items-center gap-2 text-xl font-semibold">
+        <span class="h-3 w-3 rounded-full bg-sky-500"></span>
+        @keyframes – animations
+      </h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <p class="text-sm text-slate-200">
+            @keyframes defines an animation sequence you can attach with the <code>animation</code> property.
+          </p>
+          <div class="mt-3 rounded-xl bg-slate-950/90 p-3 text-xs">
+            <pre>
+@keyframes pulse-demo {
+  0%   { transform: scale(1);   background: #22c55e; }
+  50%  { transform: scale(1.1); background: #16a34a; }
+  100% { transform: scale(1);   background: #22c55e; }
+}
+
+.button-pulse {
+  animation: pulse-demo 1.5s infinite;
+}</pre>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 flex flex-col items-start gap-3">
+          <span class="pulse-badge">
+            @keyframes pulse-demo
+          </span>
+          <p class="text-xs text-slate-400">
+            The element grows and shrinks in a loop based on the 0%, 50%, 100% keyframes.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. @font-face -->
+    <section class="space-y-4">
+      <h2 class="flex items-center gap-2 text-xl font-semibold">
+        <span class="h-3 w-3 rounded-full bg-sky-500"></span>
+        @font-face – custom fonts
+      </h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <p class="text-sm text-slate-200">
+            @font-face registers a local or external font file under a chosen <code>font-family</code> name.
+          </p>
+          <div class="mt-3 rounded-xl bg-slate-950/90 p-3 text-xs">
+            <pre>
+@font-face {
+  font-family: "MyDemoFont";
+  src: url("/fonts/MyDemoFont.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+}
+
+.font-demo {
+  font-family: "MyDemoFont", system-ui, sans-serif;
+}</pre>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <p class="font-face-demo text-sm text-slate-100">
+            This text uses <strong>"MyDemoFont"</strong> if the file exists. If not, it falls back to your system UI font.
+          </p>
+          <p class="mt-2 text-xs text-slate-400">
+            Replace <code>/fonts/MyDemoFont.woff2</code> with your actual font path in a real project.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 6. @page -->
+    <section class="space-y-4">
+      <h2 class="flex items-center gap-2 text-xl font-semibold">
+        <span class="h-3 w-3 rounded-full bg-sky-500"></span>
+        @page – print pages
+      </h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <p class="text-sm text-slate-200">
+            @page controls page size and margins when printing or exporting to PDF.
+          </p>
+          <div class="mt-3 rounded-xl bg-slate-950/90 p-3 text-xs">
+            <pre>
+@page {
+  size: A4 portrait;
+  margin: 20mm;
+}
+
+/* First printed page has extra top margin */
+@page :first {
+  margin-top: 40mm;
+}</pre>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <p class="text-xs text-slate-400">
+            Use your browser’s “Print” preview to see @page in action. Body content will be positioned with the specified margins.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 7. @counter-style -->
+    <section class="space-y-4">
+      <h2 class="flex items-center gap-2 text-xl font-semibold">
+        <span class="h-3 w-3 rounded-full bg-sky-500"></span>
+        @counter-style – custom list markers
+      </h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <p class="text-sm text-slate-200">
+            @counter-style lets you define your own bullet or numbering system for lists.
+          </p>
+          <div class="mt-3 rounded-xl bg-slate-950/90 p-3 text-xs">
+            <pre>
+@counter-style thumbs {
+  system: cyclic;
+  symbols: "👍" "🚀" "🔥";
+  suffix: " ";
+}
+
+ul.thumbs {
+  list-style: thumbs;
+  padding-left: 1.4rem;
+}</pre>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <ul class="list-thumbs text-sm text-slate-100">
+            <li>Understand @counter-style basics.</li>
+            <li>Choose emojis or symbols for markers.</li>
+            <li>Apply to lists using <code>list-style</code>.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- 8. @namespace -->
+    <section class="space-y-4">
+      <h2 class="flex items-center gap-2 text-xl font-semibold">
+        <span class="h-3 w-3 rounded-full bg-sky-500"></span>
+        @namespace – XML/SVG namespaces (rare in app UI)
+      </h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <p class="text-sm text-slate-200">
+            @namespace allows you to prefix selectors by XML namespace (useful in complex XML/SVG setups).
+          </p>
+          <div class="mt-3 rounded-xl bg-slate-950/90 p-3 text-xs">
+            <pre>
+@namespace svg url("http://www.w3.org/2000/svg");
+
+/* Example: style only &lt;svg:a&gt; links */
+svg|a {
+  fill: red;
+}</pre>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <p class="text-xs text-slate-400">
+            In typical HTML apps you rarely need @namespace.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 9. @document (non-standard) -->
+    <section class="space-y-4">
+      <h2 class="flex items-center gap-2 text-xl font-semibold">
+        <span class="h-3 w-3 rounded-full bg-sky-500"></span>
+        @document – URL-specific styles (non-standard)
+      </h2>
+      <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+        <p class="text-sm text-slate-200">
+          @document was proposed to target specific URLs but is not widely supported and should generally be avoided.
+        </p>
+        <div class="mt-3 rounded-xl bg-slate-950/90 p-3 text-xs">
+          <pre>
+/* Example syntax, not for production use */
+@document url("https://example.com/profile") {
+  body {
+    background: #0f172a;
+  }
+}</pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- 10. @layer -->
+    <section class="space-y-4">
+      <h2 class="flex items-center gap-2 text-xl font-semibold">
+        <span class="h-3 w-3 rounded-full bg-sky-500"></span>
+        @layer – cascade layers
+      </h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <p class="text-sm text-slate-200">
+            @layer defines cascade layers (base, components, utilities) where later layers override earlier ones by default.
+          </p>
+          <div class="mt-3 rounded-xl bg-slate-950/90 p-3 text-xs">
+            <pre>
+@layer base {
+  .layer-demo {
+    color: #e5e7eb;
+  }
+}
+
+@layer theme {
+  .layer-demo {
+    color: #f97316; /* wins because 'theme' layer comes later */
+  }
+}</pre>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <p class="layer-demo-base text-sm text-slate-100">
+            The class in the theme layer overrides the color defined in the base layer.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 11. @property -->
+    <section class="space-y-4">
+      <h2 class="flex items-center gap-2 text-xl font-semibold">
+        <span class="h-3 w-3 rounded-full bg-sky-500"></span>
+        @property – register custom properties
+      </h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <p class="text-sm text-slate-200">
+            @property allows you to register custom CSS properties (variables) with type, initial value, and inheritance.
+          </p>
+          <div class="mt-3 rounded-xl bg-slate-950/90 p-3 text-xs">
+            <pre>
+@property --glow-hue {
+  syntax: "&lt;number&gt;";
+  initial-value: 140;
+  inherits: false;
+}
+
+.glow-chip {
+  --glow-hue: 160;
+  border-radius: 999px;
+  padding: .5rem 1rem;
+  border: 1px solid hsl(var(--glow-hue) 90% 50%);
+  box-shadow: 0 0 10px hsl(var(--glow-hue) 90% 50% / .7);
+}</pre>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <span class="glow-chip text-sm text-slate-100">
+            Registered --glow-hue property
+          </span>
+          <p class="mt-2 text-xs text-slate-400">
+            Because the property is registered, browsers can animate and interpolate it more reliably.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 12. @container -->
+    <section class="space-y-4">
+      <h2 class="flex items-center gap-2 text-xl font-semibold">
+        <span class="h-3 w-3 rounded-full bg-sky-500"></span>
+        @container – container queries
+      </h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <p class="text-sm text-slate-200">
+            @container lets you style elements based on the size of a container instead of the whole viewport.
+          </p>
+          <div class="mt-3 rounded-xl bg-slate-950/90 p-3 text-xs">
+            <pre>
+.cq-article {
+  container-type: inline-size;
+}
+
+.cq-grid {
+  display: block;
+}
+
+@container (min-width: 550px) {
+  .cq-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: .75rem;
+  }
+}</pre>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <div class="cq-article">
+            <div class="cq-grid">
+              <div class="rounded-md border border-slate-700 bg-slate-900/80 p-2 text-xs">
+                Container content area
+              </div>
+              <div class="rounded-md border border-slate-700 bg-slate-900/80 p-2 text-xs">
+                Sidebar content
+              </div>
+            </div>
+          </div>
+          <p class="mt-2 text-xs text-slate-400">
+            Resize only this card’s width (e.g., on a narrow vs wide parent) to see the layout change if your browser supports @container.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 13. Nesting + @media simple combo -->
+    <section class="space-y-4">
+      <h2 class="flex items-center gap-2 text-xl font-semibold">
+        <span class="h-3 w-3 rounded-full bg-sky-500"></span>
+        Combining @media with normal rules
+      </h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <p class="text-sm text-slate-200">
+            You can write regular rules, then add @media blocks that override them for specific ranges.
+          </p>
+          <div class="mt-3 rounded-xl bg-slate-950/90 p-3 text-xs">
+            <pre>
+.nesting-demo {
+  color: #e5e7eb;
+}
+
+/* Larger screens: change color */
+@media (min-width: 600px) {
+  .nesting-demo {
+    color: #a5b4fc;
+  }
+}</pre>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <p class="nesting-demo text-sm">
+            On small screens this text is light gray; on larger screens it changes to light indigo.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- 14. @scope -->
+    <section class="space-y-4 mb-8">
+      <h2 class="flex items-center gap-2 text-xl font-semibold">
+        <span class="h-3 w-3 rounded-full bg-sky-500"></span>
+        @scope – experimental scoping
+      </h2>
+      <div class="grid gap-4 md:grid-cols-2">
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4">
+          <p class="text-sm text-slate-200">
+            @scope is new and not fully supported; it limits which elements certain selectors apply to.
+          </p>
+          <div class="mt-3 rounded-xl bg-slate-950/90 p-3 text-xs">
+            <pre>
+@scope (.scope-root) {
+  .scoped-title {
+    color: #f97316;
+  }
+}</pre>
+          </div>
+        </div>
+        <div class="rounded-2xl border border-slate-800 bg-slate-900/70 p-4 space-y-2">
+          <div class="scope-root space-y-1">
+            <p class="scoped-title text-sm">
+              Scoped title (inside .scope-root)
+            </p>
+          </div>
+          <p class="scoped-title text-sm">
+            Unscoped title (outside .scope-root) – may not be affected depending on browser support.
+          </p>
+          <p class="text-xs text-slate-400">
+            Treat @scope as experimental for now and verify browser support before using in production.
+          </p>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
