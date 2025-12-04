@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 1: Testing Fundamentals - <a href="index.html"  target="_self">Train'N'GetTrained</a></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+        }
+
+        .navbar {
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 15px 20px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .navbar-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .back-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .back-button:hover {
+            transform: scale(1.05);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .breadcrumb {
+            opacity: 0.9;
+            font-size: 0.95rem;
+        }
+
+        .content {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section {
+            background: white;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            color: #333;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .section h3 {
+            font-size: 1.3rem;
+            color: #444;
+            margin: 20px 0 10px 0;
+        }
+
+        .section p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+
+        .concept-box {
+            background: #f0f4ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .concept-box strong {
+            color: #667eea;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .comparison-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        .lifecycle-stages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .stage {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .stage:nth-child(odd) {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .stage:nth-child(even) {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+        }
+
+        .quiz-box {
+            background: #fff3cd;
+            border: 2px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .quiz-box h4 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+
+        .quiz-option {
+            background: white;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin: 8px 0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .quiz-option:hover {
+            background: #e7e7e7;
+            border-color: #667eea;
+        }
+
+        .key-takeaways {
+            background: #d1fae5;
+            border-left: 4px solid #10b981;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+
+        .key-takeaways strong {
+            color: #065f46;
+        }
+
+        .key-takeaways ul {
+            list-style: none;
+            margin: 10px 0 0 0;
+        }
+
+        .key-takeaways li {
+            color: #065f46;
+            padding: 5px 0 5px 25px;
+            position: relative;
+        }
+
+        .key-takeaways li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            gap: 20px;
+        }
+
+        .nav-button {
+            flex: 1;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .nav-button.prev {
+            background: #e0e0e0;
+            color: #333;
+        }
+
+        .nav-button.prev:hover {
+            background: #d0d0d0;
+        }
+
+        .nav-button.next {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .nav-button.next:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="index.html" class="back-button">← Back to Home</a>
+            <div style="text-align: center; flex: 1;">
+                <h2 style="color: #667eea; margin: 0;">🧪 <a href="index.html"  target="_self">Train'N'GetTrained</a></h2>
+            </div>
+            <div style="width: 140px;"></div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <div class="header">
+        <h1>📖 Module 1: Testing Fundamentals</h1>
+        <p class="breadcrumb">Home > Curriculum > Module 1 (Weeks 1-4)</p>
+    </div>
+
+    <!-- Main Content -->
+    <div class="content">
+        <!-- Section 1: Introduction -->
+        <div class="section">
+            <h2>1.1: What is Software Testing?</h2>
+            <p>Software testing is the process of evaluating a software application to verify that it functions correctly, meets requirements, and is free from defects. It's not just about finding bugs—it's about ensuring quality, reliability, and user satisfaction.</p>
+            
+            <div class="concept-box">
+                <strong>Key Insight:</strong> Testing is a quality assurance activity. Good testing helps catch defects early when they're cheaper and easier to fix, before they reach production.
+            </div>
+
+            <h3>Why is Testing Important?</h3>
+            <ul style="margin-left: 20px; color: #666;">
+                <li>🎯 <strong>Prevents Production Issues:</strong> Catch bugs before users encounter them</li>
+                <li>💰 <strong>Cost Effective:</strong> Fixing bugs in production is 10x more expensive</li>
+                <li>✅ <strong>Quality Assurance:</strong> Ensures software meets specifications</li>
+                <li>👥 <strong>User Satisfaction:</strong> Delivers reliable, bug-free applications</li>
+                <li>⚖️ <strong>Legal Compliance:</strong> Some industries require rigorous testing (banking, healthcare)</li>
+                <li>🔒 <strong>Security:</strong> Identifies vulnerabilities and security flaws</li>
+            </ul>
+        </div>
+
+        <!-- Section 2: SDLC vs STLC -->
+        <div class="section">
+            <h2>1.2: SDLC vs STLC</h2>
+            
+            <h3>Software Development Life Cycle (SDLC)</h3>
+            <p>SDLC is the overall process of developing software from conception to deployment and maintenance.</p>
+            
+            <div class="lifecycle-stages">
+                <div class="stage">1. Planning</div>
+                <div class="stage">2. Analysis</div>
+                <div class="stage">3. Design</div>
+                <div class="stage">4. Development</div>
+                <div class="stage">5. Testing</div>
+                <div class="stage">6. Deployment</div>
+                <div class="stage">7. Maintenance</div>
+            </div>
+
+            <h3>Software Testing Life Cycle (STLC)</h3>
+            <p>STLC is a subset of SDLC, focusing specifically on the quality assurance and testing activities.</p>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>Aspect</th>
+                    <th>SDLC</th>
+                    <th>STLC</th>
+                </tr>
+                <tr>
+                    <td><strong>Scope</strong></td>
+                    <td>Entire software development process</td>
+                    <td>Testing and QA activities only</td>
+                </tr>
+                <tr>
+                    <td><strong>Duration</strong></td>
+                    <td>Months to years</td>
+                    <td>Part of SDLC, typically weeks</td>
+                </tr>
+                <tr>
+                    <td><strong>Phases</strong></td>
+                    <td>Planning → Design → Development → Testing → Deployment</td>
+                    <td>Test Planning → Design → Execution → Closure</td>
+                </tr>
+                <tr>
+                    <td><strong>Participants</strong></td>
+                    <td>Everyone (managers, developers, testers, DevOps)</td>
+                    <td>QA team, developers, business analysts</td>
+                </tr>
+                <tr>
+                    <td><strong>Outcome</strong></td>
+                    <td>Complete software product</td>
+                    <td>Quality assurance report, test cases, bug reports</td>
+                </tr>
+            </table>
+
+            <div class="key-takeaways">
+                <strong>Key Takeaway:</strong>
+                <ul>
+                    <li>SDLC is the big picture (how software is built)</li>
+                    <li>STLC is testing's role within SDLC (how software is verified)</li>
+                    <li>Testing happens throughout SDLC, not just at the end</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 3: Types of Testing -->
+        <div class="section">
+            <h2>1.3: Types of Testing</h2>
+
+            <h3>Testing by Scope</h3>
+            <table class="comparison-table">
+                <tr>
+                    <th>Type</th>
+                    <th>What it Tests</th>
+                    <th>Scope</th>
+                </tr>
+                <tr>
+                    <td><strong>Unit Testing</strong></td>
+                    <td>Individual functions/methods</td>
+                    <td>Single component</td>
+                </tr>
+                <tr>
+                    <td><strong>Integration Testing</strong></td>
+                    <td>How components work together</td>
+                    <td>Multiple components</td>
+                </tr>
+                <tr>
+                    <td><strong>System Testing</strong></td>
+                    <td>Entire application</td>
+                    <td>Complete system</td>
+                </tr>
+                <tr>
+                    <td><strong>UAT</strong></td>
+                    <td>User acceptance</td>
+                    <td>Real-world scenarios</td>
+                </tr>
+            </table>
+
+            <h3>Testing by Type/Purpose</h3>
+            <div class="concept-box">
+                <strong>Functional Testing:</strong> Verifies that features work as specified
+                <ul style="margin: 10px 0 0 0; list-style: none;">
+                    <li>✓ Login works correctly</li>
+                    <li>✓ Buttons trigger correct actions</li>
+                    <li>✓ Data is saved properly</li>
+                </ul>
+            </div>
+
+            <div class="concept-box">
+                <strong>Non-Functional Testing:</strong> Verifies attributes like performance, security, usability
+                <ul style="margin: 10px 0 0 0; list-style: none;">
+                    <li>✓ Performance/Load Testing</li>
+                    <li>✓ Security Testing</li>
+                    <li>✓ Usability Testing</li>
+                    <li>✓ Compatibility Testing</li>
+                </ul>
+            </div>
+
+            <div class="concept-box">
+                <strong>Regression Testing:</strong> Ensures recent changes haven't broken existing features
+                <ul style="margin: 10px 0 0 0; list-style: none;">
+                    <li>✓ Critical after updates</li>
+                    <li>✓ Re-tests previously working features</li>
+                    <li>✓ Usually automated</li>
+                </ul>
+            </div>
+
+            <div class="concept-box">
+                <strong>Smoke Testing:</strong> Quick sanity check to verify basic functionality
+                <ul style="margin: 10px 0 0 0; list-style: none;">
+                    <li>✓ Runs on new build</li>
+                    <li>✓ Essential features only</li>
+                    <li>✓ Gates detailed testing</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 4: Bug Lifecycle -->
+        <div class="section">
+            <h2>1.4: Bug Lifecycle</h2>
+            <p>Understanding how bugs flow through the system helps with communication and prioritization.</p>
+
+            <div class="lifecycle-stages" style="margin: 20px 0;">
+                <div class="stage">NEW</div>
+                <div class="stage">ASSIGNED</div>
+                <div class="stage">IN PROGRESS</div>
+                <div class="stage">FIXED</div>
+                <div class="stage">VERIFIED</div>
+                <div class="stage">CLOSED</div>
+            </div>
+
+            <h3>Bug Status Definitions</h3>
+            <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
+                <li><strong>NEW:</strong> Bug just reported, not yet reviewed</li>
+                <li><strong>ASSIGNED:</strong> Bug assigned to a developer</li>
+                <li><strong>IN PROGRESS:</strong> Developer is working on the fix</li>
+                <li><strong>FIXED:</strong> Developer says bug is fixed, awaiting verification</li>
+                <li><strong>VERIFIED:</strong> Tester confirms the fix works</li>
+                <li><strong>CLOSED:</strong> Bug is resolved and closed</li>
+                <li><strong>REOPENED:</strong> (If fix doesn't work) Bug goes back to IN PROGRESS</li>
+                <li><strong>WONT FIX:</strong> Decided not to fix for business reasons</li>
+                <li><strong>DUPLICATE:</strong> Same bug already reported</li>
+            </ul>
+
+            <div class="concept-box" style="margin-top: 20px;">
+                <strong>Pro Tip:</strong> Always provide clear, reproducible steps when reporting a bug. This helps developers fix it faster.
+            </div>
+        </div>
+
+        <!-- Section 5: Bug Severity & Priority -->
+        <div class="section">
+            <h2>1.5: Bug Severity vs Priority</h2>
+
+            <h3>Severity (Technical Impact)</h3>
+            <table class="comparison-table">
+                <tr>
+                    <th>Level</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td><strong style="color: #d32f2f;">CRITICAL</strong></td>
+                    <td>Application crashes or core feature broken</td>
+                    <td>Payment button doesn't work</td>
+                </tr>
+                <tr>
+                    <td><strong style="color: #f57c00;">MAJOR</strong></td>
+                    <td>Important feature doesn't work</td>
+                    <td>Login takes 10 seconds</td>
+                </tr>
+                <tr>
+                    <td><strong style="color: #fbc02d;">MINOR</strong></td>
+                    <td>Minor issue, workaround exists</td>
+                    <td>Button text alignment off</td>
+                </tr>
+                <tr>
+                    <td><strong style="color: #388e3c;">TRIVIAL</strong></td>
+                    <td>Cosmetic issue</td>
+                    <td>Typo in confirmation message</td>
+                </tr>
+            </table>
+
+            <h3>Priority (Business Impact)</h3>
+            <table class="comparison-table">
+                <tr>
+                    <th>Level</th>
+                    <th>Description</th>
+                    <th>When to Fix</th>
+                </tr>
+                <tr>
+                    <td><strong style="color: #d32f2f;">P1 (URGENT)</strong></td>
+                    <td>Must fix before release</td>
+                    <td>Immediately</td>
+                </tr>
+                <tr>
+                    <td><strong style="color: #f57c00;">P2 (HIGH)</strong></td>
+                    <td>Should fix before release</td>
+                    <td>ASAP</td>
+                </tr>
+                <tr>
+                    <td><strong style="color: #fbc02d;">P3 (MEDIUM)</strong></td>
+                    <td>Can fix in next release</td>
+                    <td>Next sprint</td>
+                </tr>
+                <tr>
+                    <td><strong style="color: #388e3c;">P4 (LOW)</strong></td>
+                    <td>Nice to have fix</td>
+                    <td>Whenever possible</td>
+                </tr>
+            </table>
+
+            <div class="concept-box" style="margin-top: 20px;">
+                <strong>Important:</strong> A bug can be HIGH severity (technically broken) but LOW priority (rarely used feature). Conversely, a TRIVIAL severity (cosmetic) can be HIGH priority (company logo looks wrong).
+            </div>
+        </div>
+
+        <!-- Section 6: Quiz -->
+        <div class="section">
+            <h2>1.6: Quick Quiz</h2>
+            
+            <div class="quiz-box">
+                <h4>Question 1: What's the main difference between SDLC and STLC?</h4>
+                <label class="quiz-option">
+                    <input type="radio" name="q1"> SDLC is overall development, STLC is testing within SDLC
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q1"> They are the same thing
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q1"> SDLC is testing, STLC is development
+                </label>
+            </div>
+
+            <div class="quiz-box">
+                <h4>Question 2: When should a bug with CRITICAL severity and P4 priority be fixed?</h4>
+                <label class="quiz-option">
+                    <input type="radio" name="q2"> Immediately
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q2"> When possible (low urgency)
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q2"> Never
+                </label>
+            </div>
+
+            <div class="quiz-box">
+                <h4>Question 3: What is Smoke Testing?</h4>
+                <label class="quiz-option">
+                    <input type="radio" name="q3"> Testing if smoke detectors work
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q3"> Quick sanity check on new build before detailed testing
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q3"> Comprehensive testing of all features
+                </label>
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="section">
+            <h2>📝 Key Takeaways</h2>
+            <div class="key-takeaways">
+                <strong>You've learned:</strong>
+                <ul>
+                    <li>What software testing is and why it matters</li>
+                    <li>The difference between SDLC (overall process) and STLC (testing process)</li>
+                    <li>Different types of testing: unit, integration, system, UAT, functional, non-functional</li>
+                    <li>How bugs flow through their lifecycle</li>
+                    <li>How to evaluate bugs by severity and priority</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation-buttons">
+            <a href="index.html" class="nav-button prev">← Back to Home</a>
+            <a href="test-design.html" class="nav-button next">Next: Test Design & Planning →</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p class="mb-2">🧪 <strong><a href="index.html"  target="_self">Train'N'GetTrained</a></strong> - Complete Software Testing Bootcamp</p>
+        <p class="text-sm">From Beginner to Professional QA Engineer | 26 Weeks | 100+ Hours | Real Projects</p>
+        <p class="text-xs mt-4 opacity-70">© 2025 <a href="index.html"  target="_self">Train'N'GetTrained</a>. All rights reserved. | For personal and educational use only. No commercial use allowed.</p>
+
+    </footer>
+</body>
+</html>

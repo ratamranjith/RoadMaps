@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 8: Performance & CI/CD - <a href="index.html"  target="_self">Train'N'GetTrained</a></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; }
+        .navbar { background: white; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); padding: 15px 20px; position: sticky; top: 0; z-index: 50; }
+        .navbar-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .back-button { display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .breadcrumb { opacity: 0.9; }
+        .content { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .section { background: white; padding: 30px; margin-bottom: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); }
+        .section h2 { font-size: 1.8rem; color: #333; margin-bottom: 20px; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
+        .section h3 { font-size: 1.3rem; color: #444; margin: 20px 0 10px 0; }
+        .section p { color: #666; line-height: 1.6; margin-bottom: 15px; }
+        .concept-box { background: #f0f4ff; border-left: 4px solid #667eea; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .code-block { background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 5px; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 0.85rem; margin: 15px 0; }
+        .key-takeaways { background: #d1fae5; border-left: 4px solid #10b981; padding: 15px; margin: 20px 0; border-radius: 5px; }
+        .key-takeaways ul { list-style: none; margin: 10px 0 0 0; }
+        .key-takeaways li { color: #065f46; padding: 5px 0 5px 25px; position: relative; }
+        .key-takeaways li:before { content: "✓"; position: absolute; left: 0; font-weight: bold; }
+        .navigation-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 20px; }
+        .nav-button { flex: 1; padding: 15px; border-radius: 8px; text-align: center; text-decoration: none; font-weight: 600; }
+        .nav-button.prev { background: #e0e0e0; color: #333; }
+        .nav-button.next { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        footer { background: #333; color: white; text-align: center; padding: 30px 20px; margin-top: 60px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="index.html" class="back-button">← Back to Home</a>
+            <div style="text-align: center; flex: 1;"><h2 style="color: #667eea; margin: 0;">🧪 <a href="index.html"  target="_self">Train'N'GetTrained</a></h2></div>
+            <div style="width: 140px;"></div>
+        </div>
+    </nav>
+
+    <div class="header">
+        <h1>⚙️ Module 8: Performance Testing & CI/CD</h1>
+        <p class="breadcrumb">Home > Curriculum > Module 8 (Weeks 17-20)</p>
+    </div>
+
+    <div class="content">
+        <div class="section">
+            <h2>8.1: Performance Testing Basics</h2>
+            <p>Performance testing ensures your application responds quickly and can handle load.</p>
+            
+            <h3>Types of Performance Testing</h3>
+            <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
+                <li>📊 <strong>Load Testing:</strong> Normal expected load (100 users)</li>
+                <li>⚡ <strong>Stress Testing:</strong> Beyond normal load (1000 users)</li>
+                <li>🔄 <strong>Endurance Testing:</strong> Load over extended time (24 hours)</li>
+                <li>📈 <strong>Spike Testing:</strong> Sudden load increase (100 → 10000 users)</li>
+            </ul>
+
+            <h3>Key Metrics</h3>
+            <div class="concept-box">
+                <strong>Response Time:</strong> How long requests take (target: &lt;200ms)
+            </div>
+            <div class="concept-box">
+                <strong>Throughput:</strong> Requests per second (target: based on SLA)
+            </div>
+            <div class="concept-box">
+                <strong>Error Rate:</strong> % of failed requests (target: &lt;0.1%)
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>8.2: CI/CD Pipeline (GitHub Actions)</h2>
+            
+            <div class="code-block">
+# .github/workflows/test.yml
+name: Automated Testing
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Run Jest tests
+        run: npm run test:jest
+      
+      - name: Run Playwright tests
+        run: npx playwright test
+      
+      - name: Generate coverage
+        run: npm run test:coverage
+      
+      - name: Upload results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-results
+          path: ./coverage
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>8.3: Testing Tools</h2>
+            <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
+                <li>⚡ <strong>JMeter:</strong> Load testing</li>
+                <li>📊 <strong>Gatling:</strong> Performance testing</li>
+                <li>🐙 <strong>k6:</strong> Load testing with code</li>
+                <li>🔄 <strong>GitHub Actions:</strong> Free CI/CD</li>
+                <li>🐳 <strong>Docker:</strong> Containerization</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>📝 Key Takeaways</h2>
+            <div class="key-takeaways">
+                <strong>You've learned:</strong>
+                <ul>
+                    <li>Performance testing types</li>
+                    <li>Key metrics (response time, throughput, errors)</li>
+                    <li>CI/CD pipelines with GitHub Actions</li>
+                    <li>Automated test execution</li>
+                    <li>Performance tools and strategies</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="playwright.html" class="nav-button prev">← Previous: Playwright</a>
+            <a href="projects.html" class="nav-button next">Next: Projects →</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p class="mb-2">🧪 <strong><a href="index.html"  target="_self">Train'N'GetTrained</a></strong> - Complete Software Testing Bootcamp</p>
+        <p class="text-sm">From Beginner to Professional QA Engineer | 26 Weeks | 100+ Hours | Real Projects</p>
+        <p class="text-xs mt-4 opacity-70">© 2025 <a href="index.html"  target="_self">Train'N'GetTrained</a>. All rights reserved. | For personal and educational use only. No commercial use allowed.</p>
+
+    </footer>
+</body>
+</html>

@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 2: Test Design & Planning - <a href="index.html"  target="_self">Train'N'GetTrained</a></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; }
+        .navbar { background: white; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); padding: 15px 20px; position: sticky; top: 0; z-index: 50; }
+        .navbar-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .back-button { display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        .back-button:hover { transform: scale(1.05); }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .breadcrumb { opacity: 0.9; font-size: 0.95rem; }
+        .content { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .section { background: white; padding: 30px; margin-bottom: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); }
+        .section h2 { font-size: 1.8rem; color: #333; margin-bottom: 20px; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
+        .section h3 { font-size: 1.3rem; color: #444; margin: 20px 0 10px 0; }
+        .section p { color: #666; line-height: 1.6; margin-bottom: 15px; }
+        .concept-box { background: #f0f4ff; border-left: 4px solid #667eea; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .code-block { background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 5px; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 0.85rem; line-height: 1.5; margin: 15px 0; }
+        .key-takeaways { background: #d1fae5; border-left: 4px solid #10b981; padding: 15px; margin: 20px 0; border-radius: 5px; }
+        .key-takeaways strong { color: #065f46; }
+        .key-takeaways ul { list-style: none; margin: 10px 0 0 0; }
+        .key-takeaways li { color: #065f46; padding: 5px 0 5px 25px; position: relative; }
+        .key-takeaways li:before { content: "✓"; position: absolute; left: 0; font-weight: bold; }
+        .navigation-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 20px; }
+        .nav-button { flex: 1; padding: 15px; border-radius: 8px; text-align: center; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        .nav-button.prev { background: #e0e0e0; color: #333; }
+        .nav-button.prev:hover { background: #d0d0d0; }
+        .nav-button.next { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .nav-button.next:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4); }
+        footer { background: #333; color: white; text-align: center; padding: 30px 20px; margin-top: 60px; }
+        .comparison-table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+        .comparison-table th, .comparison-table td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        .comparison-table th { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .comparison-table tr:nth-child(even) { background: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="index.html" class="back-button">← Back to Home</a>
+            <div style="text-align: center; flex: 1;"><h2 style="color: #667eea; margin: 0;">🧪 <a href="index.html"  target="_self">Train'N'GetTrained</a></h2></div>
+            <div style="width: 140px;"></div>
+        </div>
+    </nav>
+
+    <div class="header">
+        <h1>📋 Module 2: Test Design & Planning</h1>
+        <p class="breadcrumb">Home > Curriculum > Module 2 (Weeks 2-3 continued)</p>
+    </div>
+
+    <div class="content">
+        <!-- Section 1: Test Planning -->
+        <div class="section">
+            <h2>2.1: Test Planning Essentials</h2>
+            <p>A test plan is a comprehensive document that outlines the entire testing approach for a project. It sets expectations and provides guidance for the testing team.</p>
+            
+            <h3>Why is Test Planning Important?</h3>
+            <ul style="margin-left: 20px; color: #666;">
+                <li>✓ <strong>Clarity:</strong> Everyone knows what will be tested and how</li>
+                <li>✓ <strong>Resource Management:</strong> Allocates time, people, and tools efficiently</li>
+                <li>✓ <strong>Risk Management:</strong> Identifies high-risk areas for focused testing</li>
+                <li>✓ <strong>Communication:</strong> Sets expectations with stakeholders</li>
+                <li>✓ <strong>Measurable Goals:</strong> Tracks progress against objectives</li>
+            </ul>
+
+            <h3>Test Plan Template</h3>
+            <div class="code-block">
+1. INTRODUCTION & OBJECTIVES
+   - Project overview
+   - Testing goals and objectives
+
+2. SCOPE
+   - What's included (features, modules)
+   - What's excluded (out of scope items)
+
+3. TESTING APPROACH
+   - Testing strategy
+   - Testing types (unit, integration, system, UAT)
+   - Testing techniques (black box, white box)
+
+4. RESOURCES & SCHEDULE
+   - Team members and roles
+   - Test environment details
+   - Timeline and milestones
+
+5. TEST DELIVERABLES
+   - Test cases
+   - Test execution reports
+   - Bug reports
+   - Final test summary
+
+6. ENTRY & EXIT CRITERIA
+   - When to start testing
+   - When testing is complete
+
+7. RISK ASSESSMENT
+   - Potential risks and mitigation strategies
+            </div>
+
+            <div class="concept-box">
+                <strong>Pro Tip:</strong> A good test plan is a living document. Update it as requirements change and lessons are learned.
+            </div>
+        </div>
+
+        <!-- Section 2: Test Design Techniques -->
+        <div class="section">
+            <h2>2.2: Test Design Techniques</h2>
+            <p>Test design techniques help you create effective test cases that cover all important scenarios with minimal redundancy.</p>
+
+            <h3>1. Equivalence Partitioning (EP)</h3>
+            <p>Divide inputs into categories where all values should behave the same way.</p>
+            <div class="concept-box">
+                <strong>Example - Age Field (18+):</strong><br/>
+                Invalid: age < 0 → Test: -5<br/>
+                Valid: age >= 18 → Test: 25<br/>
+                Invalid: age < 18 → Test: 15<br/>
+                Each partition gets ONE test (not all values)
+            </div>
+
+            <h3>2. Boundary Value Analysis (BVA)</h3>
+            <p>Test the boundaries between equivalence partitions (where bugs often hide).</p>
+            <div class="concept-box">
+                <strong>Example - Password (8-16 characters):</strong><br/>
+                Test: 7 chars (just below)<br/>
+                Test: 8 chars (exactly at boundary)<br/>
+                Test: 16 chars (exactly at boundary)<br/>
+                Test: 17 chars (just above)<br/>
+                Boundary bugs are most common!
+            </div>
+
+            <h3>3. Decision Table Testing</h3>
+            <p>Test all combinations of inputs and conditions systematically.</p>
+            <table class="comparison-table">
+                <tr>
+                    <th>Test</th>
+                    <th>User Active?</th>
+                    <th>Has Permission?</th>
+                    <th>Expected Result</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Yes</td>
+                    <td>Yes</td>
+                    <td>Access Granted</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Yes</td>
+                    <td>No</td>
+                    <td>Access Denied</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>No</td>
+                    <td>Yes</td>
+                    <td>Account Inactive</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>No</td>
+                    <td>No</td>
+                    <td>Account Inactive</td>
+                </tr>
+            </table>
+
+            <h3>4. State Transition Testing</h3>
+            <p>Test different states and transitions between them.</p>
+            <div class="concept-box">
+                <strong>Example - Order States:</strong><br/>
+                Pending → Processing → Shipped → Delivered<br/>
+                Test each valid transition<br/>
+                Test invalid transitions (e.g., Shipped → Pending should fail)
+            </div>
+
+            <div class="key-takeaways" style="margin-top: 20px;">
+                <strong>Which technique to use?</strong>
+                <ul>
+                    <li>EP + BVA for input validation</li>
+                    <li>Decision Tables for complex logic</li>
+                    <li>State Transition for workflows</li>
+                    <li>Combine multiple techniques for comprehensive coverage</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 3: Writing Test Cases -->
+        <div class="section">
+            <h2>2.3: Writing Effective Test Cases</h2>
+            <p>A good test case is clear, concise, and can be executed by anyone on the team.</p>
+
+            <h3>Test Case Template</h3>
+            <div class="code-block">
+TEST CASE ID: TC_LOGIN_001
+TITLE: Verify successful login with valid credentials
+PRIORITY: P1 (High)
+SEVERITY: Critical
+
+PRECONDITIONS:
+- Application is running
+- User account exists in database
+- User is on login page
+
+TEST DATA:
+- Email: testuser@example.com
+- Password: ValidPass123
+
+STEPS:
+1. Enter valid email in Email field
+2. Enter valid password in Password field
+3. Click "Login" button
+4. Observe dashboard loads
+
+EXPECTED RESULT:
+- Login button becomes disabled (shows loading)
+- Redirected to /dashboard within 2 seconds
+- Success message "Welcome, Test User" appears
+- Session token stored in browser
+
+ACTUAL RESULT:
+[To be filled during execution]
+
+STATUS: ☐ PASS  ☐ FAIL  ☐ SKIP
+
+NOTES:
+- Tested on Chrome 120, Windows 11
+- No console errors observed
+            </div>
+
+            <h3>Test Case Best Practices</h3>
+            <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
+                <li>✓ <strong>One assertion per test case</strong> - Each test should verify one specific behavior</li>
+                <li>✓ <strong>Unique ID</strong> - Use format: TC_[FEATURE]_[NUMBER]</li>
+                <li>✓ <strong>Clear steps</strong> - A non-technical person should understand</li>
+                <li>✓ <strong>Specific expected results</strong> - Not "it should work" but "message appears in 2 seconds"</li>
+                <li>✓ <strong>Test data included</strong> - Don't assume what data to use</li>
+                <li>✓ <strong>Preconditions noted</strong> - What setup is required</li>
+                <li>✓ <strong>Reusable</strong> - Can be run multiple times with same expected results</li>
+            </ul>
+        </div>
+
+        <!-- Section 4: Risk-Based Testing -->
+        <div class="section">
+            <h2>2.4: Risk-Based Testing</h2>
+            <p>When time is limited, focus testing on high-risk areas using a risk matrix.</p>
+
+            <h3>Risk Assessment Matrix</h3>
+            <table class="comparison-table">
+                <tr>
+                    <th>Risk Level</th>
+                    <th>Probability</th>
+                    <th>Impact</th>
+                    <th>Testing Effort</th>
+                </tr>
+                <tr>
+                    <td><strong style="color: #d32f2f;">CRITICAL</strong></td>
+                    <td>High</td>
+                    <td>High</td>
+                    <td>Maximum (80%)</td>
+                </tr>
+                <tr>
+                    <td><strong style="color: #f57c00;">HIGH</strong></td>
+                    <td>High</td>
+                    <td>Medium</td>
+                    <td>High (15%)</td>
+                </tr>
+                <tr>
+                    <td><strong style="color: #fbc02d;">MEDIUM</strong></td>
+                    <td>Medium</td>
+                    <td>Medium</td>
+                    <td>Moderate (4%)</td>
+                </tr>
+                <tr>
+                    <td><strong style="color: #388e3c;">LOW</strong></td>
+                    <td>Low</td>
+                    <td>Low</td>
+                    <td>Minimal (1%)</td>
+                </tr>
+            </table>
+
+            <h3>High-Risk Areas to Focus On</h3>
+            <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
+                <li>💰 <strong>Payment/Billing:</strong> Financial transactions are critical</li>
+                <li>🔐 <strong>Authentication/Security:</strong> Users' data must be protected</li>
+                <li>💾 <strong>Data Persistence:</strong> Data must be saved and retrieved correctly</li>
+                <li>🔄 <strong>Integrations:</strong> Third-party APIs are common failure points</li>
+                <li>⚡ <strong>Performance:</strong> Slow app = bad user experience</li>
+                <li>📱 <strong>Cross-browser:</strong> Compatibility issues affect many users</li>
+            </ul>
+        </div>
+
+        <!-- Section 5: Traceability Matrix -->
+        <div class="section">
+            <h2>2.5: Traceability Matrix</h2>
+            <p>Ensures all requirements have corresponding test cases and that tests cover all requirements.</p>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>Requirement ID</th>
+                    <th>Requirement Description</th>
+                    <th>Test Case ID</th>
+                    <th>Status</th>
+                </tr>
+                <tr>
+                    <td>REQ_001</td>
+                    <td>User must login with email & password</td>
+                    <td>TC_LOGIN_001, TC_LOGIN_002</td>
+                    <td>✓ Covered</td>
+                </tr>
+                <tr>
+                    <td>REQ_002</td>
+                    <td>Invalid credentials should show error</td>
+                    <td>TC_LOGIN_003, TC_LOGIN_004</td>
+                    <td>✓ Covered</td>
+                </tr>
+                <tr>
+                    <td>REQ_003</td>
+                    <td>Password must be 8+ characters</td>
+                    <td>TC_LOGIN_005</td>
+                    <td>✓ Covered</td>
+                </tr>
+                <tr>
+                    <td>REQ_004</td>
+                    <td>Account lockout after 5 failed attempts</td>
+                    <td>✗ NOT FOUND</td>
+                    <td>❌ Not Covered</td>
+                </tr>
+            </table>
+
+            <div class="concept-box" style="margin-top: 20px;">
+                <strong>Benefit:</strong> Traceability matrix prevents missed requirements and identifies redundant tests.
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="section">
+            <h2>📝 Key Takeaways</h2>
+            <div class="key-takeaways">
+                <strong>You've learned:</strong>
+                <ul>
+                    <li>How to create a comprehensive test plan</li>
+                    <li>Test design techniques: EP, BVA, Decision Tables, State Transition</li>
+                    <li>How to write clear, effective test cases</li>
+                    <li>Risk-based testing prioritization</li>
+                    <li>Traceability matrix for requirement coverage</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Navigation -->
+        <div class="navigation-buttons">
+            <a href="fundamentals.html" class="nav-button prev">← Previous: Fundamentals</a>
+            <a href="manual-testing.html" class="nav-button next">Next: Manual Testing →</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p class="mb-2">🧪 <strong><a href="index.html"  target="_self">Train'N'GetTrained</a></strong> - Complete Software Testing Bootcamp</p>
+        <p class="text-sm">From Beginner to Professional QA Engineer | 26 Weeks | 100+ Hours | Real Projects</p>
+        <p class="text-xs mt-4 opacity-70">© 2025 <a href="index.html"  target="_self">Train'N'GetTrained</a>. All rights reserved. | For personal and educational use only. No commercial use allowed.</p>
+
+    </footer>
+</body>
+</html>

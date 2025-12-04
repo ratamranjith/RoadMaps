@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 4: Jest Testing - <a href="index.html"  target="_self">Train'N'GetTrained</a></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; }
+        .navbar { background: white; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); padding: 15px 20px; position: sticky; top: 0; z-index: 50; }
+        .navbar-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .back-button { display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        .back-button:hover { transform: scale(1.05); }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .breadcrumb { opacity: 0.9; font-size: 0.95rem; }
+        .content { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .section { background: white; padding: 30px; margin-bottom: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); }
+        .section h2 { font-size: 1.8rem; color: #333; margin-bottom: 20px; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
+        .section h3 { font-size: 1.3rem; color: #444; margin: 20px 0 10px 0; }
+        .section p { color: #666; line-height: 1.6; margin-bottom: 15px; }
+        .concept-box { background: #f0f4ff; border-left: 4px solid #667eea; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .code-block { background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 5px; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 0.85rem; line-height: 1.5; margin: 15px 0; }
+        .key-takeaways { background: #d1fae5; border-left: 4px solid #10b981; padding: 15px; margin: 20px 0; border-radius: 5px; }
+        .key-takeaways strong { color: #065f46; }
+        .key-takeaways ul { list-style: none; margin: 10px 0 0 0; }
+        .key-takeaways li { color: #065f46; padding: 5px 0 5px 25px; position: relative; }
+        .key-takeaways li:before { content: "✓"; position: absolute; left: 0; font-weight: bold; }
+        .navigation-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 20px; }
+        .nav-button { flex: 1; padding: 15px; border-radius: 8px; text-align: center; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        .nav-button.prev { background: #e0e0e0; color: #333; }
+        .nav-button.prev:hover { background: #d0d0d0; }
+        .nav-button.next { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        .nav-button.next:hover { transform: scale(1.05); box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4); }
+        footer { background: #333; color: white; text-align: center; padding: 30px 20px; margin-top: 60px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="index.html" class="back-button">← Back to Home</a>
+            <div style="text-align: center; flex: 1;"><h2 style="color: #667eea; margin: 0;">🧪 <a href="index.html"  target="_self">Train'N'GetTrained</a></h2></div>
+            <div style="width: 140px;"></div>
+        </div>
+    </nav>
+
+    <div class="header">
+        <h1>⚡ Module 4: Jest (JavaScript Testing)</h1>
+        <p class="breadcrumb">Home > Curriculum > Module 4 (Weeks 5-8)</p>
+    </div>
+
+    <div class="content">
+        <!-- SECTION 1: Jest Basics -->
+        <div class="section">
+            <h2>4.1: Jest Fundamentals</h2>
+            <p>Jest is a JavaScript testing framework created by Facebook. It's fast, has great documentation, and provides snapshot testing capabilities.</p>
+            
+            <h3>Why Jest?</h3>
+            <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
+                <li>✅ <strong>Zero Config:</strong> Works with minimal setup</li>
+                <li>✅ <strong>Fast:</strong> Parallel test execution</li>
+                <li>✅ <strong>Great Matchers:</strong> Many built-in assertions</li>
+                <li>✅ <strong>Snapshot Testing:</strong> Detect unintended UI changes</li>
+                <li>✅ <strong>Mock Functions:</strong> Easy to test dependencies</li>
+                <li>✅ <strong>Coverage Reports:</strong> See which code is tested</li>
+            </ul>
+
+            <h3>Installation</h3>
+            <div class="code-block">
+# Install Jest via npm
+npm install --save-dev jest
+
+# Update package.json
+{
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
+  }
+}
+
+# Create your first test file: calculator.test.js
+# Jest auto-discovers files matching *.test.js or *.spec.js
+            </div>
+        </div>
+
+        <!-- SECTION 2: Basic Test Structure -->
+        <div class="section">
+            <h2>4.2: Writing Your First Jest Test</h2>
+            
+            <div class="code-block">
+// calculator.js - Function to test
+function add(a, b) {
+  return a + b;
+}
+
+function multiply(a, b) {
+  return a * b;
+}
+
+module.exports = { add, multiply };
+            </div>
+
+            <div class="code-block">
+// calculator.test.js - Test suite
+const { add, multiply } = require('./calculator');
+
+describe('Calculator Functions', () => {
+  test('should add two numbers correctly', () => {
+    expect(add(2, 3)).toBe(5);
+  });
+
+  test('should handle negative numbers', () => {
+    expect(add(-5, 3)).toBe(-2);
+  });
+
+  test('should multiply two numbers', () => {
+    expect(multiply(4, 5)).toBe(20);
+  });
+});
+
+// Run: npm test
+// Output: All tests pass ✓
+            </div>
+
+            <div class="concept-box">
+                <strong>Test Structure:</strong>
+                <ul style="margin: 10px 0 0 0; list-style: none;">
+                    <li>• <strong>describe():</strong> Groups related tests</li>
+                    <li>• <strong>test():</strong> Individual test case</li>
+                    <li>• <strong>expect():</strong> The assertion</li>
+                    <li>• <strong>.toBe():</strong> Matcher (many more available)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 3: Common Matchers -->
+        <div class="section">
+            <h2>4.3: Jest Matchers (Assertions)</h2>
+            
+            <div class="code-block">
+// Equality
+expect(value).toBe(expected);              // Exact match (===)
+expect(value).toEqual(expected);           // Deep equality
+expect(value).not.toBe(expected);          // Negation
+
+// Truthiness
+expect(value).toBeTruthy();                // Truthy value
+expect(value).toBeFalsy();                 // Falsy value
+expect(value).toBeNull();                  // null
+expect(value).toBeUndefined();             // undefined
+expect(value).toBeDefined();               // Defined
+
+// Numbers
+expect(value).toBeGreaterThan(5);
+expect(value).toBeLessThan(10);
+expect(value).toBeGreaterThanOrEqual(5);
+expect(value).toBeCloseTo(3.14, 1);        // Approximate equality
+
+// Arrays & Objects
+expect(arr).toContain(item);
+expect(arr).toHaveLength(3);
+expect(obj).toHaveProperty('name');
+expect(obj.name).toBe('John');
+
+// Strings
+expect(str).toMatch(/regex/);
+expect(str).toHaveLength(5);
+
+// Exceptions
+expect(() => throwError()).toThrow();
+expect(() => throwError()).toThrow(Error);
+expect(() => throwError()).toThrow('error message');
+            </div>
+        </div>
+
+        <!-- SECTION 4: Test Hooks -->
+        <div class="section">
+            <h2>4.4: Setup and Teardown (Hooks)</h2>
+            
+            <div class="code-block">
+describe('User Tests', () => {
+  let user;
+
+  // Runs before ALL tests in this suite
+  beforeAll(() => {
+    console.log('Starting user tests...');
+  });
+
+  // Runs before EACH test
+  beforeEach(() => {
+    user = {
+      id: 1,
+      name: 'John',
+      email: 'john@example.com'
+    };
+  });
+
+  // Runs after EACH test
+  afterEach(() => {
+    user = null;
+  });
+
+  // Runs after ALL tests in this suite
+  afterAll(() => {
+    console.log('Finished all user tests');
+  });
+
+  test('should have user ID', () => {
+    expect(user.id).toBe(1);
+  });
+
+  test('should have user email', () => {
+    expect(user.email).toContain('@');
+  });
+});
+            </div>
+
+            <div class="concept-box">
+                <strong>When to Use Each Hook:</strong>
+                <ul style="margin: 10px 0 0 0; list-style: none;">
+                    <li>• <strong>beforeAll:</strong> Connect to database (do once)</li>
+                    <li>• <strong>beforeEach:</strong> Create fresh test data (do before each test)</li>
+                    <li>• <strong>afterEach:</strong> Clean up (delete test data, close connections)</li>
+                    <li>• <strong>afterAll:</strong> Disconnect from database (do once)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 5: Real Project -->
+        <div class="section">
+            <h2>4.5: Real Project - Login Validation</h2>
+            
+            <div class="code-block">
+// login.js
+function validateLogin(email, password) {
+  const errors = [];
+
+  if (!email || !password) {
+    errors.push('Email and password are required');
+  }
+
+  if (email && !email.includes('@')) {
+    errors.push('Invalid email format');
+  }
+
+  if (password && password.length < 8) {
+    errors.push('Password must be at least 8 characters');
+  }
+
+  return {
+    valid: errors.length === 0,
+    errors: errors
+  };
+}
+
+module.exports = { validateLogin };
+            </div>
+
+            <div class="code-block">
+// login.test.js
+const { validateLogin } = require('./login');
+
+describe('Login Validation', () => {
+  test('valid credentials should pass', () => {
+    const result = validateLogin('user@example.com', 'Password123');
+    expect(result.valid).toBe(true);
+    expect(result.errors).toHaveLength(0);
+  });
+
+  test('missing email should fail', () => {
+    const result = validateLogin('', 'Password123');
+    expect(result.valid).toBe(false);
+    expect(result.errors[0]).toContain('required');
+  });
+
+  test('invalid email format should fail', () => {
+    const result = validateLogin('notanemail', 'Password123');
+    expect(result.valid).toBe(false);
+    expect(result.errors).toContain('Invalid email format');
+  });
+
+  test('short password should fail', () => {
+    const result = validateLogin('user@example.com', 'pass');
+    expect(result.valid).toBe(false);
+    expect(result.errors[0]).toContain('at least 8 characters');
+  });
+
+  test('multiple errors should all be reported', () => {
+    const result = validateLogin('invalid', 'short');
+    expect(result.errors).toHaveLength(2);
+  });
+});
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📝 Key Takeaways</h2>
+            <div class="key-takeaways">
+                <strong>You've learned:</strong>
+                <ul>
+                    <li>How to install and configure Jest</li>
+                    <li>How to write basic test cases</li>
+                    <li>Common matchers and assertions</li>
+                    <li>Setup and teardown with hooks</li>
+                    <li>How to test real functions</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="manual-testing.html" class="nav-button prev">← Previous: Manual Testing</a>
+            <a href="pytest.html" class="nav-button next">Next: Pytest →</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p class="mb-2">🧪 <strong><a href="index.html"  target="_self">Train'N'GetTrained</a></strong> - Complete Software Testing Bootcamp</p>
+        <p class="text-sm">From Beginner to Professional QA Engineer | 26 Weeks | 100+ Hours | Real Projects</p>
+        <p class="text-xs mt-4 opacity-70">© 2025 <a href="index.html"  target="_self">Train'N'GetTrained</a>. All rights reserved. | For personal and educational use only. No commercial use allowed.</p>
+
+    </footer>
+</body>
+</html>

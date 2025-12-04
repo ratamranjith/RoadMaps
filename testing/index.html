@@ -1,157 +1,533 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Software Testing Roadmap</title>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f7f8;
-        padding: 20px;
-    }
-    h1 {
-        text-align: center;
-        color: #333;
-    }
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin: 20px 0;
-        box-shadow: 0 0 10px rgba(0,0,0,0.1);
-        background-color: #fff;
-    }
-    th, td {
-        padding: 12px;
-        border: 1px solid #ddd;
-        text-align: left;
-    }
-    th {
-        background-color: #007BFF;
-        color: white;
-    }
-    tr:nth-child(even) {
-        background-color: #f2f2f2;
-    }
-    tr:hover {
-        background-color: #e6f7ff;
-    }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><a href="index.html"  target="_self"></a>Train'N'GetTrained</a> - Complete Software Testing Bootcamp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: rgb(255, 255, 255);
+            padding: 60px 20px;
+            /* text-align: center; */
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            animation: fadeInDown 0.6s ease;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            animation: fadeInUp 0.6s ease;
+        }
+
+        .module-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            padding: 40px 20px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .module-card {
+            background: whitesmoke;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            cursor: pointer;
+            border-left: 5px solid transparent;
+        }
+
+        .module-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+            border-left-color: #667eea;
+        }
+
+        .module-card .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .module-card h3 {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .module-card p {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 15px;
+            flex-grow: 1;
+        }
+
+        .module-card a {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-align: center;
+        }
+
+        .module-card a:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .level-beginner {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .level-intermediate {
+            background: #fef3c7;
+            color: #92400e;
+        }
+
+        .level-advanced {
+            background: #fee2e2;
+            color: #7f1d1d;
+        }
+
+        .roadmap-section {
+            padding: 50px 20px;
+            margin: 40px 0;
+        }
+
+        .roadmap-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: lightcyan;
+            border-radius: 12px;
+            padding: 30px;
+        }
+
+        .roadmap-item {
+            display: flex;
+            margin-bottom: 30px;
+            align-items: center;
+        }
+
+        .roadmap-item .number {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+
+        .roadmap-item .content {
+            flex-grow: 1;
+        }
+
+        .roadmap-item h4 {
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+
+        .roadmap-item p {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        .features-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 50px 20px;
+            margin: 40px 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .feature-card .icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h4 {
+            font-size: 1.15rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .stats-section {
+            background: white;
+            padding: 50px 20px;
+            margin: 40px 0;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .stat-card {
+            padding: 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: #667eea;
+            padding: 15px 40px;
+            border-radius: 6px;
+            font-weight: bold;
+            text-decoration: none;
+            margin-top: 20px;
+            transition: all 0.3s;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <span class="text-3xl">🧪</span>
+                <div>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent"><a href="index.html"  target="_self">Train'N'GetTrained</a></h1>
+                    <p class="text-xs text-gray-600">Complete Testing Bootcamp</p>
+                </div>
+            </div>
+            <div class="hidden md:flex gap-6">
+                <a href="#modules" class="font-medium text-gray-700 hover:text-purple-600 transition">Modules</a>
+                <a href="#roadmap" class="font-medium text-gray-700 hover:text-purple-600 transition">Roadmap</a>
+                <a href="#features" class="font-medium text-gray-700 hover:text-purple-600 transition">Features</a>
+            </div>
+        </div>
+    </nav>
 
-<h1>Software Testing Roadmap (6 Months)</h1>
+    <!-- Hero Section -->
+    <div class="hero" style="background-image: url(./images/train.jpg);background-position: right;background-repeat: no-repeat;  background-color: rgb(30, 0, 31); padding: 50px">
+        <h1>Master Software Testing</h1>
+        <p>Complete Bootcamp: From Beginner to Professional QA Engineer</p>
+        <a href="#modules" class="cta-button">Start Learning Now</a>
+    </div>
 
-<table>
-    <tr>
-        <th>Month</th>
-        <th>Category</th>
-        <th>Subcategory</th>
-        <th>Topics</th>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>Basics of Testing</td>
-        <td>Introduction</td>
-        <td>What is Software Testing, Importance of Testing, Types of Testing, Testing Life Cycle</td>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>Basics of Testing</td>
-        <td>Testing Levels</td>
-        <td>Unit, Integration, System, Acceptance Testing</td>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>Basics of Testing</td>
-        <td>Testing Methods</td>
-        <td>Manual vs Automation, Black Box, White Box, Grey Box</td>
-    </tr>
-    <tr>
-        <td>1</td>
-        <td>Tools & Setup</td>
-        <td>Basic Tools</td>
-        <td>Test Management Tools (JIRA, TestRail), Bug Tracking Tools, IDE Setup</td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>Manual Testing</td>
-        <td>Test Cases</td>
-        <td>Writing Test Cases, Test Scenarios, Test Plan, Test Data Preparation</td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>Manual Testing</td>
-        <td>Testing Techniques</td>
-        <td>Boundary Value Analysis, Equivalence Partitioning, Decision Table, State Transition</td>
-    </tr>
-    <tr>
-        <td>2</td>
-        <td>Manual Testing</td>
-        <td>Defect Life Cycle</td>
-        <td>Bug Reporting, Severity & Priority, Bug Tracking Process</td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>Automation Basics</td>
-        <td>Introduction</td>
-        <td>Need for Automation, Benefits, Limitations</td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>Automation Basics</td>
-        <td>Automation Tools</td>
-        <td>Selenium WebDriver, Postman (for API), Basics of JUnit/TestNG</td>
-    </tr>
-    <tr>
-        <td>3</td>
-        <td>Automation Basics</td>
-        <td>Programming Basics</td>
-        <td>Basic Java/Python (loops, conditions, OOP basics), Locators in Selenium (XPath, CSS)</td>
-    </tr>
-    <tr>
-        <td>4</td>
-        <td>Advanced Automation</td>
-        <td>Selenium WebDriver</td>
-        <td>WebDriver Architecture, Locators, Browser Commands, Waits, Handling Alerts & Frames</td>
-    </tr>
-    <tr>
-        <td>4</td>
-        <td>Advanced Automation</td>
-        <td>Frameworks</td>
-        <td>TestNG, Data-Driven, Keyword-Driven, Page Object Model (POM)</td>
-    </tr>
-    <tr>
-        <td>4</td>
-        <td>Advanced Automation</td>
-        <td>API Testing</td>
-        <td>REST API Concepts, Postman, CRUD Operations, Assertions</td>
-    </tr>
-    <tr>
-        <td>5</td>
-        <td>Performance & Security Testing</td>
-        <td>Performance Testing</td>
-        <td>Introduction, JMeter Basics, Load Testing, Stress Testing</td>
-    </tr>
-    <tr>
-        <td>5</td>
-        <td>Performance & Security Testing</td>
-        <td>Security Testing</td>
-        <td>SQL Injection, XSS, OWASP Top 10, Basics of Security Testing</td>
-    </tr>
-    <tr>
-        <td>6</td>
-        <td>DevOps & CI/CD</td>
-        <td>CI/CD Integration</td>
-        <td>Jenkins, Maven, Git Basics, Running Automated Tests in CI</td>
-    </tr>
-    <tr>
-        <td>6</td>
-        <td>DevOps & CI/CD</td>
-        <td>Advanced Concepts</td>
-        <td>BDD with Cucumber, Automation Best Practices, Test Metrics & Reporting, Career Guidance</td>
-    </tr>
-</table>
+    <!-- Learning Journey Section -->
+    <div class="stats-section" id="roadmap">
+        <div class="max-w-1000px mx-auto mb-12">
+            <h2 class="text-3xl font-bold text-center mb-8">Your 26-Week Learning Path</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Beginner Weeks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Intermediate Weeks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
+                    <div class="stat-label">Advanced Weeks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Pro Weeks</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
+    <!-- Modules Section -->
+    <div id="modules">
+        <div class="max-w-7xl mx-auto px-4 py-12">
+            <h2 class="text-4xl font-bold text-white text-center mb-4">📚 Complete Curriculum</h2>
+            <p class="text-white text-center mb-12 text-lg">10 Comprehensive Modules + Portfolio Projects</p>
+        </div>
+
+        <div class="module-grid">
+            <!-- Module 1 -->
+            <div class="module-card">
+                <span class="level-badge level-beginner">Beginner</span>
+                <div class="icon">📖</div>
+                <h3>Testing Fundamentals</h3>
+                <p>Learn SDLC, STLC, testing types, bug lifecycle, and core concepts every tester must know.</p>
+                <a href="fundamentals.html">Start Module →</a>
+            </div>
+
+            <!-- Module 2 -->
+            <div class="module-card">
+                <span class="level-badge level-beginner">Beginner</span>
+                <div class="icon">📋</div>
+                <h3>Test Design & Planning</h3>
+                <p>Master test planning, design techniques (BVA, EP), and writing effective test cases.</p>
+                <a href="test-design.html">Start Module →</a>
+            </div>
+
+            <!-- Module 3 -->
+            <div class="module-card">
+                <span class="level-badge level-beginner">Beginner</span>
+                <div class="icon">🖱️</div>
+                <h3>Manual Testing</h3>
+                <p>Deep dive into manual testing, exploratory testing, and real-world testing scenarios.</p>
+                <a href="manual-testing.html">Start Module →</a>
+            </div>
+
+            <!-- Module 4 -->
+            <div class="module-card">
+                <span class="level-badge level-intermediate">Intermediate</span>
+                <div class="icon">⚡</div>
+                <h3>Jest (JavaScript) - Optional</h3>
+                <p>Automate testing with Jest. Learn matchers, fixtures, and build real automation projects.</p>
+                <a href="jest.html">Start Module →</a>
+            </div>
+
+            <!-- Module 5 -->
+            <div class="module-card">
+                <span class="level-badge level-intermediate">Intermediate</span>
+                <div class="icon">🐍</div>
+                <h3>Pytest (Python)</h3>
+                <p>Python testing with Pytest. Fixtures, parameterization, and API test automation.</p>
+                <a href="pytest.html">Start Module →</a>
+            </div>
+
+            <!-- Module 6 -->
+            <div class="module-card">
+                <span class="level-badge level-intermediate">Intermediate</span>
+                <div class="icon">🔌</div>
+                <h3>API Testing</h3>
+                <p>Master REST APIs, HTTP methods, status codes, and Postman automation testing.</p>
+                <a href="api-testing.html">Start Module →</a>
+            </div>
+
+            <!-- Module 7 -->
+            <div class="module-card">
+                <span class="level-badge level-advanced">Advanced</span>
+                <div class="icon">🎭</div>
+                <h3>Playwright (UI Automation)</h3>
+                <p>Cross-browser E2E testing with Playwright. Selectors, actions, and advanced scenarios.</p>
+                <a href="playwright.html">Start Module →</a>
+            </div>
+
+            <!-- Module 8 -->
+            <div class="module-card">
+                <span class="level-badge level-advanced">Advanced</span>
+                <div class="icon">⚙️</div>
+                <h3>Performance & CI/CD</h3>
+                <p>Performance testing, load testing, GitHub Actions, and production-ready CI/CD pipelines.</p>
+                <a href="performance.html">Start Module →</a>
+            </div>
+
+            <!-- Module 9 -->
+            <div class="module-card">
+                <span class="level-badge level-advanced">Advanced</span>
+                <div class="icon">🏆</div>
+                <h3>Portfolio Projects</h3>
+                <p>3 capstone projects (Easy, Medium, Advanced) to build your professional portfolio.</p>
+                <a href="projects.html">View Projects →</a>
+            </div>
+
+            <!-- Module 10 -->
+            <div class="module-card">
+                <span class="level-badge level-advanced">Advanced</span>
+                <div class="icon">💼</div>
+                <h3>Career & Resources - <span class="text-green-400">Coming Soon</span></h3>
+                <p>Interview prep, career paths, GitHub portfolio ideas, tools, and glossary.</p>
+                <a href="#">Explore →</a>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- What You'll Learn Section -->
+    <div class="roadmap-section">
+        <div class="roadmap-container">
+            <h2 class="text-3xl font-bold text-center mb-12">🎓 Learning Outcomes</h2>
+            <div class="roadmap-item">
+                <div class="number">1</div>
+                <div class="content">
+                    <h4>Week 1-4: Testing Fundamentals</h4>
+                    <p>Master SDLC/STLC, test planning, bug lifecycle, and core testing concepts</p>
+                </div>
+            </div>
+            <div class="roadmap-item">
+                <div class="number">2</div>
+                <div class="content">
+                    <h4>Week 5-8: Manual Testing & Test Design</h4>
+                    <p>Learn test design techniques, create effective test cases, exploratory testing</p>
+                </div>
+            </div>
+            <div class="roadmap-item">
+                <div class="number">3</div>
+                <div class="content">
+                    <h4>Week 9-12: JavaScript & Python Automation</h4>
+                    <p>Build automation tests with Jest and Pytest, understand testing frameworks</p>
+                </div>
+            </div>
+            <div class="roadmap-item">
+                <div class="number">4</div>
+                <div class="content">
+                    <h4>Week 13-16: API & UI Automation</h4>
+                    <p>Master API testing with Postman, Playwright for cross-browser testing</p>
+                </div>
+            </div>
+            <div class="roadmap-item">
+                <div class="number">5</div>
+                <div class="content">
+                    <h4>Week 17-20: Performance & CI/CD</h4>
+                    <p>Performance testing, load testing, GitHub Actions, production deployments</p>
+                </div>
+            </div>
+            <div class="roadmap-item">
+                <div class="number">6</div>
+                <div class="content">
+                    <h4>Week 21-24: Capstone & Career</h4>
+                    <p>Build enterprise projects, interview prep, portfolio development, certifications</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Footer -->
+    <footer>
+        <p class="mb-2">🧪 <strong><a href="index.html"  target="_self">Train'N'GetTrained</a></strong> - Complete Software Testing Bootcamp</p>
+        <p class="text-sm">From Beginner to Professional QA Engineer | 26 Weeks | 100+ Hours | Real Projects</p>
+        <p class="text-xs mt-4 opacity-70">© 2025 <a href="index.html"  target="_self">Train'N'GetTrained</a>. All rights reserved. | For personal and educational use only. No commercial use allowed.</p>
+
+    </footer>
+
+    <script>
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+    </script>
 </body>
 </html>

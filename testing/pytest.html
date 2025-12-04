@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 5: Pytest - <a href="index.html"  target="_self">Train'N'GetTrained</a></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; }
+        .navbar { background: white; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); padding: 15px 20px; position: sticky; top: 0; z-index: 50; }
+        .navbar-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .back-button { display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        .back-button:hover { transform: scale(1.05); }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .breadcrumb { opacity: 0.9; }
+        .content { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .section { background: white; padding: 30px; margin-bottom: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); }
+        .section h2 { font-size: 1.8rem; color: #333; margin-bottom: 20px; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
+        .section h3 { font-size: 1.3rem; color: #444; margin: 20px 0 10px 0; }
+        .section p { color: #666; line-height: 1.6; margin-bottom: 15px; }
+        .concept-box { background: #f0f4ff; border-left: 4px solid #667eea; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .code-block { background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 5px; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 0.85rem; margin: 15px 0; }
+        .key-takeaways { background: #d1fae5; border-left: 4px solid #10b981; padding: 15px; margin: 20px 0; border-radius: 5px; }
+        .key-takeaways strong { color: #065f46; }
+        .key-takeaways ul { list-style: none; margin: 10px 0 0 0; }
+        .key-takeaways li { color: #065f46; padding: 5px 0 5px 25px; position: relative; }
+        .key-takeaways li:before { content: "✓"; position: absolute; left: 0; font-weight: bold; }
+        .navigation-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 20px; }
+        .nav-button { flex: 1; padding: 15px; border-radius: 8px; text-align: center; text-decoration: none; font-weight: 600; transition: all 0.3s; }
+        .nav-button.prev { background: #e0e0e0; color: #333; }
+        .nav-button.next { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        footer { background: #333; color: white; text-align: center; padding: 30px 20px; margin-top: 60px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="index.html" class="back-button">← Back to Home</a>
+            <div style="text-align: center; flex: 1;"><h2 style="color: #667eea; margin: 0;">🧪 <a href="index.html"  target="_self">Train'N'GetTrained</a></h2></div>
+            <div style="width: 140px;"></div>
+        </div>
+    </nav>
+
+    <div class="header">
+        <h1>🐍 Module 5: Pytest (Python Testing)</h1>
+        <p class="breadcrumb">Home > Curriculum > Module 5 (Weeks 6-8)</p>
+    </div>
+
+    <div class="content">
+        <!-- SECTION 1: Pytest Basics -->
+        <div class="section">
+            <h2>5.1: Pytest Fundamentals</h2>
+            <p>Pytest is a powerful Python testing framework. It's simple, scalable, and supports plugins. Perfect for both unit tests and integration tests.</p>
+            
+            <h3>Installation & Setup</h3>
+            <div class="code-block">
+# Install pytest
+pip install pytest
+
+# Create test file: test_calculator.py
+# Pytest auto-discovers files named test_*.py or *_test.py
+
+# Run tests
+pytest
+pytest -v                      # Verbose output
+pytest test_calculator.py      # Specific file
+pytest -k "test_add"          # Run specific tests
+pytest --tb=short             # Short traceback
+pytest --lf                   # Run last failed
+pytest -x                     # Stop on first failure
+pytest --maxfail=3            # Stop after 3 failures
+            </div>
+        </div>
+
+        <!-- SECTION 2: Basic Test Structure -->
+        <div class="section">
+            <h2>5.2: Writing Your First Pytest Test</h2>
+            
+            <div class="code-block">
+# calculator.py
+def add(a, b):
+    return a + b
+
+def multiply(a, b):
+    return a * b
+
+def divide(a, b):
+    if b == 0:
+        raise ValueError("Cannot divide by zero")
+    return a / b
+            </div>
+
+            <div class="code-block">
+# test_calculator.py
+from calculator import add, multiply, divide
+import pytest
+
+def test_add():
+    assert add(2, 3) == 5
+
+def test_add_negative():
+    assert add(-5, 3) == -2
+
+def test_multiply():
+    assert multiply(4, 5) == 20
+
+def test_divide():
+    assert divide(10, 2) == 5
+
+def test_divide_by_zero():
+    with pytest.raises(ValueError):
+        divide(10, 0)
+
+# Run: pytest test_calculator.py
+# Output: 5 passed in 0.05s ✓
+            </div>
+
+            <div class="concept-box">
+                <strong>Test Naming Convention:</strong>
+                <ul style="margin: 10px 0 0 0; list-style: none;">
+                    <li>• Files: <strong>test_*.py</strong> or <strong>*_test.py</strong></li>
+                    <li>• Functions: <strong>test_*()</strong></li>
+                    <li>• Classes: <strong>Test*</strong></li>
+                    <li>• Assertions: Use <strong>assert</strong> statements</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 3: Fixtures -->
+        <div class="section">
+            <h2>5.3: Fixtures (Setup & Teardown)</h2>
+            
+            <div class="code-block">
+# test_user.py
+import pytest
+
+@pytest.fixture
+def user_data():
+    """Setup: Create test data"""
+    data = {
+        'id': 1,
+        'name': 'John Doe',
+        'email': 'john@example.com'
+    }
+    print("\\nSetting up user data...")
+    yield data
+    print("\\nCleaning up user data...")
+
+def test_user_id(user_data):
+    assert user_data['id'] == 1
+
+def test_user_email(user_data):
+    assert 'example.com' in user_data['email']
+
+def test_user_name(user_data):
+    assert user_data['name'] == 'John Doe'
+
+# Run: pytest test_user.py -v -s
+# Output: All 3 tests pass with setup/teardown messages
+            </div>
+
+            <div class="concept-box">
+                <strong>Fixture Types:</strong>
+                <ul style="margin: 10px 0 0 0; list-style: none;">
+                    <li>• <strong>function:</strong> Scope: each test (default)</li>
+                    <li>• <strong>class:</strong> Scope: each class</li>
+                    <li>• <strong>module:</strong> Scope: entire module</li>
+                    <li>• <strong>session:</strong> Scope: entire test session</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 4: Parametrized Tests -->
+        <div class="section">
+            <h2>5.4: Parametrized Tests</h2>
+            <p>Run the same test with multiple input values without duplicating code.</p>
+            
+            <div class="code-block">
+# test_parametrized.py
+import pytest
+
+@pytest.mark.parametrize("input,expected", [
+    (2, 4),
+    (3, 9),
+    (4, 16),
+    (-2, 4),
+    (0, 0),
+])
+def test_square(input, expected):
+    def square(x):
+        return x * x
+    assert square(input) == expected
+
+# Multiple parameters
+@pytest.mark.parametrize("user,password,valid", [
+    ("john@example.com", "ValidPass123", True),
+    ("john", "ValidPass123", False),
+    ("john@example.com", "short", False),
+    ("", "ValidPass123", False),
+])
+def test_login_validation(user, password, valid):
+    def validate_login(email, pwd):
+        return '@' in email and len(pwd) >= 8
+    
+    assert validate_login(user, password) == valid
+
+# Run: pytest test_parametrized.py -v
+# Output: All parameter combinations tested
+            </div>
+        </div>
+
+        <!-- SECTION 5: Real Project -->
+        <div class="section">
+            <h2>5.5: Real Project - API Testing</h2>
+            
+            <div class="code-block">
+# test_api.py
+import pytest
+import requests
+
+@pytest.fixture
+def base_url():
+    return "https://jsonplaceholder.typicode.com"
+
+def test_get_user(base_url):
+    """Test GET request"""
+    response = requests.get(f"{base_url}/users/1")
+    assert response.status_code == 200
+    
+    data = response.json()
+    assert data['id'] == 1
+    assert 'name' in data
+    assert 'email' in data
+
+def test_create_post(base_url):
+    """Test POST request"""
+    payload = {
+        "title": "Test Post",
+        "body": "This is a test",
+        "userId": 1
+    }
+    response = requests.post(f"{base_url}/posts", json=payload)
+    assert response.status_code == 201
+    
+    data = response.json()
+    assert data['title'] == "Test Post"
+
+@pytest.mark.parametrize("user_id", [1, 2, 3])
+def test_get_multiple_users(base_url, user_id):
+    """Test multiple users"""
+    response = requests.get(f"{base_url}/users/{user_id}")
+    assert response.status_code == 200
+    assert response.json()['id'] == user_id
+
+# Run: pytest test_api.py -v
+# Output: All API tests pass
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📝 Key Takeaways</h2>
+            <div class="key-takeaways">
+                <strong>You've learned:</strong>
+                <ul>
+                    <li>How to install and use pytest</li>
+                    <li>Writing simple test functions</li>
+                    <li>Using fixtures for setup/teardown</li>
+                    <li>Parametrized tests for multiple scenarios</li>
+                    <li>How to test APIs with pytest</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="jest.html" class="nav-button prev">← Previous: Jest</a>
+            <a href="api-testing.html" class="nav-button next">Next: API Testing →</a>
+        </div>
+    </div>
+    <!-- Footer -->
+    <footer>
+        <p class="mb-2">🧪 <strong><a href="index.html"  target="_self">Train'N'GetTrained</a></strong> - Complete Software Testing Bootcamp</p>
+        <p class="text-sm">From Beginner to Professional QA Engineer | 26 Weeks | 100+ Hours | Real Projects</p>
+        <p class="text-xs mt-4 opacity-70">© 2025 <a href="index.html"  target="_self">Train'N'GetTrained</a>. All rights reserved. | For personal and educational use only. No commercial use allowed.</p>
+
+    </footer>
+</body>
+</html>

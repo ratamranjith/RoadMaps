@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Module 6: API Testing - <a href="index.html"  target="_self">Train'N'GetTrained</a></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f5f5; }
+        .navbar { background: white; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); padding: 15px 20px; position: sticky; top: 0; z-index: 50; }
+        .navbar-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+        .back-button { display: inline-block; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 10px 20px; border-radius: 6px; text-decoration: none; font-weight: 600; }
+        .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px 20px; text-align: center; }
+        .header h1 { font-size: 2.5rem; margin-bottom: 10px; }
+        .breadcrumb { opacity: 0.9; }
+        .content { max-width: 1000px; margin: 0 auto; padding: 40px 20px; }
+        .section { background: white; padding: 30px; margin-bottom: 30px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05); }
+        .section h2 { font-size: 1.8rem; color: #333; margin-bottom: 20px; border-bottom: 3px solid #667eea; padding-bottom: 10px; }
+        .section h3 { font-size: 1.3rem; color: #444; margin: 20px 0 10px 0; }
+        .section p { color: #666; line-height: 1.6; margin-bottom: 15px; }
+        .concept-box { background: #f0f4ff; border-left: 4px solid #667eea; padding: 15px; margin: 15px 0; border-radius: 5px; }
+        .code-block { background: #1e1e1e; color: #d4d4d4; padding: 15px; border-radius: 5px; overflow-x: auto; font-family: 'Courier New', monospace; font-size: 0.85rem; margin: 15px 0; }
+        .key-takeaways { background: #d1fae5; border-left: 4px solid #10b981; padding: 15px; margin: 20px 0; border-radius: 5px; }
+        .key-takeaways ul { list-style: none; margin: 10px 0 0 0; }
+        .key-takeaways li { color: #065f46; padding: 5px 0 5px 25px; position: relative; }
+        .key-takeaways li:before { content: "✓"; position: absolute; left: 0; font-weight: bold; }
+        .navigation-buttons { display: flex; justify-content: space-between; margin-top: 40px; gap: 20px; }
+        .nav-button { flex: 1; padding: 15px; border-radius: 8px; text-align: center; text-decoration: none; font-weight: 600; }
+        .nav-button.prev { background: #e0e0e0; color: #333; }
+        .nav-button.next { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+        footer { background: #333; color: white; text-align: center; padding: 30px 20px; margin-top: 60px; }
+        .table-box { background: white; border: 1px solid #ddd; margin: 15px 0; border-radius: 5px; overflow: hidden; }
+        .table-box table { width: 100%; border-collapse: collapse; }
+        .table-box th { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 12px; text-align: left; }
+        .table-box td { border-bottom: 1px solid #ddd; padding: 12px; }
+        .table-box tr:nth-child(even) { background: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <a href="index.html" class="back-button">← Back to Home</a>
+            <div style="text-align: center; flex: 1;"><h2 style="color: #667eea; margin: 0;">🧪 <a href="index.html"  target="_self">Train'N'GetTrained</a></h2></div>
+            <div style="width: 140px;"></div>
+        </div>
+    </nav>
+
+    <div class="header">
+        <h1>🔌 Module 6: API Testing</h1>
+        <p class="breadcrumb">Home > Curriculum > Module 6 (Weeks 9-12)</p>
+    </div>
+
+    <div class="content">
+        <!-- SECTION 1: HTTP Methods -->
+        <div class="section">
+            <h2>6.1: HTTP Methods & Status Codes</h2>
+            <p>APIs communicate using HTTP methods. Understanding them is crucial for effective testing.</p>
+            
+            <h3>HTTP Methods</h3>
+            <div class="table-box">
+                <table>
+                    <tr>
+                        <th>Method</th>
+                        <th>Purpose</th>
+                        <th>Idempotent</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td><strong>GET</strong></td>
+                        <td>Retrieve data</td>
+                        <td>Yes</td>
+                        <td>/users/1</td>
+                    </tr>
+                    <tr>
+                        <td><strong>POST</strong></td>
+                        <td>Create resource</td>
+                        <td>No</td>
+                        <td>/users (create new)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PUT</strong></td>
+                        <td>Replace resource</td>
+                        <td>Yes</td>
+                        <td>/users/1 (full update)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PATCH</strong></td>
+                        <td>Partial update</td>
+                        <td>Yes</td>
+                        <td>/users/1 (partial update)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DELETE</strong></td>
+                        <td>Remove resource</td>
+                        <td>Yes</td>
+                        <td>/users/1 (delete)</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3>HTTP Status Codes</h3>
+            <div class="concept-box">
+                <strong>2xx - Success:</strong> 200 OK, 201 Created, 204 No Content
+            </div>
+            <div class="concept-box">
+                <strong>3xx - Redirection:</strong> 301 Moved Permanently, 302 Found
+            </div>
+            <div class="concept-box">
+                <strong>4xx - Client Error:</strong> 400 Bad Request, 401 Unauthorized, 403 Forbidden, 404 Not Found
+            </div>
+            <div class="concept-box">
+                <strong>5xx - Server Error:</strong> 500 Internal Error, 502 Bad Gateway, 503 Service Unavailable
+            </div>
+        </div>
+
+        <!-- SECTION 2: Postman -->
+        <div class="section">
+            <h2>6.2: Postman - API Testing Tool</h2>
+            <p>Postman is the most popular tool for API testing and documentation.</p>
+            
+            <h3>Basic API Test in Postman</h3>
+            <div class="code-block">
+STEP 1: Create Request
+- Method: GET
+- URL: https://jsonplaceholder.typicode.com/users/1
+- Click Send
+
+STEP 2: Add Headers (if needed)
+- Key: Content-Type
+- Value: application/json
+- Key: Authorization  
+- Value: Bearer YOUR_TOKEN
+
+STEP 3: Add Test (JavaScript)
+pm.test("Status code is 200", () => {
+    pm.expect(pm.response.code).to.equal(200);
+});
+
+pm.test("Response has user ID", () => {
+    let jsonData = pm.response.json();
+    pm.expect(jsonData.id).to.equal(1);
+});
+
+pm.test("Response time is less than 500ms", () => {
+    pm.expect(pm.response.responseTime).to.be.below(500);
+});
+            </div>
+        </div>
+
+        <!-- SECTION 3: API Test Checklist -->
+        <div class="section">
+            <h2>6.3: API Testing Checklist</h2>
+            
+            <h3>Request Level</h3>
+            <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
+                <li>✓ Correct HTTP method used</li>
+                <li>✓ Valid endpoint URL</li>
+                <li>✓ Required headers present</li>
+                <li>✓ Request body (if POST/PUT) is valid</li>
+                <li>✓ Authentication token included</li>
+                <li>✓ Query parameters correct</li>
+            </ul>
+
+            <h3>Response Level</h3>
+            <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
+                <li>✓ Status code is correct (200, 201, 400, etc.)</li>
+                <li>✓ Response headers present (Content-Type, etc.)</li>
+                <li>✓ Response body matches expected schema</li>
+                <li>✓ Required fields are present</li>
+                <li>✓ Data types are correct</li>
+                <li>✓ No sensitive data exposed</li>
+                <li>✓ Response time acceptable (&lt; 1 second)</li>
+            </ul>
+
+            <h3>Error Scenarios</h3>
+            <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
+                <li>✓ Invalid input returns 400</li>
+                <li>✓ Missing auth returns 401</li>
+                <li>✓ Insufficient permissions returns 403</li>
+                <li>✓ Resource not found returns 404</li>
+                <li>✓ Server error returns 5xx</li>
+                <li>✓ Error message is clear</li>
+            </ul>
+        </div>
+
+        <!-- SECTION 4: Real Examples -->
+        <div class="section">
+            <h2>6.4: Real API Testing Examples</h2>
+            
+            <div class="code-block">
+// GET request - Retrieve user
+GET /api/v1/users/123
+Headers:
+  Authorization: Bearer token123
+  Accept: application/json
+
+Response 200:
+{
+  "id": 123,
+  "name": "John Doe",
+  "email": "john@example.com",
+  "created_at": "2024-01-15"
+}
+            </div>
+
+            <div class="code-block">
+// POST request - Create user
+POST /api/v1/users
+Headers:
+  Content-Type: application/json
+  Authorization: Bearer token123
+
+Body:
+{
+  "name": "Jane Smith",
+  "email": "jane@example.com",
+  "password": "SecurePass123"
+}
+
+Response 201:
+{
+  "id": 124,
+  "name": "Jane Smith",
+  "email": "jane@example.com"
+}
+            </div>
+
+            <div class="code-block">
+// DELETE request - Remove user
+DELETE /api/v1/users/123
+Headers:
+  Authorization: Bearer token123
+
+Response 204:
+(No content)
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📝 Key Takeaways</h2>
+            <div class="key-takeaways">
+                <strong>You've learned:</strong>
+                <ul>
+                    <li>HTTP methods (GET, POST, PUT, PATCH, DELETE)</li>
+                    <li>Status codes and their meanings</li>
+                    <li>How to use Postman</li>
+                    <li>API testing best practices</li>
+                    <li>Common error scenarios</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="navigation-buttons">
+            <a href="pytest.html" class="nav-button prev">← Previous: Pytest</a>
+            <a href="playwright.html" class="nav-button next">Next: Playwright →</a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p class="mb-2">🧪 <strong><a href="index.html"  target="_self">Train'N'GetTrained</a></strong> - Complete Software Testing Bootcamp</p>
+        <p class="text-sm">From Beginner to Professional QA Engineer | 26 Weeks | 100+ Hours | Real Projects</p>
+        <p class="text-xs mt-4 opacity-70">© 2025 <a href="index.html"  target="_self">Train'N'GetTrained</a>. All rights reserved. | For personal and educational use only. No commercial use allowed.</p>
+
+    </footer>
+</body>
+</html>
