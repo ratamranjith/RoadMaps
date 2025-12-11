@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Module 1: Testing Fundamentals - <a href="index.html"  target="_self">Train'N'GetTrained</a></title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -14,16 +15,17 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f5f5;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+            min-height: 100vh;
         }
 
         .navbar {
             background: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
             padding: 15px 20px;
             position: sticky;
             top: 0;
-            z-index: 50;
+            z-index: 100;
         }
 
         .navbar-content {
@@ -34,179 +36,349 @@
             align-items: center;
         }
 
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
         .back-button {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 10px 20px;
-            border-radius: 6px;
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(102, 126, 234, 0.2);
         }
 
         .back-button:hover {
-            transform: scale(1.05);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(102, 126, 234, 0.3);
         }
 
         .header {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 40px 20px;
+            padding: 30px 20px;
             text-align: center;
+            border-bottom-left-radius: 20px;
+            border-bottom-right-radius: 20px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
         }
 
         .header h1 {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
         }
 
         .breadcrumb {
             opacity: 0.9;
             font-size: 0.95rem;
+            margin-top: 10px;
         }
 
-        .content {
-            max-width: 1000px;
+        .container {
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 0 20px 40px;
         }
 
-        .section {
+        /* TABS STYLING */
+        .tabs-container {
             background: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+            margin-bottom: 40px;
+        }
+
+        .tabs-header {
+            display: flex;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0 20px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .tabs-header::-webkit-scrollbar {
+            display: none;
+        }
+
+        .tab-button {
+            padding: 18px 24px;
+            background: none;
+            border: none;
+            font-weight: 600;
+            color: #64748b;
+            cursor: pointer;
+            transition: all 0.3s;
+            position: relative;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tab-button:hover {
+            color: #667eea;
+        }
+
+        .tab-button.active {
+            color: #667eea;
+        }
+
+        .tab-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 3px 3px 0 0;
+        }
+
+        .tab-content {
+            display: none;
             padding: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* CONTENT STYLING */
+        .section {
             margin-bottom: 30px;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
         }
 
         .section h2 {
-            font-size: 1.8rem;
+            font-size: 1.6rem;
             color: #333;
             margin-bottom: 20px;
-            border-bottom: 3px solid #667eea;
             padding-bottom: 10px;
+            border-bottom: 2px solid #e2e8f0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .section h3 {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #444;
-            margin: 20px 0 10px 0;
+            margin: 20px 0 12px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .section p {
-            color: #666;
-            line-height: 1.6;
+            color: #555;
+            line-height: 1.7;
             margin-bottom: 15px;
         }
 
-        .concept-box {
-            background: #f0f4ff;
+        .highlight-box {
+            background: linear-gradient(135deg, #f0f4ff 0%, #f8f0ff 100%);
             border-left: 4px solid #667eea;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
         }
 
-        .concept-box strong {
+        .highlight-box strong {
             color: #667eea;
         }
 
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
-            margin: 15px 0;
+            margin: 20px 0;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .comparison-table th,
         .comparison-table td {
-            border: 1px solid #ddd;
-            padding: 12px;
+            border: 1px solid #e2e8f0;
+            padding: 14px;
             text-align: left;
         }
 
         .comparison-table th {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            font-weight: 600;
         }
 
         .comparison-table tr:nth-child(even) {
-            background: #f9f9f9;
+            background: #f8fafc;
         }
 
-        .lifecycle-stages {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 10px;
-            margin: 20px 0;
+        .comparison-table tr:hover {
+            background: #f0f4ff;
         }
 
-        .stage {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            text-align: center;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        .stage:nth-child(odd) {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        .stage:nth-child(even) {
-            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
-        }
-
-        .quiz-box {
-            background: #fff3cd;
-            border: 2px solid #ffc107;
+        /* INTERVIEW QUESTION STYLING */
+        .interview-question {
+            background: white;
+            border-radius: 10px;
             padding: 20px;
-            margin: 20px 0;
-            border-radius: 8px;
+            margin: 25px 0;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+            border-left: 4px solid #36b9cc;
         }
 
-        .quiz-box h4 {
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .question-tag {
+            background: #36b9cc;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .difficulty {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .difficulty.beginner {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .difficulty.intermediate {
+            background: #fff3cd;
             color: #856404;
+        }
+
+        .difficulty.advanced {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .interview-answer {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 1px solid #e9ecef;
+        }
+
+        .answer-section {
             margin-bottom: 15px;
         }
 
-        .quiz-option {
+        .answer-section strong {
+            color: #2c3e50;
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* QUIZ STYLING */
+        .quiz-box {
             background: white;
-            border: 1px solid #ddd;
-            padding: 10px;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .quiz-question {
+            margin-bottom: 20px;
+        }
+
+        .quiz-option {
+            display: block;
+            padding: 12px 15px;
             margin: 8px 0;
-            border-radius: 5px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s;
         }
 
         .quiz-option:hover {
-            background: #e7e7e7;
             border-color: #667eea;
+            background: #f0f4ff;
         }
 
+        .quiz-option.selected {
+            border-color: #667eea;
+            background: #f0f4ff;
+        }
+
+        /* PROGRESS BAR */
+        .progress-container {
+            background: #e2e8f0;
+            height: 6px;
+            border-radius: 3px;
+            margin: 30px 0;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            width: 14%; /* 1/7 tabs */
+            transition: width 0.5s ease;
+        }
+
+        /* KEY TAKEAWAYS */
         .key-takeaways {
-            background: #d1fae5;
-            border-left: 4px solid #10b981;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 5px;
+            background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 30px 0;
         }
 
-        .key-takeaways strong {
+        .key-takeaways h3 {
             color: #065f46;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .key-takeaways ul {
             list-style: none;
-            margin: 10px 0 0 0;
         }
 
         .key-takeaways li {
             color: #065f46;
-            padding: 5px 0 5px 25px;
+            padding: 8px 0 8px 35px;
             position: relative;
         }
 
@@ -215,8 +387,18 @@
             position: absolute;
             left: 0;
             font-weight: bold;
+            background: #10b981;
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
         }
 
+        /* NAVIGATION BUTTONS */
         .navigation-buttons {
             display: flex;
             justify-content: space-between;
@@ -226,1112 +408,1975 @@
 
         .nav-button {
             flex: 1;
-            padding: 15px;
-            border-radius: 8px;
+            padding: 16px;
+            border-radius: 10px;
             text-align: center;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .nav-button.prev {
-            background: #e0e0e0;
-            color: #333;
+            background: #f1f5f9;
+            color: #475569;
         }
 
         .nav-button.prev:hover {
-            background: #d0d0d0;
+            background: #e2e8f0;
         }
 
         .nav-button.next {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
         }
 
         .nav-button.next:hover {
-            transform: scale(1.05);
-            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
         }
 
+        /* FOOTER */
         footer {
-            background: #333;
+            background: #1e293b;
             color: white;
             text-align: center;
             padding: 30px 20px;
             margin-top: 60px;
+            border-top-left-radius: 20px;
+            border-top-right-radius: 20px;
         }
 
-        /* NEW STYLES FOR INTERVIEW SECTION */
-        .interview-question {
-            background: linear-gradient(to right, #f0f9ff, #e6f7ff);
-            border-left: 4px solid #36b9cc;
-            padding: 20px;
-            margin: 25px 0 15px 0;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            position: relative;
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 768px) {
+            .tabs-header {
+                padding: 0 10px;
+            }
+            
+            .tab-button {
+                padding: 15px 18px;
+                font-size: 0.9rem;
+            }
+            
+            .tab-content {
+                padding: 20px;
+            }
+            
+            .comparison-table {
+                font-size: 0.9rem;
+            }
+            
+            .comparison-table th,
+            .comparison-table td {
+                padding: 10px;
+            }
+            
+            .header h1 {
+                font-size: 1.8rem;
+            }
         }
 
-        .interview-question h4 {
-            color: #1a5a73;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
+        /* UTILITY CLASSES */
+        .icon {
+            font-size: 1.2rem;
         }
 
-        .interview-question .question-tag {
+        .badge {
             display: inline-block;
-            background: #36b9cc;
-            color: white;
-            padding: 3px 10px;
+            padding: 4px 10px;
             border-radius: 20px;
             font-size: 0.8rem;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-
-        .interview-answer {
-            background: #f8f9fa;
-            border: 1px solid #dee2e6;
-            padding: 18px;
-            margin: 10px 0 25px 0;
-            border-radius: 8px;
-            line-height: 1.7;
-        }
-
-        .interview-answer strong {
-            color: #2c3e50;
-        }
-
-        .answer-structure {
-            background: #f1f8e9;
-            border-left: 4px solid #7cb342;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 5px;
-        }
-
-        .followup-question {
-            background: #fff3e0;
-            border-left: 4px solid #ff9800;
-            padding: 12px;
-            margin: 15px 0;
-            border-radius: 5px;
-            font-size: 0.95rem;
-        }
-
-        .difficulty-indicator {
-            display: inline-block;
-            padding: 2px 10px;
-            border-radius: 12px;
-            font-size: 0.75rem;
             font-weight: 600;
             margin-left: 10px;
         }
 
-        .difficulty-beginner {
-            background: #d4edda;
-            color: #155724;
+        .badge.primary {
+            background: #667eea;
+            color: white;
         }
 
-        .difficulty-intermediate {
-            background: #fff3cd;
-            color: #856404;
+        .badge.success {
+            background: #10b981;
+            color: white;
         }
 
-        .difficulty-advanced {
-            background: #f8d7da;
-            color: #721c24;
+        .badge.warning {
+            background: #f59e0b;
+            color: white;
         }
 
-        .tips-box {
-            background: #e3f2fd;
-            border: 1px dashed #2196f3;
-            padding: 15px;
-            margin: 20px 0;
-            border-radius: 8px;
-        }
-
-        .interview-checklist {
-            background: #f5f5f5;
-            border: 1px solid #ddd;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 8px;
-        }
-
-        .checklist-item {
+        .toggle-answer {
+            background: none;
+            border: none;
+            color: #667eea;
+            font-weight: 600;
+            cursor: pointer;
+            padding: 5px 0;
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
+            gap: 5px;
         }
 
-        .checklist-item input {
-            margin-right: 10px;
+        .hidden-answer {
+            display: none;
         }
+    .quiz-page {
+        display: none;
+    }
+    
+    .quiz-page.active {
+        display: block;
+    }
+    
+    .quiz-option.correct {
+        background-color: #d1fae5;
+        border-color: #10b981;
+    }
+    
+    .quiz-option.incorrect {
+        background-color: #fee2e2;
+        border-color: #ef4444;
+    }
+    
+    .quiz-option.selected {
+        background-color: #e0e7ff;
+        border-color: #6366f1;
+    }
 
-        .scenario-question {
-            background: #e8f5e9;
-            border: 1px solid #c8e6c9;
-            padding: 15px;
-            margin: 15px 0;
-            border-radius: 5px;
-        }
     </style>
 </head>
 <body>
     <!-- Navbar -->
     <nav class="navbar">
         <div class="navbar-content">
-            <a href="index.html" class="back-button">← Back to Home</a>
-            <div style="text-align: center; flex: 1;">
-                <h2 style="color: #667eea; margin: 0;">🧪 <a href="index.html"  target="_self">Train'N'GetTrained</a></h2>
-            </div>
+            <a href="index.html" class="back-button">
+                <i class="fas fa-arrow-left"></i> Back to Home
+            </a>
+            <div class="logo">🧪 Train'N'GetTrained</div>
             <div style="width: 140px;"></div>
         </div>
     </nav>
 
     <!-- Header -->
     <div class="header">
-        <h1>📖 Module 1: Testing Fundamentals</h1>
+        <h1>
+            <i class="fas fa-book"></i> Module 1: Testing Fundamentals
+        </h1>
         <p class="breadcrumb">Home > Curriculum > Module 1 (Weeks 1-4)</p>
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
     </div>
 
-    <!-- Main Content -->
-    <div class="content">
-        <!-- Section 1: Introduction -->
-        <div class="section">
-            <h2>1.1: What is Software Testing?</h2>
-            <p>Software testing is the process of evaluating a software application to verify that it functions correctly, meets requirements, and is free from defects. It's not just about finding bugs—it's about ensuring quality, reliability, and user satisfaction.</p>
-            
-            <div class="concept-box">
-                <strong>Key Insight:</strong> Testing is a quality assurance activity. Good testing helps catch defects early when they're cheaper and easier to fix, before they reach production.
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Tabs Container -->
+        <div class="tabs-container">
+            <!-- Tabs Header -->
+            <div class="tabs-header">
+                <button class="tab-button active" data-tab="tab1">
+                    <i class="fas fa-home icon"></i> Introduction
+                </button>
+                <button class="tab-button" data-tab="tab2">
+                    <i class="fas fa-sync-alt icon"></i> SDLC vs STLC
+                </button>
+                <button class="tab-button" data-tab="tab3">
+                    <i class="fas fa-vial icon"></i> Testing Types
+                </button>
+                <button class="tab-button" data-tab="tab4">
+                    <i class="fas fa-bug icon"></i> Bug Management
+                </button>
+                <button class="tab-button" data-tab="tab5">
+                    <i class="fas fa-chart-line icon"></i> Principles
+                </button>
+                <button class="tab-button" data-tab="tab6">
+                    <i class="fas fa-comments icon"></i> Interview Q&A
+                </button>
+                <button class="tab-button" data-tab="tab7">
+                    <i class="fas fa-question-circle icon"></i> Quiz
+                </button>
             </div>
 
-            <h3>Why is Testing Important?</h3>
-            <ul style="margin-left: 20px; color: #666;">
-                <li>🎯 <strong>Prevents Production Issues:</strong> Catch bugs before users encounter them</li>
-                <li>💰 <strong>Cost Effective:</strong> Fixing bugs in production is 10x more expensive</li>
-                <li>✅ <strong>Quality Assurance:</strong> Ensures software meets specifications</li>
-                <li>👥 <strong>User Satisfaction:</strong> Delivers reliable, bug-free applications</li>
-                <li>⚖️ <strong>Legal Compliance:</strong> Some industries require rigorous testing (banking, healthcare)</li>
-                <li>🔒 <strong>Security:</strong> Identifies vulnerabilities and security flaws</li>
+            <!-- Tab 1: Introduction -->
+            <div class="tab-content active" id="tab1">
+                <div class="section">
+                    <h2><i class="fas fa-info-circle"></i> What is Software Testing?</h2>
+                    <p>Software testing is the process of evaluating a software application to verify that it functions correctly, meets requirements, and is free from defects. It's not just about finding bugs—it's about ensuring quality, reliability, and user satisfaction.</p>
+                    
+                    <div class="highlight-box">
+                        <strong>Key Insight:</strong> Testing is a quality assurance activity. Good testing helps catch defects early when they're cheaper and easier to fix, before they reach production.
+                    </div>
+
+                    <h3><i class="fas fa-star"></i> Why is Testing Important?</h3>
+                    <ul style="margin-left: 20px; color: #555; line-height: 1.8;">
+                        <li>🎯 <strong>Prevents Production Issues:</strong> Catch bugs before users encounter them</li>
+                        <li>💰 <strong>Cost Effective:</strong> Fixing bugs in production is 10x more expensive</li>
+                        <li>✅ <strong>Quality Assurance:</strong> Ensures software meets specifications</li>
+                        <li>👥 <strong>User Satisfaction:</strong> Delivers reliable, bug-free applications</li>
+                        <li>⚖️ <strong>Legal Compliance:</strong> Required in banking, healthcare industries</li>
+                        <li>🔒 <strong>Security:</strong> Identifies vulnerabilities and security flaws</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Tab 2: SDLC vs STLC -->
+            <div class="tab-content" id="tab2">
+                <div class="section">
+                    <h2><i class="fas fa-sync-alt"></i> SDLC vs STLC Comparison</h2>
+                    
+                    <h3><i class="fas fa-cogs"></i> Software Development Life Cycle (SDLC)</h3>
+                    <p>SDLC is the overall process of developing software from conception to deployment and maintenance.</p>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin: 20px 0;">
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 0.9rem;">1. Planning</div>
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 0.9rem;">2. Analysis</div>
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 0.9rem;">3. Design</div>
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 0.9rem;">4. Development</div>
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 0.9rem;">5. Testing</div>
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 0.9rem;">6. Deployment</div>
+                        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 15px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 0.9rem;">7. Maintenance</div>
+                    </div>
+
+                    <h3><i class="fas fa-check-circle"></i> Software Testing Life Cycle (STLC)</h3>
+                    <p>STLC is a subset of SDLC, focusing specifically on the quality assurance and testing activities.</p>
+
+                    <table class="comparison-table">
+                        <tr>
+                            <th>Aspect</th>
+                            <th>SDLC</th>
+                            <th>STLC</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Scope</strong></td>
+                            <td>Entire software development process</td>
+                            <td>Testing and QA activities only</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Duration</strong></td>
+                            <td>Months to years</td>
+                            <td>Part of SDLC, typically weeks</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phases</strong></td>
+                            <td>Planning → Design → Development → Testing → Deployment</td>
+                            <td>Test Planning → Design → Execution → Closure</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Participants</strong></td>
+                            <td>Everyone (managers, developers, testers, DevOps)</td>
+                            <td>QA team, developers, business analysts</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Outcome</strong></td>
+                            <td>Complete software product</td>
+                            <td>Quality assurance report, test cases, bug reports</td>
+                        </tr>
+                    </table>
+
+                    <div class="key-takeaways">
+                        <h3><i class="fas fa-lightbulb"></i> Key Takeaway</h3>
+                        <ul>
+                            <li>SDLC is the big picture (how software is built)</li>
+                            <li>STLC is testing's role within SDLC (how software is verified)</li>
+                            <li>Testing happens throughout SDLC, not just at the end</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 3: Testing Types -->
+            <div class="tab-content" id="tab3">
+                <div class="section">
+                    <h2><i class="fas fa-vial"></i> Comprehensive Testing Types</h2>
+                    
+                    <h3><i class="fas fa-table"></i> Testing Classification Matrix</h3>
+                    <div style="overflow-x: auto;">
+                        <table class="comparison-table">
+                            <tr>
+                                <th>Category</th>
+                                <th>Testing Type</th>
+                                <th>Purpose / Focus</th>
+                                <th>Common Tools</th>
+                            </tr>
+                            <tr>
+                                <td rowspan="5"><strong>Functional Testing</strong></td>
+                                <td>Unit Testing</td>
+                                <td>Tests individual functions/methods in isolation</td>
+                                <td>JUnit, NUnit, pytest, Jest</td>
+                            </tr>
+                            <tr>
+                                <td>Integration Testing</td>
+                                <td>Tests interaction between integrated units/modules</td>
+                                <td>TestNG, Postman, SoapUI</td>
+                            </tr>
+                            <tr>
+                                <td>System Testing</td>
+                                <td>Tests complete integrated system end-to-end</td>
+                                <td>Selenium, Cypress, Manual testing</td>
+                            </tr>
+                            <tr>
+                                <td>Acceptance Testing</td>
+                                <td>Validates if system meets business requirements (UAT)</td>
+                                <td>Cucumber, FitNesse, Manual scenarios</td>
+                            </tr>
+                            <tr>
+                                <td>Regression Testing</td>
+                                <td>Ensures new changes don't break existing functionality</td>
+                                <td>Selenium, QTP, TestComplete</td>
+                            </tr>
+                            <tr>
+                                <td rowspan="5"><strong>Non-Functional Testing</strong></td>
+                                <td>Performance Testing</td>
+                                <td>Evaluates speed, scalability, stability under load</td>
+                                <td>JMeter, LoadRunner, Gatling</td>
+                            </tr>
+                            <tr>
+                                <td>Security Testing</td>
+                                <td>Identifies vulnerabilities and security risks</td>
+                                <td>OWASP ZAP, Burp Suite, Nessus</td>
+                            </tr>
+                            <tr>
+                                <td>Usability Testing</td>
+                                <td>Assesses user-friendliness and UI/UX</td>
+                                <td>User interviews, Surveys, Heatmaps</td>
+                            </tr>
+                            <tr>
+                                <td>Compatibility Testing</td>
+                                <td>Checks software works across browsers/OS/devices</td>
+                                <td>BrowserStack, Sauce Labs, LambdaTest</td>
+                            </tr>
+                            <tr>
+                                <td>Accessibility Testing</td>
+                                <td>Ensures software usable by people with disabilities</td>
+                                <td>axe, WAVE, JAWS screen reader</td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <h3><i class="fas fa-balance-scale"></i> Functional vs Non-Functional Testing</h3>
+                    <table class="comparison-table">
+                        <tr>
+                            <th>Aspect</th>
+                            <th>Functional Testing</th>
+                            <th>Non-Functional Testing</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Focus</strong></td>
+                            <td><em>What</em> the system does</td>
+                            <td><em>How well</em> the system performs</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Based On</strong></td>
+                            <td>Business requirements, specifications</td>
+                            <td>Performance criteria, user expectations</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Objective</strong></td>
+                            <td>Validate software actions/outputs</td>
+                            <td>Validate software behavior/attributes</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Examples</strong></td>
+                            <td>Login, Payment processing, Search</td>
+                            <td>Load time, Security, Usability, Compatibility</td>
+                        </tr>
+                    </table>
+
+                    <h3><i class="fas fa-robot"></i> Manual vs Automated Testing</h3>
+                    <table class="comparison-table">
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Manual Testing</th>
+                            <th>Automated Testing</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Definition</strong></td>
+                            <td>Human executes test cases without tools</td>
+                            <td>Uses automation tools to execute test scripts</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Best For</strong></td>
+                            <td>Exploratory, Usability, Ad-hoc testing</td>
+                            <td>Regression, Load, Repeated execution</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Initial Cost</strong></td>
+                            <td>Low (no tools needed)</td>
+                            <td>High (tools + script development)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Accuracy</strong></td>
+                            <td>Prone to human error</td>
+                            <td>High (precise, consistent execution)</td>
+                        </tr>
+                    </table>
+
+                    <div class="highlight-box">
+                        <strong>Key Insight:</strong> Most projects use a balanced mix of manual and automated testing. Manual testing is ideal for exploratory and usability testing, while automated testing excels at regression and performance testing.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 4: Bug Management -->
+            <div class="tab-content" id="tab4">
+                <div class="section">
+                    <h2><i class="fas fa-bug"></i> Bug Lifecycle & Management</h2>
+                    
+                    <h3><i class="fas fa-redo-alt"></i> Bug Lifecycle Stages</h3>
+                    <p>Understanding how bugs flow through the system helps with communication and prioritization.</p>
+
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 8px; margin: 20px 0;">
+                        <div style="background: #3b82f6; color: white; padding: 12px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 0.85rem;">NEW</div>
+                        <div style="background: #8b5cf6; color: white; padding: 12px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 0.85rem;">ASSIGNED</div>
+                        <div style="background: #10b981; color: white; padding: 12px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 0.85rem;">IN PROGRESS</div>
+                        <div style="background: #f59e0b; color: white; padding: 12px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 0.85rem;">FIXED</div>
+                        <div style="background: #06b6d4; color: white; padding: 12px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 0.85rem;">VERIFIED</div>
+                        <div style="background: #ef4444; color: white; padding: 12px; border-radius: 8px; text-align: center; font-weight: bold; font-size: 0.85rem;">CLOSED</div>
+                    </div>
+
+                    <h3><i class="fas fa-exclamation-triangle"></i> Bug Severity vs Priority</h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin: 20px 0;">
+                        <div>
+                            <h4>Severity (Technical Impact)</h4>
+                            <table class="comparison-table">
+                                <tr>
+                                    <th>Level</th>
+                                    <th>Description</th>
+                                </tr>
+                                <tr>
+                                    <td><strong style="color: #d32f2f;">CRITICAL</strong></td>
+                                    <td>Application crashes or core feature broken</td>
+                                </tr>
+                                <tr>
+                                    <td><strong style="color: #f57c00;">MAJOR</strong></td>
+                                    <td>Important feature doesn't work</td>
+                                </tr>
+                                <tr>
+                                    <td><strong style="color: #fbc02d;">MINOR</strong></td>
+                                    <td>Minor issue, workaround exists</td>
+                                </tr>
+                                <tr>
+                                    <td><strong style="color: #388e3c;">TRIVIAL</strong></td>
+                                    <td>Cosmetic issue</td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                        <div>
+                            <h4>Priority (Business Impact)</h4>
+                            <table class="comparison-table">
+                                <tr>
+                                    <th>Level</th>
+                                    <th>Description</th>
+                                </tr>
+                                <tr>
+                                    <td><strong style="color: #d32f2f;">P1 (URGENT)</strong></td>
+                                    <td>Must fix before release</td>
+                                </tr>
+                                <tr>
+                                    <td><strong style="color: #f57c00;">P2 (HIGH)</strong></td>
+                                    <td>Should fix before release</td>
+                                </tr>
+                                <tr>
+                                    <td><strong style="color: #fbc02d;">P3 (MEDIUM)</strong></td>
+                                    <td>Can fix in next release</td>
+                                </tr>
+                                <tr>
+                                    <td><strong style="color: #388e3c;">P4 (LOW)</strong></td>
+                                    <td>Nice to have fix</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box">
+                        <strong>Important:</strong> A bug can be HIGH severity (technically broken) but LOW priority (rarely used feature). Conversely, a TRIVIAL severity (cosmetic) can be HIGH priority (company logo looks wrong).
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 5: Testing Principles -->
+            <div class="tab-content" id="tab5">
+                <div class="section">
+                    <h2><i class="fas fa-chart-line"></i> Testing Principles & Strategies</h2>
+                    
+                    <h3><i class="fas fa-gem"></i> Core Testing Principles</h3>
+                    <table class="comparison-table">
+                        <tr>
+                            <th>Principle</th>
+                            <th>Description</th>
+                            <th>Implication for Testers</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Exhaustive testing is impossible</strong></td>
+                            <td>Cannot test all combinations of inputs/preconditions</td>
+                            <td>Use risk-based & priority-based testing</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Defect clustering</strong></td>
+                            <td>Small number of modules contain most defects</td>
+                            <td>Focus testing on critical/complex modules</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Pesticide paradox</strong></td>
+                            <td>Repeating same tests finds fewer new defects</td>
+                            <td>Regularly review & update test cases</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Testing shows presence of defects</strong></td>
+                            <td>Testing can prove defects exist, not their absence</td>
+                            <td>Testing reduces probability of undiscovered defects</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Absence-of-errors fallacy</strong></td>
+                            <td>No defects ≠ useful/usable product</td>
+                            <td>Focus on requirements & user needs, not just bug count</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Early testing</strong></td>
+                            <td>Testing should start as early as possible</td>
+                            <td>Involve testers in requirements & design reviews</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Testing is context dependent</strong></td>
+                            <td>Different software needs different testing approaches</td>
+                            <td>Medical software testing ≠ e-commerce website testing</td>
+                        </tr>
+                    </table>
+
+                    <h3><i class="fas fa-chess-board"></i> Testing Strategies</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin: 20px 0;">
+                        <div style="background: #f0f9ff; padding: 20px; border-radius: 10px; border-left: 4px solid #0ea5e9;">
+                            <h4 style="color: #0369a1;">Big Bang Testing</h4>
+                            <p>Test entire system after all components integrated</p>
+                            <p><strong>Best for:</strong> Small projects, proof-of-concepts</p>
+                        </div>
+                        
+                        <div style="background: #f0fdf4; padding: 20px; border-radius: 10px; border-left: 4px solid #22c55e;">
+                            <h4 style="color: #15803d;">Incremental Testing</h4>
+                            <p>Test components as they're added (top-down or bottom-up)</p>
+                            <p><strong>Best for:</strong> Large projects, phased development</p>
+                        </div>
+                        
+                        <div style="background: #fef3c7; padding: 20px; border-radius: 10px; border-left: 4px solid #f59e0b;">
+                            <h4 style="color: #b45309;">Risk-Based Testing</h4>
+                            <p>Prioritize testing based on risk assessment</p>
+                            <p><strong>Best for:</strong> Limited time/resources, critical systems</p>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box">
+                        <strong>Remember:</strong> No single testing approach fits all projects. The best testing strategy depends on project context, risks, timeline, and resources.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 6: Interview Q&A -->
+            <div class="tab-content" id="tab6">
+                <div class="section">
+                    <h2><i class="fas fa-comments"></i> Interview Questions & Answers</h2>
+                    <p>Common QA testing interview questions with detailed answers. Practice these to ace your interviews!</p>
+
+                    <div class="highlight-box">
+                        <strong>💡 Interview Tips:</strong>
+                        <ul style="margin: 10px 0 0 20px;">
+                            <li>Use the <strong>STAR method</strong> (Situation, Task, Action, Result)</li>
+                            <li>Be honest about what you don't know - show willingness to learn</li>
+                            <li>Have specific examples ready from your experience</li>
+                        </ul>
+                    </div>
+
+                    <!-- Question 1 -->
+                    <div class="interview-question">
+                        <div class="question-header">
+                            <span class="question-tag">Fundamental</span>
+                            <span class="difficulty beginner">Beginner</span>
+                        </div>
+                        <h4>1. What is software testing and why is it important?</h4>
+                        <button class="toggle-answer" data-target="answer1">
+                            <i class="fas fa-chevron-down"></i> Show Answer
+                        </button>
+                        <div class="interview-answer hidden-answer" id="answer1">
+                            <div class="answer-section">
+                                <strong>Answer:</strong> Software testing is the process of evaluating a software application to identify differences between expected and actual results. It's not just about finding bugs but ensuring quality, reliability, and that the software meets requirements.
+                            </div>
+                            <div class="answer-section">
+                                <strong>Importance includes:</strong>
+                                <ul>
+                                    <li><strong>Cost Efficiency:</strong> Fixing bugs in production is 5-10x more expensive than in early stages</li>
+                                    <li><strong>Customer Satisfaction:</strong> Quality software leads to happy users and better retention</li>
+                                    <li><strong>Security:</strong> Identifies vulnerabilities before they're exploited</li>
+                                    <li><strong>Risk Management:</strong> Reduces business risks associated with software failures</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 2 -->
+                    <div class="interview-question">
+                        <div class="question-header">
+                            <span class="question-tag">Testing Types</span>
+                            <span class="difficulty intermediate">Intermediate</span>
+                        </div>
+                        <h4>2. Explain the difference between verification and validation.</h4>
+                        <button class="toggle-answer" data-target="answer2">
+                            <i class="fas fa-chevron-down"></i> Show Answer
+                        </button>
+                        <div class="interview-answer hidden-answer" id="answer2">
+                            <p><strong>Answer:</strong> This is often summarized as "Are we building the product right?" vs "Are we building the right product?"</p>
+                            
+                            <table class="comparison-table">
+                                <tr>
+                                    <th>Aspect</th>
+                                    <th>Verification</th>
+                                    <th>Validation</th>
+                                </tr>
+                                <tr>
+                                    <td><strong>Focus</strong></td>
+                                    <td>Process-oriented (static testing)</td>
+                                    <td>Product-oriented (dynamic testing)</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Question</strong></td>
+                                    <td>Are we building the product right?</td>
+                                    <td>Are we building the right product?</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Examples</strong></td>
+                                    <td>Code review, requirement analysis</td>
+                                    <td>Functional testing, usability testing</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- Question 3 -->
+                    <div class="interview-question">
+                        <div class="question-header">
+                            <span class="question-tag">Test Design</span>
+                            <span class="difficulty intermediate">Intermediate</span>
+                        </div>
+                        <h4>3. What is equivalence partitioning and boundary value analysis?</h4>
+                        <button class="toggle-answer" data-target="answer3">
+                            <i class="fas fa-chevron-down"></i> Show Answer
+                        </button>
+                        <div class="interview-answer hidden-answer" id="answer3">
+                            <p><strong>Answer:</strong> These are black-box test design techniques that help reduce the number of test cases while maintaining coverage.</p>
+                            
+                            <div class="answer-section">
+                                <strong>Equivalence Partitioning:</strong> Divides input data into valid and invalid partitions where all values in a partition should behave the same way.
+                                <p><em>Example:</em> A field accepts ages 18-60</p>
+                                <ul>
+                                    <li>Valid partition: 18-60 (test with one value, e.g., 30)</li>
+                                    <li>Invalid partitions: &lt;18 (e.g., 17) and &gt;60 (e.g., 61)</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="answer-section">
+                                <strong>Boundary Value Analysis:</strong> Tests at the boundaries between partitions since errors often occur at edges.
+                                <p><em>Example:</em> Same age field 18-60</p>
+                                <ul>
+                                    <li>Test values: 17, 18, 19 (around lower boundary)</li>
+                                    <li>Test values: 59, 60, 61 (around upper boundary)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 4 -->
+                    <div class="interview-question">
+                        <div class="question-header">
+                            <span class="question-tag">Bug Management</span>
+                            <span class="difficulty intermediate">Intermediate</span>
+                        </div>
+                        <h4>4. What information should a good bug report contain?</h4>
+                        <button class="toggle-answer" data-target="answer4">
+                            <i class="fas fa-chevron-down"></i> Show Answer
+                        </button>
+                        <div class="interview-answer hidden-answer" id="answer4">
+                            <p><strong>Answer:</strong> A comprehensive bug report should contain enough information for developers to reproduce, understand, and fix the issue.</p>
+                            
+                            <div class="answer-section">
+                                <strong>Essential elements:</strong>
+                                <ol>
+                                    <li><strong>Title/Summary:</strong> Clear, concise description</li>
+                                    <li><strong>Environment:</strong> OS, browser, device, app version</li>
+                                    <li><strong>Steps to Reproduce:</strong> Numbered, detailed, exact steps</li>
+                                    <li><strong>Expected vs Actual Results:</strong> Clearly state both</li>
+                                    <li><strong>Severity & Priority:</strong> Your assessment of impact</li>
+                                    <li><strong>Attachments:</strong> Screenshots, videos, logs</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Question 5 -->
+                    <div class="interview-question">
+                        <div class="question-header">
+                            <span class="question-tag">Scenario-Based</span>
+                            <span class="difficulty advanced">Advanced</span>
+                        </div>
+                        <h4>5. How would you test an e-commerce "Add to Cart" functionality?</h4>
+                        <button class="toggle-answer" data-target="answer5">
+                            <i class="fas fa-chevron-down"></i> Show Answer
+                        </button>
+                        <div class="interview-answer hidden-answer" id="answer5">
+                            <p><strong>Answer:</strong> I'd approach this systematically, covering functional, non-functional, and edge cases.</p>
+                            
+                            <div class="answer-section">
+                                <strong>Functional Testing:</strong>
+                                <ul>
+                                    <li>Add single item to cart</li>
+                                    <li>Add multiple quantities of same item</li>
+                                    <li>Add different items to cart</li>
+                                    <li>Verify cart updates in real-time</li>
+                                    <li>Check cart persists across sessions</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="answer-section">
+                                <strong>Boundary & Error Cases:</strong>
+                                <ul>
+                                    <li>Add item with zero/negative quantity</li>
+                                    <li>Add more than available stock</li>
+                                    <li>Add item that becomes unavailable after adding to cart</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="answer-section">
+                                <strong>Non-Functional Testing:</strong>
+                                <ul>
+                                    <li>Performance: How fast does cart update?</li>
+                                    <li>Usability: Is the cart icon intuitive?</li>
+                                    <li>Accessibility: Can screen readers interpret cart status?</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="highlight-box">
+                        <strong>📋 Interview Preparation Checklist:</strong>
+                        <div style="margin-top: 10px;">
+                            <label style="display: block; margin: 5px 0;">
+                                <input type="checkbox"> Review basic testing terminology
+                            </label>
+                            <label style="display: block; margin: 5px 0;">
+                                <input type="checkbox"> Prepare 2-3 detailed examples from past experience
+                            </label>
+                            <label style="display: block; margin: 5px 0;">
+                                <input type="checkbox"> Practice explaining testing concepts in simple terms
+                            </label>
+                            <label style="display: block; margin: 5px 0;">
+                                <input type="checkbox"> Prepare thoughtful questions to ask the interviewer
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tab 7: Quiz -->
+<div class="tab-content" id="tab7">
+    <div class="section">
+        <h2><i class="fas fa-question-circle"></i> Comprehensive Quiz & Assessment</h2>
+        <p>Test your knowledge with 50+ quiz questions covering all testing fundamentals. Questions are paginated for easier navigation.</p>
+        
+        <div class="quiz-box">
+            <!-- Quiz Navigation -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding: 10px; background: #f8fafc; border-radius: 8px;">
+                <button id="prevPage" style="padding: 8px 16px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+                    <i class="fas fa-chevron-left"></i> Previous
+                </button>
+                <div id="pageInfo" style="font-weight: 600; color: #475569;">Page 1 of 6</div>
+                <button id="nextPage" style="padding: 8px 16px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer; display: flex; align-items: center; gap: 5px;">
+                    Next <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            
+            <!-- Page 1: Basic Concepts -->
+            <div class="quiz-page active" id="page1">
+                <div class="quiz-question">
+                    <h4>1. What is the primary goal of software testing?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q1"> To prove that software has no defects
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q1" data-correct="true"> To identify defects and assess software quality
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q1"> To delay software release
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q1"> To increase development costs
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>2. Which of these is NOT a benefit of early testing?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q2" data-correct="true"> Increases project timeline
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q2"> Reduces cost of fixing defects
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q2"> Improves software quality
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q2"> Provides early feedback
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>3. What does SDLC stand for?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q3"> Software Debugging Life Cycle
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q3"> System Development Life Cycle
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q3" data-correct="true"> Software Development Life Cycle
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q3"> Software Design Life Cycle
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>4. Which phase comes first in SDLC?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q4"> Development
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q4"> Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q4" data-correct="true"> Planning
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q4"> Design
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>5. What is the main purpose of STLC?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q5"> To replace SDLC
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q5"> To manage software development
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q5" data-correct="true"> To define testing activities and processes
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q5"> To automate all testing
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>6. Which testing level focuses on individual functions/methods?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q6" data-correct="true"> Unit Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q6"> Integration Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q6"> System Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q6"> Acceptance Testing
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>7. What is Integration Testing?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q7"> Testing individual components in isolation
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q7" data-correct="true"> Testing combined parts of an application
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q7"> Testing the complete system
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q7"> Testing by end users
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>8. Which testing is performed by actual users/stakeholders?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q8"> System Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q8" data-correct="true"> User Acceptance Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q8"> Integration Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q8"> Unit Testing
+                    </label>
+                </div>
+            </div>
+
+            <!-- Page 2: Testing Types & Techniques -->
+            <div class="quiz-page" id="page2">
+                <div class="quiz-question">
+                    <h4>9. What is Functional Testing primarily concerned with?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q9"> How fast the system performs
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q9" data-correct="true"> What the system does
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q9"> How secure the system is
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q9"> How user-friendly the interface is
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>10. Which is NOT a type of Non-Functional Testing?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q10"> Performance Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q10"> Security Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q10"> Usability Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q10" data-correct="true"> Unit Testing
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>11. What is Regression Testing?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q11" data-correct="true"> Testing to ensure new changes don't break existing functionality
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q11"> Testing all possible input combinations
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q11"> Testing by going backward through code
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q11"> Testing only new features
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>12. What is Smoke Testing also known as?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q12"> Deep Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q12"> Comprehensive Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q12" data-correct="true"> Build Verification Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q12"> User Testing
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>13. Which testing involves examining code without executing it?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q13" data-correct="true"> Static Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q13"> Dynamic Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q13"> Black Box Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q13"> White Box Testing
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>14. What is White Box Testing also called?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q14"> Behavioral Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q14"> Functional Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q14" data-correct="true"> Structural Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q14"> System Testing
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>15. In Black Box Testing, the tester has:</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q15"> Full knowledge of internal code
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q15" data-correct="true"> No knowledge of internal code
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q15"> Partial knowledge of internal code
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q15"> Access to database schema only
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>16. Which testing technique tests at the boundaries of input ranges?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q16"> Equivalence Partitioning
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q16" data-correct="true"> Boundary Value Analysis
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q16"> Decision Table Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q16"> State Transition Testing
+                    </label>
+                </div>
+            </div>
+
+            <!-- Page 3: Bug Management & Lifecycle -->
+            <div class="quiz-page" id="page3">
+                <div class="quiz-question">
+                    <h4>17. What is the first status in bug lifecycle?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q17" data-correct="true"> New
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q17"> Assigned
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q17"> In Progress
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q17"> Fixed
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>18. Which bug status indicates the developer has completed the fix?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q18"> Assigned
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q18"> In Progress
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q18" data-correct="true"> Fixed
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q18"> Verified
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>19. What does bug "Severity" refer to?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q19"> How quickly the bug should be fixed
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q19" data-correct="true"> Technical impact of the bug on system
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q19"> Business importance of the bug
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q19"> How many users are affected
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>20. What does bug "Priority" refer to?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q20"> Technical complexity of fixing the bug
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q20"> Size of the bug
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q20" data-correct="true"> Business importance/urgency to fix
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q20"> Time taken to reproduce the bug
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>21. A bug causing application crash would have what severity?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q21"> Minor
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q21"> Major
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q21" data-correct="true"> Critical
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q21"> Trivial
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>22. A typo in error message would typically have what severity?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q22"> Critical
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q22"> Major
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q22"> Minor
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q22" data-correct="true"> Trivial
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>23. Which is NOT a valid bug status?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q23"> Reopened
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q23"> Duplicate
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q23"> Won't Fix
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q23" data-correct="true"> Ignored
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>24. What does "Won't Fix" bug status mean?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q24"> Bug is too difficult to fix
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q24"> Bug will be fixed in next release
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q24" data-correct="true"> Bug is accepted but not fixed for business/technical reasons
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q24"> Bug needs more information
+                    </label>
+                </div>
+            </div>
+
+            <!-- Page 4: Testing Principles & Strategies -->
+            <div class="quiz-page" id="page4">
+                <div class="quiz-question">
+                    <h4>25. Which testing principle states "Testing shows presence of defects"?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q25"> Exhaustive testing is impossible
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q25"> Early testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q25" data-correct="true"> Testing shows presence of defects
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q25"> Defect clustering
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>26. "Pesticide Paradox" in testing refers to:</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q26"> Using same test data repeatedly
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q26" data-correct="true"> Repeating same tests finds fewer new defects
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q26"> Testing with toxic test data
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q26"> Eliminating all bugs is impossible
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>27. "Defect Clustering" principle suggests:</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q27" data-correct="true"> Small number of modules contain most defects
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q27"> Defects are evenly distributed
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q27"> All modules have same defect density
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q27"> Defects cluster around new features only
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>28. "Absence-of-errors fallacy" means:</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q28"> No software is error-free
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q28"> Finding all errors is impossible
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q28" data-correct="true"> No defects ≠ useful/usable product
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q28"> Errors are always present
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>29. Which is a testing strategy rather than a technique?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q29"> Boundary Value Analysis
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q29"> Equivalence Partitioning
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q29" data-correct="true"> Risk-Based Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q29"> Decision Table Testing
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>30. What is "Big Bang" testing approach?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q30"> Testing each module as it's developed
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q30" data-correct="true"> Testing entire system after all components integrated
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q30"> Testing with maximum load
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q30"> Testing all possible scenarios
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>31. In Risk-Based Testing, what is tested first?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q31"> Newest features
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q31"> Oldest features
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q31" data-correct="true"> Highest risk areas
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q31"> Randomly selected areas
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>32. Which is true about "Exhaustive testing"?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q32"> It's the best testing approach
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q32"> It's recommended for all projects
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q32" data-correct="true"> It's impossible in practice
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q32"> It guarantees bug-free software
+                    </label>
+                </div>
+            </div>
+
+            <!-- Page 5: Tools & Best Practices -->
+            <div class="quiz-page" id="page5">
+                <div class="quiz-question">
+                    <h4>33. Which tool is commonly used for unit testing in Java?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q33"> Selenium
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q33"> JMeter
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q33" data-correct="true"> JUnit
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q33"> Postman
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>34. Which tool is used for automated web testing?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q34" data-correct="true"> Selenium
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q34"> JUnit
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q34"> LoadRunner
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q34"> SonarQube
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>35. JMeter is primarily used for:</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q35"> Unit Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q35"> Security Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q35" data-correct="true"> Performance Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q35"> Database Testing
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>36. Which is a security testing tool?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q36"> JUnit
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q36"> Selenium
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q36" data-correct="true"> OWASP ZAP
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q36"> TestNG
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>37. When is manual testing preferred over automation?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q37"> For regression testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q37"> For load testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q37" data-correct="true"> For exploratory testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q37"> For data-driven testing
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>38. What is the main advantage of automated testing?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q38"> Lower initial cost
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q38"> Better at finding UI issues
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q38" data-correct="true"> Faster execution of repetitive tests
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q38"> No maintenance required
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>39. Which is NOT a test design technique?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q39"> Equivalence Partitioning
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q39"> Boundary Value Analysis
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q39"> Decision Table Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q39" data-correct="true"> Agile Testing
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>40. What does UAT stand for?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q40"> Unit Acceptance Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q40" data-correct="true"> User Acceptance Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q40"> Universal Acceptance Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q40"> Ultimate Acceptance Testing
+                    </label>
+                </div>
+            </div>
+
+            <!-- Page 6: Advanced & Scenario Based -->
+            <div class="quiz-page" id="page6">
+                <div class="quiz-question">
+                    <h4>41. Which testing type focuses on user interface and user experience?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q41"> Performance Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q41"> Security Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q41" data-correct="true"> Usability Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q41"> Compatibility Testing
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>42. What is "Alpha Testing"?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q42" data-correct="true"> Testing by internal test team before release
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q42"> Testing by end users at their location
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q42"> Testing individual units of code
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q42"> Testing system performance under load
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>43. What is "Beta Testing"?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q43"> Testing by developers
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q43" data-correct="true"> Testing by select group of real users in real environment
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q43"> Testing security vulnerabilities
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q43"> Testing all possible input combinations
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>44. Which testing ensures software works across different browsers?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q44"> Performance Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q44"> Security Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q44" data-correct="true"> Compatibility Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q44"> Usability Testing
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>45. What is "Load Testing"?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q45"> Testing with maximum possible load
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q45" data-correct="true"> Testing system behavior under expected load
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q45"> Testing with increasing load until failure
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q45"> Testing individual component load
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>46. What is "Stress Testing"?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q46"> Testing with normal load
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q46" data-correct="true"> Testing beyond normal operational capacity
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q46"> Testing security under stress
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q46"> Testing user stress levels
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>47. Which testing checks if software meets specified requirements?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q47"> Ad-hoc Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q47"> Exploratory Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q47" data-correct="true"> Requirements Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q47"> Monkey Testing
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>48. What is "Ad-hoc Testing"?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q48"> Testing with formal test cases
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q48" data-correct="true"> Informal testing without planning
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q48"> Testing ad components
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q48"> Testing advertisement features
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>49. Which testing is done after bug fixes?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q49"> Smoke Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q49" data-correct="true"> Retesting
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q49"> System Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q49"> Integration Testing
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>50. What is "Exploratory Testing"?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q50"> Testing with predefined test cases
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q50" data-correct="true"> Simultaneous learning, test design, and execution
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q50"> Testing exploration features
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q50"> Testing geographical features
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>51. Which testing focuses on people with disabilities?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q51"> Usability Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q51" data-correct="true"> Accessibility Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q51"> Compatibility Testing
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q51"> Performance Testing
+                    </label>
+                </div>
+
+                <div class="quiz-question">
+                    <h4>52. What is "Sanity Testing"?</h4>
+                    <label class="quiz-option">
+                        <input type="radio" name="q52"> Testing mental health features
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q52" data-correct="true"> Quick test to verify basic functionality works
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q52"> Testing all features thoroughly
+                    </label>
+                    <label class="quiz-option">
+                        <input type="radio" name="q52"> Testing error handling
+                    </label>
+                </div>
+            </div>
+            
+            <!-- Submit Button -->
+            <button id="submitQuiz" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 20px; display: block; width: 100%;">
+                <i class="fas fa-paper-plane"></i> Submit All Answers (50+ Questions)
+            </button>
+            
+            <!-- Results Section -->
+            <div id="quizResults" style="display: none; margin-top: 30px; padding: 20px; background: #f0f9ff; border-radius: 10px; border-left: 4px solid #3b82f6;">
+                <h3><i class="fas fa-chart-bar"></i> Quiz Results</h3>
+                <div style="display: flex; align-items: center; gap: 20px; margin: 15px 0;">
+                    <div style="flex: 1; text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: 700; color: #3b82f6;" id="scoreDisplay">0/52</div>
+                        <div style="color: #64748b;">Total Score</div>
+                    </div>
+                    <div style="flex: 2;">
+                        <div style="background: #e2e8f0; height: 20px; border-radius: 10px; overflow: hidden; margin-bottom: 10px;">
+                            <div id="scoreBar" style="height: 100%; background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); width: 0%; transition: width 1s;"></div>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: #64748b;">
+                            <span>0%</span>
+                            <span id="percentageDisplay">0%</span>
+                            <span>100%</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin-top: 20px;">
+                    <div style="background: #d1fae5; padding: 15px; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 1.8rem; font-weight: 700; color: #065f46;" id="correctCount">0</div>
+                        <div style="color: #065f46;">Correct</div>
+                    </div>
+                    <div style="background: #fef3c7; padding: 15px; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 1.8rem; font-weight: 700; color: #92400e;" id="incorrectCount">0</div>
+                        <div style="color: #92400e;">Incorrect</div>
+                    </div>
+                    <div style="background: #fce7f3; padding: 15px; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 1.8rem; font-weight: 700; color: #9d174d;" id="unansweredCount">52</div>
+                        <div style="color: #9d174d;">Unanswered</div>
+                    </div>
+                    <div style="background: #e0e7ff; padding: 15px; border-radius: 8px; text-align: center;">
+                        <div style="font-size: 1.8rem; font-weight: 700; color: #3730a3;" id="totalCount">52</div>
+                        <div style="color: #3730a3;">Total Questions</div>
+                    </div>
+                </div>
+                
+                <button id="reviewQuiz" style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); color: white; border: none; padding: 12px 24px; border-radius: 8px; font-weight: 600; cursor: pointer; margin-top: 20px; width: 100%;">
+                    <i class="fas fa-search"></i> Review Answers
+                </button>
+            </div>
+        </div>
+        
+        <div class="key-takeaways">
+            <h3><i class="fas fa-graduation-cap"></i> Quiz Categories Covered</h3>
+            <ul>
+                <li>Basic Testing Concepts & Fundamentals</li>
+                <li>SDLC vs STLC & Development Processes</li>
+                <li>Testing Types & Classification</li>
+                <li>Bug Management & Lifecycle</li>
+                <li>Testing Principles & Strategies</li>
+                <li>Testing Tools & Best Practices</li>
+                <li>Advanced & Scenario-Based Questions</li>
             </ul>
         </div>
-
-        <!-- Section 2: SDLC vs STLC -->
-        <div class="section">
-            <h2>1.2: SDLC vs STLC</h2>
-            
-            <h3>Software Development Life Cycle (SDLC)</h3>
-            <p>SDLC is the overall process of developing software from conception to deployment and maintenance.</p>
-            
-            <div class="lifecycle-stages">
-                <div class="stage">1. Planning</div>
-                <div class="stage">2. Analysis</div>
-                <div class="stage">3. Design</div>
-                <div class="stage">4. Development</div>
-                <div class="stage">5. Testing</div>
-                <div class="stage">6. Deployment</div>
-                <div class="stage">7. Maintenance</div>
-            </div>
-
-            <h3>Software Testing Life Cycle (STLC)</h3>
-            <p>STLC is a subset of SDLC, focusing specifically on the quality assurance and testing activities.</p>
-
-            <table class="comparison-table">
-                <tr>
-                    <th>Aspect</th>
-                    <th>SDLC</th>
-                    <th>STLC</th>
-                </tr>
-                <tr>
-                    <td><strong>Scope</strong></td>
-                    <td>Entire software development process</td>
-                    <td>Testing and QA activities only</td>
-                </tr>
-                <tr>
-                    <td><strong>Duration</strong></td>
-                    <td>Months to years</td>
-                    <td>Part of SDLC, typically weeks</td>
-                </tr>
-                <tr>
-                    <td><strong>Phases</strong></td>
-                    <td>Planning → Design → Development → Testing → Deployment</td>
-                    <td>Test Planning → Design → Execution → Closure</td>
-                </tr>
-                <tr>
-                    <td><strong>Participants</strong></td>
-                    <td>Everyone (managers, developers, testers, DevOps)</td>
-                    <td>QA team, developers, business analysts</td>
-                </tr>
-                <tr>
-                    <td><strong>Outcome</strong></td>
-                    <td>Complete software product</td>
-                    <td>Quality assurance report, test cases, bug reports</td>
-                </tr>
-            </table>
-
-            <div class="key-takeaways">
-                <strong>Key Takeaway:</strong>
-                <ul>
-                    <li>SDLC is the big picture (how software is built)</li>
-                    <li>STLC is testing's role within SDLC (how software is verified)</li>
-                    <li>Testing happens throughout SDLC, not just at the end</li>
-                </ul>
-            </div>
+    </div>
+</div>
         </div>
 
-        <!-- Section 3: Types of Testing -->
-        <div class="section">
-            <h2>1.3: Comprehensive Types of Testing</h2>
-            
-            <!-- Comprehensive Testing Classification Table -->
-            <h3>Testing Classification Matrix</h3>
-            <table class="comparison-table">
-                <tr>
-                    <th>Category</th>
-                    <th>Testing Type</th>
-                    <th>Purpose / Focus</th>
-                    <th>Common Tools / Methods</th>
-                </tr>
-                <tr>
-                    <td rowspan="5"><strong>Functional Testing</strong></td>
-                    <td>Unit Testing</td>
-                    <td>Tests individual functions/methods in isolation</td>
-                    <td>JUnit, NUnit, pytest, Jest</td>
-                </tr>
-                <tr>
-                    <td>Integration Testing</td>
-                    <td>Tests interaction between integrated units/modules</td>
-                    <td>TestNG, Postman, SoapUI</td>
-                </tr>
-                <tr>
-                    <td>System Testing</td>
-                    <td>Tests complete integrated system end-to-end</td>
-                    <td>Selenium, Cypress, Manual testing</td>
-                </tr>
-                <tr>
-                    <td>Acceptance Testing</td>
-                    <td>Validates if system meets business requirements (UAT)</td>
-                    <td>Cucumber, FitNesse, Manual scenarios</td>
-                </tr>
-                <tr>
-                    <td>Regression Testing</td>
-                    <td>Ensures new changes don't break existing functionality</td>
-                    <td>Selenium, QTP, TestComplete</td>
-                </tr>
-                <tr>
-                    <td rowspan="5"><strong>Non-Functional Testing</strong></td>
-                    <td>Performance Testing</td>
-                    <td>Evaluates speed, scalability, stability under load</td>
-                    <td>JMeter, LoadRunner, Gatling</td>
-                </tr>
-                <tr>
-                    <td>Security Testing</td>
-                    <td>Identifies vulnerabilities and security risks</td>
-                    <td>OWASP ZAP, Burp Suite, Nessus</td>
-                </tr>
-                <tr>
-                    <td>Usability Testing</td>
-                    <td>Assesses user-friendliness and UI/UX</td>
-                    <td>User interviews, Surveys, Heatmaps</td>
-                </tr>
-                <tr>
-                    <td>Compatibility Testing</td>
-                    <td>Checks software works across browsers/OS/devices</td>
-                    <td>BrowserStack, Sauce Labs, LambdaTest</td>
-                </tr>
-                <tr>
-                    <td>Accessibility Testing</td>
-                    <td>Ensures software usable by people with disabilities</td>
-                    <td>axe, WAVE, JAWS screen reader</td>
-                </tr>
-                <tr>
-                    <td rowspan="4"><strong>By Test Design</strong></td>
-                    <td>White Box Testing</td>
-                    <td>Tests internal structure/code (developer perspective)</td>
-                    <td>Code reviews, Static analysis, Unit tests</td>
-                </tr>
-                <tr>
-                    <td>Black Box Testing</td>
-                    <td>Tests functionality without knowing internal code</td>
-                    <td>Requirement-based, Equivalence partitioning</td>
-                </tr>
-                <tr>
-                    <td>Gray Box Testing</td>
-                    <td>Combines white & black box (partial code knowledge)</td>
-                    <td>Database testing, API testing</td>
-                </tr>
-                <tr>
-                    <td>Exploratory Testing</td>
-                    <td>Simultaneous learning, test design & execution</td>
-                    <td>Session-based, Charter-based testing</td>
-                </tr>
-            </table>
-
-            <!-- Functional vs Non-Functional Comparison -->
-            <h3>Functional vs Non-Functional Testing</h3>
-            <table class="comparison-table">
-                <tr>
-                    <th>Aspect</th>
-                    <th>Functional Testing</th>
-                    <th>Non-Functional Testing</th>
-                </tr>
-                <tr>
-                    <td><strong>Focus</strong></td>
-                    <td><em>What</em> the system does</td>
-                    <td><em>How well</em> the system performs</td>
-                </tr>
-                <tr>
-                    <td><strong>Based On</strong></td>
-                    <td>Business requirements, specifications</td>
-                    <td>Performance criteria, user expectations</td>
-                </tr>
-                <tr>
-                    <td><strong>Objective</strong></td>
-                    <td>Validate software actions/outputs</td>
-                    <td>Validate software behavior/attributes</td>
-                </tr>
-                <tr>
-                    <td><strong>Examples</strong></td>
-                    <td>Login, Payment processing, Search</td>
-                    <td>Load time, Security, Usability, Compatibility</td>
-                </tr>
-                <tr>
-                    <td><strong>Test Cases</strong></td>
-                    <td>Can be easily defined from requirements</td>
-                    <td>Often requires special tools/scenarios</td>
-                </tr>
-                <tr>
-                    <td><strong>Timing</strong></td>
-                    <td>Performed before non-functional testing</td>
-                    <td>Performed after functional testing passes</td>
-                </tr>
-            </table>
-
-            <div class="concept-box">
-                <strong>Key Insight:</strong> Most projects use a balanced mix of manual and automated testing. Manual testing is ideal for exploratory and usability testing, while automated testing excels at regression and performance testing.
-            </div>
-        </div>
-
-        <!-- Section 4: Static vs Dynamic Testing -->
-        <div class="section">
-            <h2>1.4: Static vs Dynamic Testing</h2>
-            
-            <h3>Static Testing (Verification)</h3>
-            <p>Examining software work products (documentation, code) without executing them.</p>
-            
-            <h3>Dynamic Testing (Validation)</h3>
-            <p>Executing software with test data to observe runtime behavior.</p>
-
-            <table class="comparison-table">
-                <tr>
-                    <th>Aspect</th>
-                    <th>Static Testing</th>
-                    <th>Dynamic Testing</th>
-                </tr>
-                <tr>
-                    <td><strong>When Performed</strong></td>
-                    <td>Early in SDLC (requirements, design, coding phases)</td>
-                    <td>Later in SDLC (after executable code is available)</td>
-                </tr>
-                <tr>
-                    <td><strong>What is Tested</strong></td>
-                    <td>Documents, requirements, code, designs</td>
-                    <td>Running application, actual output</td>
-                </tr>
-                <tr>
-                    <td><strong>Techniques</strong></td>
-                    <td>Reviews, walkthroughs, inspections, static analysis</td>
-                    <td>Unit, integration, system, acceptance testing</td>
-                </tr>
-                <tr>
-                    <td><strong>Defect Finding</strong></td>
-                    <td>Finds defects early (cheaper to fix)</td>
-                    <td>Finds runtime, functional defects</td>
-                </tr>
-                <tr>
-                    <td><strong>Cost to Fix Defects</strong></td>
-                    <td>Low (early in lifecycle)</td>
-                    <td>High (later in lifecycle)</td>
-                </tr>
-                <tr>
-                    <td><strong>Automation</strong></td>
-                    <td>Static analysis tools (SonarQube, ESLint)</td>
-                    <td>Test automation tools (Selenium, JMeter)</td>
-                </tr>
-            </table>
-
-            <div class="concept-box">
-                <strong>Best Practice:</strong> Effective testing strategy includes both static and dynamic testing. Static testing prevents defects from being introduced, while dynamic testing uncovers defects in the running application.
-            </div>
-        </div>
-
-        <!-- Section 5: Bug Lifecycle -->
-        <div class="section">
-            <h2>1.5: Bug Lifecycle</h2>
-            <p>Understanding how bugs flow through the system helps with communication and prioritization.</p>
-
-            <div class="lifecycle-stages" style="margin: 20px 0;">
-                <div class="stage">NEW</div>
-                <div class="stage">ASSIGNED</div>
-                <div class="stage">IN PROGRESS</div>
-                <div class="stage">FIXED</div>
-                <div class="stage">VERIFIED</div>
-                <div class="stage">CLOSED</div>
-            </div>
-
-            <h3>Bug Status Definitions</h3>
-            <ul style="margin-left: 20px; color: #666; line-height: 1.8;">
-                <li><strong>NEW:</strong> Bug just reported, not yet reviewed</li>
-                <li><strong>ASSIGNED:</strong> Bug assigned to a developer</li>
-                <li><strong>IN PROGRESS:</strong> Developer is working on the fix</li>
-                <li><strong>FIXED:</strong> Developer says bug is fixed, awaiting verification</li>
-                <li><strong>VERIFIED:</strong> Tester confirms the fix works</li>
-                <li><strong>CLOSED:</strong> Bug is resolved and closed</li>
-                <li><strong>REOPENED:</strong> (If fix doesn't work) Bug goes back to IN PROGRESS</li>
-                <li><strong>WONT FIX:</strong> Decided not to fix for business reasons</li>
-                <li><strong>DUPLICATE:</strong> Same bug already reported</li>
-            </ul>
-
-            <div class="concept-box" style="margin-top: 20px;">
-                <strong>Pro Tip:</strong> Always provide clear, reproducible steps when reporting a bug. This helps developers fix it faster.
-            </div>
-        </div>
-
-        <!-- Section 6: Bug Severity & Priority -->
-        <div class="section">
-            <h2>1.6: Bug Severity vs Priority</h2>
-
-            <h3>Severity (Technical Impact)</h3>
-            <table class="comparison-table">
-                <tr>
-                    <th>Level</th>
-                    <th>Description</th>
-                    <th>Example</th>
-                </tr>
-                <tr>
-                    <td><strong style="color: #d32f2f;">CRITICAL</strong></td>
-                    <td>Application crashes or core feature broken</td>
-                    <td>Payment button doesn't work</td>
-                </tr>
-                <tr>
-                    <td><strong style="color: #f57c00;">MAJOR</strong></td>
-                    <td>Important feature doesn't work</td>
-                    <td>Login takes 10 seconds</td>
-                </tr>
-                <tr>
-                    <td><strong style="color: #fbc02d;">MINOR</strong></td>
-                    <td>Minor issue, workaround exists</td>
-                    <td>Button text alignment off</td>
-                </tr>
-                <tr>
-                    <td><strong style="color: #388e3c;">TRIVIAL</strong></td>
-                    <td>Cosmetic issue</td>
-                    <td>Typo in confirmation message</td>
-                </tr>
-            </table>
-
-            <h3>Priority (Business Impact)</h3>
-            <table class="comparison-table">
-                <tr>
-                    <th>Level</th>
-                    <th>Description</th>
-                    <th>When to Fix</th>
-                </tr>
-                <tr>
-                    <td><strong style="color: #d32f2f;">P1 (URGENT)</strong></td>
-                    <td>Must fix before release</td>
-                    <td>Immediately</td>
-                </tr>
-                <tr>
-                    <td><strong style="color: #f57c00;">P2 (HIGH)</strong></td>
-                    <td>Should fix before release</td>
-                    <td>ASAP</td>
-                </tr>
-                <tr>
-                    <td><strong style="color: #fbc02d;">P3 (MEDIUM)</strong></td>
-                    <td>Can fix in next release</td>
-                    <td>Next sprint</td>
-                </tr>
-                <tr>
-                    <td><strong style="color: #388e3c;">P4 (LOW)</strong></td>
-                    <td>Nice to have fix</td>
-                    <td>Whenever possible</td>
-                </tr>
-            </table>
-
-            <div class="concept-box" style="margin-top: 20px;">
-                <strong>Important:</strong> A bug can be HIGH severity (technically broken) but LOW priority (rarely used feature). Conversely, a TRIVIAL severity (cosmetic) can be HIGH priority (company logo looks wrong).
-            </div>
-        </div>
-
-        <!-- Section 7: Testing Principles & Strategies -->
-        <div class="section">
-            <h2>1.7: Testing Principles & Strategies</h2>
-            
-            <h3>Core Testing Principles</h3>
-            <table class="comparison-table">
-                <tr>
-                    <th>Principle</th>
-                    <th>Description</th>
-                    <th>Implication for Testers</th>
-                </tr>
-                <tr>
-                    <td><strong>Exhaustive testing is impossible</strong></td>
-                    <td>Cannot test all combinations of inputs/preconditions</td>
-                    <td>Use risk-based & priority-based testing</td>
-                </tr>
-                <tr>
-                    <td><strong>Defect clustering</strong></td>
-                    <td>Small number of modules contain most defects</td>
-                    <td>Focus testing on critical/complex modules</td>
-                </tr>
-                <tr>
-                    <td><strong>Pesticide paradox</strong></td>
-                    <td>Repeating same tests finds fewer new defects</td>
-                    <td>Regularly review & update test cases</td>
-                </tr>
-                <tr>
-                    <td><strong>Testing shows presence of defects</strong></td>
-                    <td>Testing can prove defects exist, not their absence</td>
-                    <td>Testing reduces probability of undiscovered defects</td>
-                </tr>
-                <tr>
-                    <td><strong>Absence-of-errors fallacy</strong></td>
-                    <td>No defects ≠ useful/usable product</td>
-                    <td>Focus on requirements & user needs, not just bug count</td>
-                </tr>
-                <tr>
-                    <td><strong>Early testing</strong></td>
-                    <td>Testing should start as early as possible</td>
-                    <td>Involve testers in requirements & design reviews</td>
-                </tr>
-                <tr>
-                    <td><strong>Testing is context dependent</strong></td>
-                    <td>Different software needs different testing approaches</td>
-                    <td>Medical software testing ≠ e-commerce website testing</td>
-                </tr>
-            </table>
-
-            <div class="concept-box">
-                <strong>Remember:</strong> No single testing approach fits all projects. The best testing strategy depends on project context, risks, timeline, and resources.
-            </div>
-        </div>
-
-        <!-- NEW SECTION: Interview Questions & Answers -->
-        <div class="section">
-            <h2>🎤 1.8: Interview Preparation - QA Testing Questions</h2>
-            <p>This section contains common interview questions for QA/testing positions with detailed answers. Practice these to ace your interviews!</p>
-
-            <div class="tips-box">
-                <strong>💡 Interview Tips:</strong>
-                <ul style="margin: 10px 0 0 20px;">
-                    <li>Use the <strong>STAR method</strong> (Situation, Task, Action, Result) for behavioral questions</li>
-                    <li>Be honest about what you don't know - show willingness to learn</li>
-                    <li>Ask thoughtful questions about their testing processes</li>
-                    <li>Have specific examples ready from your experience</li>
-                </ul>
-            </div>
-
-            <!-- Question 1 -->
-            <div class="interview-question">
-                <span class="question-tag">Fundamental</span>
-                <span class="difficulty-indicator difficulty-beginner">Beginner</span>
-                <h4>1. What is software testing and why is it important?</h4>
-            </div>
-            <div class="interview-answer">
-                <div class="answer-structure">
-                    <strong>Answer Structure:</strong> Definition + Importance + Business Impact
-                </div>
-                <p><strong>Answer:</strong> Software testing is the process of evaluating a software application to identify differences between expected and actual results. It's not just about finding bugs but ensuring quality, reliability, and that the software meets requirements.</p>
-                
-                <p><strong>Importance includes:</strong></p>
-                <ul style="margin: 10px 0 10px 20px;">
-                    <li><strong>Cost Efficiency:</strong> Fixing bugs in production is 5-10x more expensive than in early stages</li>
-                    <li><strong>Customer Satisfaction:</strong> Quality software leads to happy users and better retention</li>
-                    <li><strong>Security:</strong> Identifies vulnerabilities before they're exploited</li>
-                    <li><strong>Risk Management:</strong> Reduces business risks associated with software failures</li>
-                    <li><strong>Compliance:</strong> Many industries (healthcare, finance) require rigorous testing for regulatory compliance</li>
-                </ul>
-                
-                <div class="followup-question">
-                    <strong>Follow-up question they might ask:</strong> "Can you give an example of how poor testing cost a company significantly?"
-                    <p><em>Example answer:</em> "The Knight Capital Group lost $440 million in 45 minutes due to untested deployment of trading software. Proper regression testing could have prevented this."</p>
-                </div>
-            </div>
-
-            <!-- Question 2 -->
-            <div class="interview-question">
-                <span class="question-tag">Testing Types</span>
-                <span class="difficulty-indicator difficulty-intermediate">Intermediate</span>
-                <h4>2. Explain the difference between verification and validation.</h4>
-            </div>
-            <div class="interview-answer">
-                <p><strong>Answer:</strong> This is often summarized as "Are we building the product right?" vs "Are we building the right product?"</p>
-                
-                <table class="comparison-table">
-                    <tr>
-                        <th>Aspect</th>
-                        <th>Verification</th>
-                        <th>Validation</th>
-                    </tr>
-                    <tr>
-                        <td><strong>Focus</strong></td>
-                        <td>Process-oriented (static testing)</td>
-                        <td>Product-oriented (dynamic testing)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Question</strong></td>
-                        <td>Are we building the product right?</td>
-                        <td>Are we building the right product?</td>
-                    </tr>
-                    <tr>
-                        <td><strong>When</strong></td>
-                        <td>Throughout development (early and continuous)</td>
-                        <td>After verifiable product is available</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Methods</strong></td>
-                        <td>Reviews, walkthroughs, inspections</td>
-                        <td>Testing, UAT, beta testing</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Examples</strong></td>
-                        <td>Code review, requirement analysis</td>
-                        <td>Functional testing, usability testing</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Defects Found</strong></td>
-                        <td>Early-stage defects (cheaper to fix)</td>
-                        <td>Runtime/functional defects</td>
-                    </tr>
-                </table>
-                
-                <p><strong>Practical example:</strong> Verification is checking that a login screen has all required fields (email, password, submit button) per specifications. Validation is actually trying to log in with valid/invalid credentials to see if it works correctly.</p>
-            </div>
-
-            <!-- Question 3 -->
-            <div class="interview-question">
-                <span class="question-tag">Test Design</span>
-                <span class="difficulty-indicator difficulty-intermediate">Intermediate</span>
-                <h4>3. What is equivalence partitioning and boundary value analysis? Give examples.</h4>
-            </div>
-            <div class="interview-answer">
-                <p><strong>Answer:</strong> These are black-box test design techniques that help reduce the number of test cases while maintaining coverage.</p>
-                
-                <p><strong>Equivalence Partitioning:</strong> Divides input data into valid and invalid partitions where all values in a partition should behave the same way.</p>
-                <ul style="margin: 10px 0 10px 20px;">
-                    <li><strong>Example:</strong> A field accepts ages 18-60
-                        <ul>
-                            <li>Valid partition: 18-60 (test with one value, e.g., 30)</li>
-                            <li>Invalid partitions: &lt;18 (e.g., 17) and &gt;60 (e.g., 61)</li>
-                        </ul>
-                    </li>
-                </ul>
-                
-                <p><strong>Boundary Value Analysis:</strong> Tests at the boundaries between partitions since errors often occur at edges.</p>
-                <ul style="margin: 10px 0 10px 20px;">
-                    <li><strong>Example:</strong> Same age field 18-60
-                        <ul>
-                            <li>Test values: 17, 18, 19 (around lower boundary)</li>
-                            <li>Test values: 59, 60, 61 (around upper boundary)</li>
-                        </ul>
-                    </li>
-                </ul>
-                
-                <div class="scenario-question">
-                    <strong>Scenario for practice:</strong> "How would you test a password field that must be 8-16 characters with at least one number and one special character?"
-                    <p><em>Think about:</em> Valid partitions (8-16 chars with requirements), invalid partitions (too short, too long, missing requirements), boundary values (7,8,9 and 15,16,17).</p>
-                </div>
-            </div>
-
-            <!-- Question 4 -->
-            <div class="interview-question">
-                <span class="question-tag">Bug Management</span>
-                <span class="difficulty-indicator difficulty-intermediate">Intermediate</span>
-                <h4>4. What information should a good bug report contain?</h4>
-            </div>
-            <div class="interview-answer">
-                <p><strong>Answer:</strong> A comprehensive bug report should contain enough information for developers to reproduce, understand, and fix the issue.</p>
-                
-                <p><strong>Essential elements:</strong></p>
-                <ol style="margin: 10px 0 10px 20px;">
-                    <li><strong>Title/Summary:</strong> Clear, concise description (e.g., "Login fails with valid credentials after 3 attempts")</li>
-                    <li><strong>Environment:</strong> OS, browser, device, app version, any relevant configuration</li>
-                    <li><strong>Steps to Reproduce:</strong> Numbered, detailed, exact steps
-                        <ul>
-                            <li><em>Good:</em> "1. Navigate to https://example.com/login 2. Enter test@email.com in email field 3. Enter Password123! in password field 4. Click Login button"</li>
-                            <li><em>Bad:</em> "Login doesn't work"</li>
-                        </ul>
-                    </li>
-                    <li><strong>Expected vs Actual Results:</strong> Clearly state both
-                        <ul>
-                            <li>Expected: "User should be redirected to dashboard"</li>
-                            <li>Actual: "Error message 'Invalid credentials' appears"</li>
-                        </ul>
-                    </li>
-                    <li><strong>Severity & Priority:</strong> Your assessment of impact</li>
-                    <li><strong>Attachments:</strong> Screenshots, videos, logs, network traces</li>
-                    <li><strong>Test Data:</strong> Specific data used if relevant</li>
-                    <li><strong>Frequency:</strong> How often it occurs (always, intermittent, once)</li>
-                </ol>
-                
-                <p><strong>Pro tip:</strong> Imagine you're explaining the issue to someone who can't see your screen. Be specific enough that they could reproduce it exactly.</p>
-            </div>
-
-            <!-- Question 5 -->
-            <div class="interview-question">
-                <span class="question-tag">Scenario-Based</span>
-                <span class="difficulty-indicator difficulty-advanced">Advanced</span>
-                <h4>5. How would you test an e-commerce "Add to Cart" functionality?</h4>
-            </div>
-            <div class="interview-answer">
-                <p><strong>Answer:</strong> I'd approach this systematically, covering functional, non-functional, and edge cases.</p>
-                
-                <p><strong>Functional Testing:</strong></p>
-                <ul style="margin: 10px 0 10px 20px;">
-                    <li>Add single item to cart</li>
-                    <li>Add multiple quantities of same item</li>
-                    <li>Add different items to cart</li>
-                    <li>Verify cart updates in real-time (without page refresh)</li>
-                    <li>Check cart persists across sessions (if logged in)</li>
-                    <li>Verify item details in cart (price, name, image, options)</li>
-                    <li>Test from different pages (product page, search results, recommendations)</li>
-                </ul>
-                
-                <p><strong>Boundary & Error Cases:</strong></p>
-                <ul style="margin: 10px 0 10px 20px;">
-                    <li>Add item with zero/negative quantity</li>
-                    <li>Add more than available stock</li>
-                    <li>Add item that becomes unavailable after adding to cart</li>
-                    <li>Test with special characters in product names</li>
-                    <li>Test during high traffic (concurrency issues)</li>
-                </ul>
-                
-                <p><strong>Integration Testing:</strong></p>
-                <ul style="margin: 10px 0 10px 20px;">
-                    <li>Cart updates when inventory changes</li>
-                    <li>Price changes reflect in cart</li>
-                    <li>Promotions/discounts apply correctly</li>
-                    <li>Cart syncs across devices for logged-in users</li>
-                </ul>
-                
-                <p><strong>Non-Functional Testing:</strong></p>
-                <ul style="margin: 10px 0 10px 20px;">
-                    <li>Performance: How fast does cart update? Load with 100+ items</li>
-                    <li>Usability: Is the cart icon intuitive? Clear item count?</li>
-                    <li>Accessibility: Can screen readers interpret cart status?</li>
-                </ul>
-                
-                <p><strong>My approach:</strong> I'd start with happy path scenarios, then boundary cases, then error conditions, ensuring all requirements are covered with traceability back to specifications.</p>
-            </div>
-
-            <!-- Question 6 -->
-            <div class="interview-question">
-                <span class="question-tag">Process</span>
-                <span class="difficulty-indicator difficulty-intermediate">Intermediate</span>
-                <h4>6. What is the difference between retesting and regression testing?</h4>
-            </div>
-            <div class="interview-answer">
-                <p><strong>Answer:</strong> These are often confused but serve different purposes in the testing cycle.</p>
-                
-                <table class="comparison-table">
-                    <tr>
-                        <th>Aspect</th>
-                        <th>Retesting</th>
-                        <th>Regression Testing</th>
-                    </tr>
-                    <tr>
-                        <td><strong>Purpose</strong></td>
-                        <td>Verify specific bug fixes work</td>
-                        <td>Ensure new changes don't break existing functionality</td>
-                    </tr>
-                    <tr>
-                        <td><strong>What's Tested</strong></td>
-                        <td>Only the fixed defects</td>
-                        <td>Impacted areas and related functionality</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Test Cases</strong></td>
-                        <td>Specific to the bug</td>
-                        <td>Broad suite of existing tests</td>
-                    </tr>
-                    <tr>
-                        <td><strong>When</strong></td>
-                        <td>After developer fixes a bug</td>
-                        <td>After any change (bug fix, enhancement, config change)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Priority</strong></td>
-                        <td>High (must verify fix before release)</td>
-                        <td>High (ensures overall stability)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Example</strong></td>
-                        <td>Bug #123: Login fails with special characters - retest login with those specific characters</td>
-                        <td>After fixing login bug, test registration, password reset, profile update to ensure nothing else broke</td>
-                    </tr>
-                </table>
-                
-                <p><strong>Practical scenario:</strong> When a payment processing bug is fixed, retesting verifies that specific payment works. Regression testing verifies the entire checkout process, cart, inventory updates, email notifications, etc., still work correctly.</p>
-            </div>
-
-            <!-- Question 7 -->
-            <div class="interview-question">
-                <span class="question-tag">Automation</span>
-                <span class="difficulty-indicator difficulty-advanced">Advanced</span>
-                <h4>7. When should you automate tests vs. when should you do manual testing?</h4>
-            </div>
-            <div class="interview-answer">
-                <p><strong>Answer:</strong> The decision depends on multiple factors including ROI, stability, and test type.</p>
-                
-                <div class="answer-structure">
-                    <strong>Automate When:</strong>
-                </div>
-                <ul style="margin: 10px 0 10px 20px;">
-                    <li><strong>Repetitive tests:</strong> Same tests run frequently (regression suites)</li>
-                    <li><strong>Data-driven tests:</strong> Testing with multiple data sets</li>
-                    <li><strong>Load/performance tests:</strong> Simulating thousands of users</li>
-                    <li><strong>Stable functionality:</strong> Features unlikely to change soon</li>
-                    <li><strong>Complex calculations:</strong> Where manual verification is error-prone</li>
-                    <li><strong>Cross-browser/device testing:</strong> Running same tests on multiple configurations</li>
-                </ul>
-                
-                <div class="answer-structure">
-                    <strong>Manual Testing Preferred When:</strong>
-                </div>
-                <ul style="margin: 10px 0 10px 20px;">
-                    <li><strong>Exploratory testing:</strong> Learning the application, ad-hoc testing</li>
-                    <li><strong>Usability testing:</strong> Subjective user experience evaluation</li>
-                    <li><strong>One-time tests:</strong> Not worth automation effort</li>
-                    <li><strong>Frequently changing features:</strong> High maintenance cost for automation</li>
-                    <li><strong>Complex user interactions:</strong> Hard to automate reliably</li>
-                    <li><strong>Early development stages:</strong> When UI/functionality is unstable</li>
-                </ul>
-                
-                <p><strong>Decision Framework:</strong> Consider the <strong>ROI equation:</strong> Automation effort vs. Number of executions × Time saved per execution. Also consider maintenance cost and skill availability.</p>
-                
-                <p><strong>Example:</strong> A login functionality used by thousands daily should be automated. A new feature in beta with weekly UI changes should be tested manually initially.</p>
-            </div>
-
-            <!-- Question 8 -->
-            <div class="interview-question">
-                <span class="question-tag">Behavioral</span>
-                <span class="difficulty-indicator difficulty-intermediate">Intermediate</span>
-                <h4>8. Describe a time you found a difficult bug. How did you approach it?</h4>
-            </div>
-            <div class="interview-answer">
-                <div class="answer-structure">
-                    <strong>Use STAR Method:</strong> Situation → Task → Action → Result
-                </div>
-                
-                <p><strong>Sample Answer Structure:</strong></p>
-                
-                <p><strong>Situation:</strong> "In my previous project, we had an intermittent issue where the application would crash randomly for about 5% of users, but we couldn't reproduce it consistently in our test environment."</p>
-                
-                <p><strong>Task:</strong> "My task was to identify the root cause of this intermittent crash that was causing customer complaints and negatively impacting user experience."</p>
-                
-                <p><strong>Action:</strong> "I took a systematic approach:
-                    <ol style="margin: 10px 0 10px 20px;">
-                        <li>Analyzed crash logs and identified a pattern - crashes seemed related to memory usage</li>
-                        <li>Set up detailed monitoring to track memory usage during specific workflows</li>
-                        <li>Created a test harness to simulate extended user sessions</li>
-                        <li>Isolated the issue to a specific module that had a memory leak when processing large datasets</li>
-                        <li>Collaborated with developers to add more detailed logging</li>
-                        <li>Reproduced the issue by creating a specific test dataset that triggered the leak</li>
-                    </ol>
-                </p>
-                
-                <p><strong>Result:</strong> "We identified that a caching mechanism wasn't clearing properly. The fix reduced crashes by 95% and improved application stability. I also documented the debugging approach for similar future issues."</p>
-                
-                <div class="followup-question">
-                    <strong>What interviewers look for:</strong> Problem-solving approach, persistence, technical skills, collaboration, and documentation.
-                </div>
-            </div>
-
-            <!-- Interview Checklist -->
-            <div class="interview-checklist">
-                <h4>📋 Interview Preparation Checklist</h4>
-                <div class="checklist-item">
-                    <input type="checkbox" id="check1">
-                    <label for="check1">Review basic testing terminology and definitions</label>
-                </div>
-                <div class="checklist-item">
-                    <input type="checkbox" id="check2">
-                    <label for="check2">Practice explaining testing concepts in simple terms</label>
-                </div>
-                <div class="checklist-item">
-                    <input type="checkbox" id="check3">
-                    <label for="check3">Prepare 2-3 detailed examples from past experience</label>
-                </div>
-                <div class="checklist-item">
-                    <input type="checkbox" id="check4">
-                    <label for="check4">Review the company's products/services before interview</label>
-                </div>
-                <div class="checklist-item">
-                    <input type="checkbox" id="check5">
-                    <label for="check5">Prepare thoughtful questions to ask the interviewer</label>
-                </div>
-                <div class="checklist-item">
-                    <input type="checkbox" id="check6">
-                    <label for="check6">Practice coding/technical questions if applicable</label>
-                </div>
-                <div class="checklist-item">
-                    <input type="checkbox" id="check7">
-                    <label for="check7">Review test design techniques (equivalence partitioning, boundary value)</label>
-                </div>
-            </div>
-
-            <div class="concept-box">
-                <strong>Final Interview Tip:</strong> Be prepared to write test cases during the interview. Practice writing clear, detailed test cases for common scenarios like login, search, or checkout functionality.
-            </div>
-        </div>
-
-        <!-- Section 9: Quiz -->
-        <div class="section">
-            <h2>1.9: Quick Quiz</h2>
-            
-            <div class="quiz-box">
-                <h4>Question 1: What's the main difference between SDLC and STLC?</h4>
-                <label class="quiz-option">
-                    <input type="radio" name="q1"> SDLC is overall development, STLC is testing within SDLC
-                </label>
-                <label class="quiz-option">
-                    <input type="radio" name="q1"> They are the same thing
-                </label>
-                <label class="quiz-option">
-                    <input type="radio" name="q1"> SDLC is testing, STLC is development
-                </label>
-            </div>
-
-            <div class="quiz-box">
-                <h4>Question 2: When should a bug with CRITICAL severity and P4 priority be fixed?</h4>
-                <label class="quiz-option">
-                    <input type="radio" name="q2"> Immediately
-                </label>
-                <label class="quiz-option">
-                    <input type="radio" name="q2"> When possible (low urgency)
-                </label>
-                <label class="quiz-option">
-                    <input type="radio" name="q2"> Never
-                </label>
-            </div>
-
-            <div class="quiz-box">
-                <h4>Question 3: What is Smoke Testing?</h4>
-                <label class="quiz-option">
-                    <input type="radio" name="q3"> Testing if smoke detectors work
-                </label>
-                <label class="quiz-option">
-                    <input type="radio" name="q3"> Quick sanity check on new build before detailed testing
-                </label>
-                <label class="quiz-option">
-                    <input type="radio" name="q3"> Comprehensive testing of all features
-                </label>
-            </div>
-
-            <!-- NEW Quiz Question -->
-            <div class="quiz-box">
-                <h4>Question 4: Which testing principle states that "repeating the same tests finds fewer new defects"?</h4>
-                <label class="quiz-option">
-                    <input type="radio" name="q4"> Defect clustering
-                </label>
-                <label class="quiz-option">
-                    <input type="radio" name="q4"> Pesticide paradox
-                </label>
-                <label class="quiz-option">
-                    <input type="radio" name="q4"> Early testing
-                </label>
-                <label class="quiz-option">
-                    <input type="radio" name="q4"> Absence-of-errors fallacy
-                </label>
-            </div>
-
-            <!-- Interview Question Quiz -->
-            <div class="quiz-box">
-                <h4>Question 5: What is the main purpose of boundary value analysis?</h4>
-                <label class="quiz-option">
-                    <input type="radio" name="q5"> To test all possible input combinations
-                </label>
-                <label class="quiz-option">
-                    <input type="radio" name="q5"> To test at the edges of input ranges where errors often occur
-                </label>
-                <label class="quiz-option">
-                    <input type="radio" name="q5"> To reduce the number of test cases to exactly three
-                </label>
-                <label class="quiz-option">
-                    <input type="radio" name="q5"> To test only valid input values
-                </label>
-            </div>
-        </div>
-
-        <!-- Key Takeaways -->
-        <div class="section">
-            <h2>📝 Key Takeaways</h2>
-            <div class="key-takeaways">
-                <strong>You've learned:</strong>
-                <ul>
-                    <li>What software testing is and why it matters</li>
-                    <li>The difference between SDLC (overall process) and STLC (testing process)</li>
-                    <li><strong>Comprehensive testing types:</strong> Functional vs Non-Functional, Manual vs Automated, Static vs Dynamic</li>
-                    <li>Testing classifications: White box, Black box, Gray box testing</li>
-                    <li>How bugs flow through their lifecycle</li>
-                    <li>How to evaluate bugs by severity and priority</li>
-                    <li><strong>Core testing principles</strong> that guide effective testing strategies</li>
-                    <li>Different testing strategies for different project contexts</li>
-                    <li><strong>Interview preparation:</strong> Common QA questions with detailed answers and strategies</li>
-                </ul>
-            </div>
-        </div>
-
-        <!-- Navigation -->
+        <!-- Navigation Buttons -->
         <div class="navigation-buttons">
-            <a href="index.html" class="nav-button prev">← Back to Home</a>
-            <a href="test-design.html" class="nav-button next">Next: Test Design & Planning →</a>
+            <a href="index.html" class="nav-button prev">
+                <i class="fas fa-home"></i> Back to Home
+            </a>
+            <a href="test-design.html" class="nav-button next">
+                Next: Test Design & Planning <i class="fas fa-arrow-right"></i>
+            </a>
         </div>
     </div>
 
     <!-- Footer -->
     <footer>
-        <p class="mb-2">🧪 <strong><a href="index.html"  target="_self">Train'N'GetTrained</a></strong> - Complete Software Testing Bootcamp</p>
+        <p class="mb-2">🧪 <strong>Train'N'GetTrained</strong> - Complete Software Testing Bootcamp</p>
         <p class="text-sm">From Beginner to Professional QA Engineer | 26 Weeks | 100+ Hours | Real Projects</p>
-        <p class="text-xs mt-4 opacity-70">© 2025 <a href="index.html"  target="_self">Train'N'GetTrained</a>. All rights reserved. | For personal and educational use only. No commercial use allowed.</p>
+        <p class="text-xs mt-4 opacity-70">© 2025 Train'N'GetTrained. All rights reserved. | For personal and educational use only.</p>
     </footer>
 
     <script>
-        // Simple quiz functionality
-        document.querySelectorAll('.quiz-option').forEach(option => {
-            option.addEventListener('click', function() {
-                // Remove any previous selections in this question
-                const questionName = this.querySelector('input').name;
-                document.querySelectorAll(`input[name="${questionName}"]`).forEach(input => {
-                    input.parentElement.style.background = 'white';
+        // Tab Switching Functionality
+        document.querySelectorAll('.tab-button').forEach(button => {
+            button.addEventListener('click', () => {
+                const tabId = button.getAttribute('data-tab');
+                
+                // Remove active class from all tabs and buttons
+                document.querySelectorAll('.tab-button').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelectorAll('.tab-content').forEach(content => {
+                    content.classList.remove('active');
                 });
                 
-                // Highlight selected option
-                this.style.background = '#e3f2fd';
-                this.style.borderColor = '#2196f3';
+                // Add active class to clicked tab and corresponding content
+                button.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+                
+                // Update progress bar
+                updateProgressBar();
             });
         });
 
-        // Interview checklist persistence
-        document.querySelectorAll('.checklist-item input').forEach(checkbox => {
-            // Load saved state from localStorage
-            const savedState = localStorage.getItem(checkbox.id);
-            if (savedState === 'checked') {
-                checkbox.checked = true;
-            }
+        // Progress Bar Update
+        function updateProgressBar() {
+            const tabs = document.querySelectorAll('.tab-button');
+            const activeTab = document.querySelector('.tab-button.active');
+            const tabIndex = Array.from(tabs).indexOf(activeTab);
+            const progress = ((tabIndex + 1) / tabs.length) * 100;
             
-            // Save state when changed
-            checkbox.addEventListener('change', function() {
-                if (this.checked) {
-                    localStorage.setItem(this.id, 'checked');
+            document.getElementById('progressBar').style.width = `${progress}%`;
+        }
+
+        // Initialize progress bar
+        updateProgressBar();
+
+        // Quiz Selection
+        document.querySelectorAll('.quiz-option input').forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Remove selected class from all options in this question
+                const questionName = this.name;
+                document.querySelectorAll(`input[name="${questionName}"]`).forEach(input => {
+                    input.parentElement.classList.remove('selected');
+                });
+                
+                // Add selected class to chosen option
+                this.parentElement.classList.add('selected');
+            });
+        });
+
+        // Interview Answer Toggle
+        document.querySelectorAll('.toggle-answer').forEach(button => {
+            button.addEventListener('click', function() {
+                const targetId = this.getAttribute('data-target');
+                const answerDiv = document.getElementById(targetId);
+                const icon = this.querySelector('i');
+                
+                if (answerDiv.classList.contains('hidden-answer')) {
+                    answerDiv.classList.remove('hidden-answer');
+                    icon.className = 'fas fa-chevron-up';
+                    this.innerHTML = '<i class="fas fa-chevron-up"></i> Hide Answer';
                 } else {
-                    localStorage.removeItem(this.id);
+                    answerDiv.classList.add('hidden-answer');
+                    icon.className = 'fas fa-chevron-down';
+                    this.innerHTML = '<i class="fas fa-chevron-down"></i> Show Answer';
                 }
             });
         });
+
+        // Submit Quiz Button
+        document.querySelector('.quiz-box button').addEventListener('click', function() {
+            // Correct answers
+            const answers = {
+                q1: 0, // First option is correct
+                q2: 1, // Second option is correct
+                q3: 1, // Second option is correct
+                q4: 1  // Second option is correct
+            };
+            
+            let score = 0;
+            let total = Object.keys(answers).length;
+            
+            // Check each question
+            for (let question in answers) {
+                const selected = document.querySelector(`input[name="${question}"]:checked`);
+                if (selected) {
+                    const options = document.querySelectorAll(`input[name="${question}"]`);
+                    const selectedIndex = Array.from(options).indexOf(selected);
+                    
+                    if (selectedIndex === answers[question]) {
+                        score++;
+                        selected.parentElement.style.background = '#d1fae5';
+                    } else {
+                        selected.parentElement.style.background = '#fecaca';
+                        // Highlight correct answer
+                        options[answers[question]].parentElement.style.background = '#d1fae5';
+                    }
+                }
+            }
+            
+            // Show score
+            alert(`You scored ${score} out of ${total} (${Math.round(score/total*100)}%)`);
+            
+            // Reset button text
+            this.innerHTML = '<i class="fas fa-redo"></i> Try Again';
+            this.onclick = function() {
+                location.reload();
+            };
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 100,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    
+        // Quiz pagination
+    let currentPage = 1;
+    const totalPages = 6;
+    
+    document.getElementById('prevPage').addEventListener('click', () => {
+        if (currentPage > 1) {
+            document.getElementById(`page${currentPage}`).classList.remove('active');
+            currentPage--;
+            document.getElementById(`page${currentPage}`).classList.add('active');
+            updatePageInfo();
+        }
+    });
+    
+    document.getElementById('nextPage').addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            document.getElementById(`page${currentPage}`).classList.remove('active');
+            currentPage++;
+            document.getElementById(`page${currentPage}`).classList.add('active');
+            updatePageInfo();
+        }
+    });
+    
+    function updatePageInfo() {
+        document.getElementById('pageInfo').textContent = `Page ${currentPage} of ${totalPages}`;
+        document.getElementById('prevPage').disabled = currentPage === 1;
+        document.getElementById('nextPage').disabled = currentPage === totalPages;
+    }
+    
+    // Initialize
+    updatePageInfo();
+    
+    // Quiz submission and scoring
+    document.getElementById('submitQuiz').addEventListener('click', () => {
+        let correctCount = 0;
+        let totalQuestions = 0;
+        let answeredCount = 0;
+        
+        // Clear previous highlighting
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.classList.remove('correct', 'incorrect', 'selected');
+        });
+        
+        // Check all questions
+        document.querySelectorAll('.quiz-question').forEach(question => {
+            totalQuestions++;
+            const selectedOption = question.querySelector('input[type="radio"]:checked');
+            const correctOption = question.querySelector('input[data-correct="true"]');
+            
+            if (selectedOption) {
+                answeredCount++;
+                
+                // Highlight selected option
+                selectedOption.parentElement.classList.add('selected');
+                
+                // Check if correct
+                if (selectedOption === correctOption) {
+                    correctCount++;
+                    selectedOption.parentElement.classList.add('correct');
+                } else {
+                    selectedOption.parentElement.classList.add('incorrect');
+                }
+            }
+            
+            // Always highlight correct answer
+            if (correctOption) {
+                correctOption.parentElement.classList.add('correct');
+            }
+        });
+        
+        // Calculate scores
+        const percentage = Math.round((correctCount / totalQuestions) * 100);
+        const incorrectCount = answeredCount - correctCount;
+        const unansweredCount = totalQuestions - answeredCount;
+        
+        // Display results
+        document.getElementById('scoreDisplay').textContent = `${correctCount}/${totalQuestions}`;
+        document.getElementById('percentageDisplay').textContent = `${percentage}%`;
+        document.getElementById('scoreBar').style.width = `${percentage}%`;
+        document.getElementById('correctCount').textContent = correctCount;
+        document.getElementById('incorrectCount').textContent = incorrectCount;
+        document.getElementById('unansweredCount').textContent = unansweredCount;
+        document.getElementById('totalCount').textContent = totalQuestions;
+        
+        // Show results section
+        document.getElementById('quizResults').style.display = 'block';
+        
+        // Scroll to results
+        document.getElementById('quizResults').scrollIntoView({ behavior: 'smooth' });
+    });
+    
+    // Review answers button
+    document.getElementById('reviewQuiz').addEventListener('click', () => {
+        // Go to first page
+        document.querySelectorAll('.quiz-page').forEach(page => {
+            page.classList.remove('active');
+        });
+        document.getElementById('page1').classList.add('active');
+        currentPage = 1;
+        updatePageInfo();
+        
+        // Scroll to top of quiz
+        document.querySelector('.quiz-box').scrollIntoView({ behavior: 'smooth' });
+    });
+    
+    // Option selection styling
+    document.querySelectorAll('.quiz-option input').forEach(radio => {
+        radio.addEventListener('change', function() {
+            // Remove selected class from all options in this question
+            const questionName = this.name;
+            document.querySelectorAll(`input[name="${questionName}"]`).forEach(input => {
+                input.parentElement.classList.remove('selected');
+            });
+            
+            // Add selected class to chosen option
+            this.parentElement.classList.add('selected');
+        });
+    });
+
+    
     </script>
 </body>
 </html>

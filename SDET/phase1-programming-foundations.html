@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Phase 1 – Programming Foundations (JS/TS, Python, Ruby)</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+</head>
+<body class="layout">
+  <aside class="sidebar">
+    <div class="sidebar__brand">
+      <h1>Phase 1</h1>
+      <p>Programming Foundations</p>
+    </div>
+
+    <nav class="sidebar__nav">
+      <a href="index.html" class="nav-link">Home & Syllabus</a>
+      <a href="phase1-programming-foundations.html" class="nav-link nav-link--active">Phase 1 – Programming</a>
+      <a href="phase2-dsa.html" class="nav-link">Phase 2 – DSA</a>
+      <a href="phase3-ui-automation.html" class="nav-link">Phase 3 – UI Automation</a>
+      <a href="phase4-api-automation.html" class="nav-link">Phase 4 – API & Backend</a>
+      <a href="phase5-framework-design.html" class="nav-link">Phase 5 – Framework Design</a>
+      <a href="phase6-microservices-devops-cloud.html" class="nav-link">Phase 6 – Microservices & DevOps</a>
+      <a href="phase7-system-design-behavioral.html" class="nav-link">Phase 7 – System & Behavioral</a>
+    </nav>
+
+    <section class="sidebar__metrics">
+      <h2>Phase Metrics</h2>
+      <div class="metric"><span>Weeks</span><span>1–3</span></div>
+      <div class="metric"><span>Focus</span><span>Polyglot fluency</span></div>
+      <div class="metric"><span>Repos</span><span>3–4</span></div>
+    </section>
+  </aside>
+
+  <main class="content">
+    <header class="content__header">
+      <h1>Phase 1 – Deep Programming Rebuild</h1>
+      <p>JavaScript/TypeScript, Python, Ruby – fundamentals to advanced, with SDET-style coding.</p>
+    </header>
+
+    <section id="phase-overview">
+      <h2>Why This Phase Matters</h2>
+      <ul>
+        <li>Top-tier SDET II roles expect fluency in at least one or two languages and comfort switching stacks.[web:18][web:20]</li>
+        <li>You will write testable, modular, observable code that can be wrapped in UI/API automation frameworks.</li>
+        <li>All exercises are designed to translate directly into automation framework components and utilities.</li>
+      </ul>
+    </section>
+
+    <!-- WEEK 1 -->
+
+    <section id="week1">
+      <h2>Week 1 – Language Refresh & Core Habits</h2>
+      <p>Focus: Syntax refresh, control flow, collections, functions, error handling across JS/TS, Python, Ruby.</p>
+
+      <!-- Day 1 -->
+      <article class="day-card">
+        <div class="day-card__header">
+          <div class="day-card__title">
+            <strong>Day 1 – JavaScript Core Refresh</strong>
+            <span> | syntax, types, control flow</span>
+          </div>
+          <div class="day-card__status">
+            <label>
+              <input type="checkbox" class="day-complete" /> Done
+            </label>
+          </div>
+        </div>
+        <div class="day-card__body">
+          <h3>What to Learn</h3>
+          <ul>
+            <li>Modern JS (ES6+) basics: let/const, arrow functions, template literals, destructuring.</li>
+            <li>Primitive vs reference types, equality, control flow, loops.</li>
+          </ul>
+
+          <h3>Why It Matters</h3>
+          <ul>
+            <li>Most Playwright/Selenium/Cypress stacks around FAANG use modern JS/TS conventions.[web:23][web:32][web:35]</li>
+            <li>Understanding value vs reference and control flow is critical for debugging automation flakiness and side effects.</li>
+          </ul>
+
+          <h3>Sub-topics</h3>
+          <ul>
+            <li>Variables: <code>let</code> vs <code>const</code>, scope rules.</li>
+            <li>Data types: string, number, boolean, null, undefined, object, array.</li>
+            <li>Operators: equality (<code>===</code> vs <code==</code>), logical, ternary.</li>
+            <li>Control flow: if/else, switch, for/while/for...of, basic error handling with <code>try/catch</code>.</li>
+          </ul>
+
+          <h3>Must-know Theory</h3>
+          <ul>
+            <li>Hoisting basics: declarations vs initializations.</li>
+            <li>Immutability vs mutability, pass-by-value vs pass-by-reference (behaviour for objects/arrays).</li>
+            <li>How JS runtime executes a simple script (call stack idea, not full event loop yet).</li>
+          </ul>
+
+          <h3>Examples (Concept Snippets)</h3>
+          <pre><code>// JS – value vs reference
+const a = { count: 1 };
+const b = a;
+b.count = 2;
+console.log(a.count); // 2 (shared reference)
+
+// Simple control flow
+function classifyStatus(code) {
+  if (code >= 200 && code &lt; 300) return "success";
+  if (code >= 400 && code &lt; 500) return "client-error";
+  return "other";
+}
+</code></pre>
+
+          <h3>Hands-on Tasks</h3>
+          <ul>
+            <li>Create <code>js-core-refresh</code> folder, initialize <code>npm init -y</code>, add <code>index.js</code>.</li>
+            <li>Implement:
+              <ul>
+                <li><code>classifyStatus(code)</code> – categorize HTTP codes (1xx/2xx/3xx/4xx/5xx).</li>
+                <li><code>normalizeUser(input)</code> – takes either string or object and returns normalized object: <code>{ id, name }</code>.</li>
+                <li><code>sumEven(numbers)</code> – returns sum of even numbers in an array.</li>
+              </ul>
+            </li>
+            <li>Write minimal Node-based assertions using native <code>assert</code> to validate behavior.</li>
+          </ul>
+
+          <h3>Expected Output</h3>
+          <ul>
+            <li>A single JS file with all functions and self-check assertions printing “OK” for each function.</li>
+            <li>Short <code>README.md</code> describing each function and how it would be reused in a test utility.</li>
+          </ul>
+
+          <h3>Self-evaluation Checklist</h3>
+          <ul>
+            <li>Can explain why <code>===</code> is preferred over <code>==</code> in tests.</li>
+            <li>Can predict mutation effects when passing arrays/objects into functions.</li>
+            <li>Can write basic branching and loops without consulting docs.</li>
+          </ul>
+
+          <h3>Sample Interview Questions (Day 1)</h3>
+          <ul>
+            <li>“In JavaScript, how are objects passed to functions, and how can this cause subtle test bugs?”</li>
+            <li>“Explain the difference between <code>var</code>, <code>let</code>, and <code>const</code> in the context of test code.”</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Day 2 -->
+      <article class="day-card">
+        <div class="day-card__header">
+          <div class="day-card__title">
+            <strong>Day 2 – Functions, Modules, TS Intro</strong>
+            <span> | JS/TS</span>
+          </div>
+          <div class="day-card__status">
+            <label><input type="checkbox" class="day-complete" /> Done</label>
+          </div>
+        </div>
+        <div class="day-card__body">
+          <h3>What to Learn</h3>
+          <ul>
+            <li>Function declarations, expressions, arrow functions.</li>
+            <li>Basic module patterns (CommonJS vs ES modules) and a gentle TypeScript intro.</li>
+          </ul>
+
+          <h3>Why It Matters</h3>
+          <ul>
+            <li>Automation frameworks are collections of utilities, helpers and page objects organized as modules.</li>
+            <li>TypeScript adds compile-time safety, catching many test bugs early in the pipeline.[web:32][web:35]</li>
+          </ul>
+
+          <h3>Sub-topics</h3>
+          <ul>
+            <li>Pure vs impure functions.</li>
+            <li>Default parameters, rest parameters.</li>
+            <li>Basic TS: interfaces, types, typed function signatures, <code>tsconfig</code> basics.</li>
+          </ul>
+
+          <h3>Must-know Theory</h3>
+          <ul>
+            <li>Why pure functions are easier to test and parallelize.</li>
+            <li>How type annotations help maintain large test suites over time.</li>
+          </ul>
+
+          <h3>Examples</h3>
+          <pre><code>// TypeScript example: test helper
+export interface HttpResponse {
+  status: number;
+  body: unknown;
+}
+
+export function isSuccess(res: HttpResponse): boolean {
+  return res.status >= 200 && res.status &lt; 300;
+}
+</code></pre>
+
+          <h3>Hands-on Tasks</h3>
+          <ul>
+            <li>Create a <code>ts-helpers</code> folder:
+              <ul>
+                <li>Initialize TS: <code>npm init -y</code>, <code>npm install typescript @types/node --save-dev</code>, <code>npx tsc --init</code>.</li>
+                <li>Write <code>helpers.ts</code> with:
+                  <ul>
+                    <li><code>retry(fn, retries): Promise&lt;T&gt;</code> – generic retry helper for flaky operations.</li>
+                    <li><code>waitFor(conditionFn, timeoutMs)</code> – simple polling loop.</li>
+                  </ul>
+                </li>
+                <li>Compile and run small demo in <code>demo.ts</code> using Node + TS.</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h3>Expected Output</h3>
+          <ul>
+            <li>TypeScript project with at least two helpers exported from a module.</li>
+            <li>Document in <code>README.md</code> how <code>retry</code> and <code>waitFor</code> map to automation flakiness mitigation.</li>
+          </ul>
+
+          <h3>Self-evaluation Checklist</h3>
+          <ul>
+            <li>Can declare a typed function in TS and understand compilation.</li>
+            <li>Can explain why retry helpers should have backoff and max retries.</li>
+          </ul>
+
+          <h3>Sample Interview Questions (Day 2)</h3>
+          <ul>
+            <li>“Design a generic retry utility for flaky network calls. How would you test it?”</li>
+            <li>“What benefits does TypeScript bring to large automation codebases?”</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Day 3 -->
+      <article class="day-card">
+        <div class="day-card__header">
+          <div class="day-card__title">
+            <strong>Day 3 – Python Fundamentals</strong>
+            <span> | syntax, data structures</span>
+          </div>
+          <div class="day-card__status">
+            <label><input type="checkbox" class="day-complete" /> Done</label>
+          </div>
+        </div>
+        <div class="day-card__body">
+          <h3>What to Learn</h3>
+          <ul>
+            <li>Python basics: variables, types, control flow, lists, dicts, loops, functions.</li>
+            <li>Virtualenv, basic project layout for test utilities.</li>
+          </ul>
+
+          <h3>Why It Matters</h3>
+          <ul>
+            <li>Many backend-focused SDET roles use Python for API and microservices testing, including pytest-based automation.[web:20][web:34]</li>
+            <li>Python’s batteries-included ecosystem makes it ideal for quick test tools and data processing.</li>
+          </ul>
+
+          <h3>Sub-topics</h3>
+          <ul>
+            <li>List vs tuple, dict vs set.</li>
+            <li>Basic functions, default arguments, unpacking.</li>
+          </ul>
+
+          <h3>Must-know Theory</h3>
+          <ul>
+            <li>Python’s indentation-based blocks and how that affects code readability in test suites.</li>
+            <li>Mutable default argument pitfall.</li>
+          </ul>
+
+          <h3>Examples</h3>
+          <pre><code># Simple response classifier used in API tests
+def classify_status(code: int) -> str:
+    if 200 &lt;= code &lt; 300:
+        return "success"
+    if 400 &lt;= code &lt; 500:
+        return "client_error"
+    return "other"
+</code></pre>
+
+          <h3>Hands-on Tasks</h3>
+          <ul>
+            <li>Create <code>python-core</code> project:
+              <ul>
+                <li>Use <code>python -m venv venv</code>, activate, <code>pip install pytest</code>.</li>
+                <li>Implement:
+                  <ul>
+                    <li><code>filter_success(responses)</code> – takes list of dicts with status codes, returns only successes.</li>
+                    <li><code>flatten(nested_list)</code> – simple flatten (1-level) utility.</li>
+                  </ul>
+                </li>
+                <li>Create <code>test_core.py</code> with pytest tests.</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h3>Expected Output</h3>
+          <ul>
+            <li>Python module file and passing pytest suite.</li>
+            <li>Short note on how these utilities can be reused in API test suites.</li>
+          </ul>
+
+          <h3>Self-evaluation Checklist</h3>
+          <ul>
+            <li>Can initialize a venv and run pytest from command line.</li>
+            <li>Can comfortably manipulate lists/dicts without searching online.</li>
+          </ul>
+
+          <h3>Sample Interview Questions (Day 3)</h3>
+          <ul>
+            <li>“How would you remove duplicates from a list of dictionaries in Python?”</li>
+            <li>“Explain why using a list as a default argument in Python functions is dangerous.”</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Day 4 -->
+      <article class="day-card">
+        <div class="day-card__header">
+          <div class="day-card__title">
+            <strong>Day 4 – Ruby Fundamentals for Testers</strong>
+            <span> | syntax, blocks, basic OOP</span>
+          </div>
+          <div class="day-card__status">
+            <label><input type="checkbox" class="day-complete" /> Done</label>
+          </div>
+        </div>
+        <div class="day-card__body">
+          <h3>What to Learn</h3>
+          <ul>
+            <li>Ruby syntax, arrays/hashes, blocks, basic classes.</li>
+            <li>Rspec basics (to prepare for potential Ruby-based frameworks).</li>
+          </ul>
+
+          <h3>Why It Matters</h3>
+          <ul>
+            <li>Some companies (Shopify/GitHub-style) use Ruby-based test frameworks, and polyglot skills increase your market value.[web:20]</li>
+            <li>Ruby’s expressiveness is great for DSL-like test code; understanding blocks helps when reading such frameworks.</li>
+          </ul>
+
+          <h3>Sub-topics</h3>
+          <ul>
+            <li>Symbols vs strings.</li>
+            <li>Blocks, <code>each</code>, <code>map</code>, <code>select</code>.</li>
+            <li>Simple class with initializer and method.</li>
+          </ul>
+
+          <h3>Examples</h3>
+          <pre><code># Ruby – simple HTTP response object for tests
+class HttpResponse
+  attr_reader :status, :body
+
+  def initialize(status:, body:)
+    @status = status
+    @body = body
+  end
+
+  def success?
+    status >= 200 &amp;&amp; status &lt; 300
+  end
+end
+</code></pre>
+
+          <h3>Hands-on Tasks</h3>
+          <ul>
+            <li>Set up a <code>ruby-core</code> project:
+              <ul>
+                <li>Install bundler, add <code>rspec</code> to <code>Gemfile</code>.</li>
+                <li>Implement small utility class: <code>JsonStore</code> with methods <code>put(key, value)</code>, <code>get(key)</code>, <code>to_json</code>.</li>
+                <li>Write Rspec tests for class behavior.</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h3>Expected Output</h3>
+          <ul>
+            <li>Ruby class with tests passing under <code>bundle exec rspec</code>.</li>
+            <li>Comment in code about how this could back a test data storage layer.</li>
+          </ul>
+
+          <h3>Self-evaluation Checklist</h3>
+          <ul>
+            <li>Can write a simple Ruby class with initializer and methods.</li>
+            <li>Understands <code>each</code> / <code>map</code> / <code>select</code> on arrays.</li>
+          </ul>
+
+          <h3>Sample Interview Questions (Day 4)</h3>
+          <ul>
+            <li>“How do blocks differ from lambdas in Ruby?”</li>
+            <li>“Show Ruby code that iterates over a list of URLs and prints only those that return 2xx status.”</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Day 5 -->
+      <article class="day-card">
+        <div class="day-card__header">
+          <div class="day-card__title">
+            <strong>Day 5 – Cross-language Patterns & Refactoring</strong>
+          </div>
+          <div class="day-card__status">
+            <label><input type="checkbox" class="day-complete" /> Done</label>
+          </div>
+        </div>
+        <div class="day-card__body">
+          <h3>What to Learn</h3>
+          <ul>
+            <li>Identify shared patterns across JS/TS, Python, Ruby (map/filter/reduce, error handling, small pure functions).</li>
+            <li>Refactor earlier examples into more testable forms.</li>
+          </ul>
+
+          <h3>Why It Matters</h3>
+          <ul>
+            <li>Being able to map concepts across languages is critical when reading/writing automation in multiple stacks.[web:20][web:25]</li>
+            <li>Refactoring is a core SDET skill when working with existing flaky or messy test suites.</li>
+          </ul>
+
+          <h3>Sub-topics</h3>
+          <ul>
+            <li>Functional patterns (map/filter/reduce) in each language.</li>
+            <li>Refactoring to remove duplication and side effects.</li>
+          </ul>
+
+          <h3>Must-know Theory</h3>
+          <ul>
+            <li>Code smells in test utilities: long functions, hidden globals, magic constants.</li>
+            <li>Single Responsibility Principle and its relevance to test helpers.</li>
+          </ul>
+
+          <h3>Hands-on Tasks</h3>
+          <ul>
+            <li>Pick one function from each language (JS, Python, Ruby) and:
+              <ul>
+                <li>Extract smaller helpers.</li>
+                <li>Add input validation and error handling.</li>
+                <li>Add simple logging statement or structured debug output.</li>
+              </ul>
+            </li>
+            <li>Document common patterns you see across languages.</li>
+          </ul>
+
+          <h3>Expected Output</h3>
+          <ul>
+            <li>Refactored functions with cleaner signatures and comments.</li>
+            <li>A short <code>cross-language-patterns.md</code> doc summarizing findings.</li>
+          </ul>
+
+          <h3>Self-evaluation Checklist</h3>
+          <ul>
+            <li>Can identify duplication and extract shared helpers.</li>
+            <li>Can implement map/filter-like operations in all three languages.</li>
+          </ul>
+
+          <h3>Sample Interview Questions (Day 5)</h3>
+          <ul>
+            <li>“You see repeated HTTP status classification logic across tests. How would you refactor this in a large codebase?”</li>
+            <li>“Describe a time you refactored test code for maintainability. What patterns did you use?”</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Weekly Coding Exercises -->
+      <section>
+        <h3>Week 1 – Coding Exercises</h3>
+        <ul>
+          <li>Solve at least 5 easy problems (arrays/strings) in LeetCode/HackerRank using JavaScript; log links and notes.[web:21][web:37]</li>
+          <li>Implement “HTTP response classifier” in JS, Python, Ruby and ensure behavior matches in all three.</li>
+        </ul>
+      </section>
+
+      <!-- Week 1 Portfolio Deliverable -->
+      <section>
+        <h3>Week 1 – Portfolio Deliverable</h3>
+        <ul>
+          <li>Create GitHub repo <code>sdet-polyglot-core-utils</code>:
+            <ul>
+              <li>Folders: <code>js/</code>, <code>python/</code>, <code>ruby/</code>.</li>
+              <li>Each contains small utilities plus minimal tests.</li>
+              <li><code>README.md</code> explains how these utilities would be used in UI/API test frameworks.</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+    </section>
+
+    <!-- WEEK 2 -->
+
+    <section id="week2">
+      <h2>Week 2 – OOP, Testing Mindset, Testable Design</h2>
+      <p>Focus: Classes, composition, interfaces, dependency injection, and test-driven habits in all 3 languages.[web:18][web:20]</p>
+
+      <!-- Day 6 -->
+      <article class="day-card">
+        <div class="day-card__header">
+          <div class="day-card__title">
+            <strong>Day 6 – JavaScript/TS OOP for SDET</strong>
+            <span> | classes, interfaces, DI</span>
+          </div>
+          <div class="day-card__status">
+            <label><input type="checkbox" class="day-complete" /> Done</label>
+          </div>
+        </div>
+        <div class="day-card__body">
+          <h3>What to Learn</h3>
+          <ul>
+            <li>Classes, inheritance, composition in JS/TS.</li>
+            <li>Interfaces and dependency injection patterns for testable code.</li>
+          </ul>
+
+          <h3>Why It Matters</h3>
+          <ul>
+            <li>Page Objects, service clients, and runners are all class-based abstractions in most automation frameworks.[web:23][web:32][web:35]</li>
+            <li>Proper DI allows mocking and isolation in tests.</li>
+          </ul>
+
+          <h3>Sub-topics</h3>
+          <ul>
+            <li><code>class</code>, <code>extends</code>, constructors, public/private fields (TS).</li>
+            <li>Interfaces for HTTP clients, storage, logger.</li>
+          </ul>
+
+          <h3>Must-know Theory</h3>
+          <ul>
+            <li>Composition vs inheritance in test design.</li>
+            <li>Why global singletons hinder parallel test execution.</li>
+          </ul>
+
+          <h3>Hands-on Tasks</h3>
+          <ul>
+            <li>Create <code>ts-oop-http</code> project:
+              <ul>
+                <li>Define <code>IHttpClient</code> interface with <code>get</code>, <code>post</code>, etc.</li>
+                <li>Create <code>FetchHttpClient</code> implementation using <code>node-fetch</code> or <code>axios</code>.</li>
+                <li>Create <code>ApiService</code> class that depends on <code>IHttpClient</code> via constructor injection.</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h3>Expected Output</h3>
+          <ul>
+            <li>TS classes with interfaces/types and a small example script that constructs an <code>ApiService</code>.</li>
+            <li>Explain in comments how this maps to a Playwright/Selenium test service layer.</li>
+          </ul>
+
+          <h3>Self-evaluation Checklist</h3>
+          <ul>
+            <li>Can explain DI and why it matters for mocking.</li>
+            <li>Can convert a simple procedural script into a class+interface design.</li>
+          </ul>
+
+          <h3>Sample Interview Questions (Day 6)</h3>
+          <ul>
+            <li>“Design a testable API client layer for an automation framework. How do you structure dependencies?”</li>
+            <li>“Why might you prefer composition over inheritance in test automation code?”</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Day 7 -->
+      <article class="day-card">
+        <div class="day-card__header">
+          <div class="day-card__title">
+            <strong>Day 7 – Python OOP & Testability</strong>
+          </div>
+          <div class="day-card__status">
+            <label><input type="checkbox" class="day-complete" /> Done</label>
+          </div>
+        </div>
+        <div class="day-card__body">
+          <h3>What to Learn</h3>
+          <ul>
+            <li>Classes, <code>__init__</code>, instance vs class methods.</li>
+            <li>Simple dependency injection via constructor parameters.</li>
+          </ul>
+
+          <h3>Why It Matters</h3>
+          <ul>
+            <li>pytest-based frameworks often use service-style classes for API clients and data providers.[web:34]</li>
+            <li>Good boundaries make mocking with <code>unittest.mock</code> / pytest fixtures straightforward.</li>
+          </ul>
+
+          <h3>Hands-on Tasks</h3>
+          <ul>
+            <li>Create <code>python-oop-api</code>:
+              <ul>
+                <li>Class <code>ApiClient</code> with methods <code>get_user</code>, <code>create_user</code> using <code>requests</code> (you can hit a public dummy API or mock responses later).</li>
+                <li>Class <code>UserService</code> that depends on <code>ApiClient</code>.</li>
+                <li>Write pytest tests where <code>ApiClient</code> is mocked.</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h3>Expected Output</h3>
+          <ul>
+            <li>Python classes and tests demonstrating constructor injection and mocking.</li>
+          </ul>
+
+          <h3>Self-evaluation Checklist</h3>
+          <ul>
+            <li>Can explain how to mock an injected dependency in pytest.</li>
+            <li>Understands difference between integration test vs unit test in this context.</li>
+          </ul>
+
+          <h3>Sample Interview Questions (Day 7)</h3>
+          <ul>
+            <li>“How would you design a Python-based API client to be easily testable and mockable?”</li>
+            <li>“Describe a fixture-based approach to configuring API clients in pytest.”</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Day 8 -->
+      <article class="day-card">
+        <div class="day-card__header">
+          <div class="day-card__title">
+            <strong>Day 8 – Ruby OOP & DSL Thinking</strong>
+          </div>
+          <div class="day-card__status">
+            <label><input type="checkbox" class="day-complete" /> Done</label>
+          </div>
+        </div>
+        <div class="day-card__body">
+          <h3>What to Learn</h3>
+          <ul>
+            <li>Ruby classes/modules, mixins basics.</li>
+            <li>DSL-style thinking for test cases (RSpec-style readability).</li>
+          </ul>
+
+          <h3>Why It Matters</h3>
+          <ul>
+            <li>Many high-level frameworks present “human readable” test APIs; understanding DSLs helps you read and extend them.[web:20]</li>
+          </ul>
+
+          <h3>Hands-on Tasks</h3>
+          <ul>
+            <li>Extend <code>JsonStore</code> to support simple query methods.</li>
+            <li>Write an RSpec “mini DSL” style test describing user flows as readable blocks.</li>
+          </ul>
+
+          <h3>Expected Output</h3>
+          <ul>
+            <li>Readable Ruby test code that looks close to business language.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Day 9 -->
+      <article class="day-card">
+        <div class="day-card__header">
+          <div class="day-card__title">
+            <strong>Day 9 – TDD Mini-loop (Any Language)</strong>
+          </div>
+          <div class="day-card__status">
+            <label><input type="checkbox" class="day-complete" /> Done</label>
+          </div>
+        </div>
+        <div class="day-card__body">
+          <h3>What to Learn</h3>
+          <ul>
+            <li>Red–Green–Refactor loop using JS/TS, Python, or Ruby test tools.</li>
+          </ul>
+
+          <h3>Why It Matters</h3>
+          <ul>
+            <li>SDETs frequently prototype utilities or new framework capabilities using TDD.[web:18][web:20]</li>
+          </ul>
+
+          <h3>Hands-on Tasks</h3>
+          <ul>
+            <li>Implement a “rate limiter” utility using TDD:
+              <ul>
+                <li>Given a function and max calls per interval, prevent overuse.</li>
+                <li>First write failing tests for basic behavior, then implement and refactor.</li>
+              </ul>
+            </li>
+          </ul>
+
+          <h3>Expected Output</h3>
+          <ul>
+            <li>A small repo <code>rate-limiter-tdd</code> with clear commit history showing TDD steps.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Day 10 -->
+      <article class="day-card">
+        <div class="day-card__header">
+          <div class="day-card__title">
+            <strong>Day 10 – Review, Consolidation, Mixed-language Exercise</strong>
+          </div>
+          <div class="day-card__status">
+            <label><input type="checkbox" class="day-complete" /> Done</label>
+          </div>
+        </div>
+        <div class="day-card__body">
+          <h3>What to Learn</h3>
+          <ul>
+            <li>Review all language-specific topics and reimplement a small problem in all 3 languages.</li>
+          </ul>
+
+          <h3>Hands-on Tasks</h3>
+          <ul>
+            <li>Pick a non-trivial problem (e.g., “Log aggregator” or “Retry queue”) and implement in JS/TS, Python, Ruby.</li>
+          </ul>
+
+          <h3>Expected Output</h3>
+          <ul>
+            <li>Document trade-offs of each language for this utility in <code>LANGUAGE-COMPARISON.md</code>.</li>
+          </ul>
+
+          <h3>Self-evaluation Checklist</h3>
+          <ul>
+            <li>Comfortable reading and writing idiomatic code in all three languages for small utilities.</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Week 2 Coding & Portfolio -->
+      <section>
+        <h3>Week 2 – Coding Exercises</h3>
+        <ul>
+          <li>Solve at least 7 easy/medium problems (maps/hash maps, simple OOP design) using Python or JS.[web:21][web:37]</li>
+          <li>Design and code a small <code>ApiClient</code> abstraction in both TS and Python.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h3>Week 2 – Portfolio Deliverable</h3>
+        <ul>
+          <li>Repo <code>sdet-service-abstractions</code>:
+            <ul>
+              <li>TS <code>ApiService</code>, Python <code>ApiClient</code>, Ruby <code>JsonStore</code>.</li>
+              <li>Short architecture doc explaining DI and mocking strategy.</li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+    </section>
+
+    <!-- Week 3 Placeholder (Extend Similar Pattern) -->
+    <section id="week3">
+      <h2>Week 3 – Advanced Topics (Async, Error Handling, Observability)</h2>
+      <p>Extend using same day-card structure: async/await, promises, event loop, logging, structured errors, basic metrics hooks (timing, counters) in utilities.</p>
+    </section>
+
+  </main>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
