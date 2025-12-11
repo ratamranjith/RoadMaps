@@ -260,6 +260,122 @@
             padding: 30px 20px;
             margin-top: 60px;
         }
+
+        /* NEW STYLES FOR INTERVIEW SECTION */
+        .interview-question {
+            background: linear-gradient(to right, #f0f9ff, #e6f7ff);
+            border-left: 4px solid #36b9cc;
+            padding: 20px;
+            margin: 25px 0 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: relative;
+        }
+
+        .interview-question h4 {
+            color: #1a5a73;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .interview-question .question-tag {
+            display: inline-block;
+            background: #36b9cc;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .interview-answer {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            padding: 18px;
+            margin: 10px 0 25px 0;
+            border-radius: 8px;
+            line-height: 1.7;
+        }
+
+        .interview-answer strong {
+            color: #2c3e50;
+        }
+
+        .answer-structure {
+            background: #f1f8e9;
+            border-left: 4px solid #7cb342;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .followup-question {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-size: 0.95rem;
+        }
+
+        .difficulty-indicator {
+            display: inline-block;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 10px;
+        }
+
+        .difficulty-beginner {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .difficulty-intermediate {
+            background: #fff3cd;
+            color: #856404;
+        }
+
+        .difficulty-advanced {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .tips-box {
+            background: #e3f2fd;
+            border: 1px dashed #2196f3;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .interview-checklist {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .checklist-item input {
+            margin-right: 10px;
+        }
+
+        .scenario-question {
+            background: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -367,79 +483,193 @@
 
         <!-- Section 3: Types of Testing -->
         <div class="section">
-            <h2>1.3: Types of Testing</h2>
-
-            <h3>Testing by Scope</h3>
+            <h2>1.3: Comprehensive Types of Testing</h2>
+            
+            <!-- Comprehensive Testing Classification Table -->
+            <h3>Testing Classification Matrix</h3>
             <table class="comparison-table">
                 <tr>
-                    <th>Type</th>
-                    <th>What it Tests</th>
-                    <th>Scope</th>
+                    <th>Category</th>
+                    <th>Testing Type</th>
+                    <th>Purpose / Focus</th>
+                    <th>Common Tools / Methods</th>
                 </tr>
                 <tr>
-                    <td><strong>Unit Testing</strong></td>
-                    <td>Individual functions/methods</td>
-                    <td>Single component</td>
+                    <td rowspan="5"><strong>Functional Testing</strong></td>
+                    <td>Unit Testing</td>
+                    <td>Tests individual functions/methods in isolation</td>
+                    <td>JUnit, NUnit, pytest, Jest</td>
                 </tr>
                 <tr>
-                    <td><strong>Integration Testing</strong></td>
-                    <td>How components work together</td>
-                    <td>Multiple components</td>
+                    <td>Integration Testing</td>
+                    <td>Tests interaction between integrated units/modules</td>
+                    <td>TestNG, Postman, SoapUI</td>
                 </tr>
                 <tr>
-                    <td><strong>System Testing</strong></td>
-                    <td>Entire application</td>
-                    <td>Complete system</td>
+                    <td>System Testing</td>
+                    <td>Tests complete integrated system end-to-end</td>
+                    <td>Selenium, Cypress, Manual testing</td>
                 </tr>
                 <tr>
-                    <td><strong>UAT</strong></td>
-                    <td>User acceptance</td>
-                    <td>Real-world scenarios</td>
+                    <td>Acceptance Testing</td>
+                    <td>Validates if system meets business requirements (UAT)</td>
+                    <td>Cucumber, FitNesse, Manual scenarios</td>
+                </tr>
+                <tr>
+                    <td>Regression Testing</td>
+                    <td>Ensures new changes don't break existing functionality</td>
+                    <td>Selenium, QTP, TestComplete</td>
+                </tr>
+                <tr>
+                    <td rowspan="5"><strong>Non-Functional Testing</strong></td>
+                    <td>Performance Testing</td>
+                    <td>Evaluates speed, scalability, stability under load</td>
+                    <td>JMeter, LoadRunner, Gatling</td>
+                </tr>
+                <tr>
+                    <td>Security Testing</td>
+                    <td>Identifies vulnerabilities and security risks</td>
+                    <td>OWASP ZAP, Burp Suite, Nessus</td>
+                </tr>
+                <tr>
+                    <td>Usability Testing</td>
+                    <td>Assesses user-friendliness and UI/UX</td>
+                    <td>User interviews, Surveys, Heatmaps</td>
+                </tr>
+                <tr>
+                    <td>Compatibility Testing</td>
+                    <td>Checks software works across browsers/OS/devices</td>
+                    <td>BrowserStack, Sauce Labs, LambdaTest</td>
+                </tr>
+                <tr>
+                    <td>Accessibility Testing</td>
+                    <td>Ensures software usable by people with disabilities</td>
+                    <td>axe, WAVE, JAWS screen reader</td>
+                </tr>
+                <tr>
+                    <td rowspan="4"><strong>By Test Design</strong></td>
+                    <td>White Box Testing</td>
+                    <td>Tests internal structure/code (developer perspective)</td>
+                    <td>Code reviews, Static analysis, Unit tests</td>
+                </tr>
+                <tr>
+                    <td>Black Box Testing</td>
+                    <td>Tests functionality without knowing internal code</td>
+                    <td>Requirement-based, Equivalence partitioning</td>
+                </tr>
+                <tr>
+                    <td>Gray Box Testing</td>
+                    <td>Combines white & black box (partial code knowledge)</td>
+                    <td>Database testing, API testing</td>
+                </tr>
+                <tr>
+                    <td>Exploratory Testing</td>
+                    <td>Simultaneous learning, test design & execution</td>
+                    <td>Session-based, Charter-based testing</td>
                 </tr>
             </table>
 
-            <h3>Testing by Type/Purpose</h3>
-            <div class="concept-box">
-                <strong>Functional Testing:</strong> Verifies that features work as specified
-                <ul style="margin: 10px 0 0 0; list-style: none;">
-                    <li>✓ Login works correctly</li>
-                    <li>✓ Buttons trigger correct actions</li>
-                    <li>✓ Data is saved properly</li>
-                </ul>
-            </div>
+            <!-- Functional vs Non-Functional Comparison -->
+            <h3>Functional vs Non-Functional Testing</h3>
+            <table class="comparison-table">
+                <tr>
+                    <th>Aspect</th>
+                    <th>Functional Testing</th>
+                    <th>Non-Functional Testing</th>
+                </tr>
+                <tr>
+                    <td><strong>Focus</strong></td>
+                    <td><em>What</em> the system does</td>
+                    <td><em>How well</em> the system performs</td>
+                </tr>
+                <tr>
+                    <td><strong>Based On</strong></td>
+                    <td>Business requirements, specifications</td>
+                    <td>Performance criteria, user expectations</td>
+                </tr>
+                <tr>
+                    <td><strong>Objective</strong></td>
+                    <td>Validate software actions/outputs</td>
+                    <td>Validate software behavior/attributes</td>
+                </tr>
+                <tr>
+                    <td><strong>Examples</strong></td>
+                    <td>Login, Payment processing, Search</td>
+                    <td>Load time, Security, Usability, Compatibility</td>
+                </tr>
+                <tr>
+                    <td><strong>Test Cases</strong></td>
+                    <td>Can be easily defined from requirements</td>
+                    <td>Often requires special tools/scenarios</td>
+                </tr>
+                <tr>
+                    <td><strong>Timing</strong></td>
+                    <td>Performed before non-functional testing</td>
+                    <td>Performed after functional testing passes</td>
+                </tr>
+            </table>
 
             <div class="concept-box">
-                <strong>Non-Functional Testing:</strong> Verifies attributes like performance, security, usability
-                <ul style="margin: 10px 0 0 0; list-style: none;">
-                    <li>✓ Performance/Load Testing</li>
-                    <li>✓ Security Testing</li>
-                    <li>✓ Usability Testing</li>
-                    <li>✓ Compatibility Testing</li>
-                </ul>
-            </div>
-
-            <div class="concept-box">
-                <strong>Regression Testing:</strong> Ensures recent changes haven't broken existing features
-                <ul style="margin: 10px 0 0 0; list-style: none;">
-                    <li>✓ Critical after updates</li>
-                    <li>✓ Re-tests previously working features</li>
-                    <li>✓ Usually automated</li>
-                </ul>
-            </div>
-
-            <div class="concept-box">
-                <strong>Smoke Testing:</strong> Quick sanity check to verify basic functionality
-                <ul style="margin: 10px 0 0 0; list-style: none;">
-                    <li>✓ Runs on new build</li>
-                    <li>✓ Essential features only</li>
-                    <li>✓ Gates detailed testing</li>
-                </ul>
+                <strong>Key Insight:</strong> Most projects use a balanced mix of manual and automated testing. Manual testing is ideal for exploratory and usability testing, while automated testing excels at regression and performance testing.
             </div>
         </div>
 
-        <!-- Section 4: Bug Lifecycle -->
+        <!-- Section 4: Static vs Dynamic Testing -->
         <div class="section">
-            <h2>1.4: Bug Lifecycle</h2>
+            <h2>1.4: Static vs Dynamic Testing</h2>
+            
+            <h3>Static Testing (Verification)</h3>
+            <p>Examining software work products (documentation, code) without executing them.</p>
+            
+            <h3>Dynamic Testing (Validation)</h3>
+            <p>Executing software with test data to observe runtime behavior.</p>
+
+            <table class="comparison-table">
+                <tr>
+                    <th>Aspect</th>
+                    <th>Static Testing</th>
+                    <th>Dynamic Testing</th>
+                </tr>
+                <tr>
+                    <td><strong>When Performed</strong></td>
+                    <td>Early in SDLC (requirements, design, coding phases)</td>
+                    <td>Later in SDLC (after executable code is available)</td>
+                </tr>
+                <tr>
+                    <td><strong>What is Tested</strong></td>
+                    <td>Documents, requirements, code, designs</td>
+                    <td>Running application, actual output</td>
+                </tr>
+                <tr>
+                    <td><strong>Techniques</strong></td>
+                    <td>Reviews, walkthroughs, inspections, static analysis</td>
+                    <td>Unit, integration, system, acceptance testing</td>
+                </tr>
+                <tr>
+                    <td><strong>Defect Finding</strong></td>
+                    <td>Finds defects early (cheaper to fix)</td>
+                    <td>Finds runtime, functional defects</td>
+                </tr>
+                <tr>
+                    <td><strong>Cost to Fix Defects</strong></td>
+                    <td>Low (early in lifecycle)</td>
+                    <td>High (later in lifecycle)</td>
+                </tr>
+                <tr>
+                    <td><strong>Automation</strong></td>
+                    <td>Static analysis tools (SonarQube, ESLint)</td>
+                    <td>Test automation tools (Selenium, JMeter)</td>
+                </tr>
+            </table>
+
+            <div class="concept-box">
+                <strong>Best Practice:</strong> Effective testing strategy includes both static and dynamic testing. Static testing prevents defects from being introduced, while dynamic testing uncovers defects in the running application.
+            </div>
+        </div>
+
+        <!-- Section 5: Bug Lifecycle -->
+        <div class="section">
+            <h2>1.5: Bug Lifecycle</h2>
             <p>Understanding how bugs flow through the system helps with communication and prioritization.</p>
 
             <div class="lifecycle-stages" style="margin: 20px 0;">
@@ -469,9 +699,9 @@
             </div>
         </div>
 
-        <!-- Section 5: Bug Severity & Priority -->
+        <!-- Section 6: Bug Severity & Priority -->
         <div class="section">
-            <h2>1.5: Bug Severity vs Priority</h2>
+            <h2>1.6: Bug Severity vs Priority</h2>
 
             <h3>Severity (Technical Impact)</h3>
             <table class="comparison-table">
@@ -536,9 +766,431 @@
             </div>
         </div>
 
-        <!-- Section 6: Quiz -->
+        <!-- Section 7: Testing Principles & Strategies -->
         <div class="section">
-            <h2>1.6: Quick Quiz</h2>
+            <h2>1.7: Testing Principles & Strategies</h2>
+            
+            <h3>Core Testing Principles</h3>
+            <table class="comparison-table">
+                <tr>
+                    <th>Principle</th>
+                    <th>Description</th>
+                    <th>Implication for Testers</th>
+                </tr>
+                <tr>
+                    <td><strong>Exhaustive testing is impossible</strong></td>
+                    <td>Cannot test all combinations of inputs/preconditions</td>
+                    <td>Use risk-based & priority-based testing</td>
+                </tr>
+                <tr>
+                    <td><strong>Defect clustering</strong></td>
+                    <td>Small number of modules contain most defects</td>
+                    <td>Focus testing on critical/complex modules</td>
+                </tr>
+                <tr>
+                    <td><strong>Pesticide paradox</strong></td>
+                    <td>Repeating same tests finds fewer new defects</td>
+                    <td>Regularly review & update test cases</td>
+                </tr>
+                <tr>
+                    <td><strong>Testing shows presence of defects</strong></td>
+                    <td>Testing can prove defects exist, not their absence</td>
+                    <td>Testing reduces probability of undiscovered defects</td>
+                </tr>
+                <tr>
+                    <td><strong>Absence-of-errors fallacy</strong></td>
+                    <td>No defects ≠ useful/usable product</td>
+                    <td>Focus on requirements & user needs, not just bug count</td>
+                </tr>
+                <tr>
+                    <td><strong>Early testing</strong></td>
+                    <td>Testing should start as early as possible</td>
+                    <td>Involve testers in requirements & design reviews</td>
+                </tr>
+                <tr>
+                    <td><strong>Testing is context dependent</strong></td>
+                    <td>Different software needs different testing approaches</td>
+                    <td>Medical software testing ≠ e-commerce website testing</td>
+                </tr>
+            </table>
+
+            <div class="concept-box">
+                <strong>Remember:</strong> No single testing approach fits all projects. The best testing strategy depends on project context, risks, timeline, and resources.
+            </div>
+        </div>
+
+        <!-- NEW SECTION: Interview Questions & Answers -->
+        <div class="section">
+            <h2>🎤 1.8: Interview Preparation - QA Testing Questions</h2>
+            <p>This section contains common interview questions for QA/testing positions with detailed answers. Practice these to ace your interviews!</p>
+
+            <div class="tips-box">
+                <strong>💡 Interview Tips:</strong>
+                <ul style="margin: 10px 0 0 20px;">
+                    <li>Use the <strong>STAR method</strong> (Situation, Task, Action, Result) for behavioral questions</li>
+                    <li>Be honest about what you don't know - show willingness to learn</li>
+                    <li>Ask thoughtful questions about their testing processes</li>
+                    <li>Have specific examples ready from your experience</li>
+                </ul>
+            </div>
+
+            <!-- Question 1 -->
+            <div class="interview-question">
+                <span class="question-tag">Fundamental</span>
+                <span class="difficulty-indicator difficulty-beginner">Beginner</span>
+                <h4>1. What is software testing and why is it important?</h4>
+            </div>
+            <div class="interview-answer">
+                <div class="answer-structure">
+                    <strong>Answer Structure:</strong> Definition + Importance + Business Impact
+                </div>
+                <p><strong>Answer:</strong> Software testing is the process of evaluating a software application to identify differences between expected and actual results. It's not just about finding bugs but ensuring quality, reliability, and that the software meets requirements.</p>
+                
+                <p><strong>Importance includes:</strong></p>
+                <ul style="margin: 10px 0 10px 20px;">
+                    <li><strong>Cost Efficiency:</strong> Fixing bugs in production is 5-10x more expensive than in early stages</li>
+                    <li><strong>Customer Satisfaction:</strong> Quality software leads to happy users and better retention</li>
+                    <li><strong>Security:</strong> Identifies vulnerabilities before they're exploited</li>
+                    <li><strong>Risk Management:</strong> Reduces business risks associated with software failures</li>
+                    <li><strong>Compliance:</strong> Many industries (healthcare, finance) require rigorous testing for regulatory compliance</li>
+                </ul>
+                
+                <div class="followup-question">
+                    <strong>Follow-up question they might ask:</strong> "Can you give an example of how poor testing cost a company significantly?"
+                    <p><em>Example answer:</em> "The Knight Capital Group lost $440 million in 45 minutes due to untested deployment of trading software. Proper regression testing could have prevented this."</p>
+                </div>
+            </div>
+
+            <!-- Question 2 -->
+            <div class="interview-question">
+                <span class="question-tag">Testing Types</span>
+                <span class="difficulty-indicator difficulty-intermediate">Intermediate</span>
+                <h4>2. Explain the difference between verification and validation.</h4>
+            </div>
+            <div class="interview-answer">
+                <p><strong>Answer:</strong> This is often summarized as "Are we building the product right?" vs "Are we building the right product?"</p>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>Aspect</th>
+                        <th>Verification</th>
+                        <th>Validation</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Focus</strong></td>
+                        <td>Process-oriented (static testing)</td>
+                        <td>Product-oriented (dynamic testing)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Question</strong></td>
+                        <td>Are we building the product right?</td>
+                        <td>Are we building the right product?</td>
+                    </tr>
+                    <tr>
+                        <td><strong>When</strong></td>
+                        <td>Throughout development (early and continuous)</td>
+                        <td>After verifiable product is available</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Methods</strong></td>
+                        <td>Reviews, walkthroughs, inspections</td>
+                        <td>Testing, UAT, beta testing</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Examples</strong></td>
+                        <td>Code review, requirement analysis</td>
+                        <td>Functional testing, usability testing</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Defects Found</strong></td>
+                        <td>Early-stage defects (cheaper to fix)</td>
+                        <td>Runtime/functional defects</td>
+                    </tr>
+                </table>
+                
+                <p><strong>Practical example:</strong> Verification is checking that a login screen has all required fields (email, password, submit button) per specifications. Validation is actually trying to log in with valid/invalid credentials to see if it works correctly.</p>
+            </div>
+
+            <!-- Question 3 -->
+            <div class="interview-question">
+                <span class="question-tag">Test Design</span>
+                <span class="difficulty-indicator difficulty-intermediate">Intermediate</span>
+                <h4>3. What is equivalence partitioning and boundary value analysis? Give examples.</h4>
+            </div>
+            <div class="interview-answer">
+                <p><strong>Answer:</strong> These are black-box test design techniques that help reduce the number of test cases while maintaining coverage.</p>
+                
+                <p><strong>Equivalence Partitioning:</strong> Divides input data into valid and invalid partitions where all values in a partition should behave the same way.</p>
+                <ul style="margin: 10px 0 10px 20px;">
+                    <li><strong>Example:</strong> A field accepts ages 18-60
+                        <ul>
+                            <li>Valid partition: 18-60 (test with one value, e.g., 30)</li>
+                            <li>Invalid partitions: &lt;18 (e.g., 17) and &gt;60 (e.g., 61)</li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <p><strong>Boundary Value Analysis:</strong> Tests at the boundaries between partitions since errors often occur at edges.</p>
+                <ul style="margin: 10px 0 10px 20px;">
+                    <li><strong>Example:</strong> Same age field 18-60
+                        <ul>
+                            <li>Test values: 17, 18, 19 (around lower boundary)</li>
+                            <li>Test values: 59, 60, 61 (around upper boundary)</li>
+                        </ul>
+                    </li>
+                </ul>
+                
+                <div class="scenario-question">
+                    <strong>Scenario for practice:</strong> "How would you test a password field that must be 8-16 characters with at least one number and one special character?"
+                    <p><em>Think about:</em> Valid partitions (8-16 chars with requirements), invalid partitions (too short, too long, missing requirements), boundary values (7,8,9 and 15,16,17).</p>
+                </div>
+            </div>
+
+            <!-- Question 4 -->
+            <div class="interview-question">
+                <span class="question-tag">Bug Management</span>
+                <span class="difficulty-indicator difficulty-intermediate">Intermediate</span>
+                <h4>4. What information should a good bug report contain?</h4>
+            </div>
+            <div class="interview-answer">
+                <p><strong>Answer:</strong> A comprehensive bug report should contain enough information for developers to reproduce, understand, and fix the issue.</p>
+                
+                <p><strong>Essential elements:</strong></p>
+                <ol style="margin: 10px 0 10px 20px;">
+                    <li><strong>Title/Summary:</strong> Clear, concise description (e.g., "Login fails with valid credentials after 3 attempts")</li>
+                    <li><strong>Environment:</strong> OS, browser, device, app version, any relevant configuration</li>
+                    <li><strong>Steps to Reproduce:</strong> Numbered, detailed, exact steps
+                        <ul>
+                            <li><em>Good:</em> "1. Navigate to https://example.com/login 2. Enter test@email.com in email field 3. Enter Password123! in password field 4. Click Login button"</li>
+                            <li><em>Bad:</em> "Login doesn't work"</li>
+                        </ul>
+                    </li>
+                    <li><strong>Expected vs Actual Results:</strong> Clearly state both
+                        <ul>
+                            <li>Expected: "User should be redirected to dashboard"</li>
+                            <li>Actual: "Error message 'Invalid credentials' appears"</li>
+                        </ul>
+                    </li>
+                    <li><strong>Severity & Priority:</strong> Your assessment of impact</li>
+                    <li><strong>Attachments:</strong> Screenshots, videos, logs, network traces</li>
+                    <li><strong>Test Data:</strong> Specific data used if relevant</li>
+                    <li><strong>Frequency:</strong> How often it occurs (always, intermittent, once)</li>
+                </ol>
+                
+                <p><strong>Pro tip:</strong> Imagine you're explaining the issue to someone who can't see your screen. Be specific enough that they could reproduce it exactly.</p>
+            </div>
+
+            <!-- Question 5 -->
+            <div class="interview-question">
+                <span class="question-tag">Scenario-Based</span>
+                <span class="difficulty-indicator difficulty-advanced">Advanced</span>
+                <h4>5. How would you test an e-commerce "Add to Cart" functionality?</h4>
+            </div>
+            <div class="interview-answer">
+                <p><strong>Answer:</strong> I'd approach this systematically, covering functional, non-functional, and edge cases.</p>
+                
+                <p><strong>Functional Testing:</strong></p>
+                <ul style="margin: 10px 0 10px 20px;">
+                    <li>Add single item to cart</li>
+                    <li>Add multiple quantities of same item</li>
+                    <li>Add different items to cart</li>
+                    <li>Verify cart updates in real-time (without page refresh)</li>
+                    <li>Check cart persists across sessions (if logged in)</li>
+                    <li>Verify item details in cart (price, name, image, options)</li>
+                    <li>Test from different pages (product page, search results, recommendations)</li>
+                </ul>
+                
+                <p><strong>Boundary & Error Cases:</strong></p>
+                <ul style="margin: 10px 0 10px 20px;">
+                    <li>Add item with zero/negative quantity</li>
+                    <li>Add more than available stock</li>
+                    <li>Add item that becomes unavailable after adding to cart</li>
+                    <li>Test with special characters in product names</li>
+                    <li>Test during high traffic (concurrency issues)</li>
+                </ul>
+                
+                <p><strong>Integration Testing:</strong></p>
+                <ul style="margin: 10px 0 10px 20px;">
+                    <li>Cart updates when inventory changes</li>
+                    <li>Price changes reflect in cart</li>
+                    <li>Promotions/discounts apply correctly</li>
+                    <li>Cart syncs across devices for logged-in users</li>
+                </ul>
+                
+                <p><strong>Non-Functional Testing:</strong></p>
+                <ul style="margin: 10px 0 10px 20px;">
+                    <li>Performance: How fast does cart update? Load with 100+ items</li>
+                    <li>Usability: Is the cart icon intuitive? Clear item count?</li>
+                    <li>Accessibility: Can screen readers interpret cart status?</li>
+                </ul>
+                
+                <p><strong>My approach:</strong> I'd start with happy path scenarios, then boundary cases, then error conditions, ensuring all requirements are covered with traceability back to specifications.</p>
+            </div>
+
+            <!-- Question 6 -->
+            <div class="interview-question">
+                <span class="question-tag">Process</span>
+                <span class="difficulty-indicator difficulty-intermediate">Intermediate</span>
+                <h4>6. What is the difference between retesting and regression testing?</h4>
+            </div>
+            <div class="interview-answer">
+                <p><strong>Answer:</strong> These are often confused but serve different purposes in the testing cycle.</p>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>Aspect</th>
+                        <th>Retesting</th>
+                        <th>Regression Testing</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Purpose</strong></td>
+                        <td>Verify specific bug fixes work</td>
+                        <td>Ensure new changes don't break existing functionality</td>
+                    </tr>
+                    <tr>
+                        <td><strong>What's Tested</strong></td>
+                        <td>Only the fixed defects</td>
+                        <td>Impacted areas and related functionality</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Test Cases</strong></td>
+                        <td>Specific to the bug</td>
+                        <td>Broad suite of existing tests</td>
+                    </tr>
+                    <tr>
+                        <td><strong>When</strong></td>
+                        <td>After developer fixes a bug</td>
+                        <td>After any change (bug fix, enhancement, config change)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Priority</strong></td>
+                        <td>High (must verify fix before release)</td>
+                        <td>High (ensures overall stability)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Example</strong></td>
+                        <td>Bug #123: Login fails with special characters - retest login with those specific characters</td>
+                        <td>After fixing login bug, test registration, password reset, profile update to ensure nothing else broke</td>
+                    </tr>
+                </table>
+                
+                <p><strong>Practical scenario:</strong> When a payment processing bug is fixed, retesting verifies that specific payment works. Regression testing verifies the entire checkout process, cart, inventory updates, email notifications, etc., still work correctly.</p>
+            </div>
+
+            <!-- Question 7 -->
+            <div class="interview-question">
+                <span class="question-tag">Automation</span>
+                <span class="difficulty-indicator difficulty-advanced">Advanced</span>
+                <h4>7. When should you automate tests vs. when should you do manual testing?</h4>
+            </div>
+            <div class="interview-answer">
+                <p><strong>Answer:</strong> The decision depends on multiple factors including ROI, stability, and test type.</p>
+                
+                <div class="answer-structure">
+                    <strong>Automate When:</strong>
+                </div>
+                <ul style="margin: 10px 0 10px 20px;">
+                    <li><strong>Repetitive tests:</strong> Same tests run frequently (regression suites)</li>
+                    <li><strong>Data-driven tests:</strong> Testing with multiple data sets</li>
+                    <li><strong>Load/performance tests:</strong> Simulating thousands of users</li>
+                    <li><strong>Stable functionality:</strong> Features unlikely to change soon</li>
+                    <li><strong>Complex calculations:</strong> Where manual verification is error-prone</li>
+                    <li><strong>Cross-browser/device testing:</strong> Running same tests on multiple configurations</li>
+                </ul>
+                
+                <div class="answer-structure">
+                    <strong>Manual Testing Preferred When:</strong>
+                </div>
+                <ul style="margin: 10px 0 10px 20px;">
+                    <li><strong>Exploratory testing:</strong> Learning the application, ad-hoc testing</li>
+                    <li><strong>Usability testing:</strong> Subjective user experience evaluation</li>
+                    <li><strong>One-time tests:</strong> Not worth automation effort</li>
+                    <li><strong>Frequently changing features:</strong> High maintenance cost for automation</li>
+                    <li><strong>Complex user interactions:</strong> Hard to automate reliably</li>
+                    <li><strong>Early development stages:</strong> When UI/functionality is unstable</li>
+                </ul>
+                
+                <p><strong>Decision Framework:</strong> Consider the <strong>ROI equation:</strong> Automation effort vs. Number of executions × Time saved per execution. Also consider maintenance cost and skill availability.</p>
+                
+                <p><strong>Example:</strong> A login functionality used by thousands daily should be automated. A new feature in beta with weekly UI changes should be tested manually initially.</p>
+            </div>
+
+            <!-- Question 8 -->
+            <div class="interview-question">
+                <span class="question-tag">Behavioral</span>
+                <span class="difficulty-indicator difficulty-intermediate">Intermediate</span>
+                <h4>8. Describe a time you found a difficult bug. How did you approach it?</h4>
+            </div>
+            <div class="interview-answer">
+                <div class="answer-structure">
+                    <strong>Use STAR Method:</strong> Situation → Task → Action → Result
+                </div>
+                
+                <p><strong>Sample Answer Structure:</strong></p>
+                
+                <p><strong>Situation:</strong> "In my previous project, we had an intermittent issue where the application would crash randomly for about 5% of users, but we couldn't reproduce it consistently in our test environment."</p>
+                
+                <p><strong>Task:</strong> "My task was to identify the root cause of this intermittent crash that was causing customer complaints and negatively impacting user experience."</p>
+                
+                <p><strong>Action:</strong> "I took a systematic approach:
+                    <ol style="margin: 10px 0 10px 20px;">
+                        <li>Analyzed crash logs and identified a pattern - crashes seemed related to memory usage</li>
+                        <li>Set up detailed monitoring to track memory usage during specific workflows</li>
+                        <li>Created a test harness to simulate extended user sessions</li>
+                        <li>Isolated the issue to a specific module that had a memory leak when processing large datasets</li>
+                        <li>Collaborated with developers to add more detailed logging</li>
+                        <li>Reproduced the issue by creating a specific test dataset that triggered the leak</li>
+                    </ol>
+                </p>
+                
+                <p><strong>Result:</strong> "We identified that a caching mechanism wasn't clearing properly. The fix reduced crashes by 95% and improved application stability. I also documented the debugging approach for similar future issues."</p>
+                
+                <div class="followup-question">
+                    <strong>What interviewers look for:</strong> Problem-solving approach, persistence, technical skills, collaboration, and documentation.
+                </div>
+            </div>
+
+            <!-- Interview Checklist -->
+            <div class="interview-checklist">
+                <h4>📋 Interview Preparation Checklist</h4>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check1">
+                    <label for="check1">Review basic testing terminology and definitions</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check2">
+                    <label for="check2">Practice explaining testing concepts in simple terms</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check3">
+                    <label for="check3">Prepare 2-3 detailed examples from past experience</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check4">
+                    <label for="check4">Review the company's products/services before interview</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check5">
+                    <label for="check5">Prepare thoughtful questions to ask the interviewer</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check6">
+                    <label for="check6">Practice coding/technical questions if applicable</label>
+                </div>
+                <div class="checklist-item">
+                    <input type="checkbox" id="check7">
+                    <label for="check7">Review test design techniques (equivalence partitioning, boundary value)</label>
+                </div>
+            </div>
+
+            <div class="concept-box">
+                <strong>Final Interview Tip:</strong> Be prepared to write test cases during the interview. Practice writing clear, detailed test cases for common scenarios like login, search, or checkout functionality.
+            </div>
+        </div>
+
+        <!-- Section 9: Quiz -->
+        <div class="section">
+            <h2>1.9: Quick Quiz</h2>
             
             <div class="quiz-box">
                 <h4>Question 1: What's the main difference between SDLC and STLC?</h4>
@@ -578,6 +1230,40 @@
                     <input type="radio" name="q3"> Comprehensive testing of all features
                 </label>
             </div>
+
+            <!-- NEW Quiz Question -->
+            <div class="quiz-box">
+                <h4>Question 4: Which testing principle states that "repeating the same tests finds fewer new defects"?</h4>
+                <label class="quiz-option">
+                    <input type="radio" name="q4"> Defect clustering
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q4"> Pesticide paradox
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q4"> Early testing
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q4"> Absence-of-errors fallacy
+                </label>
+            </div>
+
+            <!-- Interview Question Quiz -->
+            <div class="quiz-box">
+                <h4>Question 5: What is the main purpose of boundary value analysis?</h4>
+                <label class="quiz-option">
+                    <input type="radio" name="q5"> To test all possible input combinations
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q5"> To test at the edges of input ranges where errors often occur
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q5"> To reduce the number of test cases to exactly three
+                </label>
+                <label class="quiz-option">
+                    <input type="radio" name="q5"> To test only valid input values
+                </label>
+            </div>
         </div>
 
         <!-- Key Takeaways -->
@@ -588,9 +1274,13 @@
                 <ul>
                     <li>What software testing is and why it matters</li>
                     <li>The difference between SDLC (overall process) and STLC (testing process)</li>
-                    <li>Different types of testing: unit, integration, system, UAT, functional, non-functional</li>
+                    <li><strong>Comprehensive testing types:</strong> Functional vs Non-Functional, Manual vs Automated, Static vs Dynamic</li>
+                    <li>Testing classifications: White box, Black box, Gray box testing</li>
                     <li>How bugs flow through their lifecycle</li>
                     <li>How to evaluate bugs by severity and priority</li>
+                    <li><strong>Core testing principles</strong> that guide effective testing strategies</li>
+                    <li>Different testing strategies for different project contexts</li>
+                    <li><strong>Interview preparation:</strong> Common QA questions with detailed answers and strategies</li>
                 </ul>
             </div>
         </div>
@@ -607,7 +1297,41 @@
         <p class="mb-2">🧪 <strong><a href="index.html"  target="_self">Train'N'GetTrained</a></strong> - Complete Software Testing Bootcamp</p>
         <p class="text-sm">From Beginner to Professional QA Engineer | 26 Weeks | 100+ Hours | Real Projects</p>
         <p class="text-xs mt-4 opacity-70">© 2025 <a href="index.html"  target="_self">Train'N'GetTrained</a>. All rights reserved. | For personal and educational use only. No commercial use allowed.</p>
-
     </footer>
+
+    <script>
+        // Simple quiz functionality
+        document.querySelectorAll('.quiz-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove any previous selections in this question
+                const questionName = this.querySelector('input').name;
+                document.querySelectorAll(`input[name="${questionName}"]`).forEach(input => {
+                    input.parentElement.style.background = 'white';
+                });
+                
+                // Highlight selected option
+                this.style.background = '#e3f2fd';
+                this.style.borderColor = '#2196f3';
+            });
+        });
+
+        // Interview checklist persistence
+        document.querySelectorAll('.checklist-item input').forEach(checkbox => {
+            // Load saved state from localStorage
+            const savedState = localStorage.getItem(checkbox.id);
+            if (savedState === 'checked') {
+                checkbox.checked = true;
+            }
+            
+            // Save state when changed
+            checkbox.addEventListener('change', function() {
+                if (this.checked) {
+                    localStorage.setItem(this.id, 'checked');
+                } else {
+                    localStorage.removeItem(this.id);
+                }
+            });
+        });
+    </script>
 </body>
 </html>
