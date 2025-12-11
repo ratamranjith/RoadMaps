@@ -32,7 +32,6 @@
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: rgb(255, 255, 255);
             padding: 60px 20px;
-            /* text-align: center; */
         }
 
         .hero h1 {
@@ -125,6 +124,11 @@
         .level-beginner {
             background: #d1fae5;
             color: #065f46;
+        }
+
+        .level-foundation {
+            background: #dbeafe;
+            color: #1e40af;
         }
 
         .level-intermediate {
@@ -314,7 +318,7 @@
             <div class="flex items-center gap-2">
                 <span class="text-3xl">🧪</span>
                 <div>
-                    <h1 class="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent"><a href="index.html"  target="_self">Train'N'GetTrained</a></h1>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent"><a href="index.html" target="_self">Train'N'GetTrained</a></h1>
                     <p class="text-xs text-gray-600">Complete Testing Bootcamp</p>
                 </div>
             </div>
@@ -327,7 +331,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <div class="hero" style="background-image: url(./images/train.jpg);background-position: right;background-repeat: no-repeat;  background-color: rgb(30, 0, 31); padding: 50px">
+    <div class="hero" style="background-image: url(./images/train.jpg);background-position: right;background-repeat: no-repeat; background-color: rgb(30, 0, 31); padding: 50px">
         <h1>Master Software Testing</h1>
         <p>Complete Bootcamp: From Beginner to Professional QA Engineer</p>
         <a href="#modules" class="cta-button">Start Learning Now</a>
@@ -340,6 +344,10 @@
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-number">4</div>
+                    <div class="stat-label">Foundation Weeks</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">8</div>
                     <div class="stat-label">Beginner Weeks</div>
                 </div>
                 <div class="stat-card">
@@ -347,12 +355,8 @@
                     <div class="stat-label">Intermediate Weeks</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">8</div>
+                    <div class="stat-number">6</div>
                     <div class="stat-label">Advanced Weeks</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-number">4</div>
-                    <div class="stat-label">Pro Weeks</div>
                 </div>
             </div>
         </div>
@@ -362,10 +366,19 @@
     <div id="modules">
         <div class="max-w-7xl mx-auto px-4 py-12">
             <h2 class="text-4xl font-bold text-white text-center mb-4">📚 Complete Curriculum</h2>
-            <p class="text-white text-center mb-12 text-lg">10 Comprehensive Modules + Portfolio Projects</p>
+            <p class="text-white text-center mb-12 text-lg">11 Comprehensive Modules + Portfolio Projects</p>
         </div>
 
         <div class="module-grid">
+            <!-- Module 0 - Computer Basics -->
+            <div class="module-card">
+                <span class="level-badge level-foundation">Foundation</span>
+                <div class="icon">💻</div>
+                <h3>Computer Basics & IT Fundamentals</h3>
+                <p>Essential computer knowledge for testing: OS, networking, command line, hardware, and troubleshooting.</p>
+                <a href="computer-basics.html">Start Module →</a>
+            </div>
+
             <!-- Module 1 -->
             <div class="module-card">
                 <span class="level-badge level-beginner">Beginner</span>
@@ -458,7 +471,6 @@
         </div>
     </div>
 
-
     <!-- What You'll Learn Section -->
     <div class="roadmap-section">
         <div class="roadmap-container">
@@ -466,55 +478,53 @@
             <div class="roadmap-item">
                 <div class="number">1</div>
                 <div class="content">
-                    <h4>Week 1-4: Testing Fundamentals</h4>
-                    <p>Master SDLC/STLC, test planning, bug lifecycle, and core testing concepts</p>
+                    <h4>Week 1-4: Computer & IT Fundamentals</h4>
+                    <p>Master computer basics, networking, command line, and essential IT skills for testing</p>
                 </div>
             </div>
             <div class="roadmap-item">
                 <div class="number">2</div>
                 <div class="content">
-                    <h4>Week 5-8: Manual Testing & Test Design</h4>
-                    <p>Learn test design techniques, create effective test cases, exploratory testing</p>
+                    <h4>Week 5-8: Testing Fundamentals</h4>
+                    <p>Learn SDLC/STLC, test planning, bug lifecycle, and core testing concepts</p>
                 </div>
             </div>
             <div class="roadmap-item">
                 <div class="number">3</div>
                 <div class="content">
-                    <h4>Week 9-12: JavaScript & Python Automation</h4>
-                    <p>Build automation tests with Jest and Pytest, understand testing frameworks</p>
+                    <h4>Week 9-12: Manual Testing & Test Design</h4>
+                    <p>Learn test design techniques, create effective test cases, exploratory testing</p>
                 </div>
             </div>
             <div class="roadmap-item">
                 <div class="number">4</div>
                 <div class="content">
-                    <h4>Week 13-16: API & UI Automation</h4>
-                    <p>Master API testing with Postman, Playwright for cross-browser testing</p>
+                    <h4>Week 13-16: JavaScript & Python Automation</h4>
+                    <p>Build automation tests with Jest and Pytest, understand testing frameworks</p>
                 </div>
             </div>
             <div class="roadmap-item">
                 <div class="number">5</div>
                 <div class="content">
-                    <h4>Week 17-20: Performance & CI/CD</h4>
-                    <p>Performance testing, load testing, GitHub Actions, production deployments</p>
+                    <h4>Week 17-20: API & UI Automation</h4>
+                    <p>Master API testing with Postman, Playwright for cross-browser testing</p>
                 </div>
             </div>
             <div class="roadmap-item">
                 <div class="number">6</div>
                 <div class="content">
-                    <h4>Week 21-24: Capstone & Career</h4>
-                    <p>Build enterprise projects, interview prep, portfolio development, certifications</p>
+                    <h4>Week 21-26: Capstone & Career</h4>
+                    <p>Build enterprise projects, performance testing, interview prep, portfolio development</p>
                 </div>
             </div>
         </div>
     </div>
 
-
     <!-- Footer -->
     <footer>
-        <p class="mb-2">🧪 <strong><a href="index.html"  target="_self">Train'N'GetTrained</a></strong> - Complete Software Testing Bootcamp</p>
+        <p class="mb-2">🧪 <strong><a href="index.html" target="_self">Train'N'GetTrained</a></strong> - Complete Software Testing Bootcamp</p>
         <p class="text-sm">From Beginner to Professional QA Engineer | 26 Weeks | 100+ Hours | Real Projects</p>
-        <p class="text-xs mt-4 opacity-70">© 2025 <a href="index.html"  target="_self">Train'N'GetTrained</a>. All rights reserved. | For personal and educational use only. No commercial use allowed.</p>
-
+        <p class="text-xs mt-4 opacity-70">© 2025 <a href="index.html" target="_self">Train'N'GetTrained</a>. All rights reserved. | For personal and educational use only. No commercial use allowed.</p>
     </footer>
 
     <script>
