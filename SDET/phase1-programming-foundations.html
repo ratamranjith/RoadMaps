@@ -1,746 +1,4540 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Phase 1 – Programming Foundations (JS/TS, Python, Ruby)</title>
-  <link rel="stylesheet" href="assets/css/style.css" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phase 1: Programming Foundations – Train'N'GetTrained</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #f5f7fa 0%, #e4e8f0 100%);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .navbar {
+      background: white;
+      box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+      padding: 15px 20px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .navbar-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .back-button {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      box-shadow: 0 4px 6px rgba(102, 126, 234, 0.2);
+    }
+
+    .back-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(102, 126, 234, 0.3);
+    }
+
+    .header {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 40px 20px;
+      text-align: center;
+      border-bottom-left-radius: 20px;
+      border-bottom-right-radius: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .header h1 {
+      font-size: 2.4rem;
+      margin-bottom: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .breadcrumb {
+      opacity: 0.9;
+      font-size: 0.95rem;
+      margin-top: 15px;
+    }
+
+    .phase-meta {
+      margin-top: 15px;
+      font-size: 1rem;
+      opacity: 0.95;
+      max-width: 800px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin: 5px;
+    }
+
+    .badge.primary {
+      background: #6366f1;
+      color: white;
+    }
+
+    .badge.success {
+      background: #10b981;
+      color: white;
+    }
+
+    .badge.warning {
+      background: #f59e0b;
+      color: white;
+    }
+
+    .badge.danger {
+      background: #ef4444;
+      color: white;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 20px 50px;
+    }
+
+    /* TABS */
+    .tabs-container {
+      background: white;
+      border-radius: 15px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      margin-bottom: 40px;
+    }
+
+    .tabs-header {
+      display: flex;
+      background: #f8fafc;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .tabs-header::-webkit-scrollbar {
+      display: none;
+    }
+
+    .tab-button {
+      padding: 20px 25px;
+      background: none;
+      border: none;
+      font-weight: 600;
+      color: #64748b;
+      cursor: pointer;
+      transition: all 0.3s;
+      position: relative;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.95rem;
+      border-right: 1px solid #e2e8f0;
+      min-width: 160px;
+    }
+
+    .tab-button:hover {
+      color: #667eea;
+      background: rgba(102, 126, 234, 0.05);
+    }
+
+    .tab-button.active {
+      color: #667eea;
+      background: white;
+    }
+
+    .tab-button.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .tab-content {
+      display: none;
+      padding: 40px;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .tab-content.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* CONTENT */
+    .section {
+      margin-bottom: 40px;
+      padding-bottom: 30px;
+      border-bottom: 1px solid #e5e7eb;
+    }
+
+    .section:last-child {
+      border-bottom: none;
+    }
+
+    .section h2 {
+      font-size: 1.8rem;
+      color: #111827;
+      margin-bottom: 25px;
+      padding-bottom: 15px;
+      border-bottom: 3px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section h3 {
+      font-size: 1.4rem;
+      color: #1f2933;
+      margin: 25px 0 15px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section h4 {
+      font-size: 1.1rem;
+      color: #374151;
+      margin: 20px 0 10px 0;
+      font-weight: 600;
+    }
+
+    .section p {
+      color: #4b5563;
+      line-height: 1.8;
+      margin-bottom: 15px;
+      font-size: 1rem;
+    }
+
+    .section ul, .section ol {
+      margin-left: 1.8rem;
+      margin-bottom: 20px;
+      color: #4b5563;
+    }
+
+    .section li {
+      margin-bottom: 10px;
+      line-height: 1.7;
+    }
+
+    .highlight-box {
+      background: linear-gradient(135deg, #f0f4ff 0%, #f8f0ff 100%);
+      border-left: 5px solid #667eea;
+      padding: 25px;
+      margin: 25px 0;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+
+    .highlight-box.warning {
+      background: linear-gradient(135deg, #fef3c7 0%, #fef9c3 100%);
+      border-left: 5px solid #f59e0b;
+    }
+
+    .highlight-box.danger {
+      background: linear-gradient(135deg, #fee2e2 0%, #fecaca 100%);
+      border-left: 5px solid #ef4444;
+    }
+
+    .highlight-box.success {
+      background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+      border-left: 5px solid #10b981;
+    }
+
+    .highlight-box strong {
+      color: #4f46e5;
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+
+    .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 25px 0;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      border-radius: 10px;
+      overflow: hidden;
+      font-size: 0.95rem;
+    }
+
+    .comparison-table th,
+    .comparison-table td {
+      border: 1px solid #e2e8f0;
+      padding: 15px 18px;
+      text-align: left;
+    }
+
+    .comparison-table th {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .comparison-table tr:nth-child(even) {
+      background: #f8fafc;
+    }
+
+    .comparison-table tr:hover {
+      background: #edf2ff;
+    }
+
+    pre {
+      background: #0f172a;
+      color: #e5e7eb;
+      padding: 20px;
+      border-radius: 10px;
+      overflow-x: auto;
+      font-size: 0.9rem;
+      margin: 20px 0;
+      line-height: 1.5;
+      border: 1px solid #334155;
+    }
+
+    code {
+      font-family: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', monospace;
+    }
+
+    .code-comment {
+      color: #94a3b8;
+      font-style: italic;
+    }
+
+    .code-keyword {
+      color: #60a5fa;
+    }
+
+    .code-function {
+      color: #fbbf24;
+    }
+
+    .code-string {
+      color: #34d399;
+    }
+
+    .code-number {
+      color: #f87171;
+    }
+
+    /* ARCHITECTURE DIAGRAM */
+    .architecture-diagram {
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 25px;
+      margin: 25px 0;
+      position: relative;
+    }
+
+    .diagram-node {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin: 10px;
+      display: inline-block;
+      font-weight: 600;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .diagram-arrow {
+      text-align: center;
+      margin: 15px 0;
+      color: #64748b;
+      font-size: 1.2rem;
+    }
+
+    /* INTERVIEW QUESTIONS */
+    .interview-question {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      margin: 30px 0;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      border-left: 6px solid #36b9cc;
+      transition: transform 0.3s;
+    }
+
+    .interview-question:hover {
+      transform: translateY(-3px);
+    }
+
+    .question-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+      gap: 15px;
+    }
+
+    .question-tag {
+      background: #36b9cc;
+      color: white;
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .difficulty {
+      padding: 6px 15px;
+      border-radius: 20px;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    .difficulty.beginner {
+      background: #d4edda;
+      color: #155724;
+    }
+
+    .difficulty.intermediate {
+      background: #fff3cd;
+      color: #856404;
+    }
+
+    .difficulty.advanced {
+      background: #f8d7da;
+      color: #721c24;
+    }
+
+    .interview-answer {
+      background: #f8f9fa;
+      padding: 25px;
+      border-radius: 10px;
+      margin-top: 20px;
+      border: 1px solid #e9ecef;
+    }
+
+    .answer-section {
+      margin-bottom: 20px;
+    }
+
+    .answer-section:last-child {
+      margin-bottom: 0;
+    }
+
+    .answer-section strong {
+      color: #2c3e50;
+      display: block;
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+
+    .toggle-answer {
+      background: none;
+      border: none;
+      color: #667eea;
+      font-weight: 600;
+      cursor: pointer;
+      padding: 10px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1rem;
+      transition: color 0.3s;
+    }
+
+    .toggle-answer:hover {
+      color: #764ba2;
+    }
+
+    .hidden-answer {
+      display: none;
+    }
+
+    /* QUIZ */
+    .quiz-box {
+      background: white;
+      border-radius: 12px;
+      padding: 30px;
+      margin: 25px 0;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    }
+
+    .quiz-question {
+      margin-bottom: 22px;
+      font-weight: 600;
+      color: #111827;
+      font-size: 1.1rem;
+    }
+
+    .quiz-option {
+      display: block;
+      padding: 14px 18px;
+      margin: 8px 0;
+      border: 2px solid #e2e8f0;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 1rem;
+      color: #374151;
+    }
+
+    .quiz-option:hover {
+      border-color: #667eea;
+      background: #eff6ff;
+      transform: translateX(5px);
+    }
+
+    .quiz-option.selected {
+      border-color: #667eea;
+      background: #e0edff;
+    }
+
+    .quiz-box button {
+      margin-top: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    }
+
+    .quiz-box button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    }
+
+    /* PROGRESS BAR */
+    .progress-container {
+      background: #e2e8f0;
+      height: 8px;
+      border-radius: 4px;
+      margin: 25px auto 0;
+      max-width: 800px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      width: 14%;
+      transition: width 0.5s ease;
+    }
+
+    /* KEY TAKEAWAYS */
+    .key-takeaways {
+      background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%);
+      border-radius: 12px;
+      padding: 30px;
+      margin: 35px 0;
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+    }
+
+    .key-takeaways h3 {
+      color: #065f46;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.5rem;
+    }
+
+    .key-takeaways ul {
+      list-style: none;
+      margin-left: 0;
+    }
+
+    .key-takeaways li {
+      color: #065f46;
+      padding: 12px 0 12px 45px;
+      position: relative;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    .key-takeaways li:before {
+      content: "✓";
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+      background: #10b981;
+      color: white;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+
+    /* RESOURCES */
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+      margin: 30px 0;
+    }
+
+    .resource-card {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      transition: transform 0.3s;
+    }
+
+    .resource-card:hover {
+      transform: translateY(-5px);
+    }
+
+    .resource-card h4 {
+      color: #667eea;
+      margin-bottom: 15px;
+      font-size: 1.2rem;
+    }
+
+    /* NAV BUTTONS */
+    .navigation-buttons {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 50px;
+      gap: 25px;
+      flex-wrap: wrap;
+    }
+
+    .nav-button {
+      flex: 1;
+      min-width: 200px;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 1rem;
+    }
+
+    .nav-button.prev {
+      background: #f1f5f9;
+      color: #475569;
+      border: 2px solid #e2e8f0;
+    }
+
+    .nav-button.prev:hover {
+      background: #e2e8f0;
+      transform: translateY(-2px);
+    }
+
+    .nav-button.next {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+    }
+
+    .nav-button.next:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+    }
+
+    /* FOOTER */
+    footer {
+      background: #1e293b;
+      color: white;
+      text-align: center;
+      padding: 40px 20px;
+      margin-top: 70px;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+    }
+
+    footer p {
+      margin-bottom: 10px;
+    }
+
+    .text-sm {
+      font-size: 0.9rem;
+    }
+
+    .text-xs {
+      font-size: 0.8rem;
+    }
+
+    .opacity-70 {
+      opacity: 0.7;
+    }
+
+    .mb-2 {
+      margin-bottom: 0.5rem;
+    }
+
+    .mt-4 {
+      margin-top: 1rem;
+    }
+
+    /* NEW ELEMENTS */
+    .concept-map {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px;
+      margin: 25px 0;
+    }
+
+    .concept-card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      border-top: 4px solid #667eea;
+    }
+
+    .concept-card h4 {
+      color: #4f46e5;
+      margin-bottom: 10px;
+    }
+
+    .skill-matrix {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 5px;
+      margin: 15px 0;
+    }
+
+    .skill-cell {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      background: #e5e7eb;
+    }
+
+    .skill-cell.filled {
+      background: #10b981;
+    }
+
+    .timeline {
+      position: relative;
+      margin: 30px 0;
+      padding-left: 30px;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: #667eea;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -36px;
+      top: 5px;
+      width: 15px;
+      height: 15px;
+      border-radius: 50%;
+      background: #667eea;
+      border: 3px solid white;
+      box-shadow: 0 0 0 3px #667eea;
+    }
+
+    @media (max-width: 1024px) {
+      .concept-map {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .tabs-header {
+        padding: 0;
+      }
+
+      .tab-button {
+        padding: 15px;
+        min-width: 140px;
+        font-size: 0.85rem;
+      }
+
+      .tab-content {
+        padding: 25px 20px;
+      }
+
+      .header h1 {
+        font-size: 1.8rem;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .navigation-buttons {
+        flex-direction: column;
+      }
+
+      .nav-button {
+        width: 100%;
+      }
+
+      .concept-map {
+        grid-template-columns: 1fr;
+      }
+
+      .resources-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .tab-button {
+        min-width: 120px;
+        padding: 12px;
+        font-size: 0.8rem;
+      }
+
+      .header {
+        padding: 30px 15px;
+      }
+
+      .section h2 {
+        font-size: 1.5rem;
+      }
+
+      .section h3 {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
 </head>
-<body class="layout">
-  <aside class="sidebar">
-    <div class="sidebar__brand">
-      <h1>Phase 1</h1>
-      <p>Programming Foundations</p>
+<body>
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="navbar-content">
+      <a href="index.html" class="back-button">
+        <i class="fas fa-arrow-left"></i> Back to Home
+      </a>
+      <div class="logo">🧪 Train'N'GetTrained</div>
+      <div style="width: 140px;"></div>
+    </div>
+  </nav>
+
+  <!-- HEADER -->
+  <div class="header">
+    <h1>
+      <i class="fas fa-code"></i>
+      Phase 1: Programming Foundations
+      <span class="badge primary">Weeks 1–3</span>
+      <span class="badge success">JS/TS • Python • Ruby</span>
+    </h1>
+    <p class="breadcrumb">Home &gt; SDET-II Roadmap &gt; Phase 1: Programming Foundations</p>
+    <p class="phase-meta">
+      <strong>Deep, automation-focused rebuild of core programming skills across three languages for FAANG-level SDET-II roles.</strong><br>
+      This phase transforms you from a test script writer into a test infrastructure engineer capable of designing, 
+      building, and maintaining enterprise-grade test frameworks and tools. You'll learn to think like a software engineer 
+      who specializes in quality, with emphasis on testability, observability, and maintainability.
+    </p>
+    <div class="progress-container">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="container">
+    <div class="tabs-container">
+      <!-- TABS HEADER -->
+      <div class="tabs-header">
+        <button class="tab-button active" data-tab="tab1">
+          <i class="fas fa-info-circle icon"></i> Introduction
+        </button>
+        <button class="tab-button" data-tab="tab2">
+          <i class="fas fa-calendar-week icon"></i> Week 1 – Language Refresh
+        </button>
+        <button class="tab-button" data-tab="tab3">
+          <i class="fas fa-layer-group icon"></i> Week 2 – OOP & Testability
+        </button>
+        <button class="tab-button" data-tab="tab4">
+          <i class="fas fa-stream icon"></i> Week 3 – Async, Errors, Observability
+        </button>
+        <button class="tab-button" data-tab="tab5">
+          <i class="fas fa-project-diagram icon"></i> Projects & Deliverables
+        </button>
+        <button class="tab-button" data-tab="tab6">
+          <i class="fas fa-comments icon"></i> Interview Q&A
+        </button>
+        <button class="tab-button" data-tab="tab7">
+          <i class="fas fa-question-circle icon"></i> Quiz
+        </button>
+        <button class="tab-button" data-tab="tab8">
+          <i class="fas fa-book icon"></i> Resources
+        </button>
+      </div>
+
+      <!-- TAB 1: INTRO -->
+      <div class="tab-content active" id="tab1">
+        <div class="section">
+          <h2><i class="fas fa-bullseye"></i> Phase Objective & Mindset Shift</h2>
+          <p>
+            This phase doesn't just refresh programming skills—it rebuilds them with an <strong>automation-first, SDET-II mindset</strong>. 
+            You'll transition from writing test scripts to designing test infrastructure. The goal is to develop <strong>polyglot proficiency</strong>: 
+            mastering JavaScript/TypeScript for modern UI frameworks (Playwright, Cypress), Python for backend/API tooling, and 
+            Ruby for companies with legacy or Ruby-based stacks (Shopify, GitHub, etc.).
+          </p>
+          
+          <div class="highlight-box">
+            <strong>🚀 The SDET-II vs Automation Engineer Difference:</strong>
+            <p>
+              An Automation Engineer writes test scripts. An SDET-II <em>designs the framework</em> those scripts run in. 
+              They build reusable components, create abstraction layers, implement error handling strategies, and ensure 
+              the test suite is observable, maintainable, and scalable. This phase prepares you for that architectural role.
+            </p>
+          </div>
+          
+          <h3><i class="fas fa-industry"></i> Why FAANG Companies Value These Skills</h3>
+          <p>
+            At top tech companies, SDET-II roles are treated as specialized software engineers who focus on quality. 
+            You're expected to:
+          </p>
+          <ul>
+            <li><strong>Design libraries and frameworks</strong> used by dozens of other engineers</li>
+            <li><strong>Debug complex, distributed system issues</strong> across microservices</li>
+            <li><strong>Reason about trade-offs</strong> between different automation approaches</li>
+            <li><strong>Write production-quality code</strong> that lives in the same codebase as the product</li>
+            <li><strong>Optimize test suites</strong> for speed, reliability, and resource usage</li>
+          </ul>
+          
+          <div class="highlight-box warning">
+            <strong>⚠️ Common Pitfall for Career Transition:</strong>
+            <p>
+              Many engineers plateau because they master <em>tools</em> (Selenium, Playwright) without mastering <em>programming fundamentals</em>. 
+              This creates a ceiling where you can't design complex test infrastructure or debug deeply technical issues. 
+              This phase removes that ceiling by rebuilding your fundamentals with an automation perspective.
+            </p>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2><i class="fas fa-route"></i> Phase Structure & Learning Approach</h2>
+          
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Week</th>
+                <th>Primary Focus</th>
+                <th>Languages</th>
+                <th>Mindset Shift</th>
+                <th>Key Outputs</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Week 1</strong></td>
+                <td>Syntax, data structures, control flow with testing perspective</td>
+                <td>JS/TS, Python, Ruby</td>
+                <td>From script writer to utility builder</td>
+                <td>Core utilities, data transformers, validation helpers with tests</td>
+              </tr>
+              <tr>
+                <td><strong>Week 2</strong></td>
+                <td>OOP design, DI, composition, abstraction layers</td>
+                <td>JS/TS, Python, Ruby</td>
+                <td>From procedural to object-oriented design</td>
+                <td>Service classes, page objects, test factories with unit tests</td>
+              </tr>
+              <tr>
+                <td><strong>Week 3</strong></td>
+                <td>Async patterns, error handling, logging, observability</td>
+                <td>JS/TS, Python</td>
+                <td>From linear execution to resilient, observable systems</td>
+                <td>Async utilities, error handlers, logging frameworks, CLI tools</td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <h3><i class="fas fa-brain"></i> Learning Methodology</h3>
+          <p>This phase uses a <strong>three-layer learning approach</strong>:</p>
+          
+          <div class="concept-map">
+            <div class="concept-card">
+              <h4><i class="fas fa-book"></i> Theory & Concepts</h4>
+              <p>Understanding the "why" behind patterns and practices, not just the "how"</p>
+            </div>
+            <div class="concept-card">
+              <h4><i class="fas fa-code"></i> Implementation</h4>
+              <p>Hands-on coding with real automation use cases and edge cases</p>
+            </div>
+            <div class="concept-card">
+              <h4><i class="fas fa-project-diagram"></i> Application</h4>
+              <p>Building complete, reusable projects for your portfolio</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2><i class="fas fa-graduation-cap"></i> Expected Outcomes & Success Metrics</h2>
+          
+          <div class="key-takeaways">
+            <h3><i class="fas fa-flag-checkered"></i> By End of Phase 1, You'll Be Able To:</h3>
+            <ul>
+              <li>Write idiomatic, testable code in JavaScript/TypeScript, Python, and Ruby without constant documentation reference</li>
+              <li>Design and implement abstraction layers (services, clients, utilities) that are mockable and testable</li>
+              <li>Build reusable libraries (retry logic, wait utilities, API wrappers) ready for integration into test frameworks</li>
+              <li>Handle asynchronous operations, errors, and edge cases in a way that makes tests reliable and debuggable</li>
+              <li>Create at least two production-ready GitHub repositories that will be extended in later phases</li>
+              <li>Explain architectural decisions and trade-offs in SDET-II interview settings</li>
+            </ul>
+          </div>
+          
+          <h3><i class="fas fa-chart-line"></i> Skill Progression Tracking</h3>
+          <p>Track your progress through these measurable milestones:</p>
+          
+          <div class="timeline">
+            <div class="timeline-item">
+              <h4>Week 1 Complete</h4>
+              <p>✅ Can implement basic data transformations and control flow in all three languages<br>
+              ✅ Understands reference vs value semantics and implications for test isolation<br>
+              ✅ Has working utilities for status classification, data filtering, and normalization</p>
+            </div>
+            <div class="timeline-item">
+              <h4>Week 2 Complete</h4>
+              <p>✅ Can design service classes with dependency injection for testability<br>
+              ✅ Implements composition patterns over inheritance for automation components<br>
+              ✅ Has working page object/service abstractions with comprehensive unit tests</p>
+            </div>
+            <div class="timeline-item">
+              <h4>Phase 1 Complete</h4>
+              <p>✅ Masters async patterns and error handling in JS/TS and Python<br>
+              ✅ Implements structured logging and observability hooks<br>
+              ✅ Has complete CLI tool for test report generation<br>
+              ✅ All three portfolio repositories are production-ready</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h2><i class="fas fa-cogs"></i> Technical Environment Setup</h2>
+          
+          <div class="highlight-box">
+            <strong>🛠 Required Development Environment:</strong>
+            <ul>
+              <li><strong>Node.js 18+</strong> with npm/yarn for JavaScript/TypeScript development</li>
+              <li><strong>Python 3.9+</strong> with virtualenv/pipenv for Python development</li>
+              <li><strong>Ruby 3.0+</strong> with rbenv/rvm for Ruby development</li>
+              <li><strong>Git</strong> for version control and GitHub for portfolio hosting</li>
+              <li><strong>VS Code</strong> with extensions for all three languages (recommended)</li>
+              <li><strong>Docker</strong> (optional but recommended for consistent environments)</li>
+            </ul>
+          </div>
+          
+          <h3><i class="fas fa-folder-open"></i> Project Structure Standardization</h3>
+          <p>All projects in this phase follow a consistent structure for maintainability and interview presentation:</p>
+          
+          <pre><code>project-name/
+├── src/                    # Source code
+│   ├── core/              # Core utilities
+│   ├── services/          # Service classes  
+│   ├── types/             # Type definitions (TS)
+│   └── utils/             # Helper functions
+├── tests/                 # Test files
+│   ├── unit/              # Unit tests
+│   ├── integration/       # Integration tests
+│   └── fixtures/          # Test data
+├── docs/                  # Documentation
+│   ├── architecture.md    # Design decisions
+│   └── usage.md          # How to use
+├── scripts/               # Build/run scripts
+├── .github/               # GitHub workflows
+├── package.json           # Node dependencies
+├── requirements.txt       # Python dependencies
+├── Gemfile                # Ruby dependencies
+└── README.md             # Project overview</code></pre>
+        </div>
+      </div>
+
+      <!-- TAB 2: WEEK 1 -->
+      <div class="tab-content" id="tab2">
+        <div class="section">
+          <h2><i class="fas fa-calendar-week"></i> Week 1 – Language Refresh with Testing Mindset</h2>
+          <p>
+            Week 1 reactivates your programming intuition in each language while explicitly connecting fundamentals to 
+            <strong>automation use cases</strong>. Every concept is taught through the lens of test framework development: 
+            data parsing for API assertions, status classification for test flows, configuration handling, and small 
+            utilities that become building blocks inside larger frameworks.
+          </p>
+          
+          <div class="highlight-box">
+            <strong>🎯 Week 1 Philosophy:</strong>
+            <p>
+              You're not learning programming from scratch—you're <em>relearning it with an automation perspective</em>. 
+              Each language feature is evaluated by: "How does this help or hurt test reliability, maintainability, and debuggability?"
+            </p>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-day"></i> Day 1 – Modern JavaScript Essentials (SDET-Centric)</h3>
+          
+          <h4>🔍 What You're Really Learning</h4>
+          <p>
+            Beyond syntax, you're learning how JavaScript's execution model affects test stability. Automation code is 
+            often debug-heavy, and misunderstanding references vs values leads to mutated shared state across tests, 
+            flaky behavior, and difficult-to-trace bugs.
+          </p>
+          
+          <div class="highlight-box danger">
+            <strong>💥 The #1 JavaScript Pitfall in Automation:</strong>
+            <p>
+              <strong>Shared mutable state</strong> causes the most subtle, hard-to-diagnose test failures. When test A 
+              modifies an object that test B also uses, you get unpredictable results that vary by test execution order.
+            </p>
+          </div>
+          
+          <h4>📚 Deep Dive: Execution Context & Closures</h4>
+          <p>
+            Understanding closures isn't academic—it's essential for creating isolated test fixtures. A closure lets you 
+            encapsulate state that's private to a test helper, preventing accidental sharing between tests.
+          </p>
+          
+          <pre><code>// ❌ DANGEROUS: Shared state across tests
+let requestCount = 0;
+
+function makeRequest() {
+  requestCount++;
+  console.log(`Request ${requestCount}`);
+  // If tests run in parallel, requestCount gets corrupted
+}
+
+// ✅ SAFE: Encapsulated state with closure
+function createRequestCounter() {
+  let requestCount = 0; // Private to this closure
+  
+  return function makeRequest() {
+    requestCount++;
+    console.log(`Request ${requestCount}`);
+    // Each test gets its own counter instance
+  };
+}
+
+// In test setup:
+const counterA = createRequestCounter(); // Has its own count
+const counterB = createRequestCounter(); // Independent count</code></pre>
+          
+          <h4>⚙️ Hands-On: Test Configuration Builder</h4>
+          <p>
+            Build a configuration utility that prevents the most common shared state bug in test frameworks:
+          </p>
+          
+          <pre><code>// Common bug pattern in test utilities
+const defaultConfig = { 
+  retries: 2, 
+  baseUrl: "https://api.example.com",
+  timeout: 30000 
+};
+
+// ❌ WRONG: Mutates shared default
+function createConfig(overrides) {
+  // This modifies defaultConfig for ALL future calls!
+  return Object.assign(defaultConfig, overrides);
+}
+
+// ✅ CORRECT: Creates new object each time
+function createConfig(overrides = {}) {
+  return { 
+    ...defaultConfig, // Spread operator creates shallow copy
+    ...overrides      // Overrides applied on top
+  };
+}
+
+// ✅ EVEN BETTER: Deep clone for nested objects
+function createConfig(overrides = {}) {
+  const config = JSON.parse(JSON.stringify(defaultConfig));
+  return { ...config, ...overrides };
+}</code></pre>
+          
+          <h4>🎯 Day 1 Deliverables</h4>
+          <ul>
+            <li>Create <code>js-core-refresh</code> repository</li>
+            <li>Implement: <code>classifyStatus()</code>, <code>sumEven()</code>, <code>normalizeUser()</code></li>
+            <li>Add Jest tests for edge cases (null, undefined, malformed input)</li>
+            <li>Write README explaining how each utility prevents common test bugs</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-day"></i> Day 2 – TypeScript for Reliable Test Automation</h3>
+          
+          <p>
+            TypeScript isn't just "JavaScript with types"—it's a <strong>compile-time test suite</strong> that catches 
+            bugs before tests even run. For SDETs, TypeScript's real power is in creating <strong>self-documenting, 
+            error-resistant interfaces</strong> for test frameworks.
+          </p>
+          
+          <h4>🎯 TypeScript's Killer Feature for SDETs: Discriminated Unions</h4>
+          <p>
+            Discriminated unions let you model different test outcomes in a type-safe way, eliminating whole categories 
+            of assertion bugs:
+          </p>
+          
+          <pre><code>// Without discriminated unions - error prone
+interface TestResult {
+  passed: boolean;
+  error?: string;
+  duration?: number;
+  // What if passed=true but error exists?
+}
+
+// With discriminated unions - compiler prevents invalid states
+type TestResult = 
+  | { type: 'success'; duration: number; details: string }
+  | { type: 'failure'; error: string; stackTrace?: string }
+  | { type: 'skipped'; reason: string };
+
+// TypeScript ensures you handle all cases
+function handleResult(result: TestResult) {
+  switch (result.type) {
+    case 'success':
+      console.log(`✓ ${result.duration}ms: ${result.details}`);
+      break;
+    case 'failure':
+      console.error(`✗ ${result.error}`);
+      break;
+    case 'skipped':
+      console.log(`⚠ Skipped: ${result.reason}`);
+      break;
+    // No default needed - compiler ensures exhaustive handling
+  }
+}</code></pre>
+          
+          <h4>🔧 Generic Helpers for Test Utilities</h4>
+          <p>
+            Generics let you write flexible utilities that maintain type safety across different test data structures:
+          </p>
+          
+          <pre><code>// Generic retry utility with typed errors
+export async function retry&lt;T&gt;(
+  operation: () => Promise&lt;T&gt;,
+  options: {
+    retries: number;
+    delayMs: number;
+    shouldRetry?: (error: unknown) => boolean;
+    onRetry?: (attempt: number, error: unknown) => void;
+  }
+): Promise&lt;T&gt; {
+  for (let attempt = 1; attempt &lt;= options.retries; attempt++) {
+    try {
+      return await operation();
+    } catch (error) {
+      if (attempt === options.retries) {
+        throw error; // Final attempt failed
+      }
+      
+      if (options.shouldRetry && !options.shouldRetry(error)) {
+        throw error; // Non-retriable error
+      }
+      
+      if (options.onRetry) {
+        options.onRetry(attempt, error);
+      }
+      
+      await new Promise(resolve => setTimeout(resolve, options.delayMs));
+    }
+  }
+  
+  // TypeScript knows this is unreachable, but we need it for compilation
+  throw new Error('Max retries exceeded');
+}</code></pre>
+          
+          <h4>🎯 Day 2 Deliverables</h4>
+          <ul>
+            <li>Create <code>ts-helpers</code> repository with TypeScript configuration</li>
+            <li>Implement typed: <code>retry()</code>, <code>waitFor()</code>, <code>timeout()</code></li>
+            <li>Create interface definitions for HTTP clients, test results, configuration</li>
+            <li>Add example usage showing compile-time error prevention</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-day"></i> Day 3 – Python for API Testing & Tooling</h3>
+          
+          <p>
+            Python's strength for SDETs is in <strong>rapid tool development</strong> and <strong>data transformation pipelines</strong>. 
+            You'll focus on patterns for API testing, log analysis, and ETL tasks that feed into test reporting.
+          </p>
+          
+          <h4>🐍 Pythonic Patterns for Test Data</h4>
+          <p>
+            Python's list comprehensions, generators, and context managers are perfect for test data processing:
+          </p>
+          
+          <pre><code># Traditional approach - verbose
+def filter_responses(responses):
+    filtered = []
+    for response in responses:
+        if 200 &lt;= response.get('status', 0) &lt; 300:
+            filtered.append(response)
+    return filtered
+
+# Pythonic approach - concise and readable
+def filter_success(responses):
+    return [
+        r for r in responses 
+        if 200 &lt;= r.get('status', 0) &lt; 300
+    ]
+
+# Generator for memory-efficient processing of large test logs
+def parse_log_file(filepath):
+    with open(filepath, 'r') as f:
+        for line in f:
+            if 'ERROR' in line or 'FAIL' in line:
+                yield parse_log_entry(line)
+
+# Context manager for test resource cleanup
+from contextlib import contextmanager
+
+@contextmanager
+def temporary_test_data(data):
+    """Context manager that creates and cleans up test data."""
+    test_id = create_test_data(data)
+    try:
+        yield test_id
+    finally:
+        cleanup_test_data(test_id)
+
+# Usage in tests
+with temporary_test_data({'user': 'test', 'role': 'admin'}) as test_id:
+    # Test code that uses the data
+    result = api.get(f'/users/{test_id}')
+    assert result.status_code == 200</code></pre>
+          
+          <h4>📊 Data Classes for Test Entities</h4>
+          <p>
+            Python 3.7+'s dataclasses provide type-safe, self-documenting test data structures:
+          </p>
+          
+          <pre><code>from dataclasses import dataclass, field
+from typing import List, Optional
+from datetime import datetime
+from enum import Enum
+
+class TestStatus(Enum):
+    PASSED = "passed"
+    FAILED = "failed"
+    SKIPPED = "skipped"
+    FLAKY = "flaky"
+
+@dataclass
+class TestResult:
+    """Immutable test result container with validation."""
+    test_name: str
+    status: TestStatus
+    duration_ms: float
+    error_message: Optional[str] = None
+    stack_trace: Optional[str] = None
+    metadata: dict = field(default_factory=dict)
+    timestamp: datetime = field(default_factory=datetime.now)
+    
+    def is_failure(self) -> bool:
+        return self.status == TestStatus.FAILED
+    
+    def to_dict(self) -> dict:
+        return {
+            'test_name': self.test_name,
+            'status': self.status.value,
+            'duration': f"{self.duration_ms}ms",
+            'failed': self.is_failure(),
+            'timestamp': self.timestamp.isoformat()
+        }</code></pre>
+          
+          <h4>🎯 Day 3 Deliverables</h4>
+          <ul>
+            <li>Create <code>python-core</code> repository with virtual environment</li>
+            <li>Implement data classes for test results, API responses, configuration</li>
+            <li>Build data transformation utilities with list comprehensions and generators</li>
+            <li>Add pytest tests with parameterization for different input cases</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-day"></i> Day 4 – Ruby for Legacy & DSL-Based Frameworks</h3>
+          
+          <p>
+            Ruby appears in mature codebases (Shopify, GitHub, Airbnb's early days). The goal isn't mastery but 
+            <strong>fluency enough to navigate and extend existing automation frameworks</strong>.
+          </p>
+          
+          <h4>💎 Ruby's Superpower: Readable Test DSLs</h4>
+          <p>
+            Ruby's block syntax and metaprogramming enable incredibly readable test specifications:
+          </p>
+          
+          <pre><code># Example of a readable test DSL in Ruby
+feature "User Registration" do
+  background do
+    @test_user = create(:user)
+    visit registration_page
+  end
+
+  scenario "with valid credentials" do
+    fill_in "Email", with: @test_user.email
+    fill_in "Password", with: "secure123"
+    click_button "Register"
+    
+    expect(page).to have_content("Welcome!")
+    expect(User.count).to eq(1)
+  end
+
+  scenario "with invalid email" do
+    fill_in "Email", with: "invalid-email"
+    click_button "Register"
+    
+    expect(page).to have_content("Invalid email format")
+  end
+end</code></pre>
+          
+          <h4>🔧 Understanding Ruby's Test Ecosystem</h4>
+          <ul>
+            <li><strong>RSpec</strong>: Behavior-driven testing framework</li>
+            <li><strong>Capybara</strong>: Integration testing for web applications</li>
+            <li><strong>FactoryBot</strong>: Test data creation (Ruby's version of factory pattern)</li>
+            <li><strong>VCR</strong>: HTTP request recording/replaying</li>
+            <li><strong>WebMock</strong>: HTTP request stubbing</li>
+          </ul>
+          
+          <h4>🎯 Day 4 Deliverables</h4>
+          <ul>
+            <li>Create <code>ruby-core</code> repository with Gemfile</li>
+            <li>Implement basic Ruby classes with RSpec tests</li>
+            <li>Study and document patterns from open source Ruby test frameworks</li>
+            <li>Create a cheat sheet of Ruby-to-TypeScript/Python equivalents</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-day"></i> Day 5 – Cross-Language Patterns & Consolidation</h3>
+          
+          <p>
+            Today you synthesize patterns across languages and build your first polyglot utility library. The focus 
+            is on identifying <strong>universal automation patterns</strong> that work across language boundaries.
+          </p>
+          
+          <h4>🌐 The Polyglot Utility Matrix</h4>
+          
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Pattern</th>
+                <th>JavaScript/TypeScript</th>
+                <th>Python</th>
+                <th>Ruby</th>
+                <th>Automation Use Case</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Retry Logic</td>
+                <td><code>async/await</code> with exponential backoff</td>
+                <td>Decorators with <code>tenacity</code> library</td>
+                <td>Blocks with <code>retry_on</code> pattern</td>
+                <td>Flaky network calls in API tests</td>
+              </tr>
+              <tr>
+                <td>Data Validation</td>
+                <td>Zod/Joi schemas</td>
+                <td>Pydantic models</td>
+                <td>Dry-validation</td>
+                <td>Validating API responses in tests</td>
+              </tr>
+              <tr>
+                <td>Configuration</td>
+                <td>Environment variables with defaults</td>
+                <td><code>pydantic-settings</code></td>
+                <td><code>dotenv</code> + classes</td>
+                <td>Test environment configuration</td>
+              </tr>
+              <tr>
+                <td>Logging</td>
+                <td>Structured JSON logging</td>
+                <td><code>structlog</code></td>
+                <td><code>semantic_logger</code></td>
+                <td>Debugging distributed test failures</td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <h4>🔨 Build: Polyglot Status Classifier</h4>
+          <p>
+            Implement the same utility in all three languages to understand their idioms:
+          </p>
+          
+          <div class="architecture-diagram">
+            <div class="diagram-node">HTTP Status Code</div>
+            <div class="diagram-arrow">↓</div>
+            <div class="diagram-node">Status Classifier</div>
+            <div class="diagram-arrow">↓</div>
+            <div style="display: flex; justify-content: center; gap: 20px;">
+              <div class="diagram-node">Success</div>
+              <div class="diagram-node">Redirect</div>
+              <div class="diagram-node">Client Error</div>
+              <div class="diagram-node">Server Error</div>
+            </div>
+          </div>
+          
+          <h4>✅ Week 1 Self-Evaluation Checklist</h4>
+          <ul>
+            <li>Can implement basic control flow and data transformations in JS/TS, Python, and Ruby without constant documentation reference</li>
+            <li>Can explain three specific ways shared mutable state can break test isolation with code examples</li>
+            <li>Has working <code>sdet-polyglot-core-utils</code> repository with utilities in all three languages</li>
+            <li>Can articulate the trade-offs between TypeScript's compile-time safety and Python's rapid development</li>
+            <li>Understands when to use each language based on team context and existing codebase</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TAB 3: WEEK 2 -->
+      <div class="tab-content" id="tab3">
+        <div class="section">
+          <h2><i class="fas fa-layer-group"></i> Week 2 – OOP, Composition & Testability</h2>
+          <p>
+            Week 2 moves from functions to <strong>abstractions and architecture</strong>. You'll learn to design 
+            test infrastructure components using Object-Oriented Programming principles, with emphasis on 
+            <strong>testability, maintainability, and flexibility</strong>.
+          </p>
+          
+          <div class="highlight-box">
+            <strong>🎯 Week 2 Philosophy:</strong>
+            <p>
+              Good test code isn't just correct—it's <em>designed for change</em>. When product requirements shift, 
+              your tests should adapt with minimal rework. This requires thoughtful abstraction and separation of concerns.
+            </p>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-day"></i> Day 6 – Dependency Injection for Testable Services</h3>
+          
+          <h4>🎯 Why DI Matters for SDETs</h4>
+          <p>
+            Dependency Injection (DI) is the #1 technique for making code testable. It lets you:
+          </p>
+          <ul>
+            <li>Replace real dependencies with mocks during testing</li>
+            <li>Isolate units of code for focused testing</li>
+            <li>Configure different behaviors for different test scenarios</li>
+            <li>Reduce coupling between test components</li>
+          </ul>
+          
+          <h4>🔧 Three DI Patterns for Automation</h4>
+          
+          <pre><code>// 1. CONSTRUCTOR INJECTION (Most common and recommended)
+interface HttpClient {
+  get(url: string): Promise&lt;Response&gt;;
+}
+
+class ApiService {
+  // Dependency is injected at construction time
+  constructor(private httpClient: HttpClient) {}
+  
+  async getUser(id: string) {
+    return this.httpClient.get(`/users/${id}`);
+  }
+}
+
+// Usage in production
+const realService = new ApiService(new RealHttpClient());
+
+// Usage in tests
+const mockClient = { get: jest.fn() };
+const testService = new ApiService(mockClient);
+
+// 2. SETTER INJECTION (When dependencies change at runtime)
+class ConfigurableService {
+  private httpClient?: HttpClient;
+  
+  setHttpClient(client: HttpClient) {
+    this.httpClient = client;
+  }
+}
+
+// 3. INTERFACE INJECTION (Most flexible, most complex)
+interface HttpClientUser {
+  useHttpClient(client: HttpClient): void;
+}
+
+class FlexibleService implements HttpClientUser {
+  private httpClient?: HttpClient;
+  
+  useHttpClient(client: HttpClient) {
+    this.httpClient = client;
+  }
+}</code></pre>
+          
+          <h4>🏗 Building a Testable API Client</h4>
+          <p>
+            Create an API client that can be tested in isolation from the actual network:
+          </p>
+          
+          <pre><code>// TypeScript implementation
+export interface IHttpClient {
+  get&lt;T&gt;(url: string, options?: RequestOptions): Promise&lt;T&gt;;
+  post&lt;T&gt;(url: string, data: unknown, options?: RequestOptions): Promise&lt;T&gt;;
+  put&lt;T&gt;(url: string, data: unknown, options?: RequestOptions): Promise&lt;T&gt;;
+  delete&lt;T&gt;(url: string, options?: RequestOptions): Promise&lt;T&gt;;
+}
+
+export interface RequestOptions {
+  headers?: Record&lt;string, string&gt;;
+  timeout?: number;
+  retries?: number;
+}
+
+export class ApiClient implements IHttpClient {
+  constructor(
+    private baseUrl: string,
+    private defaultOptions: RequestOptions = {}
+  ) {}
+  
+  async get&lt;T&gt;(path: string, options: RequestOptions = {}): Promise&lt;T&gt; {
+    const url = `${this.baseUrl}${path}`;
+    const mergedOptions = { ...this.defaultOptions, ...options };
+    
+    try {
+      const response = await fetch(url, {
+        method: 'GET',
+        headers: mergedOptions.headers,
+      });
+      
+      if (!response.ok) {
+        throw new ApiError(response.status, await response.text());
+      }
+      
+      return await response.json() as T;
+    } catch (error) {
+      if (mergedOptions.retries && mergedOptions.retries > 0) {
+        // Implement retry logic here
+      }
+      throw error;
+    }
+  }
+  
+  // Implement post, put, delete similarly
+}
+
+// Python equivalent
+from abc import ABC, abstractmethod
+from typing import Any, Dict, Optional
+import requests
+
+class HttpClient(ABC):
+    @abstractmethod
+    def get(self, url: str, **kwargs) -> Any:
+        pass
+    
+    @abstractmethod
+    def post(self, url: str, data: Dict, **kwargs) -> Any:
+        pass
+
+class RealHttpClient(HttpClient):
+    def get(self, url: str, **kwargs) -> Any:
+        response = requests.get(url, **kwargs)
+        response.raise_for_status()
+        return response.json()</code></pre>
+          
+          <h4>🎯 Day 6 Deliverables</h4>
+          <ul>
+            <li>Create <code>ts-oop-http</code> repository</li>
+            <li>Implement <code>IHttpClient</code> interface and <code>ApiClient</code> class</li>
+            <li>Create <code>MockHttpClient</code> for testing</li>
+            <li>Write comprehensive Jest tests with mocked dependencies</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-day"></i> Day 7 – Composition Over Inheritance in Test Design</h3>
+          
+          <h4>⚖️ The Inheritance vs Composition Decision</h4>
+          <p>
+            Inheritance creates rigid hierarchies; composition creates flexible systems. For test frameworks, 
+            composition almost always wins:
+          </p>
+          
+          <div class="highlight-box warning">
+            <strong>⚠️ The Fragile Base Class Problem:</strong>
+            <p>
+              When test base classes change, all derived test classes break. This causes widespread test failures 
+              unrelated to the actual product code being tested.
+            </p>
+          </div>
+          
+          <h4>🎭 Strategy Pattern for Pluggable Behaviors</h4>
+          <p>
+            Use the Strategy pattern when you need interchangeable algorithms (e.g., different authentication methods):
+          </p>
+          
+          <pre><code>// Authentication strategies
+interface AuthStrategy {
+  authenticate(request: Request): Promise&lt;Request&gt;;
+}
+
+class BearerTokenAuth implements AuthStrategy {
+  constructor(private token: string) {}
+  
+  async authenticate(request: Request): Promise&lt;Request&gt; {
+    request.headers.set('Authorization', `Bearer ${this.token}`);
+    return request;
+  }
+}
+
+class ApiKeyAuth implements AuthStrategy {
+  constructor(private apiKey: string) {}
+  
+  async authenticate(request: Request): Promise&lt;Request&gt; {
+    request.headers.set('X-API-Key', this.apiKey);
+    return request;
+  }
+}
+
+class OAuth2Auth implements AuthStrategy {
+  constructor(private clientId: string, private clientSecret: string) {}
+  
+  async authenticate(request: Request): Promise&lt;Request&gt; {
+    const token = await this.getAccessToken();
+    request.headers.set('Authorization', `Bearer ${token}`);
+    return request;
+  }
+  
+  private async getAccessToken(): Promise&lt;string&gt; {
+    // Implementation to get OAuth2 token
+  }
+}
+
+// Composable API client
+class AuthenticatedApiClient {
+  constructor(
+    private httpClient: IHttpClient,
+    private authStrategy: AuthStrategy
+  ) {}
+  
+  async get&lt;T&gt;(path: string): Promise&lt;T&gt; {
+    const request = new Request(`${this.baseUrl}${path}`);
+    const authenticatedRequest = await this.authStrategy.authenticate(request);
+    return this.httpClient.get(authenticatedRequest);
+  }
+}
+
+// Usage: Swap strategies without changing client code
+const client = new AuthenticatedApiClient(
+  new RealHttpClient(),
+  process.env.API_KEY 
+    ? new ApiKeyAuth(process.env.API_KEY)
+    : new OAuth2Auth(process.env.CLIENT_ID, process.env.CLIENT_SECRET)
+);</code></pre>
+          
+          <h4>🧩 Building Page Objects with Composition</h4>
+          <p>
+            Modern page objects should be composed of reusable components, not deep inheritance hierarchies:
+          </p>
+          
+          <pre><code>// Component-based page objects
+class LoginForm {
+  constructor(private page: Page) {}
+  
+  async fillEmail(email: string) {
+    await this.page.fill('#email', email);
+  }
+  
+  async fillPassword(password: string) {
+    await this.page.fill('#password', password);
+  }
+  
+  async submit() {
+    await this.page.click('button[type="submit"]');
+  }
+}
+
+class NavigationBar {
+  constructor(private page: Page) {}
+  
+  async goToProfile() {
+    await this.page.click('[data-testid="profile-link"]');
+  }
+  
+  async logout() {
+    await this.page.click('[data-testid="logout-button"]');
+  }
+}
+
+// Composed page object
+class DashboardPage {
+  readonly navigation: NavigationBar;
+  readonly userMenu: UserMenu;
+  
+  constructor(private page: Page) {
+    this.navigation = new NavigationBar(page);
+    this.userMenu = new UserMenu(page);
+  }
+  
+  async isLoaded(): Promise&lt;boolean&gt; {
+    return this.page.isVisible('[data-testid="dashboard"]');
+  }
+}
+
+// Usage in tests
+test('user can navigate dashboard', async () => {
+  const dashboard = new DashboardPage(page);
+  await dashboard.navigation.goToProfile();
+  // Test profile page
+});</code></pre>
+          
+          <h4>🎯 Day 7 Deliverables</h4>
+          <ul>
+            <li>Extend <code>ts-oop-http</code> with strategy pattern implementations</li>
+            <li>Create component-based page object examples</li>
+            <li>Write tests demonstrating the flexibility of composed objects</li>
+            <li>Document trade-offs between inheritance and composition for common test scenarios</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-day"></i> Day 8 – Factory Pattern for Test Data</h3>
+          
+          <h4>🏭 Why Test Data Factories Matter</h4>
+          <p>
+            Hardcoded test data creates brittle tests. Factories create realistic, varied test data that's easy to 
+            maintain and modify.
+          </p>
+          
+          <h4>🔨 Four Factory Patterns for SDETs</h4>
+          
+          <pre><code>// 1. SIMPLE FACTORY FUNCTION
+function createUser(overrides = {}) {
+  return {
+    id: faker.datatype.uuid(),
+    name: faker.name.fullName(),
+    email: faker.internet.email(),
+    isActive: true,
+    createdAt: new Date(),
+    ...overrides
+  };
+}
+
+// 2. BUILDER PATTERN (For complex objects)
+class UserBuilder {
+  private user: Partial&lt;User&gt; = {};
+  
+  withId(id: string): this {
+    this.user.id = id;
+    return this;
+  }
+  
+  withName(name: string): this {
+    this.user.name = name;
+    return this;
+  }
+  
+  asAdmin(): this {
+    this.user.role = 'admin';
+    return this;
+  }
+  
+  build(): User {
+    return {
+      id: this.user.id || faker.datatype.uuid(),
+      name: this.user.name || faker.name.fullName(),
+      email: this.user.email || faker.internet.email(),
+      role: this.user.role || 'user',
+      isActive: this.user.isActive ?? true,
+      createdAt: this.user.createdAt || new Date()
+    };
+  }
+}
+
+// Usage
+const adminUser = new UserBuilder()
+  .withName('Admin User')
+  .asAdmin()
+  .build();
+
+// 3. OBJECT MOTHER PATTERN (Pre-configured templates)
+class UserMother {
+  static admin(): User {
+    return {
+      id: 'admin-123',
+      name: 'System Administrator',
+      email: 'admin@example.com',
+      role: 'admin',
+      permissions: ['read', 'write', 'delete']
+    };
+  }
+  
+  static inactive(): User {
+    return {
+      ...this.standard(),
+      isActive: false,
+      deactivatedAt: new Date()
+    };
+  }
+  
+  static standard(): User {
+    return createUser(); // Reuse simple factory
+  }
+}
+
+// 4. ABSTRACT FACTORY (For families of related objects)
+interface TestDataFactory {
+  createUser(): User;
+  createProduct(): Product;
+  createOrder(): Order;
+}
+
+class EcommerceTestDataFactory implements TestDataFactory {
+  createUser(): User {
+    return createUser();
+  }
+  
+  createProduct(): Product {
+    return {
+      id: faker.datatype.uuid(),
+      name: faker.commerce.productName(),
+      price: faker.commerce.price(),
+      category: faker.commerce.department()
+    };
+  }
+  
+  createOrder(): Order {
+    return {
+      id: faker.datatype.uuid(),
+      userId: this.createUser().id,
+      products: [this.createProduct()],
+      total: faker.commerce.price(),
+      status: 'pending'
+    };
+  }
+}</code></pre>
+          
+          <h4>🎯 Day 8 Deliverables</h4>
+          <ul>
+            <li>Create <code>test-data-factories</code> repository</li>
+            <li>Implement all four factory patterns in TypeScript/Python</li>
+            <li>Add Faker.js integration for realistic test data</li>
+            <li>Create factories for common test entities (users, products, orders, API responses)</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-day"></i> Day 9 – Test Doubles: Mocks, Stubs, Spies, Fakes</h3>
+          
+          <h4>🎭 Understanding Test Doubles</h4>
+          <p>
+            Different test situations require different types of test doubles. Using the wrong one leads to brittle tests.
+          </p>
+          
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Type</th>
+                <th>Purpose</th>
+                <th>When to Use</th>
+                <th>Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Dummy</strong></td>
+                <td>Fills parameter lists, never used</td>
+                <td>When a method requires an argument but you don't care about it</td>
+                <td><code>null</code>, empty object</td>
+              </tr>
+              <tr>
+                <td><strong>Stub</strong></td>
+                <td>Returns predefined responses</td>
+                <td>Testing code paths that depend on external state</td>
+                <td>Hardcoded API response</td>
+              </tr>
+              <tr>
+                <td><strong>Spy</strong></td>
+                <td>Records interactions for verification</td>
+                <td>Verifying that methods were called with correct arguments</td>
+                <td>Recording function calls</td>
+              </tr>
+              <tr>
+                <td><strong>Mock</strong></td>
+                <td>Pre-programmed expectations</td>
+                <td>Testing interactions between objects</td>
+                <td>Expecting specific method calls</td>
+              </tr>
+              <tr>
+                <td><strong>Fake</strong></td>
+                <td>Working implementation with simplified behavior</td>
+                <td>When real dependency is too slow or complex</td>
+                <td>In-memory database</td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <h4>🔧 Implementing Test Doubles in TypeScript</h4>
+          
+          <pre><code>// Manual test doubles (no library needed)
+interface Database {
+  save(user: User): Promise&lt;void&gt;;
+  findById(id: string): Promise&lt;User | null&gt;;
+}
+
+// 1. STUB: Returns predefined data
+class StubDatabase implements Database {
+  async save(user: User): Promise&lt;void&gt; {
+    // Do nothing - stub doesn't implement behavior
+  }
+  
+  async findById(id: string): Promise&lt;User | null&gt; {
+    // Always return the same user
+    return {
+      id: 'stub-user-123',
+      name: 'Stub User',
+      email: 'stub@example.com'
+    };
+  }
+}
+
+// 2. SPY: Records interactions
+class SpyDatabase implements Database {
+  calls: { method: string; args: any[] }[] = [];
+  
+  async save(user: User): Promise&lt;void&gt; {
+    this.calls.push({ method: 'save', args: [user] });
+  }
+  
+  async findById(id: string): Promise&lt;User | null&gt; {
+    this.calls.push({ method: 'findById', args: [id] });
+    return null;
+  }
+}
+
+// 3. FAKE: Working but simplified implementation
+class FakeDatabase implements Database {
+  private users: Map&lt;string, User&gt; = new Map();
+  
+  async save(user: User): Promise&lt;void&gt; {
+    this.users.set(user.id, user);
+  }
+  
+  async findById(id: string): Promise&lt;User | null&gt; {
+    return this.users.get(id) || null;
+  }
+}
+
+// 4. Using Jest for mocks
+import { jest } from '@jest/globals';
+
+const mockDatabase: jest.Mocked&lt;Database&gt; = {
+  save: jest.fn().mockResolvedValue(undefined),
+  findById: jest.fn().mockResolvedValue({
+    id: 'mock-user-123',
+    name: 'Mock User'
+  })
+};
+
+// In tests
+test('user service saves to database', async () => {
+  const userService = new UserService(mockDatabase);
+  const user = createUser();
+  
+  await userService.register(user);
+  
+  expect(mockDatabase.save).toHaveBeenCalledTimes(1);
+  expect(mockDatabase.save).toHaveBeenCalledWith(user);
+});</code></pre>
+          
+          <h4>🎯 Day 9 Deliverables</h4>
+          <ul>
+            <li>Create <code>test-doubles-examples</code> repository</li>
+            <li>Implement all five types of test doubles manually</li>
+            <li>Create examples using Jest (TS) and unittest.mock (Python)</li>
+            <li>Write guidelines for when to use each type</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-day"></i> Day 10 – Solid Principles for Test Code</h3>
+          
+          <h4>🧱 Applying SOLID to Test Automation</h4>
+          <p>
+            SOLID principles aren't just for production code—they make test code more maintainable too.
+          </p>
+          
+          <div class="concept-map">
+            <div class="concept-card">
+              <h4><i class="fas fa-s"></i> Single Responsibility</h4>
+              <p>Each test class should test one thing. Each helper should do one job.</p>
+            </div>
+            <div class="concept-card">
+              <h4><i class="fas fa-o"></i> Open/Closed</h4>
+              <p>Test frameworks should be open for extension but closed for modification.</p>
+            </div>
+            <div class="concept-card">
+              <h4><i class="fas fa-l"></i> Liskov Substitution</h4>
+              <p>Mock objects should be substitutable for real ones without breaking tests.</p>
+            </div>
+            <div class="concept-card">
+              <h4><i class="fas fa-i"></i> Interface Segregation</h4>
+              <p>Create focused interfaces for test dependencies instead of monolithic ones.</p>
+            </div>
+            <div class="concept-card">
+              <h4><i class="fas fa-d"></i> Dependency Inversion</h4>
+              <p>Tests should depend on abstractions, not concrete implementations.</p>
+            </div>
+          </div>
+          
+          <h4>✅ Week 2 Self-Evaluation Checklist</h4>
+          <ul>
+            <li>Can explain Dependency Injection and demonstrate it in JS/TS and Python</li>
+            <li>Has created service-style classes with comprehensive unit tests using mocks</li>
+            <li>Understands and can implement composition patterns for test components</li>
+            <li>Can choose appropriate test doubles (mocks, stubs, fakes) for different testing scenarios</li>
+            <li>Has a complete <code>sdet-service-abstractions</code> repository ready for portfolio</li>
+            <li>Can articulate the trade-offs between different OOP patterns for test code</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TAB 4: WEEK 3 -->
+      <div class="tab-content" id="tab4">
+        <div class="section">
+          <h2><i class="fas fa-stream"></i> Week 3 – Async, Error Handling & Observability</h2>
+          <p>
+            Week 3 prepares you for real-world test infrastructure challenges: <strong>asynchronous operations, 
+            robust error handling, and production-grade observability</strong>. You'll learn to build resilient 
+            test tools that can diagnose their own failures.
+          </p>
+          
+          <div class="highlight-box">
+            <strong>🎯 Week 3 Philosophy:</strong>
+            <p>
+              In production systems, things fail. Your test infrastructure should not only handle failures gracefully 
+              but also provide enough context to diagnose <em>why</em> they failed. This requires thoughtful error 
+              design and comprehensive logging.
+            </p>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-day"></i> Day 11 – JavaScript Event Loop & Async Patterns</h3>
+          
+          <h4>🌀 Understanding the Event Loop</h4>
+          <p>
+            The event loop is why JavaScript can handle concurrent operations with a single thread. For SDETs, 
+            understanding it explains:
+          </p>
+          <ul>
+            <li>Why tests sometimes fail with "element not found" even though you waited</li>
+            <li>How to properly sequence asynchronous test steps</li>
+            <li>Why Promise resolution order matters for test assertions</li>
+          </ul>
+          
+          <div class="architecture-diagram">
+            <div class="diagram-node">Call Stack</div>
+            <div class="diagram-arrow">↓</div>
+            <div style="display: flex; justify-content: space-between; width: 100%;">
+              <div style="display: flex; flex-direction: column; align-items: center;">
+                <div class="diagram-node">Web APIs</div>
+                <div class="diagram-arrow">↓</div>
+                <div class="diagram-node">Callback Queue</div>
+              </div>
+              <div style="display: flex; flex-direction: column; align-items: center;">
+                <div class="diagram-node">Microtask Queue</div>
+                <div class="diagram-arrow">↓</div>
+                <div class="diagram-node">(Promise callbacks)</div>
+              </div>
+            </div>
+            <div class="diagram-arrow">↓</div>
+            <div class="diagram-node">Event Loop</div>
+          </div>
+          
+          <h4>⏱ Advanced Timeout Utilities</h4>
+          
+          <pre><code>// Production-ready timeout utility
+export class TimeoutError extends Error {
+  constructor(message: string, public readonly timeoutMs: number) {
+    super(message);
+    this.name = 'TimeoutError';
+  }
+}
+
+export async function withTimeout&lt;T&gt;(
+  promise: Promise&lt;T&gt;,
+  timeoutMs: number,
+  cleanup?: () => void
+): Promise&lt;T&gt; {
+  let timeoutId: NodeJS.Timeout;
+  
+  const timeoutPromise = new Promise&lt;never&gt;((_, reject) => {
+    timeoutId = setTimeout(() => {
+      cleanup?.();
+      reject(new TimeoutError(
+        `Operation timed out after ${timeoutMs}ms`,
+        timeoutMs
+      ));
+    }, timeoutMs);
+  });
+  
+  try {
+    const result = await Promise.race([promise, timeoutPromise]);
+    clearTimeout(timeoutId);
+    return result;
+  } catch (error) {
+    clearTimeout(timeoutId);
+    throw error;
+  }
+}
+
+// Usage in tests
+test('API call times out after 5 seconds', async () => {
+  const slowApiCall = new Promise(resolve => 
+    setTimeout(resolve, 10000) // 10 second delay
+  );
+  
+  await expect(
+    withTimeout(slowApiCall, 5000)
+  ).rejects.toThrow(TimeoutError);
+});
+
+// Cancellable operations
+export class CancellableOperation&lt;T&gt; {
+  private isCancelled = false;
+  private cancelHandlers: (() => void)[] = [];
+  
+  async run(
+    operation: () => Promise&lt;T&gt;,
+    onCancel?: () => void
+  ): Promise&lt;T&gt; {
+    if (onCancel) {
+      this.cancelHandlers.push(onCancel);
+    }
+    
+    if (this.isCancelled) {
+      throw new Error('Operation was cancelled');
+    }
+    
+    try {
+      return await operation();
+    } finally {
+      // Cleanup
+    }
+  }
+  
+  cancel(): void {
+    if (this.isCancelled) return;
+    
+    this.isCancelled = true;
+    this.cancelHandlers.forEach(handler => {
+      try {
+        handler();
+      } catch (error) {
+        console.error('Error in cancel handler:', error);
+      }
+    });
+    this.cancelHandlers = [];
+  }
+}</code></pre>
+          
+          <h4>🎯 Day 11 Deliverables</h4>
+          <ul>
+            <li>Create <code>async-utilities</code> repository</li>
+            <li>Implement <code>withTimeout</code>, <code>retryWithBackoff</code>, <code>sequentialExecution</code></li>
+            <li>Add comprehensive error handling and cleanup logic</li>
+            <li>Write tests for edge cases (immediate timeout, cancellation, etc.)</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-day"></i> Day 12 – Structured Error Handling</h3>
+          
+          <h4>🎯 Error Taxonomy for Test Automation</h4>
+          <p>
+            Not all errors are created equal. Different error types require different handling strategies:
+          </p>
+          
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Error Type</th>
+                <th>Cause</th>
+                <th>Recovery Strategy</th>
+                <th>Example</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Operational</strong></td>
+                <td>Expected runtime conditions</td>
+                <td>Retry, fallback, continue</td>
+                <td>Network timeout, rate limit</td>
+              </tr>
+              <tr>
+                <td><strong>Programmer</strong></td>
+                <td>Bugs in code</td>
+                <td>Fail fast, log details</td>
+                <td>Null reference, type error</td>
+              </tr>
+              <tr>
+                <td><strong>Transient</strong></td>
+                <td>Temporary conditions</td>
+                <td>Retry with backoff</td>
+                <td>Service temporarily unavailable</td>
+              </tr>
+              <tr>
+                <td><strong>Permanent</strong></td>
+                <td>Unfixable conditions</td>
+                <td>Fail, skip test</td>
+                <td>Invalid credentials, missing resource</td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <h4>🏗 Building an Error Hierarchy</h4>
+          
+          <pre><code>// Base error class for all test framework errors
+export abstract class TestFrameworkError extends Error {
+  abstract readonly category: string;
+  readonly timestamp: Date;
+  readonly context: Record&lt;string, unknown&gt;;
+  
+  constructor(
+    message: string,
+    context: Record&lt;string, unknown> = {}
+  ) {
+    super(message);
+    this.name = this.constructor.name;
+    this.timestamp = new Date();
+    this.context = context;
+    
+    // Capture stack trace
+    Error.captureStackTrace?.(this, this.constructor);
+  }
+  
+  toJSON() {
+    return {
+      name: this.name,
+      message: this.message,
+      category: this.category,
+      timestamp: this.timestamp.toISOString(),
+      context: this.context,
+      stack: this.stack
+    };
+  }
+}
+
+// Specific error types
+export class ConfigurationError extends TestFrameworkError {
+  readonly category = 'configuration';
+  
+  constructor(
+    message: string,
+    public readonly configKey?: string,
+    context: Record&lt;string, unknown> = {}
+  ) {
+    super(message, { ...context, configKey });
+  }
+}
+
+export class NetworkError extends TestFrameworkError {
+  readonly category = 'network';
+  
+  constructor(
+    message: string,
+    public readonly url?: string,
+    public readonly statusCode?: number,
+    context: Record&lt;string, unknown> = {}
+  ) {
+    super(message, { ...context, url, statusCode });
+  }
+}
+
+export class AssertionError extends TestFrameworkError {
+  readonly category = 'assertion';
+  
+  constructor(
+    message: string,
+    public readonly expected?: unknown,
+    public readonly actual?: unknown,
+    context: Record&lt;string, unknown> = {}
+  ) {
+    super(message, { ...context, expected, actual });
+  }
+}
+
+export class TimeoutError extends TestFrameworkError {
+  readonly category = 'timeout';
+  
+  constructor(
+    message: string,
+    public readonly timeoutMs: number,
+    public readonly operation?: string,
+    context: Record&lt;string, unknown> = {}
+  ) {
+    super(message, { ...context, timeoutMs, operation });
+  }
+}
+
+// Usage
+try {
+  await apiClient.get('/users');
+} catch (error) {
+  if (error instanceof NetworkError) {
+    if (error.statusCode === 429) {
+      // Rate limited - implement backoff
+      await wait(error.context.retryAfter);
+      return retryOperation();
+    } else if (error.statusCode >= 500) {
+      // Server error - might be transient
+      throw new TransientError('Server error', { originalError: error });
+    }
+  }
+  throw error;
+}</code></pre>
+          
+          <h4>🎯 Day 12 Deliverables</h4>
+          <ul>
+            <li>Extend <code>async-utilities</code> with error hierarchy</li>
+            <li>Implement error recovery strategies (retry, circuit breaker, fallback)</li>
+            <li>Create error serialization for logging and reporting</li>
+            <li>Write tests for error propagation and recovery</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-day"></i> Day 13 – Structured Logging for Test Diagnostics</h3>
+          
+          <h4>📝 Why Structured Logging Matters</h4>
+          <p>
+            When tests fail in CI/CD pipelines, good logs are your only diagnostic tool. Structured logging 
+            (JSON-formatted) enables:
+          </p>
+          <ul>
+            <li>Automated log analysis and alerting</li>
+            <li>Correlation of logs across distributed test runs</li>
+            <li>Quick filtering and searching for specific events</li>
+            <li>Integration with observability platforms (Datadog, New Relic, etc.)</li>
+          </ul>
+          
+          <h4>🔧 Implementing Structured Logging in Python</h4>
+          
+          <pre><code># Python structured logging with structlog
+import structlog
+import sys
+from datetime import datetime
+from typing import Any, Dict
+import json
+
+def setup_structured_logging(level: str = "INFO"):
+    """Configure structured logging for test framework."""
+    
+    # Processors transform log data
+    processors = [
+        structlog.stdlib.filter_by_level,  # Filter by log level
+        structlog.stdlib.add_logger_name,
+        structlog.stdlib.add_log_level,
+        structlog.stdlib.PositionalArgumentsFormatter(),
+        structlog.processors.TimeStamper(fmt="iso"),  # ISO 8601 timestamp
+        structlog.processors.StackInfoRenderer(),
+        structlog.processors.format_exc_info,  # Format exceptions
+        structlog.processors.UnicodeDecoder(),
+        
+        # Add context about test run
+        add_test_context,
+        
+        # JSON output for machine readability
+        structlog.processors.JSONRenderer()
+    ]
+    
+    structlog.configure(
+        processors=processors,
+        context_class=dict,
+        logger_factory=structlog.PrintLoggerFactory(),
+        cache_logger_on_first_use=True,
+        wrapper_class=structlog.stdlib.BoundLogger
+    )
+    
+    return structlog.get_logger()
+
+def add_test_context(logger, method_name, event_dict):
+    """Add test context to all log entries."""
+    # Get current test context from thread-local storage or similar
+    test_context = get_current_test_context()
+    
+    if test_context:
+        event_dict.update({
+            "test_id": test_context.get("test_id"),
+            "test_name": test_context.get("test_name"),
+            "suite": test_context.get("suite"),
+            "run_id": test_context.get("run_id"),
+            "environment": test_context.get("environment", "unknown")
+        })
+    
+    # Add correlation ID for distributed tracing
+    correlation_id = get_correlation_id()
+    if correlation_id:
+        event_dict["correlation_id"] = correlation_id
+    
+    return event_dict
+
+# Custom log levels for test-specific events
+TEST_EVENTS = {
+    "test_started": 21,
+    "test_passed": 22,
+    "test_failed": 23,
+    "test_skipped": 24,
+    "step_started": 25,
+    "step_completed": 26
+}
+
+# Usage in test framework
+logger = setup_structured_logging()
+
+class TestRunner:
+    def __init__(self):
+        self.logger = logger.bind(component="test_runner")
+    
+    async def run_test(self, test_case):
+        test_context = {
+            "test_id": test_case.id,
+            "test_name": test_case.name,
+            "run_id": self.run_id
+        }
+        
+        # Log test start with context
+        self.logger.info(
+            "test_started",
+            **test_context,
+            timestamp=datetime.utcnow().isoformat()
+        )
+        
+        try:
+            result = await test_case.execute()
+            
+            if result.passed:
+                self.logger.info(
+                    "test_passed",
+                    **test_context,
+                    duration_ms=result.duration_ms
+                )
+            else:
+                self.logger.error(
+                    "test_failed",
+                    **test_context,
+                    error=result.error,
+                    stack_trace=result.stack_trace,
+                    duration_ms=result.duration_ms
+                )
+                
+        except Exception as e:
+            self.logger.exception(
+                "test_error",
+                **test_context,
+                error=str(e),
+                error_type=type(e).__name__
+            )
+            raise</code></pre>
+          
+          <h4>📊 Log Aggregation and Analysis</h4>
+          <p>
+            Structured logs enable powerful analytics:
+          </p>
+          
+          <pre><code># Example log analysis script
+import json
+from collections import Counter
+from datetime import datetime, timedelta
+from typing import List, Dict
+
+def analyze_test_logs(log_file: str) -> Dict[str, any]:
+    """Analyze structured test logs for insights."""
+    
+    with open(log_file, 'r') as f:
+        logs = [json.loads(line) for line in f]
+    
+    # Filter test events
+    test_logs = [log for log in logs if log.get('event') in {
+        'test_started', 'test_passed', 'test_failed', 'test_skipped'
+    }]
+    
+    analysis = {
+        'total_tests': len([l for l in test_logs if l['event'] == 'test_started']),
+        'passed': len([l for l in test_logs if l['event'] == 'test_passed']),
+        'failed': len([l for l in test_logs if l['event'] == 'test_failed']),
+        'skipped': len([l for l in test_logs if l['event'] == 'test_skipped']),
+        'success_rate': 0,
+        'common_errors': Counter(),
+        'slowest_tests': [],
+        'flaky_tests': []
+    }
+    
+    # Calculate success rate
+    if analysis['total_tests'] > 0:
+        analysis['success_rate'] = (
+            analysis['passed'] / analysis['total_tests'] * 100
+        )
+    
+    # Find common errors in failed tests
+    failed_logs = [log for log in test_logs if log['event'] == 'test_failed']
+    for log in failed_logs:
+        error_type = log.get('error_type', 'unknown')
+        analysis['common_errors'][error_type] += 1
+    
+    # Find slowest tests
+    duration_logs = [
+        log for log in test_logs 
+        if log['event'] in {'test_passed', 'test_failed'} 
+        and 'duration_ms' in log
+    ]
+    analysis['slowest_tests'] = sorted(
+        duration_logs, 
+        key=lambda x: x['duration_ms'], 
+        reverse=True
+    )[:10]
+    
+    return analysis</code></pre>
+          
+          <h4>🎯 Day 13 Deliverables</h4>
+          <ul>
+            <li>Create <code>test-logging-framework</code> repository</li>
+            <li>Implement structured logging in both TypeScript and Python</li>
+            <li>Add context propagation (correlation IDs, test metadata)</li>
+            <li>Create log analysis utilities for test insights</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-day"></i> Day 14 – Building a Test CLI Tool</h3>
+          
+          <h4>🛠 CLI Design Principles for Test Tools</h4>
+          <p>
+            Good CLI tools are self-documenting, predictable, and provide helpful error messages. For test tools, 
+            they should also integrate seamlessly with CI/CD pipelines.
+          </p>
+          
+          <h4>🔨 Building with Commander.js (Node.js)</h4>
+          
+          <pre><code>// Complete test report CLI tool
+import { Command } from 'commander';
+import fs from 'fs/promises';
+import path from 'path';
+import { analyzeTestResults, generateReport } from './report-generator';
+import { sendNotification } from './notifications';
+
+const program = new Command();
+
+program
+  .name('test-reporter')
+  .description('Generate and analyze test reports')
+  .version('1.0.0');
+
+// Subcommand: analyze
+program
+  .command('analyze')
+  .description('Analyze test results from JSON files')
+  .requiredOption('-i, --input <path>', 'Input directory or file')
+  .option('-o, --output <path>', 'Output directory for reports')
+  .option('-f, --format <format>', 'Output format (json, html, markdown)', 'json')
+  .option('--min-duration <ms>', 'Minimum duration to flag as slow', '1000')
+  .option('--failure-threshold <percent>', 'Failure percentage threshold', '10')
+  .action(async (options) => {
+    try {
+      console.log('🔍 Analyzing test results...');
+      
+      const results = await analyzeTestResults(
+        options.input,
+        {
+          minDuration: parseInt(options.minDuration),
+          failureThreshold: parseFloat(options.failureThreshold)
+        }
+      );
+      
+      if (options.output) {
+        const report = await generateReport(results, options.format);
+        const outputPath = path.join(options.output, `report.${options.format}`);
+        await fs.writeFile(outputPath, report);
+        console.log(`✅ Report saved to: ${outputPath}`);
+      } else {
+        // Print summary to console
+        console.log('\n📊 Test Analysis Summary:');
+        console.log(`   Total Tests: ${results.summary.total}`);
+        console.log(`   Passed: ${results.summary.passed} (${results.summary.passRate}%)`);
+        console.log(`   Failed: ${results.summary.failed}`);
+        console.log(`   Skipped: ${results.summary.skipped}`);
+        console.log(`   Duration: ${results.summary.totalDuration}ms`);
+        
+        if (results.summary.failed > 0) {
+          console.log('\n❌ Failures:');
+          results.failures.forEach(failure => {
+            console.log(`   - ${failure.test}: ${failure.error}`);
+          });
+        }
+        
+        if (results.slowTests.length > 0) {
+          console.log('\n🐌 Slow Tests (>${options.minDuration}ms):');
+          results.slowTests.forEach(test => {
+            console.log(`   - ${test.name}: ${test.duration}ms`);
+          });
+        }
+      }
+      
+      // Exit with error code if failure threshold exceeded
+      if (results.summary.failureRate > options.failureThreshold) {
+        console.error(`\n❌ Failure rate (${results.summary.failureRate}%) exceeds threshold (${options.failureThreshold}%)`);
+        process.exit(1);
+      }
+      
+    } catch (error) {
+      console.error('❌ Error analyzing test results:', error.message);
+      process.exit(1);
+    }
+  });
+
+// Subcommand: compare
+program
+  .command('compare')
+  .description('Compare test results between two runs')
+  .requiredOption('-b, --baseline <path>', 'Baseline test results')
+  .requiredOption('-c, --current <path>', 'Current test results')
+  .option('--regression-threshold <percent>', 'Regression threshold', '5')
+  .action(async (options) => {
+    // Implementation for comparing test runs
+  });
+
+// Subcommand: notify
+program
+  .command('notify')
+  .description('Send notifications for test results')
+  .requiredOption('-r, --results <path>', 'Test results file')
+  .option('--slack-webhook <url>', 'Slack webhook URL')
+  .option('--teams-webhook <url>', 'Microsoft Teams webhook URL')
+  .option('--email <addresses>', 'Email addresses (comma-separated)')
+  .action(async (options) => {
+    // Implementation for notifications
+  });
+
+// Global error handling
+program.configureOutput({
+  writeErr: (str) => {
+    // Colorize error output
+    process.stderr.write(`\x1b[31m${str}\x1b[0m`);
+  },
+  outputError: (str, write) => {
+    write(`❌ ${str}`);
+  }
+});
+
+// Add help text for common scenarios
+program.addHelpText('after', `
+
+Examples:
+  $ test-reporter analyze -i ./test-results -o ./reports --format html
+  $ test-reporter compare --baseline baseline.json --current current.json
+  $ test-reporter notify --results ./results.json --slack-webhook $SLACK_WEBHOOK
+
+Environment Variables:
+  SLACK_WEBHOOK    Webhook URL for Slack notifications
+  TEAMS_WEBHOOK    Webhook URL for Microsoft Teams
+  REPORT_PATH      Default path for saving reports
+`);
+
+// Parse arguments
+program.parse();</code></pre>
+          
+          <h4>🐍 Python Alternative with Click</h4>
+          
+          <pre><code># Python version with Click
+import click
+import json
+from pathlib import Path
+from typing import Dict, Any
+import sys
+
+@click.group()
+def cli():
+    """Test Report Generator - Analyze and visualize test results."""
+    pass
+
+@cli.command()
+@click.option('-i', '--input', required=True, 
+              help='Input directory or file with test results')
+@click.option('-o', '--output', default='./reports',
+              help='Output directory for generated reports')
+@click.option('--format', type=click.Choice(['json', 'html', 'markdown']),
+              default='json', help='Output format')
+@click.option('--min-duration', default=1000,
+              help='Minimum duration (ms) to flag as slow test')
+@click.option('--failure-threshold', default=10.0,
+              help='Failure percentage threshold for CI failure')
+def analyze(input, output, format, min_duration, failure_threshold):
+    """Analyze test results and generate reports."""
+    click.echo(f"Analyzing test results from {input}...")
+    
+    try:
+        results = load_test_results(input)
+        analysis = analyze_results(results, min_duration)
+        
+        # Generate report
+        report = generate_report(analysis, format)
+        
+        # Save report
+        output_path = Path(output) / f"report.{format}"
+        output_path.parent.mkdir(parents=True, exist_ok=True)
+        output_path.write_text(report)
+        
+        click.echo(f"✅ Report saved to: {output_path}")
+        
+        # Check failure threshold
+        failure_rate = (analysis['failed'] / analysis['total']) * 100
+        if failure_rate > failure_threshold:
+            click.echo(
+                f"❌ Failure rate ({failure_rate:.1f}%) "
+                f"exceeds threshold ({failure_threshold}%)",
+                err=True
+            )
+            sys.exit(1)
+            
+    except Exception as e:
+        click.echo(f"❌ Error: {e}", err=True)
+        sys.exit(1)
+
+@cli.command()
+@click.option('--slack', is_flag=True, help='Send to Slack')
+@click.option('--teams', is_flag=True, help='Send to Microsoft Teams')
+@click.option('--email', help='Email address to send to')
+@click.argument('report_file')
+def notify(report_file, slack, teams, email):
+    """Send test report notifications."""
+    click.echo(f"Sending notification for {report_file}...")
+    # Implementation
+
+if __name__ == '__main__':
+    cli()</code></pre>
+          
+          <h4>🎯 Day 14 Deliverables</h4>
+          <ul>
+            <li>Create <code>test-reporter-cli</code> repository</li>
+            <li>Implement CLI tool in either Node.js (Commander) or Python (Click)</li>
+            <li>Add subcommands for analysis, comparison, notification</li>
+            <li>Include comprehensive help text and error handling</li>
+            <li>Add CI/CD integration examples (GitHub Actions, GitLab CI)</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-day"></i> Day 15 – Integration & Portfolio Preparation</h3>
+          
+          <h4>🔗 Integrating All Components</h4>
+          <p>
+            Today you'll integrate everything from Weeks 1-3 into cohesive portfolio projects:
+          </p>
+          
+          <div class="architecture-diagram">
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+              <div class="diagram-node">Core Utilities</div>
+              <div class="diagram-node">Service Abstractions</div>
+              <div class="diagram-node">Async Helpers</div>
+              <div class="diagram-node" style="grid-column: span 3;">↓</div>
+              <div class="diagram-node" style="grid-column: span 3; background: #10b981;">
+                Integrated Test Framework
+              </div>
+              <div class="diagram-node" style="grid-column: span 3;">↓</div>
+              <div class="diagram-node">CLI Tool</div>
+              <div class="diagram-node">GitHub Repo</div>
+              <div class="diagram-node">Documentation</div>
+            </div>
+          </div>
+          
+          <h4>📁 Final Portfolio Structure</h4>
+          
+          <pre><code>sdet-phase1-portfolio/
+├── 📁 polyglot-core-utils/
+│   ├── 📁 javascript/     # Week 1 utilities
+│   ├── 📁 python/        # Week 1 utilities  
+│   ├── 📁 ruby/          # Week 1 utilities
+│   └── COMPARISON.md     # Cross-language patterns
+├── 📁 service-abstractions/
+│   ├── 📁 src/           # Week 2 OOP patterns
+│   ├── 📁 tests/         # Comprehensive tests
+│   └── ARCHITECTURE.md   # Design decisions
+├── 📁 test-tools-cli/
+│   ├── 📁 src/           # Week 3 CLI tool
+│   ├── 📁 examples/      # Usage examples
+│   └── README.md        # Installation & usage
+└── 📄 PHASE_SUMMARY.md   # Learning outcomes & reflections</code></pre>
+          
+          <h4>✅ Week 3 & Phase 1 Self-Evaluation Checklist</h4>
+          <ul>
+            <li>Can explain the JavaScript event loop and its implications for async test code</li>
+            <li>Has implemented a comprehensive error hierarchy with proper serialization</li>
+            <li>Can design and implement structured logging for test diagnostics</li>
+            <li>Has built a production-ready CLI tool for test reporting</li>
+            <li>All three portfolio repositories are complete, tested, and documented</li>
+            <li>Can articulate the "why" behind all architectural decisions in the phase</li>
+            <li>Ready to present portfolio projects in SDET-II interviews</li>
+          </ul>
+          
+          <div class="key-takeaways">
+            <h3><i class="fas fa-trophy"></i> Phase 1 Complete: You're Now a Polyglot SDET</h3>
+            <p>
+              Congratulations! You've rebuilt your programming fundamentals with an automation-first mindset. 
+              You're no longer just writing test scripts—you're designing test infrastructure. You understand 
+              not just how to write code, but how to write <strong>testable, maintainable, observable code</strong> 
+              that can power enterprise-grade test frameworks.
+            </p>
+            <p>
+              In Phase 2, you'll apply these programming skills to Data Structures & Algorithms specifically 
+              tailored for SDET interviews and real-world test optimization problems.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 5: PROJECTS & DELIVERABLES -->
+      <div class="tab-content" id="tab5">
+        <div class="section">
+          <h2><i class="fas fa-project-diagram"></i> Portfolio Projects & Deliverables</h2>
+          <p>
+            This tab details the concrete outputs you'll create during Phase 1. Each project is designed to be 
+            <strong>portfolio-ready</strong>—something you can show to interviewers and use as a foundation for 
+            future phases.
+          </p>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-rocket"></i> Project 1: Polyglot Core Utilities</h3>
+          
+          <div class="highlight-box">
+            <strong>📁 Repository:</strong> <code>sdet-polyglot-core-utils</code><br>
+            <strong>🎯 Purpose:</strong> Demonstrate language fluency and cross-pattern understanding<br>
+            <strong>📊 Interview Impact:</strong> Shows you can work in multi-language codebases
+          </div>
+          
+          <h4>📋 Required Components</h4>
+          
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Component</th>
+                <th>JavaScript/TypeScript</th>
+                <th>Python</th>
+                <th>Ruby</th>
+                <th>Testing Requirements</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Data Transformers</td>
+                <td><code>normalizeUser()</code>, <code>flattenArray()</code></td>
+                <td><code>filter_responses()</code>, <code>group_by()</code></td>
+                <td><code>UserNormalizer</code>, <code>DataFlattener</code></td>
+                <td>Edge cases, null safety</td>
+              </tr>
+              <tr>
+                <td>Validation Helpers</td>
+                <td>Zod schemas for API responses</td>
+                <td>Pydantic models with validation</td>
+                <td>Dry-validation contracts</td>
+                <td>Invalid input handling</td>
+              </tr>
+              <tr>
+                <td>Status Classifiers</td>
+                <td>HTTP status categorization</td>
+                <td>Test result classification</td>
+                <td>Result type classifiers</td>
+                <td>All status codes covered</td>
+              </tr>
+              <tr>
+                <td>Configuration Helpers</td>
+                <td>Env config with defaults</td>
+                <td>Config parser with validation</td>
+                <td>Config loader with YAML</td>
+                <td>Missing config handling</td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <h4>📝 Documentation Requirements</h4>
+          <ul>
+            <li><strong>README.md</strong>: Project overview with setup instructions</li>
+            <li><strong>COMPARISON.md</strong>: Analysis of patterns across languages</li>
+            <li><strong>USAGE.md</strong>: Examples of each utility in test contexts</li>
+            <li><strong>API.md</strong>: Complete API documentation</li>
+          </ul>
+          
+          <h4>✅ Success Metrics</h4>
+          <ul>
+            <li>All utilities have 90%+ test coverage</li>
+            <li>Each language implementation passes identical test cases</li>
+            <li>Code follows language-specific best practices and idioms</li>
+            <li>Documentation includes real automation use cases</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-layer-group"></i> Project 2: Service Abstractions Framework</h3>
+          
+          <div class="highlight-box success">
+            <strong>📁 Repository:</strong> <code>sdet-service-abstractions</code><br>
+            <strong>🎯 Purpose:</strong> Demonstrate OOP design and testability patterns<br>
+            <strong>📊 Interview Impact:</strong> Shows you can design maintainable test infrastructure
+          </div>
+          
+          <h4>🏗 Architecture Components</h4>
+          
+          <pre><code>service-abstractions/
+├── 📁 src/
+│   ├── 📁 clients/           # HTTP, Database, External service clients
+│   │   ├── http-client.ts
+│   │   ├── database-client.py
+│   │   └── external-service.rb
+│   ├── 📁 services/          # Business logic services
+│   │   ├── user-service.ts
+│   │   ├── product-service.py
+│   │   └── order-service.rb
+│   ├── 📁 repositories/      # Data access layer
+│   ├── 📁 factories/         # Test data factories
+│   └── 📁 types/             # Type definitions (TS)
+├── 📁 tests/
+│   ├── 📁 unit/             # Isolated unit tests
+│   ├── 📁 integration/      # Integration tests
+│   └── 📁 mocks/            # Mock implementations
+└── 📁 examples/             # Usage examples</code></pre>
+          
+          <h4>🔑 Key Design Patterns to Demonstrate</h4>
+          
+          <div class="concept-map">
+            <div class="concept-card">
+              <h4><i class="fas fa-plug"></i> Dependency Injection</h4>
+              <p>Constructor injection in all service classes</p>
+            </div>
+            <div class="concept-card">
+              <h4><i class="fas fa-puzzle-piece"></i> Strategy Pattern</h4>
+              <p>Pluggable algorithms (auth, validation, retry)</p>
+            </div>
+            <div class="concept-card">
+              <h4><i class="fas fa-industry"></i> Factory Pattern</h4>
+              <p>Test data creation with builders</p>
+            </div>
+            <div class="concept-card">
+              <h4><i class="fas fa-shield-alt"></i> Adapter Pattern</h4>
+              <p>Wrapping external libraries with consistent interfaces</p>
+            </div>
+          </div>
+          
+          <h4>🧪 Testing Strategy</h4>
+          <ul>
+            <li><strong>Unit Tests:</strong> Isolated testing with mocks</li>
+            <li><strong>Integration Tests:</strong> Testing combined components</li>
+            <li><strong>Contract Tests:</strong> Ensuring interface compatibility</li>
+            <li><strong>Performance Tests:</strong> Benchmarking critical paths</li>
+          </ul>
+          
+          <h4>✅ Success Metrics</h4>
+          <ul>
+            <li>All services are fully testable with dependency injection</li>
+            <li>Mock implementations available for all external dependencies</li>
+            <li>Clear separation of concerns between layers</li>
+            <li>Comprehensive test suite with >85% coverage</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-terminal"></i> Project 3: Test Tools CLI</h3>
+          
+          <div class="highlight-box warning">
+            <strong>📁 Repository:</strong> <code>sdet-tools-cli</code><br>
+            <strong>🎯 Purpose:</strong> Demonstrate tool-building skills and observability<br>
+            <strong>📊 Interview Impact:</strong> Shows you can build production-ready tools
+          </div>
+          
+          <h4>🛠 CLI Feature Set</h4>
+          
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Command</th>
+                <th>Description</th>
+                <th>Input</th>
+                <th>Output</th>
+                <th>Use Case</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>analyze</code></td>
+                <td>Analyze test results</td>
+                <td>JSON test results</td>
+                <td>HTML/JSON/Markdown report</td>
+                <td>CI pipeline test analysis</td>
+              </tr>
+              <tr>
+                <td><code>compare</code></td>
+                <td>Compare test runs</td>
+                <td>Two result files</td>
+                <td>Diff report, regressions</td>
+                <td>Monitoring test stability</td>
+              </tr>
+              <tr>
+                <td><code>notify</code></td>
+                <td>Send notifications</td>
+                <td>Test results + config</td>
+                <td>Slack/Teams/Email alerts</td>
+                <td>Test failure alerts</td>
+              </tr>
+              <tr>
+                <td><code>generate</code></td>
+                <td>Generate test data</td>
+                <td>Schema definition</td>
+                <td>Test data files</td>
+                <td>Test data management</td>
+              </tr>
+              <tr>
+                <td><code>validate</code></td>
+                <td>Validate test config</td>
+                <td>Configuration files</td>
+                <td>Validation report</td>
+                <td>Pre-test validation</td>
+              </tr>
+            </tbody>
+          </table>
+          
+          <h4>📊 Output Formats</h4>
+          <ul>
+            <li><strong>JSON:</strong> Machine-readable for automation</li>
+            <li><strong>HTML:</strong> Human-readable with charts</li>
+            <li><strong>Markdown:</strong> For GitHub/GitLab comments</li>
+            <li><strong>Console:</strong> Colorized terminal output</li>
+          </ul>
+          
+          <h4>🔧 Technical Requirements</h4>
+          <ul>
+            <li>Proper error handling with exit codes</li>
+            <li>Configuration via environment variables and files</li>
+            <li>Logging with different verbosity levels</li>
+            <li>Plugin architecture for extensibility</li>
+            <li>CI/CD integration examples</li>
+          </ul>
+          
+          <h4>✅ Success Metrics</h4>
+          <ul>
+            <li>Tool can be installed via npm/pip</li>
+            <li>Comprehensive help text and documentation</li>
+            <li>Handles edge cases gracefully</li>
+            <li>Includes example workflows for common scenarios</li>
+            <li>Can be integrated into CI/CD pipelines</li>
+          </ul>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-clipboard-check"></i> Portfolio Review Checklist</h3>
+          
+          <div class="highlight-box">
+            <strong>🎯 Before Sharing with Interviewers:</strong>
+            <p>Review your portfolio against these criteria to ensure it makes the best impression.</p>
+          </div>
+          
+          <h4>📁 Repository Quality</h4>
+          <ul>
+            <li>✅ Clear, descriptive README with setup instructions</li>
+            <li>✅ Consistent code style and formatting</li>
+            <li>✅ Comprehensive test suite with good coverage</li>
+            <li>✅ Meaningful commit messages and clean history</li>
+            <li>✅ Issue templates and contribution guidelines</li>
+            <li>✅ CI/CD workflows for testing and linting</li>
+          </ul>
+          
+          <h4>💡 Demonstration of Skills</h4>
+          <ul>
+            <li>✅ Shows understanding of multiple programming languages</li>
+            <li>✅ Demonstrates OOP and design pattern knowledge</li>
+            <li>✅ Includes error handling and observability patterns</li>
+            <li>✅ Shows ability to build complete, usable tools</li>
+            <li>✅ Documents design decisions and trade-offs</li>
+            <li>✅ Includes real-world automation use cases</li>
+          </ul>
+          
+          <h4>🎤 Interview Story Preparation</h4>
+          <p>For each project, prepare to discuss:</p>
+          <ol>
+            <li><strong>Problem Statement:</strong> What problem were you solving?</li>
+            <li><strong>Design Decisions:</strong> Why did you choose this architecture?</li>
+            <li><strong>Trade-offs:</strong> What alternatives did you consider and reject?</li>
+            <li><strong>Challenges:</strong> What was difficult and how did you overcome it?</li>
+            <li><strong>Learnings:</strong> What would you do differently next time?</li>
+            <li><strong>Extensions:</strong> How could this be extended or improved?</li>
+          </ol>
+          
+          <div class="key-takeaways">
+            <h3><i class="fas fa-gem"></i> Portfolio Impact Statement</h3>
+            <p>
+              A strong Phase 1 portfolio demonstrates that you're not just an automation engineer who writes 
+              test scripts, but an <strong>SDET-II who designs test infrastructure</strong>. It shows you can:
+            </p>
+            <ul>
+              <li>Work effectively across multiple programming languages</li>
+              <li>Design maintainable, testable software architectures</li>
+              <li>Build production-grade tools that solve real problems</li>
+              <li>Think systematically about error handling and observability</li>
+              <li>Document and communicate technical decisions effectively</li>
+            </ul>
+            <p>
+              This portfolio will serve as a foundation for Phases 2-6, where you'll build on these skills 
+              with DSA, UI automation, API testing, microservices, and system design.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- TAB 6: INTERVIEW Q&A -->
+      <div class="tab-content" id="tab6">
+        <div class="section">
+          <h2><i class="fas fa-comments"></i> Interview Questions & Answers</h2>
+          <p>
+            These questions target "SDET-II level programming fluency." Practice answering them aloud or 
+            writing responses to build muscle memory for interviews. The hidden answers provide guidance, 
+            but develop your own authentic responses.
+          </p>
+        </div>
+
+        <div class="interview-question">
+          <div class="question-header">
+            <span class="question-tag">Programming & Testability</span>
+            <span class="difficulty intermediate">Intermediate</span>
+          </div>
+          <p><strong>Question:</strong> Design a generic retry utility for failed HTTP calls that will be used inside a Playwright-based test framework. What parameters should it accept, and how would you test it?</p>
+          <button class="toggle-answer" data-target="answer1">
+            <i class="fas fa-chevron-down"></i> Show Detailed Answer
+          </button>
+          <div class="interview-answer hidden-answer" id="answer1">
+            <div class="answer-section">
+              <strong>🎯 Core Design Parameters:</strong>
+              <p>
+                The retry utility should accept:
+              </p>
+              <ol>
+                <li><code>operation</code>: Async function to retry (returns Promise)</li>
+                <li><code>maxRetries</code>: Maximum number of retry attempts</li>
+                <li><code>initialDelayMs</code>: Base delay before first retry</li>
+                <li><code>backoffFactor</code>: Multiplier for exponential backoff (e.g., 2 for doubling)</li>
+                <li><code>shouldRetry</code>: Predicate function to determine if error is retriable</li>
+                <li><code>onRetry</code>: Callback for logging/metrics on each retry attempt</li>
+                <li><code>timeoutMs</code>: Overall timeout for the entire operation</li>
+              </ol>
+            </div>
+            
+            <div class="answer-section">
+              <strong>🏗 Implementation Architecture:</strong>
+              <pre><code>class RetryableError extends Error {
+  constructor(message: string, public readonly retryable: boolean = true) {
+    super(message);
+  }
+}
+
+async function retry&lt;T&gt;(
+  operation: () => Promise&lt;T&gt;,
+  options: {
+    maxRetries: number;
+    initialDelayMs: number;
+    backoffFactor?: number;
+    shouldRetry?: (error: unknown, attempt: number) => boolean;
+    onRetry?: (error: unknown, attempt: number, delayMs: number) => void;
+    timeoutMs?: number;
+  }
+): Promise&lt;T&gt; {
+  let lastError: unknown;
+  
+  for (let attempt = 0; attempt <= options.maxRetries; attempt++) {
+    try {
+      if (options.timeoutMs) {
+        return await withTimeout(operation(), options.timeoutMs);
+      }
+      return await operation();
+    } catch (error) {
+      lastError = error;
+      
+      // Check if we should stop retrying
+      const isLastAttempt = attempt === options.maxRetries;
+      const shouldNotRetry = options.shouldRetry && !options.shouldRetry(error, attempt);
+      
+      if (isLastAttempt || shouldNotRetry) {
+        break;
+      }
+      
+      // Calculate delay with exponential backoff
+      const delayMs = options.initialDelayMs * 
+        Math.pow(options.backoffFactor || 2, attempt);
+      
+      // Notify observer
+      if (options.onRetry) {
+        options.onRetry(error, attempt + 1, delayMs);
+      }
+      
+      // Wait before retry
+      await new Promise(resolve => setTimeout(resolve, delayMs));
+    }
+  }
+  
+  throw lastError;
+}</code></pre>
+            </div>
+            
+            <div class="answer-section">
+              <strong>🧪 Testing Strategy:</strong>
+              <p>
+                Test using a combination of strategies:
+              </p>
+              <ol>
+                <li><strong>Unit tests with mocked time</strong>: Use Jest's fake timers to test delays without waiting</li>
+                <li><strong>Failure simulation</strong>: Create a function that fails N times then succeeds</li>
+                <li><strong>Error classification</strong>: Test with retriable vs non-retriable errors</li>
+                <li><strong>Boundary testing</strong>: Test with 0 retries, 1 retry, many retries</li>
+                <li><strong>Timeout testing</strong>: Ensure overall timeout is respected</li>
+                <li><strong>Concurrency testing</strong>: Ensure multiple retry operations don't interfere</li>
+              </ol>
+              
+              <pre><code>// Example test
+test('retries 3 times then throws', async () => {
+  let callCount = 0;
+  const failingOperation = () => {
+    callCount++;
+    if (callCount <= 3) {
+      throw new Error(`Failed attempt ${callCount}`);
+    }
+    return 'success';
+  };
+  
+  const result = await retry(failingOperation, {
+    maxRetries: 3,
+    initialDelayMs: 10
+  });
+  
+  expect(result).toBe('success');
+  expect(callCount).toBe(4); // 1 initial + 3 retries
+});
+
+test('respects non-retriable errors', async () => {
+  const nonRetriableError = new Error('Permanent failure');
+  nonRetriableError.retryable = false;
+  
+  const operation = () => { throw nonRetriableError; };
+  const shouldRetry = (error: any) => error.retryable !== false;
+  
+  await expect(
+    retry(operation, { 
+      maxRetries: 3, 
+      initialDelayMs: 10,
+      shouldRetry 
+    })
+  ).rejects.toThrow('Permanent failure');
+});</code></pre>
+            </div>
+            
+            <div class="answer-section">
+              <strong>💡 Interview Discussion Points:</strong>
+              <ul>
+                <li>Discuss trade-offs: More retries vs test execution time</li>
+                <li>Mention observability: How you'd log retries for debugging flaky tests</li>
+                <li>Connect to real use: Playwright network failures, API timeouts</li>
+                <li>Compare with alternatives: Circuit breakers, bulkheads</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="interview-question">
+          <div class="question-header">
+            <span class="question-tag">Polyglot Skills</span>
+            <span class="difficulty advanced">Advanced</span>
+          </div>
+          <p><strong>Question:</strong> You join a team with UI tests in TypeScript (Playwright), API tools in Python, and a legacy Ruby-based regression suite. How do you prioritize what to learn and what refactors to propose in your first 90 days?</p>
+          <button class="toggle-answer" data-target="answer2">
+            <i class="fas fa-chevron-down"></i> Show Detailed Answer
+          </button>
+          <div class="interview-answer hidden-answer" id="answer2">
+            <div class="answer-section">
+              <strong>📋 90-Day Onboarding Plan:</strong>
+              
+              <div class="timeline">
+                <div class="timeline-item">
+                  <h4>Days 1-30: Assessment & Quick Wins</h4>
+                  <p>
+                    <strong>Focus:</strong> Understand the landscape and deliver immediate value<br>
+                    <strong>Actions:</strong>
+                  </p>
+                  <ul>
+                    <li>Run all test suites to understand current state</li>
+                    <li>Identify most flaky/failing tests (Pareto principle)</li>
+                    <li>Fix 2-3 high-impact, low-effort test failures</li>
+                    <li>Learn the team's development workflow and pain points</li>
+                    <li>Map test architecture and dependencies</li>
+                  </ul>
+                </div>
+                
+                <div class="timeline-item">
+                  <h4>Days 31-60: Strategic Improvements</h4>
+                  <p>
+                    <strong>Focus:</strong> Standardize patterns and reduce maintenance burden<br>
+                    <strong>Actions:</strong>
+                  </p>
+                  <ul>
+                    <li>Propose unified logging format across all test suites</li>
+                    <li>Create shared test data factories (one per language)</li>
+                    <li>Implement consistent retry logic for flaky operations</li>
+                    <li>Add basic test analytics (duration, failure rates, flakiness)</li>
+                    <li>Start documentation of test patterns and conventions</li>
+                  </ul>
+                </div>
+                
+                <div class="timeline-item">
+                  <h4>Days 61-90: Architecture & Automation</h4>
+                  <p>
+                    <strong>Focus:</strong> Long-term sustainability and team efficiency<br>
+                    <strong>Actions:</strong>
+                  </p>
+                  <ul>
+                    <li>Propose test framework abstraction layer</li>
+                    <li>Automate test environment setup</li>
+                    <li>Implement parallel test execution where beneficial</li>
+                    <li>Create self-service test tools for developers</li>
+                    <li>Establish metrics for test suite health</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            
+            <div class="answer-section">
+              <strong>🎯 Language Learning Priority:</strong>
+              <ol>
+                <li><strong>TypeScript (Highest Priority):</strong> Modern UI tests, active development, aligns with company's frontend stack</li>
+                <li><strong>Python (High Priority):</strong> API testing critical for integration, likely newer and better maintained</li>
+                <li><strong>Ruby (Medium Priority):</strong> Legacy maintenance, focus on reading comprehension over writing new code</li>
+              </ol>
+              
+              <p><strong>Learning Strategy:</strong></p>
+              <ul>
+                <li><strong>Week 1-2:</strong> Run and debug existing tests in each language</li>
+                <li><strong>Week 3-4:</strong> Make small modifications to understand syntax</li>
+                <li><strong>Month 2:</strong> Build small utilities in each language</li>
+                <li><strong>Month 3:</strong> Confident enough to propose cross-language patterns</li>
+              </ul>
+            </div>
+            
+            <div class="answer-section">
+              <strong>🏗 Refactoring Proposals (Prioritized):</strong>
+              
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Refactor</th>
+                    <th>Impact</th>
+                    <th>Effort</th>
+                    <th>Timeline</th>
+                    <th>Languages</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Unified logging format</td>
+                    <td>High (debugging)</td>
+                    <td>Low</td>
+                    <td>Month 1</td>
+                    <td>All</td>
+                  </tr>
+                  <tr>
+                    <td>Shared test data patterns</td>
+                    <td>High (maintenance)</td>
+                    <td>Medium</td>
+                    <td>Month 2</td>
+                    <td>All</td>
+                  </tr>
+                  <tr>
+                    <td>Consistent retry logic</td>
+                    <td>High (flakiness)</td>
+                    <td>Low</td>
+                    <td>Month 1</td>
+                    <td>TS, Python</td>
+                  </tr>
+                  <tr>
+                    <td>Page Object standardization</td>
+                    <td>Medium (readability)</td>
+                    <td>High</td>
+                    <td>Month 3</td>
+                    <td>TypeScript</td>
+                  </tr>
+                  <tr>
+                    <td>Ruby test modernization</td>
+                    <td>Low (legacy)</td>
+                    <td>High</td>
+                    <td>Backlog</td>
+                    <td>Ruby</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <div class="answer-section">
+              <strong>💡 Risk Mitigation Strategies:</strong>
+              <ul>
+                <li><strong>Start small:</strong> Refactor one test file as proof of concept</li>
+                <li><strong>Measure impact:</strong> Track before/after metrics (runtime, flakiness)</li>
+                <li><strong>Get buy-in:</strong> Socialize proposals with team before implementation</li>
+                <li><strong>Document everything:</strong> Create runbooks for new patterns</li>
+                <li><strong>Plan rollback:</strong> Ensure you can revert if issues arise</li>
+              </ul>
+            </div>
+            
+            <div class="answer-section">
+              <strong>🎤 Interview Response Structure:</strong>
+              <ol>
+                <li><strong>Acknowledge complexity:</strong> "That's a common scenario in mature codebases..."</li>
+                <li><strong>Outline phased approach:</strong> "I'd approach this in three 30-day phases..."</li>
+                <li><strong>Prioritize based on impact:</strong> "I'd focus first on the highest ROI areas..."</li>
+                <li><strong>Show business alignment:</strong> "My refactoring priorities would align with team goals..."</li>
+                <li><strong>Emphasize learning:</strong> "I'd dedicate specific time to upskill in each language..."</li>
+              </ol>
+            </div>
+          </div>
+        </div>
+
+        <div class="interview-question">
+          <div class="question-header">
+            <span class="question-tag">System Design</span>
+            <span class="difficulty advanced">Advanced</span>
+          </div>
+          <p><strong>Question:</strong> Design a test reporting system that collects results from multiple test suites (UI, API, unit tests) and provides actionable insights to engineering teams.</p>
+          <button class="toggle-answer" data-target="answer3">
+            <i class="fas fa-chevron-down"></i> Show Detailed Answer
+          </button>
+          <div class="interview-answer hidden-answer" id="answer3">
+            <div class="answer-section">
+              <strong>🏗 System Architecture:</strong>
+              
+              <div class="architecture-diagram">
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+                  <div class="diagram-node">Test Runners</div>
+                  <div class="diagram-node">CI/CD Pipelines</div>
+                  <div class="diagram-node">Manual Runs</div>
+                  <div class="diagram-arrow" style="grid-column: span 3;">↓</div>
+                  <div class="diagram-node" style="grid-column: span 3;">
+                    Results Collector (API)
+                  </div>
+                  <div class="diagram-arrow" style="grid-column: span 3;">↓</div>
+                  <div class="diagram-node">Message Queue</div>
+                  <div class="diagram-node">Data Validation</div>
+                  <div class="diagram-node">Error Handling</div>
+                  <div class="diagram-arrow" style="grid-column: span 3;">↓</div>
+                  <div class="diagram-node" style="grid-column: span 2;">
+                    Data Processing Pipeline
+                  </div>
+                  <div class="diagram-node">Real-time DB</div>
+                  <div class="diagram-arrow" style="grid-column: span 3;">↓</div>
+                  <div class="diagram-node">Analytics Engine</div>
+                  <div class="diagram-node">Alert System</div>
+                  <div class="diagram-node">Report Generator</div>
+                  <div class="diagram-arrow" style="grid-column: span 3;">↓</div>
+                  <div class="diagram-node">Dashboard UI</div>
+                  <div class="diagram-node">Slack/Teams</div>
+                  <div class="diagram-node">Email Reports</div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="answer-section">
+              <strong>📊 Key Components:</strong>
+              
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Component</th>
+                    <th>Technology Choices</th>
+                    <th>Responsibilities</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Results Collector</td>
+                    <td>REST API (FastAPI/Express), Webhooks</td>
+                    <td>Receive test results, validate schema, queue for processing</td>
+                  </tr>
+                  <tr>
+                    <td>Message Queue</td>
+                    <td>RabbitMQ, Kafka, AWS SQS</td>
+                    <td>Buffer results, enable async processing, ensure delivery</td>
+                  </tr>
+                  <tr>
+                    <td>Processing Workers</td>
+                    <td>Python/Node.js workers, Kubernetes</td>
+                    <td>Parse results, calculate metrics, store in database</td>
+                  </tr>
+                  <tr>
+                    <td>Data Storage</td>
+                    <td>PostgreSQL (relational), MongoDB (documents), Redis (cache)</td>
+                    <td>Store test results, metrics, historical data</td>
+                  </tr>
+                  <tr>
+                    <td>Analytics Engine</td>
+                    <td>Python (pandas, scikit), Apache Spark (large scale)</td>
+                    <td>Calculate trends, identify patterns, predict flakiness</td>
+                  </tr>
+                  <tr>
+                    <td>Notification System</td>
+                    <td>Slack/Teams API, SendGrid, AWS SNS</td>
+                    <td>Send alerts, daily digests, on-call notifications</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <div class="answer-section">
+              <strong>📈 Actionable Insights Provided:</strong>
+              <ol>
+                <li><strong>Test Health Dashboard:</strong> Overall pass rates, flakiness trends, slow tests</li>
+                <li><strong>Failure Correlation:</strong> Link test failures to code changes, deployments, infrastructure issues</li>
+                <li><strong>Flakiness Prediction:</strong> ML models to predict which tests will become flaky</li>
+                <li><strong>Resource Optimization:</strong> Identify tests that could run in parallel or be optimized</li>
+                <li><strong>Team Metrics:</strong> Test coverage per team, bug detection effectiveness</li>
+                <li><strong>ROI Analysis:</strong> Which tests provide most value vs maintenance cost</li>
+              </ol>
+            </div>
+            
+            <div class="answer-section">
+              <strong>🔧 Implementation Phases:</strong>
+              
+              <pre><code>// Phase 1: MVP (Weeks 1-4)
+// Simple REST API + database + basic reporting
+├── 📁 phase1/
+│   ├── collector-api/     # FastAPI app
+│   ├── database/         # PostgreSQL schema
+│   ├── frontend/         # React dashboard
+│   └── reports/          # Daily email reports
+
+// Phase 2: Scalability (Weeks 5-8)
+// Add queue, workers, caching, advanced analytics
+├── 📁 phase2/
+│   ├── message-queue/    # RabbitMQ setup
+│   ├── workers/          # Processing workers
+│   ├── cache/            # Redis for frequent queries
+│   └── analytics/        # Basic trend analysis
+
+// Phase 3: Intelligence (Weeks 9-12)
+// ML predictions, alerting, integration
+├── 📁 phase3/
+│   ├── ml-models/        # Flakiness prediction
+│   ├── alerting/         # Smart alert rules
+│   ├── integrations/     # Jira, GitHub, CI/CD
+│   └── api-gateway/      # Unified API for consumers</code></pre>
+            </div>
+            
+            <div class="answer-section">
+              <strong>💡 Interview Discussion Points:</strong>
+              <ul>
+                <li>Discuss trade-offs: Real-time vs batch processing</li>
+                <li>Data retention policies: How long to keep test results</li>
+                <li>Security considerations: Authentication, data isolation</li>
+                <li>Cost optimization: Cloud resource sizing, caching strategy</li>
+                <li>Monitoring the monitor: How to ensure reporting system itself is reliable</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="interview-question">
+          <div class="question-header">
+            <span class="question-tag">Error Handling</span>
+            <span class="difficulty intermediate">Intermediate</span>
+          </div>
+          <p><strong>Question:</strong> How would you design error handling for a distributed test execution system where tests run across multiple machines and regions?</p>
+          <button class="toggle-answer" data-target="answer4">
+            <i class="fas fa-chevron-down"></i> Show Detailed Answer
+          </button>
+          <div class="interview-answer hidden-answer" id="answer4">
+            <div class="answer-section">
+              <strong>🎯 Error Classification Framework:</strong>
+              
+              <table class="comparison-table">
+                <thead>
+                  <tr>
+                    <th>Error Category</th>
+                    <th>Examples</th>
+                    <th>Recovery Strategy</th>
+                    <th>Alert Level</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Infrastructure</td>
+                    <td>VM crash, network partition, disk full</td>
+                    <td>Retry on different node, escalate to infra team</td>
+                    <td>P1 (Immediate)</td>
+                  </tr>
+                  <tr>
+                    <td>Test Environment</td>
+                    <td>DB unavailable, service down, config missing</td>
+                    <td>Retry after environment check, skip dependent tests</td>
+                    <td>P2 (High)</td>
+                  </tr>
+                  <tr>
+                    <td>Test Logic</td>
+                    <td>Assertion failure, timeout, element not found</td>
+                    <td>Fail test, continue other tests, collect for analysis</td>
+                    <td>P3 (Medium)</td>
+                  </tr>
+                  <tr>
+                    <td>Transient</td>
+                    <td>Network blip, rate limit, temporary unavailability</td>
+                    <td>Exponential backoff retry, circuit breaker</td>
+                    <td>P4 (Low)</td>
+                  </tr>
+                  <tr>
+                    <td>System</td>
+                    <td>Memory leak, deadlock, resource exhaustion</td>
+                    <td>Restart worker, redistribute load, escalate</td>
+                    <td>P1 (Immediate)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            <div class="answer-section">
+              <strong>🏗 Distributed Error Handling Architecture:</strong>
+              
+              <pre><code>// Error handling service architecture
+interface DistributedErrorHandler {
+  // Report error with context
+  reportError(error: TestError, context: ErrorContext): Promise&lt;void&gt;;
+  
+  // Determine recovery action
+  getRecoveryAction(error: TestError): RecoveryAction;
+  
+  // Track error rates for circuit breaking
+  getErrorRate(component: string, windowMinutes: number): number;
+  
+  // Check if component is healthy
+  isComponentHealthy(component: string): boolean;
+}
+
+class ErrorContext {
+  constructor(
+    public testId: string,
+    public workerId: string,
+    public region: string,
+    public timestamp: Date,
+    public metadata: Record&lt;string, any&gt; = {}
+  ) {}
+}
+
+enum RecoveryAction {
+  RETRY_LOCAL = 'retry_local',      // Retry on same worker
+  RETRY_DIFFERENT = 'retry_different', // Retry on different worker
+  SKIP_TEST = 'skip_test',          // Skip this test
+  SKIP_SUITE = 'skip_suite',        // Skip entire test suite
+  STOP_WORKER = 'stop_worker',      // Stop and restart worker
+  ESCALATE = 'escalate'            // Human intervention needed
+}
+
+// Implementation with circuit breaker pattern
+class CircuitBreaker {
+  private failures: number = 0;
+  private lastFailureTime: Date | null = null;
+  private state: 'CLOSED' | 'OPEN' | 'HALF_OPEN' = 'CLOSED';
+  
+  constructor(
+    private failureThreshold: number,
+    private resetTimeoutMs: number
+  ) {}
+  
+  async execute&lt;T&gt;(operation: () => Promise&lt;T&gt;): Promise&lt;T&gt; {
+    if (this.state === 'OPEN') {
+      if (this.isResetTimeoutExpired()) {
+        this.state = 'HALF_OPEN';
+      } else {
+        throw new CircuitBreakerOpenError('Circuit breaker is open');
+      }
+    }
+    
+    try {
+      const result = await operation();
+      
+      if (this.state === 'HALF_OPEN') {
+        this.reset();
+      }
+      
+      return result;
+    } catch (error) {
+      this.recordFailure();
+      throw error;
+    }
+  }
+  
+  private recordFailure(): void {
+    this.failures++;
+    this.lastFailureTime = new Date();
+    
+    if (this.failures >= this.failureThreshold) {
+      this.state = 'OPEN';
+      setTimeout(() => {
+        this.state = 'HALF_OPEN';
+      }, this.resetTimeoutMs);
+    }
+  }
+  
+  private reset(): void {
+    this.failures = 0;
+    this.lastFailureTime = null;
+    this.state = 'CLOSED';
+  }
+}</code></pre>
+            </div>
+            
+            <div class="answer-section">
+              <strong>🔍 Distributed Tracing for Error Diagnosis:</strong>
+              <p>
+                Implement distributed tracing to track errors across service boundaries:
+              </p>
+              
+              <pre><code>// Trace context propagation
+interface TraceContext {
+  traceId: string;          // Unique ID for entire trace
+  spanId: string;           // Current operation ID
+  parentSpanId?: string;    // Parent operation ID
+  sampled: boolean;         // Whether to sample this trace
+}
+
+class DistributedTracer {
+  startSpan(name: string, parentContext?: TraceContext): Span {
+    const spanId = generateId();
+    const traceId = parentContext?.traceId || generateId();
+    
+    return {
+      traceId,
+      spanId,
+      parentSpanId: parentContext?.spanId,
+      name,
+      startTime: Date.now(),
+      tags: {},
+      logs: []
+    };
+  }
+  
+  addError(span: Span, error: Error): void {
+    span.logs.push({
+      timestamp: Date.now(),
+      fields: {
+        'error.object': error,
+        'error.kind': error.name,
+        'message': error.message,
+        'stack': error.stack
+      }
+    });
+    
+    span.tags['error'] = true;
+    
+    // Send to centralized error tracking
+    this.reportErrorToCentral(span, error);
+  }
+}
+
+// Usage in test worker
+async function executeTest(test: TestCase): Promise&lt;TestResult&gt; {
+  const span = tracer.startSpan('execute_test');
+  
+  try {
+    span.setTag('test.id', test.id);
+    span.setTag('test.name', test.name);
+    
+    const result = await test.execute();
+    
+    if (!result.passed) {
+      tracer.addError(span, new TestFailureError(result.error));
+    }
+    
+    span.finish();
+    return result;
+  } catch (error) {
+    tracer.addError(span, error);
+    span.finish();
+    throw error;
+  }
+}</code></pre>
+            </div>
+            
+            <div class="answer-section">
+              <strong>💡 Key Design Principles:</strong>
+              <ul>
+                <li><strong>Idempotency:</strong> Retries should be safe to execute multiple times</li>
+                <li><strong>Isolation:</strong> Errors in one test shouldn't affect others</li>
+                <li><strong>Observability:</strong> Every error should be traceable to root cause</li>
+                <li><strong>Graceful degradation:</strong> System should continue working despite partial failures</li>
+                <li><strong>Automated recovery:</strong> Common errors should self-heal when possible</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="key-takeaways">
+          <h3><i class="fas fa-lightbulb"></i> Interview Preparation Tips</h3>
+          <ul>
+            <li><strong>Practice aloud:</strong> Verbalize your thinking process during interviews</li>
+            <li><strong>Use whiteboard:</strong> Draw diagrams to explain complex architectures</li>
+            <li><strong>Ask clarifying questions:</strong> Ensure you understand constraints before designing</li>
+            <li><strong>Think trade-offs:</strong> Always discuss alternatives and their pros/cons</li>
+            <li><strong>Connect to experience:</strong> Relate answers to real projects you've worked on</li>
+            <li><strong>Show learning mindset:</strong> Acknowledge what you'd research or learn for production</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TAB 7: QUIZ -->
+      <div class="tab-content" id="tab7">
+        <div class="section">
+          <h2><i class="fas fa-question-circle"></i> Knowledge Assessment Quiz</h2>
+          <p>
+            Test your understanding of Phase 1 concepts with this comprehensive quiz. Try to answer without 
+            looking at the content, then check your answers to identify areas for review.
+          </p>
+        </div>
+
+        <div class="quiz-box">
+          <div class="quiz-question">
+            1. Why is dependency injection particularly important when designing automation-friendly service classes?
+          </div>
+          <label class="quiz-option">
+            <input type="radio" name="q1" value="wrong">
+            It makes the class shorter and easier to read by moving dependencies elsewhere.
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="q1" value="wrong">
+            It improves performance by lazy-loading dependencies only when needed.
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="q1" value="correct">
+            It allows swapping real implementations with mocks or stubs in tests, improving isolation.
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="q1" value="wrong">
+            It's required by most test frameworks like Jest and pytest.
+          </label>
+
+          <div class="quiz-question">
+            2. You're debugging a flaky test that occasionally fails with "element not found" in Playwright. 
+            The element exists in the DOM. Which JavaScript execution concept most likely explains this?
+          </div>
+          <label class="quiz-option">
+            <input type="radio" name="q2" value="wrong">
+            Variable hoisting causing the selector to be undefined.
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="q2" value="correct">
+            Race condition between page load and element lookup due to async execution.
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="q2" value="wrong">
+            Memory leak in the test causing the DOM reference to be garbage collected.
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="q2" value="wrong">
+            Strict mode preventing the element from being accessed.
+          </label>
+
+          <div class="quiz-question">
+            3. In Python, you need to process 10,000 test results from a file. Memory is limited. 
+            Which approach is most appropriate?
+          </div>
+          <label class="quiz-option">
+            <input type="radio" name="q3" value="wrong">
+            Load all results into a list with list comprehension: <code>[process(r) for r in results]</code>
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="q3" value="correct">
+            Use a generator: <code>(process(r) for r in read_results())</code> to process one at a time.
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="q3" value="wrong">
+            Use multiprocessing to process all results in parallel.
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="q3" value="wrong">
+            Store results in a SQLite database and process in batches.
+          </label>
+
+          <div class="quiz-question">
+            4. You're designing a test data factory. For complex objects with many optional fields, 
+            which pattern provides the most readable and flexible API?
+          </div>
+          <label class="quiz-option">
+            <input type="radio" name="q4" value="wrong">
+            Simple factory function with many parameters.
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="q4" value="correct">
+            Builder pattern with method chaining.
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="q4" value="wrong">
+            Abstract factory creating families of related objects.
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="q4" value="wrong">
+            Object Mother pattern with pre-configured templates.
+          </label>
+
+          <div class="quiz-question">
+            5. When implementing structured logging for test diagnostics, what's the primary advantage 
+            of JSON-formatted logs over plain text?
+          </div>
+          <label class="quiz-option">
+            <input type="radio" name="q5" value="wrong">
+            JSON logs are smaller in file size.
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="q5" value="wrong">
+            JSON is human-readable without any tools.
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="q5" value="correct">
+            JSON enables automated parsing, filtering, and analysis by log aggregation tools.
+          </label>
+          <label class="quiz-option">
+            <input type="radio" name="q5" value="wrong">
+            JSON logs load faster in text editors.
+          </label>
+
+          <button type="button" id="submitQuiz">
+            <i class="fas fa-check"></i> Submit Quiz
+          </button>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-code"></i> Code Analysis Challenge</h3>
+          <p>Identify the bug and improvement opportunities in this test utility:</p>
+          
+          <pre><code>// Buggy test utility - find the issues
+function validateUser(user) {
+  if (user.age < 18) {
+    return "User must be 18 or older";
+  }
+  
+  if (!user.email.includes('@')) {
+    return "Invalid email format";
+  }
+  
+  if (user.password.length < 8) {
+    return "Password must be at least 8 characters";
+  }
+  
+  return true;
+}
+
+// Test usage
+const testUser = {
+  name: "Test User",
+  age: 25,
+  email: "test@example.com",
+  password: "short"
+};
+
+const result = validateUser(testUser);
+if (result === true) {
+  console.log("User is valid");
+} else {
+  console.log("Validation error:", result);
+}</code></pre>
+          
+          <div class="hidden-answer" id="codeAnalysisAnswer">
+            <div class="highlight-box">
+              <strong>🔍 Issues Found:</strong>
+              <ol>
+                <li><strong>Type inconsistency:</strong> Returns mixed types (string/boolean) - hard to test</li>
+                <li><strong>No null/undefined handling:</strong> Will crash if user or properties are missing</li>
+                <li><strong>Poor error specificity:</strong> Can't tell which validation failed without parsing string</li>
+                <li><strong>No email format validation:</strong> <code>includes('@')</code> is insufficient</li>
+                <li><strong>No password complexity:</strong> Only checks length, not complexity</li>
+                <li><strong>Missing username validation:</strong> Name property exists but isn't validated</li>
+              </ol>
+              
+              <strong>✅ Improved Version:</strong>
+              <pre><code>class ValidationResult {
+  constructor(valid, errors = []) {
+    this.valid = valid;
+    this.errors = errors;
+  }
+  
+  static valid() {
+    return new ValidationResult(true);
+  }
+  
+  static invalid(...errors) {
+    return new ValidationResult(false, errors);
+  }
+}
+
+function validateUser(user) {
+  if (!user) {
+    return ValidationResult.invalid('User object is required');
+  }
+  
+  const errors = [];
+  
+  if (!user.age || user.age < 18) {
+    errors.push('User must be 18 or older');
+  }
+  
+  if (!user.email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.email)) {
+    errors.push('Invalid email format');
+  }
+  
+  if (!user.password || user.password.length < 8) {
+    errors.push('Password must be at least 8 characters');
+  }
+  
+  if (!user.name || user.name.trim().length < 2) {
+    errors.push('Name is required and must be at least 2 characters');
+  }
+  
+  return errors.length === 0 
+    ? ValidationResult.valid()
+    : ValidationResult.invalid(...errors);
+}</code></pre>
+            </div>
+          </div>
+          
+          <button class="toggle-answer" data-target="codeAnalysisAnswer" style="margin-top: 20px;">
+            <i class="fas fa-chevron-down"></i> Show Analysis
+          </button>
+        </div>
+
+        <div class="key-takeaways">
+          <h3><i class="fas fa-flag-checkered"></i> Before Moving to Phase 2</h3>
+          <p>Ensure you can confidently:</p>
+          <ul>
+            <li>Explain the "why" behind dependency injection and demonstrate it in code</li>
+            <li>Implement the same utility in JavaScript/TypeScript, Python, and Ruby</li>
+            <li>Design error hierarchies and recovery strategies for test failures</li>
+            <li>Build a CLI tool with proper argument parsing and error handling</li>
+            <li>Articulate trade-offs between different design patterns for test code</li>
+            <li>Present your portfolio projects with clear problem-solution narratives</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- TAB 8: RESOURCES -->
+      <div class="tab-content" id="tab8">
+        <div class="section">
+          <h2><i class="fas fa-book"></i> Learning Resources & References</h2>
+          <p>
+            Curated resources to deepen your understanding of Phase 1 concepts. Bookmark these for 
+            ongoing reference and deeper dives into specific topics.
+          </p>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-language"></i> Language-Specific Resources</h3>
+          
+          <div class="resources-grid">
+            <div class="resource-card">
+              <h4><i class="fab fa-js-square"></i> JavaScript/TypeScript</h4>
+              <ul>
+                <li><strong>You Don't Know JS (book series)</strong> - Deep dive into JS internals</li>
+                <li><strong>TypeScript Deep Dive</strong> - Free online book</li>
+                <li><strong>JavaScript Event Loop Visualizer</strong> - Interactive tool</li>
+                <li><strong>Node.js Best Practices</strong> - GitHub repository</li>
+                <li><strong>TypeScript Exercises</strong> - Type challenges repository</li>
+              </ul>
+            </div>
+            
+            <div class="resource-card">
+              <h4><i class="fab fa-python"></i> Python</h4>
+              <ul>
+                <li><strong>Fluent Python</strong> - Book on Pythonic patterns</li>
+                <li><strong>Python's Method Resolution Order</strong> - Article on inheritance</li>
+                <li><strong>Real Python</strong> - Tutorials and articles</li>
+                <li><strong>Python's dataclasses Guide</strong> - Official documentation</li>
+                <li><strong>Awesome Python Testing</strong> - Curated resources</li>
+              </ul>
+            </div>
+            
+            <div class="resource-card">
+              <h4><i class="fas fa-gem"></i> Ruby</h4>
+              <ul>
+                <li><strong>The Well-Grounded Rubyist</strong> - Comprehensive book</li>
+                <li><strong>Ruby Metaprogramming</strong> - Book by Paolo Perrotta</li>
+                <li><strong>Ruby Style Guide</strong> - Community best practices</li>
+                <li><strong>Why's Poignant Guide</strong> - Fun, illustrated introduction</li>
+                <li><strong>RSpec Documentation</strong> - Official testing guide</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-shapes"></i> Design Patterns & Architecture</h3>
+          
+          <div class="resources-grid">
+            <div class="resource-card">
+              <h4><i class="fas fa-cubes"></i> Design Patterns</h4>
+              <ul>
+                <li><strong>Refactoring.Guru</strong> - Interactive pattern explanations</li>
+                <li><strong>Head First Design Patterns</strong> - Beginner-friendly book</li>
+                <li><strong>Patterns for Test Automation</strong> - SDET-specific patterns</li>
+                <li><strong>Martin Fowler's Catalog</strong> - Enterprise patterns</li>
+                <li><strong>Game Programming Patterns</strong> - Applied pattern examples</li>
+              </ul>
+            </div>
+            
+            <div class="resource-card">
+              <h4><i class="fas fa-project-diagram"></i> Software Architecture</h4>
+              <ul>
+                <li><strong>Clean Architecture</strong> - Book by Robert C. Martin</li>
+                <li><strong>Designing Data-Intensive Applications</strong> - Distributed systems</li>
+                <li><strong>The Architecture of Open Source Applications</strong> - Case studies</li>
+                <li><strong>Microservices Patterns</strong> - Book by Chris Richardson</li>
+                <li><strong>System Design Primer</strong> - GitHub repository</li>
+              </ul>
+            </div>
+            
+            <div class="resource-card">
+              <h4><i class="fas fa-vial"></i> Testing & Quality</h4>
+              <ul>
+                <li><strong>Test-Driven Development</strong> - Book by Kent Beck</li>
+                <li><strong>Growing Object-Oriented Software</strong> - Guided by Tests</li>
+                <li><strong>Google Testing Blog</strong> - Testing at scale</li>
+                <li><strong>The Practical Test Pyramid</strong> - Martin Fowler's article</li>
+                <li><strong>Testing JavaScript</strong> - Modern testing approaches</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-tools"></i> Tools & Libraries</h3>
+          
+          <table class="comparison-table">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>JavaScript/TypeScript</th>
+                <th>Python</th>
+                <th>Ruby</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Testing Frameworks</strong></td>
+                <td>Jest, Mocha, Jasmine</td>
+                <td>pytest, unittest</td>
+                <td>RSpec, Minitest</td>
+              </tr>
+              <tr>
+                <td><strong>Mocking Libraries</strong></td>
+                <td>Jest, Sinon, ts-mockito</td>
+                <td>unittest.mock, pytest-mock</td>
+                <td>RSpec Mocks, Mocha</td>
+              </tr>
+              <tr>
+                <td><strong>Assertion Libraries</strong></td>
+                <td>Chai, Jest assertions</td>
+                <td>pytest assertions, assertpy</td>
+                <td>RSpec expectations</td>
+              </tr>
+              <tr>
+                <td><strong>HTTP Clients</strong></td>
+                <td>axios, node-fetch, got</td>
+                <td>requests, httpx, aiohttp</td>
+                <td>HTTParty, Faraday</td>
+              </tr>
+              <tr>
+                <td><strong>CLI Frameworks</strong></td>
+                <td>Commander, yargs, oclif</td>
+                <td>Click, argparse, Typer</td>
+                <td>Thor, GLI, OptionParser</td>
+              </tr>
+              <tr>
+                <td><strong>Logging</strong></td>
+                <td>winston, pino, bunyan</td>
+                <td>structlog, logging</td>
+                <td>Semantic Logger, Logger</td>
+              </tr>
+              <tr>
+                <td><strong>Validation</strong></td>
+                <td>Zod, Joi, yup</td>
+                <td>Pydantic, marshmallow</td>
+                <td>Dry-validation, ActiveModel</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="section">
+          <h3><i class="fas fa-graduation-cap"></i> Learning Platforms</h3>
+          
+          <div class="highlight-box">
+            <strong>🎓 Recommended Learning Paths:</strong>
+            <ul>
+              <li><strong>Frontend Masters:</strong> Deep dive workshops on JavaScript, TypeScript, testing</li>
+              <li><strong>Pluralsight:</strong> Comprehensive paths for software testing and automation</li>
+              <li><strong>LinkedIn Learning:</strong> Practical courses on test automation frameworks</li>
+              <li><strong>Coursera:</strong> University courses on software testing and quality assurance</li>
+              <li><strong>Exercism:</strong> Practice problems with mentor feedback</li>
+              <li><strong>LeetCode:</strong> Algorithm practice (filter for "easy" and "medium" problems)</li>
+            </ul>
+          </div>
+          
+          <h4><i class="fas fa-users"></i> Communities & Forums</h4>
+          <ul>
+            <li><strong>r/QualityAssurance</strong> - Reddit community for QA professionals</li>
+            <li><strong>Software Testing Stack Exchange</strong> - Q&A for testing questions</li>
+            <li><strong>Ministry of Testing</strong> - Testing community with events and forums</li>
+            <li><strong>Test Automation University</strong> - Free courses by Applitools</li>
+            <li><strong>LinkedIn Groups:</strong> Software Testers, Test Automation Professionals</li>
+            <li><strong>Discord/Slack:</strong> Various programming language and testing communities</li>
+          </ul>
+          
+          <h4><i class="fas fa-podcast"></i> Podcasts & Newsletters</h4>
+          <ul>
+            <li><strong>Test & Code Podcast</strong> - Python testing focused</li>
+            <li><strong>Automation Nation</strong> - Test automation discussions</li>
+            <li><strong>The Stack Overflow Podcast</strong> - General programming insights</li>
+            <li><strong>Software Testing Weekly</strong> - Curated testing news</li>
+            <li><strong>JavaScript Weekly</strong> - JS ecosystem updates</li>
+            <li><strong>Python Weekly</strong> - Python news and articles</li>
+          </ul>
+        </div>
+
+        <div class="key-takeaways">
+          <h3><i class="fas fa-road"></i> Continuing Your Journey</h3>
+          <p>
+            Phase 1 has equipped you with the programming foundation needed for advanced SDET work. 
+            As you progress, remember:
+          </p>
+          <ul>
+            <li><strong>Apply immediately:</strong> Use these patterns in your current work</li>
+            <li><strong>Build in public:</strong> Share your portfolio projects and learnings</li>
+            <li><strong>Stay curious:</strong> Follow the resources here to continue learning</li>
+            <li><strong>Teach others:</strong> Solidify your knowledge by explaining it</li>
+            <li><strong>Iterate:</strong> Your understanding will deepen with practice</li>
+          </ul>
+          <p>
+            In Phase 2, you'll apply these programming skills to Data Structures & Algorithms 
+            specifically tailored for SDET interview questions and real-world test optimization problems.
+          </p>
+        </div>
+      </div>
     </div>
 
-    <nav class="sidebar__nav">
-      <a href="index.html" class="nav-link">Home & Syllabus</a>
-      <a href="phase1-programming-foundations.html" class="nav-link nav-link--active">Phase 1 – Programming</a>
-      <a href="phase2-dsa.html" class="nav-link">Phase 2 – DSA</a>
-      <a href="phase3-ui-automation.html" class="nav-link">Phase 3 – UI Automation</a>
-      <a href="phase4-api-automation.html" class="nav-link">Phase 4 – API & Backend</a>
-      <a href="phase5-framework-design.html" class="nav-link">Phase 5 – Framework Design</a>
-      <a href="phase6-microservices-devops-cloud.html" class="nav-link">Phase 6 – Microservices & DevOps</a>
-      <a href="phase7-system-design-behavioral.html" class="nav-link">Phase 7 – System & Behavioral</a>
-    </nav>
-
-    <section class="sidebar__metrics">
-      <h2>Phase Metrics</h2>
-      <div class="metric"><span>Weeks</span><span>1–3</span></div>
-      <div class="metric"><span>Focus</span><span>Polyglot fluency</span></div>
-      <div class="metric"><span>Repos</span><span>3–4</span></div>
-    </section>
-  </aside>
-
-  <main class="content">
-    <header class="content__header">
-      <h1>Phase 1 – Deep Programming Rebuild</h1>
-      <p>JavaScript/TypeScript, Python, Ruby – fundamentals to advanced, with SDET-style coding.</p>
-    </header>
-
-    <section id="phase-overview">
-      <h2>Why This Phase Matters</h2>
-      <ul>
-        <li>Top-tier SDET II roles expect fluency in at least one or two languages and comfort switching stacks.[web:18][web:20]</li>
-        <li>You will write testable, modular, observable code that can be wrapped in UI/API automation frameworks.</li>
-        <li>All exercises are designed to translate directly into automation framework components and utilities.</li>
-      </ul>
-    </section>
-
-    <!-- WEEK 1 -->
-
-    <section id="week1">
-      <h2>Week 1 – Language Refresh & Core Habits</h2>
-      <p>Focus: Syntax refresh, control flow, collections, functions, error handling across JS/TS, Python, Ruby.</p>
-
-      <!-- Day 1 -->
-      <article class="day-card">
-        <div class="day-card__header">
-          <div class="day-card__title">
-            <strong>Day 1 – JavaScript Core Refresh</strong>
-            <span> | syntax, types, control flow</span>
-          </div>
-          <div class="day-card__status">
-            <label>
-              <input type="checkbox" class="day-complete" /> Done
-            </label>
-          </div>
-        </div>
-        <div class="day-card__body">
-          <h3>What to Learn</h3>
-          <ul>
-            <li>Modern JS (ES6+) basics: let/const, arrow functions, template literals, destructuring.</li>
-            <li>Primitive vs reference types, equality, control flow, loops.</li>
-          </ul>
-
-          <h3>Why It Matters</h3>
-          <ul>
-            <li>Most Playwright/Selenium/Cypress stacks around FAANG use modern JS/TS conventions.[web:23][web:32][web:35]</li>
-            <li>Understanding value vs reference and control flow is critical for debugging automation flakiness and side effects.</li>
-          </ul>
-
-          <h3>Sub-topics</h3>
-          <ul>
-            <li>Variables: <code>let</code> vs <code>const</code>, scope rules.</li>
-            <li>Data types: string, number, boolean, null, undefined, object, array.</li>
-            <li>Operators: equality (<code>===</code> vs <code==</code>), logical, ternary.</li>
-            <li>Control flow: if/else, switch, for/while/for...of, basic error handling with <code>try/catch</code>.</li>
-          </ul>
-
-          <h3>Must-know Theory</h3>
-          <ul>
-            <li>Hoisting basics: declarations vs initializations.</li>
-            <li>Immutability vs mutability, pass-by-value vs pass-by-reference (behaviour for objects/arrays).</li>
-            <li>How JS runtime executes a simple script (call stack idea, not full event loop yet).</li>
-          </ul>
-
-          <h3>Examples (Concept Snippets)</h3>
-          <pre><code>// JS – value vs reference
-const a = { count: 1 };
-const b = a;
-b.count = 2;
-console.log(a.count); // 2 (shared reference)
-
-// Simple control flow
-function classifyStatus(code) {
-  if (code >= 200 && code &lt; 300) return "success";
-  if (code >= 400 && code &lt; 500) return "client-error";
-  return "other";
-}
-</code></pre>
-
-          <h3>Hands-on Tasks</h3>
-          <ul>
-            <li>Create <code>js-core-refresh</code> folder, initialize <code>npm init -y</code>, add <code>index.js</code>.</li>
-            <li>Implement:
-              <ul>
-                <li><code>classifyStatus(code)</code> – categorize HTTP codes (1xx/2xx/3xx/4xx/5xx).</li>
-                <li><code>normalizeUser(input)</code> – takes either string or object and returns normalized object: <code>{ id, name }</code>.</li>
-                <li><code>sumEven(numbers)</code> – returns sum of even numbers in an array.</li>
-              </ul>
-            </li>
-            <li>Write minimal Node-based assertions using native <code>assert</code> to validate behavior.</li>
-          </ul>
-
-          <h3>Expected Output</h3>
-          <ul>
-            <li>A single JS file with all functions and self-check assertions printing “OK” for each function.</li>
-            <li>Short <code>README.md</code> describing each function and how it would be reused in a test utility.</li>
-          </ul>
-
-          <h3>Self-evaluation Checklist</h3>
-          <ul>
-            <li>Can explain why <code>===</code> is preferred over <code>==</code> in tests.</li>
-            <li>Can predict mutation effects when passing arrays/objects into functions.</li>
-            <li>Can write basic branching and loops without consulting docs.</li>
-          </ul>
-
-          <h3>Sample Interview Questions (Day 1)</h3>
-          <ul>
-            <li>“In JavaScript, how are objects passed to functions, and how can this cause subtle test bugs?”</li>
-            <li>“Explain the difference between <code>var</code>, <code>let</code>, and <code>const</code> in the context of test code.”</li>
-          </ul>
-        </div>
-      </article>
-
-      <!-- Day 2 -->
-      <article class="day-card">
-        <div class="day-card__header">
-          <div class="day-card__title">
-            <strong>Day 2 – Functions, Modules, TS Intro</strong>
-            <span> | JS/TS</span>
-          </div>
-          <div class="day-card__status">
-            <label><input type="checkbox" class="day-complete" /> Done</label>
-          </div>
-        </div>
-        <div class="day-card__body">
-          <h3>What to Learn</h3>
-          <ul>
-            <li>Function declarations, expressions, arrow functions.</li>
-            <li>Basic module patterns (CommonJS vs ES modules) and a gentle TypeScript intro.</li>
-          </ul>
-
-          <h3>Why It Matters</h3>
-          <ul>
-            <li>Automation frameworks are collections of utilities, helpers and page objects organized as modules.</li>
-            <li>TypeScript adds compile-time safety, catching many test bugs early in the pipeline.[web:32][web:35]</li>
-          </ul>
-
-          <h3>Sub-topics</h3>
-          <ul>
-            <li>Pure vs impure functions.</li>
-            <li>Default parameters, rest parameters.</li>
-            <li>Basic TS: interfaces, types, typed function signatures, <code>tsconfig</code> basics.</li>
-          </ul>
-
-          <h3>Must-know Theory</h3>
-          <ul>
-            <li>Why pure functions are easier to test and parallelize.</li>
-            <li>How type annotations help maintain large test suites over time.</li>
-          </ul>
-
-          <h3>Examples</h3>
-          <pre><code>// TypeScript example: test helper
-export interface HttpResponse {
-  status: number;
-  body: unknown;
-}
-
-export function isSuccess(res: HttpResponse): boolean {
-  return res.status >= 200 && res.status &lt; 300;
-}
-</code></pre>
-
-          <h3>Hands-on Tasks</h3>
-          <ul>
-            <li>Create a <code>ts-helpers</code> folder:
-              <ul>
-                <li>Initialize TS: <code>npm init -y</code>, <code>npm install typescript @types/node --save-dev</code>, <code>npx tsc --init</code>.</li>
-                <li>Write <code>helpers.ts</code> with:
-                  <ul>
-                    <li><code>retry(fn, retries): Promise&lt;T&gt;</code> – generic retry helper for flaky operations.</li>
-                    <li><code>waitFor(conditionFn, timeoutMs)</code> – simple polling loop.</li>
-                  </ul>
-                </li>
-                <li>Compile and run small demo in <code>demo.ts</code> using Node + TS.</li>
-              </ul>
-            </li>
-          </ul>
-
-          <h3>Expected Output</h3>
-          <ul>
-            <li>TypeScript project with at least two helpers exported from a module.</li>
-            <li>Document in <code>README.md</code> how <code>retry</code> and <code>waitFor</code> map to automation flakiness mitigation.</li>
-          </ul>
-
-          <h3>Self-evaluation Checklist</h3>
-          <ul>
-            <li>Can declare a typed function in TS and understand compilation.</li>
-            <li>Can explain why retry helpers should have backoff and max retries.</li>
-          </ul>
-
-          <h3>Sample Interview Questions (Day 2)</h3>
-          <ul>
-            <li>“Design a generic retry utility for flaky network calls. How would you test it?”</li>
-            <li>“What benefits does TypeScript bring to large automation codebases?”</li>
-          </ul>
-        </div>
-      </article>
-
-      <!-- Day 3 -->
-      <article class="day-card">
-        <div class="day-card__header">
-          <div class="day-card__title">
-            <strong>Day 3 – Python Fundamentals</strong>
-            <span> | syntax, data structures</span>
-          </div>
-          <div class="day-card__status">
-            <label><input type="checkbox" class="day-complete" /> Done</label>
-          </div>
-        </div>
-        <div class="day-card__body">
-          <h3>What to Learn</h3>
-          <ul>
-            <li>Python basics: variables, types, control flow, lists, dicts, loops, functions.</li>
-            <li>Virtualenv, basic project layout for test utilities.</li>
-          </ul>
-
-          <h3>Why It Matters</h3>
-          <ul>
-            <li>Many backend-focused SDET roles use Python for API and microservices testing, including pytest-based automation.[web:20][web:34]</li>
-            <li>Python’s batteries-included ecosystem makes it ideal for quick test tools and data processing.</li>
-          </ul>
-
-          <h3>Sub-topics</h3>
-          <ul>
-            <li>List vs tuple, dict vs set.</li>
-            <li>Basic functions, default arguments, unpacking.</li>
-          </ul>
-
-          <h3>Must-know Theory</h3>
-          <ul>
-            <li>Python’s indentation-based blocks and how that affects code readability in test suites.</li>
-            <li>Mutable default argument pitfall.</li>
-          </ul>
-
-          <h3>Examples</h3>
-          <pre><code># Simple response classifier used in API tests
-def classify_status(code: int) -> str:
-    if 200 &lt;= code &lt; 300:
-        return "success"
-    if 400 &lt;= code &lt; 500:
-        return "client_error"
-    return "other"
-</code></pre>
-
-          <h3>Hands-on Tasks</h3>
-          <ul>
-            <li>Create <code>python-core</code> project:
-              <ul>
-                <li>Use <code>python -m venv venv</code>, activate, <code>pip install pytest</code>.</li>
-                <li>Implement:
-                  <ul>
-                    <li><code>filter_success(responses)</code> – takes list of dicts with status codes, returns only successes.</li>
-                    <li><code>flatten(nested_list)</code> – simple flatten (1-level) utility.</li>
-                  </ul>
-                </li>
-                <li>Create <code>test_core.py</code> with pytest tests.</li>
-              </ul>
-            </li>
-          </ul>
-
-          <h3>Expected Output</h3>
-          <ul>
-            <li>Python module file and passing pytest suite.</li>
-            <li>Short note on how these utilities can be reused in API test suites.</li>
-          </ul>
-
-          <h3>Self-evaluation Checklist</h3>
-          <ul>
-            <li>Can initialize a venv and run pytest from command line.</li>
-            <li>Can comfortably manipulate lists/dicts without searching online.</li>
-          </ul>
-
-          <h3>Sample Interview Questions (Day 3)</h3>
-          <ul>
-            <li>“How would you remove duplicates from a list of dictionaries in Python?”</li>
-            <li>“Explain why using a list as a default argument in Python functions is dangerous.”</li>
-          </ul>
-        </div>
-      </article>
-
-      <!-- Day 4 -->
-      <article class="day-card">
-        <div class="day-card__header">
-          <div class="day-card__title">
-            <strong>Day 4 – Ruby Fundamentals for Testers</strong>
-            <span> | syntax, blocks, basic OOP</span>
-          </div>
-          <div class="day-card__status">
-            <label><input type="checkbox" class="day-complete" /> Done</label>
-          </div>
-        </div>
-        <div class="day-card__body">
-          <h3>What to Learn</h3>
-          <ul>
-            <li>Ruby syntax, arrays/hashes, blocks, basic classes.</li>
-            <li>Rspec basics (to prepare for potential Ruby-based frameworks).</li>
-          </ul>
-
-          <h3>Why It Matters</h3>
-          <ul>
-            <li>Some companies (Shopify/GitHub-style) use Ruby-based test frameworks, and polyglot skills increase your market value.[web:20]</li>
-            <li>Ruby’s expressiveness is great for DSL-like test code; understanding blocks helps when reading such frameworks.</li>
-          </ul>
-
-          <h3>Sub-topics</h3>
-          <ul>
-            <li>Symbols vs strings.</li>
-            <li>Blocks, <code>each</code>, <code>map</code>, <code>select</code>.</li>
-            <li>Simple class with initializer and method.</li>
-          </ul>
-
-          <h3>Examples</h3>
-          <pre><code># Ruby – simple HTTP response object for tests
-class HttpResponse
-  attr_reader :status, :body
-
-  def initialize(status:, body:)
-    @status = status
-    @body = body
-  end
-
-  def success?
-    status >= 200 &amp;&amp; status &lt; 300
-  end
-end
-</code></pre>
-
-          <h3>Hands-on Tasks</h3>
-          <ul>
-            <li>Set up a <code>ruby-core</code> project:
-              <ul>
-                <li>Install bundler, add <code>rspec</code> to <code>Gemfile</code>.</li>
-                <li>Implement small utility class: <code>JsonStore</code> with methods <code>put(key, value)</code>, <code>get(key)</code>, <code>to_json</code>.</li>
-                <li>Write Rspec tests for class behavior.</li>
-              </ul>
-            </li>
-          </ul>
-
-          <h3>Expected Output</h3>
-          <ul>
-            <li>Ruby class with tests passing under <code>bundle exec rspec</code>.</li>
-            <li>Comment in code about how this could back a test data storage layer.</li>
-          </ul>
-
-          <h3>Self-evaluation Checklist</h3>
-          <ul>
-            <li>Can write a simple Ruby class with initializer and methods.</li>
-            <li>Understands <code>each</code> / <code>map</code> / <code>select</code> on arrays.</li>
-          </ul>
-
-          <h3>Sample Interview Questions (Day 4)</h3>
-          <ul>
-            <li>“How do blocks differ from lambdas in Ruby?”</li>
-            <li>“Show Ruby code that iterates over a list of URLs and prints only those that return 2xx status.”</li>
-          </ul>
-        </div>
-      </article>
-
-      <!-- Day 5 -->
-      <article class="day-card">
-        <div class="day-card__header">
-          <div class="day-card__title">
-            <strong>Day 5 – Cross-language Patterns & Refactoring</strong>
-          </div>
-          <div class="day-card__status">
-            <label><input type="checkbox" class="day-complete" /> Done</label>
-          </div>
-        </div>
-        <div class="day-card__body">
-          <h3>What to Learn</h3>
-          <ul>
-            <li>Identify shared patterns across JS/TS, Python, Ruby (map/filter/reduce, error handling, small pure functions).</li>
-            <li>Refactor earlier examples into more testable forms.</li>
-          </ul>
-
-          <h3>Why It Matters</h3>
-          <ul>
-            <li>Being able to map concepts across languages is critical when reading/writing automation in multiple stacks.[web:20][web:25]</li>
-            <li>Refactoring is a core SDET skill when working with existing flaky or messy test suites.</li>
-          </ul>
-
-          <h3>Sub-topics</h3>
-          <ul>
-            <li>Functional patterns (map/filter/reduce) in each language.</li>
-            <li>Refactoring to remove duplication and side effects.</li>
-          </ul>
-
-          <h3>Must-know Theory</h3>
-          <ul>
-            <li>Code smells in test utilities: long functions, hidden globals, magic constants.</li>
-            <li>Single Responsibility Principle and its relevance to test helpers.</li>
-          </ul>
-
-          <h3>Hands-on Tasks</h3>
-          <ul>
-            <li>Pick one function from each language (JS, Python, Ruby) and:
-              <ul>
-                <li>Extract smaller helpers.</li>
-                <li>Add input validation and error handling.</li>
-                <li>Add simple logging statement or structured debug output.</li>
-              </ul>
-            </li>
-            <li>Document common patterns you see across languages.</li>
-          </ul>
-
-          <h3>Expected Output</h3>
-          <ul>
-            <li>Refactored functions with cleaner signatures and comments.</li>
-            <li>A short <code>cross-language-patterns.md</code> doc summarizing findings.</li>
-          </ul>
-
-          <h3>Self-evaluation Checklist</h3>
-          <ul>
-            <li>Can identify duplication and extract shared helpers.</li>
-            <li>Can implement map/filter-like operations in all three languages.</li>
-          </ul>
-
-          <h3>Sample Interview Questions (Day 5)</h3>
-          <ul>
-            <li>“You see repeated HTTP status classification logic across tests. How would you refactor this in a large codebase?”</li>
-            <li>“Describe a time you refactored test code for maintainability. What patterns did you use?”</li>
-          </ul>
-        </div>
-      </article>
-
-      <!-- Weekly Coding Exercises -->
-      <section>
-        <h3>Week 1 – Coding Exercises</h3>
-        <ul>
-          <li>Solve at least 5 easy problems (arrays/strings) in LeetCode/HackerRank using JavaScript; log links and notes.[web:21][web:37]</li>
-          <li>Implement “HTTP response classifier” in JS, Python, Ruby and ensure behavior matches in all three.</li>
-        </ul>
-      </section>
-
-      <!-- Week 1 Portfolio Deliverable -->
-      <section>
-        <h3>Week 1 – Portfolio Deliverable</h3>
-        <ul>
-          <li>Create GitHub repo <code>sdet-polyglot-core-utils</code>:
-            <ul>
-              <li>Folders: <code>js/</code>, <code>python/</code>, <code>ruby/</code>.</li>
-              <li>Each contains small utilities plus minimal tests.</li>
-              <li><code>README.md</code> explains how these utilities would be used in UI/API test frameworks.</li>
-            </ul>
-          </li>
-        </ul>
-      </section>
-    </section>
-
-    <!-- WEEK 2 -->
-
-    <section id="week2">
-      <h2>Week 2 – OOP, Testing Mindset, Testable Design</h2>
-      <p>Focus: Classes, composition, interfaces, dependency injection, and test-driven habits in all 3 languages.[web:18][web:20]</p>
-
-      <!-- Day 6 -->
-      <article class="day-card">
-        <div class="day-card__header">
-          <div class="day-card__title">
-            <strong>Day 6 – JavaScript/TS OOP for SDET</strong>
-            <span> | classes, interfaces, DI</span>
-          </div>
-          <div class="day-card__status">
-            <label><input type="checkbox" class="day-complete" /> Done</label>
-          </div>
-        </div>
-        <div class="day-card__body">
-          <h3>What to Learn</h3>
-          <ul>
-            <li>Classes, inheritance, composition in JS/TS.</li>
-            <li>Interfaces and dependency injection patterns for testable code.</li>
-          </ul>
-
-          <h3>Why It Matters</h3>
-          <ul>
-            <li>Page Objects, service clients, and runners are all class-based abstractions in most automation frameworks.[web:23][web:32][web:35]</li>
-            <li>Proper DI allows mocking and isolation in tests.</li>
-          </ul>
-
-          <h3>Sub-topics</h3>
-          <ul>
-            <li><code>class</code>, <code>extends</code>, constructors, public/private fields (TS).</li>
-            <li>Interfaces for HTTP clients, storage, logger.</li>
-          </ul>
-
-          <h3>Must-know Theory</h3>
-          <ul>
-            <li>Composition vs inheritance in test design.</li>
-            <li>Why global singletons hinder parallel test execution.</li>
-          </ul>
-
-          <h3>Hands-on Tasks</h3>
-          <ul>
-            <li>Create <code>ts-oop-http</code> project:
-              <ul>
-                <li>Define <code>IHttpClient</code> interface with <code>get</code>, <code>post</code>, etc.</li>
-                <li>Create <code>FetchHttpClient</code> implementation using <code>node-fetch</code> or <code>axios</code>.</li>
-                <li>Create <code>ApiService</code> class that depends on <code>IHttpClient</code> via constructor injection.</li>
-              </ul>
-            </li>
-          </ul>
-
-          <h3>Expected Output</h3>
-          <ul>
-            <li>TS classes with interfaces/types and a small example script that constructs an <code>ApiService</code>.</li>
-            <li>Explain in comments how this maps to a Playwright/Selenium test service layer.</li>
-          </ul>
-
-          <h3>Self-evaluation Checklist</h3>
-          <ul>
-            <li>Can explain DI and why it matters for mocking.</li>
-            <li>Can convert a simple procedural script into a class+interface design.</li>
-          </ul>
-
-          <h3>Sample Interview Questions (Day 6)</h3>
-          <ul>
-            <li>“Design a testable API client layer for an automation framework. How do you structure dependencies?”</li>
-            <li>“Why might you prefer composition over inheritance in test automation code?”</li>
-          </ul>
-        </div>
-      </article>
-
-      <!-- Day 7 -->
-      <article class="day-card">
-        <div class="day-card__header">
-          <div class="day-card__title">
-            <strong>Day 7 – Python OOP & Testability</strong>
-          </div>
-          <div class="day-card__status">
-            <label><input type="checkbox" class="day-complete" /> Done</label>
-          </div>
-        </div>
-        <div class="day-card__body">
-          <h3>What to Learn</h3>
-          <ul>
-            <li>Classes, <code>__init__</code>, instance vs class methods.</li>
-            <li>Simple dependency injection via constructor parameters.</li>
-          </ul>
-
-          <h3>Why It Matters</h3>
-          <ul>
-            <li>pytest-based frameworks often use service-style classes for API clients and data providers.[web:34]</li>
-            <li>Good boundaries make mocking with <code>unittest.mock</code> / pytest fixtures straightforward.</li>
-          </ul>
-
-          <h3>Hands-on Tasks</h3>
-          <ul>
-            <li>Create <code>python-oop-api</code>:
-              <ul>
-                <li>Class <code>ApiClient</code> with methods <code>get_user</code>, <code>create_user</code> using <code>requests</code> (you can hit a public dummy API or mock responses later).</li>
-                <li>Class <code>UserService</code> that depends on <code>ApiClient</code>.</li>
-                <li>Write pytest tests where <code>ApiClient</code> is mocked.</li>
-              </ul>
-            </li>
-          </ul>
-
-          <h3>Expected Output</h3>
-          <ul>
-            <li>Python classes and tests demonstrating constructor injection and mocking.</li>
-          </ul>
-
-          <h3>Self-evaluation Checklist</h3>
-          <ul>
-            <li>Can explain how to mock an injected dependency in pytest.</li>
-            <li>Understands difference between integration test vs unit test in this context.</li>
-          </ul>
-
-          <h3>Sample Interview Questions (Day 7)</h3>
-          <ul>
-            <li>“How would you design a Python-based API client to be easily testable and mockable?”</li>
-            <li>“Describe a fixture-based approach to configuring API clients in pytest.”</li>
-          </ul>
-        </div>
-      </article>
-
-      <!-- Day 8 -->
-      <article class="day-card">
-        <div class="day-card__header">
-          <div class="day-card__title">
-            <strong>Day 8 – Ruby OOP & DSL Thinking</strong>
-          </div>
-          <div class="day-card__status">
-            <label><input type="checkbox" class="day-complete" /> Done</label>
-          </div>
-        </div>
-        <div class="day-card__body">
-          <h3>What to Learn</h3>
-          <ul>
-            <li>Ruby classes/modules, mixins basics.</li>
-            <li>DSL-style thinking for test cases (RSpec-style readability).</li>
-          </ul>
-
-          <h3>Why It Matters</h3>
-          <ul>
-            <li>Many high-level frameworks present “human readable” test APIs; understanding DSLs helps you read and extend them.[web:20]</li>
-          </ul>
-
-          <h3>Hands-on Tasks</h3>
-          <ul>
-            <li>Extend <code>JsonStore</code> to support simple query methods.</li>
-            <li>Write an RSpec “mini DSL” style test describing user flows as readable blocks.</li>
-          </ul>
-
-          <h3>Expected Output</h3>
-          <ul>
-            <li>Readable Ruby test code that looks close to business language.</li>
-          </ul>
-        </div>
-      </article>
-
-      <!-- Day 9 -->
-      <article class="day-card">
-        <div class="day-card__header">
-          <div class="day-card__title">
-            <strong>Day 9 – TDD Mini-loop (Any Language)</strong>
-          </div>
-          <div class="day-card__status">
-            <label><input type="checkbox" class="day-complete" /> Done</label>
-          </div>
-        </div>
-        <div class="day-card__body">
-          <h3>What to Learn</h3>
-          <ul>
-            <li>Red–Green–Refactor loop using JS/TS, Python, or Ruby test tools.</li>
-          </ul>
-
-          <h3>Why It Matters</h3>
-          <ul>
-            <li>SDETs frequently prototype utilities or new framework capabilities using TDD.[web:18][web:20]</li>
-          </ul>
-
-          <h3>Hands-on Tasks</h3>
-          <ul>
-            <li>Implement a “rate limiter” utility using TDD:
-              <ul>
-                <li>Given a function and max calls per interval, prevent overuse.</li>
-                <li>First write failing tests for basic behavior, then implement and refactor.</li>
-              </ul>
-            </li>
-          </ul>
-
-          <h3>Expected Output</h3>
-          <ul>
-            <li>A small repo <code>rate-limiter-tdd</code> with clear commit history showing TDD steps.</li>
-          </ul>
-        </div>
-      </article>
-
-      <!-- Day 10 -->
-      <article class="day-card">
-        <div class="day-card__header">
-          <div class="day-card__title">
-            <strong>Day 10 – Review, Consolidation, Mixed-language Exercise</strong>
-          </div>
-          <div class="day-card__status">
-            <label><input type="checkbox" class="day-complete" /> Done</label>
-          </div>
-        </div>
-        <div class="day-card__body">
-          <h3>What to Learn</h3>
-          <ul>
-            <li>Review all language-specific topics and reimplement a small problem in all 3 languages.</li>
-          </ul>
-
-          <h3>Hands-on Tasks</h3>
-          <ul>
-            <li>Pick a non-trivial problem (e.g., “Log aggregator” or “Retry queue”) and implement in JS/TS, Python, Ruby.</li>
-          </ul>
-
-          <h3>Expected Output</h3>
-          <ul>
-            <li>Document trade-offs of each language for this utility in <code>LANGUAGE-COMPARISON.md</code>.</li>
-          </ul>
-
-          <h3>Self-evaluation Checklist</h3>
-          <ul>
-            <li>Comfortable reading and writing idiomatic code in all three languages for small utilities.</li>
-          </ul>
-        </div>
-      </article>
-
-      <!-- Week 2 Coding & Portfolio -->
-      <section>
-        <h3>Week 2 – Coding Exercises</h3>
-        <ul>
-          <li>Solve at least 7 easy/medium problems (maps/hash maps, simple OOP design) using Python or JS.[web:21][web:37]</li>
-          <li>Design and code a small <code>ApiClient</code> abstraction in both TS and Python.</li>
-        </ul>
-      </section>
-
-      <section>
-        <h3>Week 2 – Portfolio Deliverable</h3>
-        <ul>
-          <li>Repo <code>sdet-service-abstractions</code>:
-            <ul>
-              <li>TS <code>ApiService</code>, Python <code>ApiClient</code>, Ruby <code>JsonStore</code>.</li>
-              <li>Short architecture doc explaining DI and mocking strategy.</li>
-            </ul>
-          </li>
-        </ul>
-      </section>
-    </section>
-
-    <!-- Week 3 Placeholder (Extend Similar Pattern) -->
-    <section id="week3">
-      <h2>Week 3 – Advanced Topics (Async, Error Handling, Observability)</h2>
-      <p>Extend using same day-card structure: async/await, promises, event loop, logging, structured errors, basic metrics hooks (timing, counters) in utilities.</p>
-    </section>
-
-  </main>
-
-  <script src="assets/js/app.js"></script>
+    <!-- NAV BUTTONS -->
+    <div class="navigation-buttons">
+      <a href="index.html" class="nav-button prev">
+        <i class="fas fa-home"></i> Back to Overview
+      </a>
+      <a href="phase2-dsa.html" class="nav-button next">
+        Next: Phase 2 – DSA & Patterns <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="mb-2">🧪 <strong>Train'N'GetTrained</strong> – SDET-II Elite Roadmap</p>
+    <p class="text-sm">Polyglot Programming • DSA • Automation Frameworks • Microservices • DevOps • System Design</p>
+    <p class="text-xs mt-4 opacity-70">© 2025 Train'N'GetTrained. For personal and educational use only.</p>
+  </footer>
+
+  <script>
+    // Tab switching
+    document.querySelectorAll('.tab-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const tabId = button.getAttribute('data-tab');
+
+        document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+        button.classList.add('active');
+        document.getElementById(tabId).classList.add('active');
+
+        updateProgressBar();
+      });
+    });
+
+    function updateProgressBar() {
+      const tabs = document.querySelectorAll('.tab-button');
+      const activeTab = document.querySelector('.tab-button.active');
+      const tabIndex = Array.from(tabs).indexOf(activeTab);
+      const progress = ((tabIndex + 1) / tabs.length) * 100;
+      document.getElementById('progressBar').style.width = `${progress}%`;
+    }
+
+    updateProgressBar();
+
+    // Quiz selection
+    document.querySelectorAll('.quiz-option input').forEach(radio => {
+      radio.addEventListener('change', function() {
+        const questionName = this.name;
+        document.querySelectorAll(`input[name="${questionName}"]`).forEach(input => {
+          input.parentElement.classList.remove('selected');
+        });
+        this.parentElement.classList.add('selected');
+      });
+    });
+
+    // Submit quiz
+    const quizButton = document.querySelector('#submitQuiz');
+    quizButton.addEventListener('click', function() {
+      const answers = { 
+        q1: 2,  // Index 2 is correct (0-indexed)
+        q2: 1,
+        q3: 1,
+        q4: 1,
+        q5: 2
+      };
+      
+      let score = 0;
+      let total = Object.keys(answers).length;
+      let feedback = [];
+
+      for (let question in answers) {
+        const selected = document.querySelector(`input[name="${question}"]:checked`);
+        if (selected) {
+          const options = document.querySelectorAll(`input[name="${question}"]`);
+          const selectedIndex = Array.from(options).indexOf(selected);
+          
+          if (selectedIndex === answers[question]) {
+            score++;
+            selected.parentElement.style.background = '#d1fae5';
+            selected.parentElement.style.borderColor = '#10b981';
+          } else {
+            selected.parentElement.style.background = '#fecaca';
+            selected.parentElement.style.borderColor = '#ef4444';
+            
+            // Highlight correct answer
+            options[answers[question]].parentElement.style.background = '#d1fae5';
+            options[answers[question]].parentElement.style.borderColor = '#10b981';
+            
+            // Add feedback
+            feedback.push(`Question ${question.charAt(1)}: Review the topic`);
+          }
+        } else {
+          // No answer selected
+          const options = document.querySelectorAll(`input[name="${question}"]`);
+          options[answers[question]].parentElement.style.background = '#d1fae5';
+          options[answers[question]].parentElement.style.borderColor = '#10b981';
+          feedback.push(`Question ${question.charAt(1)}: Not answered`);
+        }
+      }
+
+      // Show results
+      const percentage = Math.round(score / total * 100);
+      let message = `You scored ${score} out of ${total} (${percentage}%)`;
+      
+      if (percentage >= 80) {
+        message += "\n🎉 Excellent! You're ready for Phase 2.";
+      } else if (percentage >= 60) {
+        message += "\n👍 Good work! Review the highlighted areas.";
+      } else {
+        message += "\n📚 Review Phase 1 concepts before proceeding.";
+      }
+      
+      if (feedback.length > 0) {
+        message += "\n\nAreas to review:\n" + feedback.join('\n');
+      }
+      
+      alert(message);
+
+      // Change button to try again
+      this.innerHTML = '<i class="fas fa-redo"></i> Try Again';
+      this.onclick = function() {
+        location.reload();
+      };
+    });
+
+    // Toggle interview answers and code analysis
+    document.querySelectorAll('.toggle-answer').forEach(button => {
+      button.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const answerDiv = document.getElementById(targetId);
+
+        if (answerDiv.classList.contains('hidden-answer')) {
+          answerDiv.classList.remove('hidden-answer');
+          this.innerHTML = '<i class="fas fa-chevron-up"></i> Hide Answer';
+        } else {
+          answerDiv.classList.add('hidden-answer');
+          this.innerHTML = '<i class="fas fa-chevron-down"></i> Show Answer';
+        }
+      });
+    });
+
+    // Syntax highlighting simulation
+    document.querySelectorAll('pre code').forEach(block => {
+      const html = block.innerHTML;
+      // Simple keyword highlighting for demonstration
+      const highlighted = html
+        .replace(/\b(function|class|interface|type|export|import|async|await|const|let|var)\b/g, '<span class="code-keyword">$1</span>')
+        .replace(/\b(return|throw|try|catch|finally|if|else|for|while|switch|case)\b/g, '<span class="code-keyword">$1</span>')
+        .replace(/\b(\d+)\b/g, '<span class="code-number">$1</span>')
+        .replace(/("[^"]*"|'[^']*')/g, '<span class="code-string">$1</span>')
+        .replace(/\/\/.*$/gm, '<span class="code-comment">$&</span>');
+      
+      block.innerHTML = highlighted;
+    });
+  </script>
 </body>
 </html>
