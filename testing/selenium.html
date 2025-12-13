@@ -1,0 +1,3086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selenium Complete Guide - Train'N'GetTrained</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(30, 60, 114, 0.9), rgba(42, 82, 152, 0.9)), 
+                        url('https://images.unsplash.com/photo-1555066931-4365d14bab8c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 100px 20px;
+            text-align: center;
+        }
+        
+        .content-container {
+            max-width: 1400px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        
+        .module-content {
+            background: white;
+            border-radius: 15px;
+            padding: 50px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2);
+            margin-bottom: 50px;
+        }
+        
+        .section-card {
+            background: linear-gradient(145deg, #ffffff, #f8f9ff);
+            border-radius: 15px;
+            padding: 40px;
+            margin: 50px 0;
+            border-left: 8px solid #43a047;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .section-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(67, 160, 71, 0.15);
+        }
+        
+        .topic-card {
+            background: #e8f5e9;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 25px 0;
+            border: 2px solid #c8e6c9;
+        }
+        
+        .subtopic-card {
+            background: #ffffff;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+            border-left: 5px solid #43a047;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 30px 0;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        }
+        
+        .comparison-table th {
+            background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
+            color: white;
+            padding: 18px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            padding: 16px 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9ff;
+        }
+        
+        .comparison-table tr:hover {
+            background: #f1f8e9;
+        }
+        
+        .tech-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
+            color: white;
+            border-radius: 50%;
+            margin-right: 20px;
+            font-size: 28px;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin: 0 8px 12px 0;
+        }
+        
+        .badge-intro {
+            background: #e3f2fd;
+            color: #1565c0;
+        }
+        
+        .badge-ide {
+            background: #fff3e0;
+            color: #e65100;
+        }
+        
+        .badge-rc {
+            background: #f3e5f5;
+            color: #7b1fa2;
+        }
+        
+        .badge-webdriver {
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+        
+        .badge-grid {
+            background: #e0f7fa;
+            color: #006064;
+        }
+        
+        .badge-locators {
+            background: #fff8e1;
+            color: #ff8f00;
+        }
+        
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 10px;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        .back-button:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 15px 35px rgba(67, 160, 71, 0.4);
+        }
+        
+        .module-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-bottom: 30px;
+            border-bottom: 4px solid #e8f5e9;
+            position: relative;
+        }
+        
+        .module-header::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 4px;
+            background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
+        }
+        
+        .table-of-contents {
+            background: #f1f8e9;
+            border-radius: 15px;
+            padding: 35px;
+            margin: 40px 0;
+            border: 3px solid #c8e6c9;
+        }
+        
+        .toc-list {
+            column-count: 2;
+            column-gap: 50px;
+        }
+        
+        .toc-list li {
+            margin-bottom: 15px;
+            break-inside: avoid;
+        }
+        
+        .toc-list a {
+            color: #2e7d32;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            display: block;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+        
+        .toc-list a:hover {
+            background: #c8e6c9;
+            padding-left: 25px;
+            transform: translateX(5px);
+        }
+        
+        .code-block {
+            background: #2d3748;
+            color: #e2e8f0;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 30px 0;
+            font-family: 'Consolas', 'Monaco', monospace;
+            overflow-x: auto;
+            border-left: 5px solid #43a047;
+        }
+        
+        .code-example {
+            background: #1a202c;
+            padding: 25px;
+            border-radius: 10px;
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .code-example::before {
+            content: 'Code Example';
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: #43a047;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .benefits-box {
+            background: linear-gradient(135deg, #e8f5e9, #f1f8e9);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 25px 0;
+            border: 2px solid #c8e6c9;
+        }
+        
+        .benefits-box ul {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        
+        .benefits-box li {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .benefits-box li i {
+            color: #43a047;
+            margin-right: 12px;
+            font-size: 1.2rem;
+        }
+        
+        .limitations-box {
+            background: linear-gradient(135deg, #ffebee, #ffcdd2);
+            border-radius: 12px;
+            padding: 30px;
+            margin: 25px 0;
+            border: 2px solid #ef9a9a;
+        }
+        
+        .architecture-diagram {
+            background: white;
+            border: 3px solid #c8e6c9;
+            border-radius: 12px;
+            padding: 30px;
+            margin: 30px 0;
+            text-align: center;
+        }
+        
+        .diagram-placeholder {
+            background: linear-gradient(45deg, #f1f8e9, #ffffff);
+            height: 350px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 3px dashed #a5d6a7;
+        }
+        
+        .key-point {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            padding: 30px;
+            border-radius: 12px;
+            margin: 25px 0;
+            border-left: 6px solid #2196f3;
+        }
+        
+        .key-point h4 {
+            color: #1565c0;
+            margin-bottom: 15px;
+        }
+        
+        .quiz-section {
+            background: linear-gradient(135deg, #e8f5e9, #c8e6c9);
+            padding: 50px;
+            border-radius: 15px;
+            margin: 50px 0;
+            border: 4px solid #81c784;
+        }
+        
+        .quiz-question {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 25px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+        }
+        
+        .browser-icons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        
+        .browser-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            color: white;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .chrome { background: linear-gradient(135deg, #4285f4, #34a853); }
+        .firefox { background: linear-gradient(135deg, #ff7139, #ff9500); }
+        .safari { background: linear-gradient(135deg, #1b73e8, #34a853); }
+        .edge { background: linear-gradient(135deg, #0078d7, #00bcf2); }
+        .opera { background: linear-gradient(135deg, #ff1b2d, #ff3b49); }
+        
+        footer {
+            background: #1e3a2c;
+            color: white;
+            padding: 60px 20px;
+            margin-top: 80px;
+        }
+        
+        @media (max-width: 768px) {
+            .toc-list {
+                column-count: 1;
+            }
+            
+            .module-content {
+                padding: 25px;
+            }
+            
+            .section-card {
+                padding: 25px;
+            }
+            
+            .hero {
+                padding: 60px 20px;
+            }
+            
+            .benefits-box ul {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
+            border-radius: 6px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, #2e7d32 0%, #1b5e20 100%);
+        }
+        
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 0.8s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .highlight {
+            background: linear-gradient(120deg, #c8e6c9 0%, #c8e6c9 100%);
+            background-repeat: no-repeat;
+            background-size: 100% 0.4em;
+            background-position: 0 88%;
+            transition: background-size 0.3s ease-in;
+        }
+        
+        .highlight:hover {
+            background-size: 100% 88%;
+        }
+        
+        .method-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .method-item {
+            background: #f8f9ff;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #43a047;
+        }
+        
+        .locator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        
+        .locator-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s;
+        }
+        
+        .locator-card:hover {
+            transform: translateY(-8px);
+        }
+        
+        .locator-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: #43a047;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-3">
+                <span class="text-4xl">⚙️</span>
+                <div>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">
+                        <a href="index.html" target="_self">Train'N'GetTrained</a>
+                    </h1>
+                    <p class="text-xs text-gray-600">Selenium Automation Testing</p>
+                </div>
+            </div>
+            <div class="hidden md:flex gap-8">
+                <a href="index.html#modules" class="font-medium text-gray-700 hover:text-green-600 transition">All Modules</a>
+                <a href="#toc" class="font-medium text-gray-700 hover:text-green-600 transition">Contents</a>
+                <a href="#quiz" class="font-medium text-gray-700 hover:text-green-600 transition">Quiz</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1 class="text-6xl font-bold mb-6">⚙️ Selenium Automation Testing</h1>
+        <p class="text-2xl mb-8 max-w-5xl mx-auto">Complete Guide to Web Automation Testing with Selenium Framework</p>
+        <div class="flex flex-wrap justify-center gap-4 mb-8">
+            <span class="badge badge-intro">Introduction</span>
+            <span class="badge badge-ide">Selenium IDE</span>
+            <span class="badge badge-rc">Selenium RC</span>
+            <span class="badge badge-webdriver">WebDriver</span>
+            <span class="badge badge-grid">Grid</span>
+            <span class="badge badge-locators">Locators</span>
+        </div>
+        <p class="text-xl opacity-90">Master Web Automation • Cross-Browser Testing • Parallel Execution • Real Projects</p>
+    </div>
+
+    <!-- Content Container -->
+    <div class="content-container">
+        <!-- Quick Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-12">
+            <div class="bg-white rounded-2xl p-8 text-center shadow-xl">
+                <div class="text-4xl font-bold text-green-600 mb-3">8+</div>
+                <div class="text-gray-700 font-medium">Selenium Components</div>
+                <div class="text-sm text-gray-500 mt-2">IDE, RC, WebDriver, Grid</div>
+            </div>
+            <div class="bg-white rounded-2xl p-8 text-center shadow-xl">
+                <div class="text-4xl font-bold text-green-600 mb-3">8</div>
+                <div class="text-gray-700 font-medium">Locator Types</div>
+                <div class="text-sm text-gray-500 mt-2">XPath, CSS, ID, Class, etc.</div>
+            </div>
+            <div class="bg-white rounded-2xl p-8 text-center shadow-xl">
+                <div class="text-4xl font-bold text-green-600 mb-3">6+</div>
+                <div class="text-gray-700 font-medium">Browser Support</div>
+                <div class="text-sm text-gray-500 mt-2">Chrome, Firefox, Safari, Edge</div>
+            </div>
+            <div class="bg-white rounded-2xl p-8 text-center shadow-xl">
+                <div class="text-4xl font-bold text-green-600 mb-3">6</div>
+                <div class="text-gray-700 font-medium">Languages</div>
+                <div class="text-sm text-gray-500 mt-2">Java, Python, C#, Ruby, PHP, JS</div>
+            </div>
+        </div>
+
+        <!-- Module Content -->
+        <div class="module-content fade-in">
+            <!-- Module Header -->
+            <div class="module-header">
+                <h2 class="text-5xl font-bold text-gray-800 mb-6">Complete Selenium Automation Testing Guide</h2>
+                <p class="text-gray-600 text-xl max-w-6xl mx-auto">
+                    This comprehensive guide covers everything from Selenium basics to advanced concepts including 
+                    WebDriver, Grid, Locators, and best practices for web automation testing.
+                </p>
+            </div>
+
+            <!-- Table of Contents -->
+            <div class="table-of-contents" id="toc">
+                <h3 class="text-3xl font-bold text-gray-800 mb-8 flex items-center">
+                    <i class="fas fa-list-ol mr-4 text-green-600"></i>Table of Contents
+                </h3>
+                <ul class="toc-list">
+                    <li><a href="#section1">1. Introduction to Selenium</a></li>
+                    <li><a href="#section2">2. Selenium Components Overview</a></li>
+                    <li><a href="#section3">3. Selenium IDE Deep Dive</a></li>
+                    <li><a href="#section4">4. Selenium Remote Control (RC)</a></li>
+                    <li><a href="#section5">5. Selenium WebDriver Mastery</a></li>
+                    <li><a href="#section6">6. Selenium Grid Architecture</a></li>
+                    <li><a href="#section7">7. Component Comparison</a></li>
+                    <li><a href="#section8">8. Browser Compatibility</a></li>
+                    <li><a href="#section9">9. WebDriver Methods & Commands</a></li>
+                    <li><a href="#section10">10. Locators in Selenium</a></li>
+                    <li><a href="#section11">11. XPath Deep Dive</a></li>
+                    <li><a href="#section12">12. Code Examples & Implementation</a></li>
+                    <li><a href="#quiz">Practice Quiz</a></li>
+                    <li><a href="#resources">Additional Resources</a></li>
+                </ul>
+            </div>
+
+            <!-- Section 1: Introduction to Selenium -->
+            <div class="section-card" id="section1">
+                <div class="flex items-center mb-8">
+                    <div class="tech-icon"><i class="fas fa-robot"></i></div>
+                    <div>
+                        <h3 class="text-4xl font-bold text-gray-800">1. Introduction to Selenium</h3>
+                        <p class="text-gray-600 text-xl">Understanding Automation Testing and Selenium Framework</p>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">What is Automation Testing?</h4>
+                    <p class="text-gray-700 text-lg mb-6">
+                        <span class="highlight">Test Automation</span> is a process of automating the manual testing process to test applications or systems under test. 
+                        Automation testing involves using a separate testing tool that lets you create test scripts which can be 
+                        executed repeatedly without requiring any manual intervention.
+                    </p>
+                    
+                    <div class="benefits-box">
+                        <h5 class="text-xl font-bold text-gray-800 mb-6 flex items-center">
+                            <i class="fas fa-star mr-3 text-yellow-500"></i>Benefits of Automation Testing:
+                        </h5>
+                        <ul>
+                            <li>
+                                <i class="fas fa-redo"></i>
+                                <div>
+                                    <strong>Supports execution of repeated test cases</strong>
+                                    <p class="text-sm text-gray-600 mt-1">Once created, automated tests can be run multiple times with minimal effort</p>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-th-large"></i>
+                                <div>
+                                    <strong>Aids in testing a large test matrix</strong>
+                                    <p class="text-sm text-gray-600 mt-1">Handle complex test scenarios with multiple combinations</p>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-code-branch"></i>
+                                <div>
+                                    <strong>Enables parallel execution</strong>
+                                    <p class="text-sm text-gray-600 mt-1">Run multiple tests simultaneously across different environments</p>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-robot"></i>
+                                <div>
+                                    <strong>Encourages unattended execution</strong>
+                                    <p class="text-sm text-gray-600 mt-1">Tests can run overnight or during off-hours without supervision</p>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-bullseye"></i>
+                                <div>
+                                    <strong>Improves accuracy</strong>
+                                    <p class="text-sm text-gray-600 mt-1">Reduces human errors and ensures consistent test execution</p>
+                                </div>
+                            </li>
+                            <li>
+                                <i class="fas fa-money-bill-wave"></i>
+                                <div>
+                                    <strong>Saves time and money</strong>
+                                    <p class="text-sm text-gray-600 mt-1">Reduces manual effort and accelerates release cycles</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">What is Selenium?</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <p class="text-gray-700 text-lg mb-6">
+                                <span class="highlight">Selenium</span> is an open-source automated testing suite for web applications 
+                                across multiple browsers and platforms. It's the most powerful automated test suite for web applications 
+                                that supports testing across different browsers (Chrome, Firefox, Safari, Edge, etc.) and platforms 
+                                (Windows, Linux, macOS, etc.).
+                            </p>
+                            
+                            <div class="key-point">
+                                <h5 class="font-bold text-lg mb-3">Key Features:</h5>
+                                <ul class="list-disc pl-6 space-y-2">
+                                    <li>Supports multiple programming languages (Java, Python, C#, Ruby, PHP, JavaScript)</li>
+                                    <li>Cross-browser compatibility testing</li>
+                                    <li>Platform-independent execution</li>
+                                    <li>Large and active community support</li>
+                                    <li>Integration with various testing frameworks</li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="benefits-box">
+                                <h5 class="text-xl font-bold text-gray-800 mb-6">Why Choose Selenium?</h5>
+                                <ul class="space-y-4">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                        <span><strong>Cost-effective:</strong> Completely free and open-source</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                        <span><strong>Flexible:</strong> Supports multiple languages and frameworks</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                        <span><strong>Scalable:</strong> Can be integrated with CI/CD pipelines</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                        <span><strong>Real Browser Testing:</strong> Tests run on actual browsers</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                        <span><strong>Parallel Testing:</strong> Supports simultaneous test execution</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">Selenium Suite Components</h4>
+                    <p class="text-gray-700 text-lg mb-8">
+                        Selenium is not just a single tool but a suite of software tools, each catering to different testing 
+                        needs of an organization. The entire suite includes four main components:
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="text-center p-6 bg-gradient-to-br from-orange-50 to-yellow-50 rounded-xl">
+                            <div class="text-5xl mb-4">🔧</div>
+                            <h5 class="font-bold text-orange-800 text-xl mb-3">Selenium IDE</h5>
+                            <p class="text-gray-700">Record and playback tool for Firefox browser</p>
+                        </div>
+                        <div class="text-center p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl">
+                            <div class="text-5xl mb-4">🔄</div>
+                            <h5 class="font-bold text-purple-800 text-xl mb-3">Selenium RC</h5>
+                            <p class="text-gray-700">Client-server architecture for browser automation</p>
+                        </div>
+                        <div class="text-center p-6 bg-gradient-to-br from-green-50 to-teal-50 rounded-xl">
+                            <div class="text-5xl mb-4">🚗</div>
+                            <h5 class="font-bold text-green-800 text-xl mb-3">Selenium WebDriver</h5>
+                            <p class="text-gray-700">Modern approach for browser automation</p>
+                        </div>
+                        <div class="text-center p-6 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl">
+                            <div class="text-5xl mb-4">🌐</div>
+                            <h5 class="font-bold text-blue-800 text-xl mb-3">Selenium Grid</h5>
+                            <p class="text-gray-700">Distributed testing across multiple machines</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Selenium Components Overview -->
+            <div class="section-card" id="section2">
+                <div class="flex items-center mb-8">
+                    <div class="tech-icon"><i class="fas fa-puzzle-piece"></i></div>
+                    <div>
+                        <h3 class="text-4xl font-bold text-gray-800">2. Selenium Components Overview</h3>
+                        <p class="text-gray-600 text-xl">Detailed look at each Selenium component</p>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">What is Selenium?</h4>
+                    <p class="text-gray-700 text-lg mb-6">
+                        <span class="highlight">Selenium</span> is a portable software testing framework for web applications. 
+                        It provides a recording and playback tool for authoring tests without needing to learn a test scripting 
+                        language (through Selenium IDE).
+                    </p>
+                    
+                    <div class="architecture-diagram">
+                        <h5 class="font-bold text-gray-800 text-xl mb-6">Selenium Ecosystem Architecture</h5>
+                        <div class="diagram-placeholder">
+                            <div class="text-center">
+                                <div class="text-4xl mb-4">🏗️</div>
+                                <p class="text-gray-700 text-lg">Selenium Architecture Components</p>
+                                <p class="text-gray-500 mt-2">IDE → RC → WebDriver → Grid</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mt-6 text-center">
+                            Each component serves specific purposes and can be used independently or together based on testing requirements
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div class="subtopic-card">
+                        <h4 class="text-2xl font-bold text-gray-800 mb-6">Selenium IDE (Integrated Development Environment)</h4>
+                        <p class="text-gray-700 mb-4">
+                            A Firefox add-on that creates test scripts through record and playback functionality. 
+                            Primarily used as a prototyping tool that generates simple test scripts.
+                        </p>
+                        <div class="benefits-box">
+                            <h5 class="font-bold text-gray-800 mb-4">Primary Use:</h5>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-play-circle text-green-500 mt-1 mr-3"></i>
+                                    <span>Quick test script creation</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-graduation-cap text-blue-500 mt-1 mr-3"></i>
+                                    <span>Learning Selenium basics</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-fast-forward text-orange-500 mt-1 mr-3"></i>
+                                    <span>Rapid test prototyping</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="subtopic-card">
+                        <h4 class="text-2xl font-bold text-gray-800 mb-6">Selenium RC (Remote Control)</h4>
+                        <p class="text-gray-700 mb-4">
+                            The first automated web testing tool that allowed users to use their preferred programming language. 
+                            It uses a client-server architecture where test scripts communicate with browsers.
+                        </p>
+                        <div class="benefits-box">
+                            <h5 class="font-bold text-gray-800 mb-4">Key Feature:</h5>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-code text-purple-500 mt-1 mr-3"></i>
+                                    <span>Supports multiple programming languages</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-sync-alt text-blue-500 mt-1 mr-3"></i>
+                                    <span>Cross-browser and cross-platform testing</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-database text-green-500 mt-1 mr-3"></i>
+                                    <span>Supports data-driven testing</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="subtopic-card">
+                        <h4 class="text-2xl font-bold text-gray-800 mb-6">Selenium WebDriver</h4>
+                        <p class="text-gray-700 mb-4">
+                            A modern and stable approach to automating browser actions. WebDriver communicates directly with 
+                            the browser without any intermediary server.
+                        </p>
+                        <div class="benefits-box">
+                            <h5 class="font-bold text-gray-800 mb-4">Supported Languages:</h5>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 bg-red-100 text-red-800 rounded-full">Java</span>
+                                <span class="px-3 py-1 bg-blue-100 text-blue-800 rounded-full">C#</span>
+                                <span class="px-3 py-1 bg-yellow-100 text-yellow-800 rounded-full">Python</span>
+                                <span class="px-3 py-1 bg-purple-100 text-purple-800 rounded-full">Ruby</span>
+                                <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full">PHP</span>
+                                <span class="px-3 py-1 bg-indigo-100 text-indigo-800 rounded-full">JavaScript</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="subtopic-card">
+                        <h4 class="text-2xl font-bold text-gray-800 mb-6">Selenium Grid</h4>
+                        <p class="text-gray-700 mb-4">
+                            Allows running tests on different machines against different browsers in parallel. 
+                            Enables distributed test execution across multiple environments simultaneously.
+                        </p>
+                        <div class="benefits-box">
+                            <h5 class="font-bold text-gray-800 mb-4">When to Use:</h5>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-bolt text-yellow-500 mt-1 mr-3"></i>
+                                    <span>Reduce test suite execution time</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-layer-group text-blue-500 mt-1 mr-3"></i>
+                                    <span>Cross-browser testing at scale</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-server text-green-500 mt-1 mr-3"></i>
+                                    <span>Distributed test execution</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Selenium IDE Deep Dive -->
+            <div class="section-card" id="section3">
+                <div class="flex items-center mb-8">
+                    <div class="tech-icon"><i class="fab fa-firefox"></i></div>
+                    <div>
+                        <h3 class="text-4xl font-bold text-gray-800">3. Selenium IDE Deep Dive</h3>
+                        <p class="text-gray-600 text-xl">Record and Playback Tool for Firefox</p>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">Selenium IDE (Integrated Development Environment)</h4>
+                    <p class="text-gray-700 text-lg mb-6">
+                        Selenium IDE is a Firefox add-on that enables test script creation through record and playback functionality. 
+                        It's primarily used as a prototyping tool and for generating simple test scripts.
+                    </p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <div class="benefits-box">
+                                <h5 class="text-xl font-bold text-gray-800 mb-6">Advantages of Selenium IDE:</h5>
+                                <ul class="space-y-4">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                        <div>
+                                            <strong>Easy to use and install</strong>
+                                            <p class="text-sm text-gray-600">Simple Firefox plugin installation</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                        <div>
+                                            <strong>Easy record and playback</strong>
+                                            <p class="text-sm text-gray-600">No programming knowledge required</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                        <div>
+                                            <strong>Export to multiple languages</strong>
+                                            <p class="text-sm text-gray-600">Convert tests to Java, C#, Python, etc.</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check-circle text-green-500 mt-1 mr-3"></i>
+                                        <div>
+                                            <strong>Fast prototyping</strong>
+                                            <p class="text-sm text-gray-600">Quick test script creation</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="limitations-box">
+                                <h5 class="text-xl font-bold text-gray-800 mb-6">Disadvantages of Selenium IDE:</h5>
+                                <ul class="space-y-4">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                                        <div>
+                                            <strong>Firefox-only plugin</strong>
+                                            <p class="text-sm text-gray-600">Only works with Firefox browser</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                                        <div>
+                                            <strong>No conditional/iteration support</strong>
+                                            <p class="text-sm text-gray-600">Cannot handle loops or conditions</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                                        <div>
+                                            <strong>No exception handling</strong>
+                                            <p class="text-sm text-gray-600">Limited error handling capabilities</p>
+                                        </div>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                                        <div>
+                                            <strong>Simple test cases only</strong>
+                                            <p class="text-sm text-gray-600">Cannot handle complex scenarios</p>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">Working with Selenium IDE</h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h5 class="font-bold text-gray-800 text-xl mb-4">Inserting Breakpoints</h5>
+                            <p class="text-gray-700 mb-4">Breakpoints allow you to pause test execution at specific points for debugging.</p>
+                            
+                            <div class="code-example">
+                                <h6 class="font-bold text-white mb-3">Methods to Insert Breakpoints:</h6>
+                                <ol class="text-white space-y-3">
+                                    <li>1. Right-click on command → Select "Toggle Breakpoint"</li>
+                                    <li>2. Select command → Press "B" key on keyboard</li>
+                                    <li>3. Click breakpoint column next to command</li>
+                                </ol>
+                                <p class="text-sm text-gray-300 mt-4">Multiple breakpoints can be set in a single test case</p>
+                            </div>
+                            
+                            <div class="key-point mt-6">
+                                <h6 class="font-bold mb-3">Debugging Process:</h6>
+                                <ol class="list-decimal pl-6 space-y-2">
+                                    <li>Insert breakpoint at desired location</li>
+                                    <li>Run the test case</li>
+                                    <li>Execution pauses at breakpoint</li>
+                                    <li>Use "Step" button to execute next command</li>
+                                    <li>Use "Run" button to continue full execution</li>
+                                </ol>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h5 class="font-bold text-gray-800 text-xl mb-4">IDE Views & Modes</h5>
+                            <p class="text-gray-700 mb-4">Selenium IDE can be opened in two different view modes:</p>
+                            
+                            <div class="grid grid-cols-1 gap-6">
+                                <div class="p-5 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl">
+                                    <h6 class="font-bold text-blue-800 mb-2">Popup Window Mode</h6>
+                                    <p class="text-gray-700 text-sm">Opens as a separate window that can be moved and resized independently</p>
+                                </div>
+                                
+                                <div class="p-5 bg-gradient-to-r from-green-50 to-teal-50 rounded-xl">
+                                    <h6 class="font-bold text-green-800 mb-2">Sidebar Mode</h6>
+                                    <p class="text-gray-700 text-sm">Docks to the side of Firefox browser for easy access while testing</p>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-6">
+                                <h6 class="font-bold text-gray-800 mb-3">Switching Between Views:</h6>
+                                <div class="code-example">
+                                    <div class="text-white">
+                                        Options → View → Switch to Popup/Sidebar<br>
+                                        Or use keyboard shortcut: Ctrl+Shift+S
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">IDE Commands & Features</h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="p-5 bg-white border border-gray-200 rounded-xl shadow-sm">
+                            <div class="text-3xl text-center mb-4">🎯</div>
+                            <h6 class="font-bold text-gray-800 text-center mb-3">Command Types</h6>
+                            <ul class="space-y-2 text-sm">
+                                <li>• Actions (click, type, select)</li>
+                                <li>• Accessors (store, assert)</li>
+                                <li>• Assertions (verify, waitFor)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="p-5 bg-white border border-gray-200 rounded-xl shadow-sm">
+                            <div class="text-3xl text-center mb-4">📋</div>
+                            <h6 class="font-bold text-gray-800 text-center mb-3">Test Formats</h6>
+                            <ul class="space-y-2 text-sm">
+                                <li>• HTML table format</li>
+                                <li>• Selenese commands</li>
+                                <li>• Export to programming languages</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="p-5 bg-white border border-gray-200 rounded-xl shadow-sm">
+                            <div class="text-3xl text-center mb-4">🔧</div>
+                            <h6 class="font-bold text-gray-800 text-center mb-3">Add-ons Support</h6>
+                            <ul class="space-y-2 text-sm">
+                                <li>• User extensions</li>
+                                <li>• Formatting options</li>
+                                <li>• Plugin support</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="key-point mt-6">
+                        <h5 class="font-bold mb-3">When to Use Selenium IDE:</h5>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h6 class="font-medium text-gray-800 mb-2">✅ Recommended For:</h6>
+                                <ul class="list-disc pl-5 space-y-2 text-sm">
+                                    <li>Quick test script prototyping</li>
+                                    <li>Learning Selenium basics</li>
+                                    <li>Simple smoke/sanity tests</li>
+                                    <li>Non-programmers learning automation</li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h6 class="font-medium text-gray-800 mb-2">❌ Not Recommended For:</h6>
+                                <ul class="list-disc pl-5 space-y-2 text-sm">
+                                    <li>Complex test scenarios</li>
+                                    <li>Enterprise-level testing</li>
+                                    <li>Data-driven testing</li>
+                                    <li>Cross-browser testing</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Selenium Remote Control (RC) -->
+            <div class="section-card" id="section4">
+                <div class="flex items-center mb-8">
+                    <div class="tech-icon"><i class="fas fa-server"></i></div>
+                    <div>
+                        <h3 class="text-4xl font-bold text-gray-800">4. Selenium Remote Control (RC)</h3>
+                        <p class="text-gray-600 text-xl">Client-Server Architecture for Browser Automation</p>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">What is Selenium RC?</h4>
+                    <p class="text-gray-700 text-lg mb-6">
+                        <span class="highlight">Selenium Remote Control (RC)</span> is the first automated web testing tool that allowed 
+                        users to use their preferred programming language. It uses a client-server architecture where test scripts 
+                        cannot directly interact with the browser but require an additional third-party tool injection.
+                    </p>
+                    
+                    <div class="architecture-diagram">
+                        <h5 class="font-bold text-gray-800 text-xl mb-6">Selenium RC Architecture</h5>
+                        <div class="diagram-placeholder">
+                            <div class="text-center">
+                                <div class="text-4xl mb-4">🏢</div>
+                                <p class="text-gray-700 text-lg">Client-Server Architecture</p>
+                                <p class="text-gray-500 mt-2">Test Script → Selenium Server → Browser</p>
+                            </div>
+                        </div>
+                        <p class="text-gray-600 mt-6 text-center">
+                            The Selenium Server acts as an HTTP proxy, interpreting commands from test scripts and passing them to the browser
+                        </p>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <div class="benefits-box">
+                            <h5 class="text-xl font-bold text-gray-800 mb-6">Advantages of Selenium RC:</h5>
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <i class="fas fa-tachometer-alt text-green-500 mt-1 mr-3"></i>
+                                    <div>
+                                        <strong>Faster execution than IDE</strong>
+                                        <p class="text-sm text-gray-600">Better performance compared to Selenium IDE</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-globe text-blue-500 mt-1 mr-3"></i>
+                                    <div>
+                                        <strong>Cross-browser & cross-platform</strong>
+                                        <p class="text-sm text-gray-600">Supports multiple browsers and operating systems</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-code-branch text-purple-500 mt-1 mr-3"></i>
+                                    <div>
+                                        <strong>Conditional & looping statements</strong>
+                                        <p class="text-sm text-gray-600">Supports programming constructs</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-database text-orange-500 mt-1 mr-3"></i>
+                                    <div>
+                                        <strong>Data-driven testing</strong>
+                                        <p class="text-sm text-gray-600">Can be integrated with external data sources</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-language text-red-500 mt-1 mr-3"></i>
+                                    <div>
+                                        <strong>Multiple language support</strong>
+                                        <p class="text-sm text-gray-600">Java, C#, Python, Ruby, PHP, Perl</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="limitations-box">
+                            <h5 class="text-xl font-bold text-gray-800 mb-6">Disadvantages of Selenium RC:</h5>
+                            <ul class="space-y-4">
+                                <li class="flex items-start">
+                                    <i class="fas fa-exchange-alt text-red-500 mt-1 mr-3"></i>
+                                    <div>
+                                        <strong>Indirect browser interaction</strong>
+                                        <p class="text-sm text-gray-600">Test scripts don't directly interact with browser</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-ban text-red-500 mt-1 mr-3"></i>
+                                    <div>
+                                        <strong>No headless browser support</strong>
+                                        <p class="text-sm text-gray-600">Cannot run tests without GUI</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-redo text-red-500 mt-1 mr-3"></i>
+                                    <div>
+                                        <strong>Redundancy of commands</strong>
+                                        <p class="text-sm text-gray-600">Extra layers of command processing</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-cogs text-red-500 mt-1 mr-3"></i>
+                                    <div>
+                                        <strong>Complex installation</strong>
+                                        <p class="text-sm text-gray-600">More setup required compared to IDE</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-exclamation-triangle text-red-500 mt-1 mr-3"></i>
+                                    <div>
+                                        <strong>Inconsistent results</strong>
+                                        <p class="text-sm text-gray-600">JavaScript execution inconsistencies</p>
+                                    </div>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-clock text-red-500 mt-1 mr-3"></i>
+                                    <div>
+                                        <strong>Slower than WebDriver</strong>
+                                        <p class="text-sm text-gray-600">Additional server layer slows execution</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">RC Architecture Components</h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="p-6 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl">
+                            <h5 class="font-bold text-blue-800 mb-4">1. Selenium Server</h5>
+                            <p class="text-gray-700 text-sm">HTTP proxy that interprets commands and manages browser sessions</p>
+                            <div class="mt-4">
+                                <div class="terminal-command text-sm">
+                                    java -jar selenium-server-standalone.jar
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl">
+                            <h5 class="font-bold text-green-800 mb-4">2. Client Libraries</h5>
+                            <p class="text-gray-700 text-sm">Language-specific bindings for writing test scripts</p>
+                            <div class="mt-4">
+                                <div class="flex flex-wrap gap-2">
+                                    <span class="text-xs bg-white px-3 py-1 rounded">Java</span>
+                                    <span class="text-xs bg-white px-3 py-1 rounded">Python</span>
+                                    <span class="text-xs bg-white px-3 py-1 rounded">C#</span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl">
+                            <h5 class="font-bold text-purple-800 mb-4">3. Browser Launcher</h5>
+                            <p class="text-gray-700 text-sm">Launches browser with injected JavaScript (Selenium Core)</p>
+                            <div class="mt-4">
+                                <div class="text-xs text-gray-600">Injects JavaScript into browser for automation</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="key-point mt-8">
+                        <h5 class="font-bold mb-4">How Selenium RC Works:</h5>
+                        <ol class="list-decimal pl-6 space-y-3 text-gray-700">
+                            <li>Test script sends commands to Selenium Server via HTTP</li>
+                            <li>Selenium Server interprets commands and injects JavaScript (Selenium Core) into browser</li>
+                            <li>Browser executes the JavaScript commands</li>
+                            <li>Results are sent back to Selenium Server</li>
+                            <li>Selenium Server returns results to test script</li>
+                        </ol>
+                        <p class="text-sm text-gray-600 mt-4">This architecture is also known as the "JavaScript Sandbox" approach</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Selenium WebDriver Mastery -->
+            <div class="section-card" id="section5">
+                <div class="flex items-center mb-8">
+                    <div class="tech-icon"><i class="fas fa-car"></i></div>
+                    <div>
+                        <h3 class="text-4xl font-bold text-gray-800">5. Selenium WebDriver Mastery</h3>
+                        <p class="text-gray-600 text-xl">Modern Approach to Browser Automation</p>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">What is Selenium WebDriver?</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <p class="text-gray-700 text-lg mb-6">
+                                <span class="highlight">Selenium WebDriver</span> is a web automation framework that allows you to 
+                                execute tests against different browsers. It implements a more modern and stable approach to 
+                                automating browser actions by communicating directly with browsers using their native support.
+                            </p>
+                            
+                            <div class="key-point">
+                                <h5 class="font-bold text-lg mb-3">Key Insight:</h5>
+                                <p class="text-gray-700">
+                                    <strong>WebDriver is an interface</strong>, not a class. Each browser has its own implementation 
+                                    of this interface (ChromeDriver, FirefoxDriver, EdgeDriver, etc.).
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="benefits-box">
+                                <h5 class="text-xl font-bold text-gray-800 mb-6">Advantages of WebDriver:</h5>
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-bolt text-green-500 mt-1 mr-3"></i>
+                                        <span><strong>Direct browser communication</strong> - No intermediary server</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-rocket text-blue-500 mt-1 mr-3"></i>
+                                        <span><strong>Faster execution</strong> - Direct calls to browser APIs</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-code text-purple-500 mt-1 mr-3"></i>
+                                        <span><strong>Programming constructs</strong> - Full language support</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-desktop text-orange-500 mt-1 mr-3"></i>
+                                        <span><strong>Realistic browser interaction</strong> - Native events support</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-cogs text-red-500 mt-1 mr-3"></i>
+                                        <span><strong>Simpler architecture</strong> - Easier setup than RC</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">WebDriver Architecture</h4>
+                    
+                    <div class="architecture-diagram">
+                        <h5 class="font-bold text-gray-800 text-xl mb-6">WebDriver Architecture Flow</h5>
+                        <div class="diagram-placeholder">
+                            <div class="text-center">
+                                <div class="text-4xl mb-4">🔄</div>
+                                <p class="text-gray-700 text-lg">Direct Browser Communication</p>
+                                <p class="text-gray-500 mt-2">Test Script → WebDriver API → Browser Driver → Browser</p>
+                            </div>
+                        </div>
+                        <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <div class="font-bold text-green-700">JSON Wire Protocol</div>
+                                <div class="text-sm text-gray-600 mt-2">Standard communication protocol</div>
+                            </div>
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <div class="font-bold text-green-700">Browser Drivers</div>
+                                <div class="text-sm text-gray-600 mt-2">ChromeDriver, GeckoDriver, etc.</div>
+                            </div>
+                            <div class="text-center p-4 bg-gray-50 rounded-lg">
+                                <div class="font-bold text-green-700">Native Events</div>
+                                <div class="text-sm text-gray-600 mt-2">Direct browser automation</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">WebDriver Implementation Details</h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h5 class="font-bold text-gray-800 text-xl mb-4">Supported Programming Languages:</h5>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="p-4 bg-gradient-to-r from-red-50 to-pink-50 rounded-lg">
+                                    <div class="font-bold text-red-700 text-center">Java</div>
+                                    <div class="text-sm text-gray-600 text-center">Most popular choice</div>
+                                </div>
+                                <div class="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg">
+                                    <div class="font-bold text-blue-700 text-center">Python</div>
+                                    <div class="text-sm text-gray-600 text-center">Rapid development</div>
+                                </div>
+                                <div class="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
+                                    <div class="font-bold text-purple-700 text-center">C#</div>
+                                    <div class="text-sm text-gray-600 text-center">.NET ecosystem</div>
+                                </div>
+                                <div class="p-4 bg-gradient-to-r from-green-50 to-teal-50 rounded-lg">
+                                    <div class="font-bold text-green-700 text-center">JavaScript</div>
+                                    <div class="text-sm text-gray-600 text-center">Node.js environment</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h5 class="font-bold text-gray-800 text-xl mb-4">Disadvantages of WebDriver:</h5>
+                            <div class="limitations-box">
+                                <ul class="space-y-3">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                                        <span><strong>Requires programming knowledge</strong> - Not for non-programmers</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                                        <span><strong>No built-in reporting</strong> - Needs TestNG/JUnit integration</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                                        <span><strong>Complex setup</strong> - More setup than IDE</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                                        <span><strong>Browser driver updates</strong> - Must match browser versions</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">WebDriver Methods & Commands</h4>
+                    
+                    <h5 class="font-bold text-gray-800 text-xl mb-6">Essential WebDriver Methods:</h5>
+                    <div class="method-list">
+                        <div class="method-item">
+                            <code class="text-green-600 font-bold">get(url)</code>
+                            <p class="text-sm text-gray-600 mt-2">Loads a new web page in the current browser window</p>
+                        </div>
+                        <div class="method-item">
+                            <code class="text-green-600 font-bold">findElement(by)</code>
+                            <p class="text-sm text-gray-600 mt-2">Finds the first element matching the given locator</p>
+                        </div>
+                        <div class="method-item">
+                            <code class="text-green-600 font-bold">findElements(by)</code>
+                            <p class="text-sm text-gray-600 mt-2">Finds all elements matching the given locator</p>
+                        </div>
+                        <div class="method-item">
+                            <code class="text-green-600 font-bold">getTitle()</code>
+                            <p class="text-sm text-gray-600 mt-2">Gets the title of the current page</p>
+                        </div>
+                        <div class="method-item">
+                            <code class="text-green-600 font-bold">getCurrentUrl()</code>
+                            <p class="text-sm text-gray-600 mt-2">Gets the URL of the current page</p>
+                        </div>
+                        <div class="method-item">
+                            <code class="text-green-600 font-bold">close()</code>
+                            <p class="text-sm text-gray-600 mt-2">Closes the current browser window</p>
+                        </div>
+                        <div class="method-item">
+                            <code class="text-green-600 font-bold">quit()</code>
+                            <p class="text-sm text-gray-600 mt-2">Closes all browser windows and ends session</p>
+                        </div>
+                        <div class="method-item">
+                            <code class="text-green-600 font-bold">switchTo()</code>
+                            <p class="text-sm text-gray-600 mt-2">Switches to frames, alerts, or windows</p>
+                        </div>
+                        <div class="method-item">
+                            <code class="text-green-600 font-bold">manage()</code>
+                            <p class="text-sm text-gray-600 mt-2">Accesses browser options and settings</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 6: Selenium Grid Architecture -->
+            <div class="section-card" id="section6">
+                <div class="flex items-center mb-8">
+                    <div class="tech-icon"><i class="fas fa-network-wired"></i></div>
+                    <div>
+                        <h3 class="text-4xl font-bold text-gray-800">6. Selenium Grid Architecture</h3>
+                        <p class="text-gray-600 text-xl">Distributed Testing Across Multiple Machines</p>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">What is Selenium Grid?</h4>
+                    <p class="text-gray-700 text-lg mb-6">
+                        <span class="highlight">Selenium Grid</span> allows you to run your tests on different machines against 
+                        different browsers in parallel. It enables running multiple tests simultaneously across different machines 
+                        running different browsers and operating systems, creating a distributed test execution environment.
+                    </p>
+                    
+                    <div class="benefits-box">
+                        <h5 class="text-xl font-bold text-gray-800 mb-6">When to Use Selenium Grid:</h5>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h6 class="font-bold text-gray-700 mb-3">Parallel Testing:</h6>
+                                <ul class="space-y-2 text-sm">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                        <span>Reduce test execution time</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                        <span>Execute tests simultaneously</span>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h6 class="font-bold text-gray-700 mb-3">Cross-Browser Testing:</h6>
+                                <ul class="space-y-2 text-sm">
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                        <span>Test on multiple browsers</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                        <span>Test different browser versions</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">Grid Architecture Components</h4>
+                    
+                    <div class="architecture-diagram">
+                        <h5 class="font-bold text-gray-800 text-xl mb-6">Hub and Nodes Architecture</h5>
+                        <div class="diagram-placeholder">
+                            <div class="text-center">
+                                <div class="text-4xl mb-4">🌐</div>
+                                <p class="text-gray-700 text-lg">Hub-and-Nodes Model</p>
+                                <p class="text-gray-500 mt-2">Hub (Central) → Multiple Nodes (Workers)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-8">
+                            <div class="p-6 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl">
+                                <h5 class="font-bold text-blue-800 mb-4">Hub (Central Server)</h5>
+                                <ul class="space-y-3 text-sm">
+                                    <li>• Central point that receives test requests</li>
+                                    <li>• Manages and distributes tests to nodes</li>
+                                    <li>• Only one hub per grid setup</li>
+                                    <li>• Acts as a load balancer</li>
+                                </ul>
+                            </div>
+                            
+                            <div class="p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl">
+                                <h5 class="font-bold text-green-800 mb-4">Nodes (Remote Machines)</h5>
+                                <ul class="space-y-3 text-sm">
+                                    <li>• Execute test cases on specific browsers</li>
+                                    <li>• Can have multiple nodes in a grid</li>
+                                    <li>• Each node can run different browsers</li>
+                                    <li>• Register themselves with the hub</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">Grid Features & Implementation</h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h5 class="font-bold text-gray-800 text-xl mb-4">Key Features:</h5>
+                            <div class="space-y-4">
+                                <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                                    <h6 class="font-bold text-gray-800">Parallel Execution</h6>
+                                    <p class="text-sm text-gray-600 mt-2">Run multiple tests simultaneously across different nodes</p>
+                                </div>
+                                
+                                <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                                    <h6 class="font-bold text-gray-800">Load Distribution</h6>
+                                    <p class="text-sm text-gray-600 mt-2">Hub distributes tests evenly across available nodes</p>
+                                </div>
+                                
+                                <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                                    <h6 class="font-bold text-gray-800">Centralized Control</h6>
+                                    <p class="text-sm text-gray-600 mt-2">Manage all tests from a single hub interface</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h5 class="font-bold text-gray-800 text-xl mb-4">Setup Commands:</h5>
+                            <div class="code-example">
+                                <div class="text-white space-y-4">
+                                    <div>
+                                        <span class="text-green-400"># Start Hub</span><br>
+                                        java -jar selenium-server-standalone.jar -role hub
+                                    </div>
+                                    <div>
+                                        <span class="text-green-400"># Register Node</span><br>
+                                        java -jar selenium-server-standalone.jar -role node -hub http://localhost:4444/grid/register
+                                    </div>
+                                    <div>
+                                        <span class="text-green-400"># Grid Console</span><br>
+                                        http://localhost:4444/grid/console
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="key-point mt-8">
+                        <h5 class="font-bold mb-4">How Grid Works:</h5>
+                        <ol class="list-decimal pl-6 space-y-3 text-gray-700">
+                            <li>Test scripts send requests to the Hub</li>
+                            <li>Hub acts as a central source of Selenium commands</li>
+                            <li>Hub redirects tests to appropriate nodes based on capabilities</li>
+                            <li>Nodes launch browsers and execute tests</li>
+                            <li>Results are sent back to Hub and then to test scripts</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 7: Component Comparison -->
+            <div class="section-card" id="section7">
+                <div class="flex items-center mb-8">
+                    <div class="tech-icon"><i class="fas fa-balance-scale"></i></div>
+                    <div>
+                        <h3 class="text-4xl font-bold text-gray-800">7. Selenium Component Comparison</h3>
+                        <p class="text-gray-600 text-xl">Detailed Feature-by-Feature Analysis</p>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">Selenium IDE vs RC vs WebDriver Comparison</h4>
+                    
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Feature</th>
+                                <th>Selenium IDE</th>
+                                <th>Selenium RC</th>
+                                <th>Selenium WebDriver</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Browser Compatibility</strong></td>
+                                <td>Firefox only (as plugin)</td>
+                                <td>Firefox, Chrome, IE, Opera</td>
+                                <td>Firefox, Chrome, IE, Safari, Opera + Headless browsers</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Record & Playback</strong></td>
+                                <td>✅ Yes</td>
+                                <td>❌ No</td>
+                                <td>❌ No</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Server Requirement</strong></td>
+                                <td>❌ No server needed</td>
+                                <td>✅ Selenium Server required</td>
+                                <td>❌ No server needed</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Architecture</strong></td>
+                                <td>JavaScript-based framework</td>
+                                <td>JavaScript-based framework with proxy</td>
+                                <td>Native browser compatibility automation</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Object Oriented</strong></td>
+                                <td>❌ Not object oriented</td>
+                                <td>🟡 Semi object oriented</td>
+                                <td>✅ Pure object oriented</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Dynamic Finders</strong></td>
+                                <td>❌ Not supported</td>
+                                <td>❌ Not supported</td>
+                                <td>✅ Fully supported</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Handling Alerts/Navigation</strong></td>
+                                <td>❌ Limited support</td>
+                                <td>❌ Limited support</td>
+                                <td>✅ Excellent support</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mobile Testing (WAP)</strong></td>
+                                <td>❌ Not supported</td>
+                                <td>❌ Not supported</td>
+                                <td>✅ AndroidDriver, iPhoneDriver</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Listener Support</strong></td>
+                                <td>❌ Not supported</td>
+                                <td>❌ Not supported</td>
+                                <td>✅ Full support</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Execution Speed</strong></td>
+                                <td>Fast (browser plugin)</td>
+                                <td>Slow (proxy architecture)</td>
+                                <td>Very Fast (direct communication)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Programming Required</strong></td>
+                                <td>❌ No</td>
+                                <td>✅ Yes</td>
+                                <td>✅ Yes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Setup Complexity</strong></td>
+                                <td>Very Easy</td>
+                                <td>Complex</td>
+                                <td>Moderate</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">When to Use Each Component</h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="p-6 bg-gradient-to-br from-orange-50 to-yellow-50 rounded-xl">
+                            <h5 class="font-bold text-orange-800 mb-4 text-center">Selenium IDE</h5>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                    <span>Quick test prototyping</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                    <span>Learning Selenium basics</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                    <span>Simple smoke tests</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-times text-red-500 mt-1 mr-3"></i>
+                                    <span>Not for complex scenarios</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl">
+                            <h5 class="font-bold text-purple-800 mb-4 text-center">Selenium RC</h5>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                    <span>Legacy system testing</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                    <span>Cross-browser testing</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-times text-red-500 mt-1 mr-3"></i>
+                                    <span>Not recommended for new projects</span>
+                                </li>
+                                <li class="fas fa-times text-red-500 mt-1 mr-3"></i>
+                                    <span>Slower than WebDriver</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="p-6 bg-gradient-to-br from-green-50 to-teal-50 rounded-xl">
+                            <h5 class="font-bold text-green-800 mb-4 text-center">WebDriver</h5>
+                            <ul class="space-y-3">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                    <span>Modern web applications</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                    <span>Enterprise-level testing</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                    <span>Complex test scenarios</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-3"></i>
+                                    <span>CI/CD integration</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">General Limitations of Selenium</h4>
+                    
+                    <div class="limitations-box">
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                                <div>
+                                    <strong>Web applications only</strong>
+                                    <p class="text-sm text-gray-600 mt-1">Cannot test desktop or mobile native applications</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                                <div>
+                                    <strong>No CAPTCHA/Barcode testing</strong>
+                                    <p class="text-sm text-gray-600 mt-1">Cannot automate CAPTCHA or barcode readers</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                                <div>
+                                    <strong>No built-in reporting</strong>
+                                    <p class="text-sm text-gray-600 mt-1">Requires integration with TestNG, JUnit, or other reporting tools</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                                <div>
+                                    <strong>No official vendor support</strong>
+                                    <p class="text-sm text-gray-600 mt-1">Being open-source, relies on community support</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                                <div>
+                                    <strong>Programming knowledge required</strong>
+                                    <p class="text-sm text-gray-600 mt-1">Need programming skills for WebDriver and RC</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-times-circle text-red-500 mt-1 mr-3"></i>
+                                <div>
+                                    <strong>Image testing limitations</strong>
+                                    <p class="text-sm text-gray-600 mt-1">Limited support for image-based testing</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 8: Browser Compatibility -->
+            <div class="section-card" id="section8">
+                <div class="flex items-center mb-8">
+                    <div class="tech-icon"><i class="fas fa-globe"></i></div>
+                    <div>
+                        <h3 class="text-4xl font-bold text-gray-800">8. Browser Compatibility</h3>
+                        <p class="text-gray-600 text-xl">Cross-Browser Testing Support</p>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">Supported Browsers</h4>
+                    <p class="text-gray-700 text-lg mb-8">
+                        Selenium supports testing across multiple browsers, ensuring your web application works consistently 
+                        across different browser environments.
+                    </p>
+                    
+                    <div class="browser-icons">
+                        <div class="browser-icon chrome">
+                            <i class="fab fa-chrome"></i>
+                        </div>
+                        <div class="browser-icon firefox">
+                            <i class="fab fa-firefox"></i>
+                        </div>
+                        <div class="browser-icon safari">
+                            <i class="fab fa-safari"></i>
+                        </div>
+                        <div class="browser-icon edge">
+                            <i class="fab fa-edge"></i>
+                        </div>
+                        <div class="browser-icon opera">
+                            <i class="fab fa-opera"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+                        <div class="text-center p-6 bg-white rounded-xl shadow-sm">
+                            <h5 class="font-bold text-gray-800 mb-3">Mainstream Browsers</h5>
+                            <ul class="space-y-2">
+                                <li>• Google Chrome</li>
+                                <li>• Mozilla Firefox</li>
+                                <li>• Microsoft Edge</li>
+                                <li>• Apple Safari</li>
+                                <li>• Opera Browser</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="text-center p-6 bg-white rounded-xl shadow-sm">
+                            <h5 class="font-bold text-gray-800 mb-3">Headless Browsers</h5>
+                            <ul class="space-y-2">
+                                <li>• HtmlUnitDriver</li>
+                                <li>• PhantomJS (deprecated)</li>
+                                <li>• Chrome Headless</li>
+                                <li>• Firefox Headless</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="text-center p-6 bg-white rounded-xl shadow-sm">
+                            <h5 class="font-bold text-gray-800 mb-3">Mobile Browsers</h5>
+                            <ul class="space-y-2">
+                                <li>• Chrome Mobile</li>
+                                <li>• Safari Mobile</li>
+                                <li>• Android Browser</li>
+                                <li>• Mobile Emulators</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">Browser Drivers</h4>
+                    <p class="text-gray-700 text-lg mb-6">
+                        Each browser requires a specific driver that acts as a bridge between Selenium WebDriver and the browser.
+                    </p>
+                    
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Browser</th>
+                                <th>Driver</th>
+                                <th>Download Location</th>
+                                <th>System Property</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Google Chrome</strong></td>
+                                <td>ChromeDriver</td>
+                                <td>chromedriver.chromium.org</td>
+                                <td><code>webdriver.chrome.driver</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Mozilla Firefox</strong></td>
+                                <td>GeckoDriver</td>
+                                <td>github.com/mozilla/geckodriver</td>
+                                <td><code>webdriver.gecko.driver</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Microsoft Edge</strong></td>
+                                <td>EdgeDriver</td>
+                                <td>developer.microsoft.com</td>
+                                <td><code>webdriver.edge.driver</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Apple Safari</strong></td>
+                                <td>SafariDriver</td>
+                                <td>Built-in (macOS)</td>
+                                <td><code>webdriver.safari.driver</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Opera</strong></td>
+                                <td>OperaDriver</td>
+                                <td>github.com/operasoftware</td>
+                                <td><code>webdriver.opera.driver</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Internet Explorer</strong></td>
+                                <td>IEDriverServer</td>
+                                <td>selenium.dev/downloads</td>
+                                <td><code>webdriver.ie.driver</code></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Section 9: WebDriver Methods & Commands -->
+            <div class="section-card" id="section9">
+                <div class="flex items-center mb-8">
+                    <div class="tech-icon"><i class="fas fa-code"></i></div>
+                    <div>
+                        <h3 class="text-4xl font-bold text-gray-800">9. WebDriver Methods & Commands</h3>
+                        <p class="text-gray-600 text-xl">Essential Methods for Browser Automation</p>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">WebDriver Interface Methods</h4>
+                    
+                    <div class="method-list">
+                        <div class="method-item">
+                            <code class="text-green-600 font-bold">get(String url)</code>
+                            <p class="text-sm text-gray-600 mt-2">Loads a new web page in the current browser window</p>
+                            <div class="code-example mt-2">
+                                <code class="text-white text-sm">driver.get("https://www.example.com");</code>
+                            </div>
+                        </div>
+                        
+                        <div class="method-item">
+                            <code class="text-green-600 font-bold">getTitle()</code>
+                            <p class="text-sm text-gray-600 mt-2">Returns the title of the current page</p>
+                            <div class="code-example mt-2">
+                                <code class="text-white text-sm">String title = driver.getTitle();</code>
+                            </div>
+                        </div>
+                        
+                        <div class="method-item">
+                            <code class="text-green-600 font-bold">getCurrentUrl()</code>
+                            <p class="text-sm text-gray-600 mt-2">Returns the URL of the current page</p>
+                            <div class="code-example mt-2">
+                                <code class="text-white text-sm">String url = driver.getCurrentUrl();</code>
+                            </div>
+                        </div>
+                        
+                        <div class="method-item">
+                            <code class="text-green-600 font-bold">findElement(By by)</code>
+                            <p class="text-sm text-gray-600 mt-2">Finds the first element using given locator</p>
+                            <div class="code-example mt-2">
+                                <code class="text-white text-sm">WebElement element = driver.findElement(By.id("username"));</code>
+                            </div>
+                        </div>
+                        
+                        <div class="method-item">
+                            <code class="text-green-600 font-bold">findElements(By by)</code>
+                            <p class="text-sm text-gray-600 mt-2">Finds all elements using given locator</p>
+                            <div class="code-example mt-2">
+                                <code class="text-white text-sm">List&lt;WebElement&gt; elements = driver.findElements(By.className("btn"));</code>
+                            </div>
+                        </div>
+                        
+                        <div class="method-item">
+                            <code class="text-green-600 font-bold">getPageSource()</code>
+                            <p class="text-sm text-gray-600 mt-2">Returns the source code of the current page</p>
+                            <div class="code-example mt-2">
+                                <code class="text-white text-sm">String pageSource = driver.getPageSource();</code>
+                            </div>
+                        </div>
+                        
+                        <div class="method-item">
+                            <code class="text-green-600 font-bold">close()</code>
+                            <p class="text-sm text-gray-600 mt-2">Closes the current browser window</p>
+                            <div class="code-example mt-2">
+                                <code class="text-white text-sm">driver.close();</code>
+                            </div>
+                        </div>
+                        
+                        <div class="method-item">
+                            <code class="text-green-600 font-bold">quit()</code>
+                            <p class="text-sm text-gray-600 mt-2">Closes all browser windows and ends session</p>
+                            <div class="code-example mt-2">
+                                <code class="text-white text-sm">driver.quit();</code>
+                            </div>
+                        </div>
+                        
+                        <div class="method-item">
+                            <code class="text-green-600 font-bold">manage()</code>
+                            <p class="text-sm text-gray-600 mt-2">Returns Options interface for browser management</p>
+                            <div class="code-example mt-2">
+                                <code class="text-white text-sm">driver.manage().window().maximize();</code>
+                            </div>
+                        </div>
+                        
+                        <div class="method-item">
+                            <code class="text-green-600 font-bold">navigate()</code>
+                            <p class="text-sm text-gray-600 mt-2">Returns Navigation interface for browser navigation</p>
+                            <div class="code-example mt-2">
+                                <code class="text-white text-sm">driver.navigate().back();</code>
+                            </div>
+                        </div>
+                        
+                        <div class="method-item">
+                            <code class="text-green-600 font-bold">switchTo()</code>
+                            <p class="text-sm text-gray-600 mt-2">Returns TargetLocator for switching context</p>
+                            <div class="code-example mt-2">
+                                <code class="text-white text-sm">driver.switchTo().alert().accept();</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">Finding Elements in WebDriver</h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h5 class="font-bold text-gray-800 text-xl mb-4">Using Browser Tools:</h5>
+                            <p class="text-gray-700 mb-4">Several browser tools help identify web elements in the DOM:</p>
+                            
+                            <div class="space-y-4">
+                                <div class="p-4 bg-gradient-to-r from-orange-50 to-red-50 rounded-lg">
+                                    <h6 class="font-bold text-orange-800">Firebug for Firefox</h6>
+                                    <p class="text-sm text-gray-600 mt-2">Powerful debugging tool with element inspection</p>
+                                </div>
+                                
+                                <div class="p-4 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg">
+                                    <h6 class="font-bold text-blue-800">Chrome Developer Tools</h6>
+                                    <p class="text-sm text-gray-600 mt-2">Built-in tool for Chrome with comprehensive features</p>
+                                </div>
+                                
+                                <div class="p-4 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
+                                    <h6 class="font-bold text-purple-800">Web Inspector for Safari</h6>
+                                    <p class="text-sm text-gray-600 mt-2">Native inspection tool for Safari browser</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h5 class="font-bold text-gray-800 text-xl mb-4">Finding Elements:</h5>
+                            <div class="code-example">
+                                <div class="text-white">
+                                    <span class="text-green-400">// Find single element</span><br>
+                                    WebElement element = driver.findElement(By.locator("value"));<br><br>
+                                    
+                                    <span class="text-green-400">// Find multiple elements</span><br>
+                                    List&lt;WebElement&gt; elements = driver.findElements(By.locator("value"));<br><br>
+                                    
+                                    <span class="text-green-400">// Example with ID locator</span><br>
+                                    WebElement email = driver.findElement(By.id("email"));
+                                </div>
+                            </div>
+                            
+                            <div class="key-point mt-6">
+                                <h6 class="font-bold mb-3">Finding Elements Process:</h6>
+                                <ol class="list-decimal pl-6 space-y-2 text-sm">
+                                    <li>Open browser developer tools (F12)</li>
+                                    <li>Use element selector tool</li>
+                                    <li>Identify unique attributes</li>
+                                    <li>Choose appropriate locator strategy</li>
+                                    <li>Implement in test code</li>
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 10: Locators in Selenium -->
+            <div class="section-card" id="section10">
+                <div class="flex items-center mb-8">
+                    <div class="tech-icon"><i class="fas fa-search"></i></div>
+                    <div>
+                        <h3 class="text-4xl font-bold text-gray-800">10. Locators in Selenium</h3>
+                        <p class="text-gray-600 text-xl">Identifying Web Elements for Automation</p>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">What are Locators?</h4>
+                    <p class="text-gray-700 text-lg mb-8">
+                        <span class="highlight">Locators</span> are used to identify and find web elements (buttons, text boxes, links, etc.) 
+                        on a web page so that Selenium can perform actions on them. They are essential for interacting with web 
+                        elements during test automation.
+                    </p>
+                    
+                    <div class="locator-grid">
+                        <div class="locator-card">
+                            <div class="locator-icon">#</div>
+                            <h5 class="font-bold text-gray-800 mb-2">ID</h5>
+                            <p class="text-sm text-gray-600">Finds element by its ID attribute</p>
+                            <code class="text-xs text-green-600 mt-2">By.id("elementId")</code>
+                        </div>
+                        
+                        <div class="locator-card">
+                            <div class="locator-icon">.</div>
+                            <h5 class="font-bold text-gray-800 mb-2">ClassName</h5>
+                            <p class="text-sm text-gray-600">Finds element by its class name</p>
+                            <code class="text-xs text-green-600 mt-2">By.className("class")</code>
+                        </div>
+                        
+                        <div class="locator-card">
+                            <div class="locator-icon">📛</div>
+                            <h5 class="font-bold text-gray-800 mb-2">Name</h5>
+                            <p class="text-sm text-gray-600">Finds element by its name attribute</p>
+                            <code class="text-xs text-green-600 mt-2">By.name("elementName")</code>
+                        </div>
+                        
+                        <div class="locator-card">
+                            <div class="locator-icon">🗺️</div>
+                            <h5 class="font-bold text-gray-800 mb-2">XPath</h5>
+                            <p class="text-sm text-gray-600">XML Path Language for element location</p>
+                            <code class="text-xs text-green-600 mt-2">By.xpath("//div[@id='test']")</code>
+                        </div>
+                        
+                        <div class="locator-card">
+                            <div class="locator-icon">🎨</div>
+                            <h5 class="font-bold text-gray-800 mb-2">CSS Selector</h5>
+                            <p class="text-sm text-gray-600">CSS selectors for element location</p>
+                            <code class="text-xs text-green-600 mt-2">By.cssSelector("#id .class")</code>
+                        </div>
+                        
+                        <div class="locator-card">
+                            <div class="locator-icon">🔗</div>
+                            <h5 class="font-bold text-gray-800 mb-2">Link Text</h5>
+                            <p class="text-sm text-gray-600">Finds link by exact text</p>
+                            <code class="text-xs text-green-600 mt-2">By.linkText("Click Here")</code>
+                        </div>
+                        
+                        <div class="locator-card">
+                            <div class="locator-icon">🔍</div>
+                            <h5 class="font-bold text-gray-800 mb-2">Partial Link Text</h5>
+                            <p class="text-sm text-gray-600">Finds link by partial text</p>
+                            <code class="text-xs text-green-600 mt-2">By.partialLinkText("Click")</code>
+                        </div>
+                        
+                        <div class="locator-card">
+                            <div class="locator-icon">🏷️</div>
+                            <h5 class="font-bold text-gray-800 mb-2">Tag Name</h5>
+                            <p class="text-sm text-gray-600">Finds element by HTML tag</p>
+                            <code class="text-xs text-green-600 mt-2">By.tagName("input")</code>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">Working with Locators</h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h5 class="font-bold text-gray-800 text-xl mb-4">Finding Locators in Selenium:</h5>
+                            <div class="code-example">
+                                <div class="text-white">
+                                    <span class="text-green-400">// Basic setup for finding locators</span><br>
+                                    System.setProperty("webdriver.chrome.driver", "driver_path");<br>
+                                    WebDriver driver = new ChromeDriver();<br>
+                                    driver.get("https://www.facebook.com/");<br><br>
+                                    
+                                    <span class="text-green-400">// Find element using locator</span><br>
+                                    driver.findElement(By.locator("value"));<br><br>
+                                    
+                                    <span class="text-green-400">// Example with different locators</span><br>
+                                    driver.findElement(By.id("email"));<br>
+                                    driver.findElement(By.name("pass"));<br>
+                                    driver.findElement(By.xpath("//button[@type='submit']"));
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h5 class="font-bold text-gray-800 text-xl mb-4">findElement vs findElements:</h5>
+                            
+                            <table class="comparison-table">
+                                <thead>
+                                    <tr>
+                                        <th>Feature</th>
+                                        <th>findElement()</th>
+                                        <th>findElements()</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>Returns</strong></td>
+                                        <td>Single WebElement</td>
+                                        <td>List&lt;WebElement&gt;</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>When no element found</strong></td>
+                                        <td>Throws NoSuchElementException</td>
+                                        <td>Returns empty list (size = 0)</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Usage</strong></td>
+                                        <td>When expecting single element</td>
+                                        <td>When expecting multiple elements</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Return Type</strong></td>
+                                        <td>WebElement</td>
+                                        <td>List&lt;WebElement&gt;</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Example</strong></td>
+                                        <td><code>findElement(By.id("btn"))</code></td>
+                                        <td><code>findElements(By.className("item"))</code></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            
+                            <div class="key-point mt-6">
+                                <h6 class="font-bold mb-2">Locator Class:</h6>
+                                <p class="text-sm text-gray-700">All locator methods are available in the <code>By</code> class in Selenium WebDriver.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">Working with Textboxes</h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h5 class="font-bold text-gray-800 text-xl mb-4">Inserting Values in Textboxes:</h5>
+                            <p class="text-gray-700 mb-4">
+                                The <code>sendKeys()</code> method is used to insert values into textboxes and other input elements.
+                            </p>
+                            
+                            <div class="code-example">
+                                <div class="text-white">
+                                    <span class="text-green-400">// Insert value in textbox</span><br>
+                                    System.setProperty("webdriver.chrome.driver", "driver_path");<br>
+                                    WebDriver driver = new ChromeDriver();<br>
+                                    driver.get("https://www.facebook.com/");<br><br>
+                                    
+                                    <span class="text-green-400">// Find textbox element</span><br>
+                                    WebElement txtEmail = driver.findElement(By.id("email"));<br><br>
+                                    
+                                    <span class="text-green-400">// Insert value using sendKeys()</span><br>
+                                    txtEmail.sendKeys("username@example.com");
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h5 class="font-bold text-gray-800 text-xl mb-4">Other Textbox Methods:</h5>
+                            <div class="space-y-4">
+                                <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                                    <code class="text-green-600 font-bold">clear()</code>
+                                    <p class="text-sm text-gray-600 mt-2">Clears the text from input field</p>
+                                    <div class="code-example mt-2">
+                                        <code class="text-white text-sm">element.clear();</code>
+                                    </div>
+                                </div>
+                                
+                                <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                                    <code class="text-green-600 font-bold">getText()</code>
+                                    <p class="text-sm text-gray-600 mt-2">Gets visible text of element</p>
+                                    <div class="code-example mt-2">
+                                        <code class="text-white text-sm">String text = element.getText();</code>
+                                    </div>
+                                </div>
+                                
+                                <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                                    <code class="text-green-600 font-bold">getAttribute()</code>
+                                    <p class="text-sm text-gray-600 mt-2">Gets value of element attribute</p>
+                                    <div class="code-example mt-2">
+                                        <code class="text-white text-sm">String value = element.getAttribute("value");</code>
+                                    </div>
+                                </div>
+                                
+                                <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                                    <code class="text-green-600 font-bold">isDisplayed()</code>
+                                    <p class="text-sm text-gray-600 mt-2">Checks if element is visible</p>
+                                    <div class="code-example mt-2">
+                                        <code class="text-white text-sm">boolean visible = element.isDisplayed();</code>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 11: XPath Deep Dive -->
+            <div class="section-card" id="section11">
+                <div class="flex items-center mb-8">
+                    <div class="tech-icon"><i class="fas fa-map-signs"></i></div>
+                    <div>
+                        <h3 class="text-4xl font-bold text-gray-800">11. XPath Deep Dive</h3>
+                        <p class="text-gray-600 text-xl">XML Path Language for Element Location</p>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">What is XPath?</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <p class="text-gray-700 text-lg mb-6">
+                                <span class="highlight">XPath (XML Path Language)</span> is a syntax for defining parts of an XML document. 
+                                It uses path expressions to navigate in XML documents and is widely used in Selenium for locating 
+                                web elements on a page.
+                            </p>
+                            
+                            <div class="key-point">
+                                <h5 class="font-bold text-lg mb-3">XPath Syntax:</h5>
+                                <div class="code-example">
+                                    <div class="text-white">
+                                        <span class="text-green-400">// Basic XPath structure</span><br>
+                                        //tagname[@attribute='value']<br><br>
+                                        
+                                        <span class="text-green-400">// Examples:</span><br>
+                                        //input[@id='username']<br>
+                                        //button[@type='submit']<br>
+                                        //div[@class='container']
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h5 class="font-bold text-gray-800 text-xl mb-4">Types of XPath:</h5>
+                            <div class="grid grid-cols-1 gap-6">
+                                <div class="p-5 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl">
+                                    <h6 class="font-bold text-blue-800 mb-2">Absolute XPath (/)</h6>
+                                    <p class="text-gray-700 text-sm">Starts from root element with complete path</p>
+                                    <div class="code-example mt-2">
+                                        <code class="text-white text-sm">/html/body/div[1]/form/input[1]</code>
+                                    </div>
+                                </div>
+                                
+                                <div class="p-5 bg-gradient-to-r from-green-50 to-teal-50 rounded-xl">
+                                    <h6 class="font-bold text-green-800 mb-2">Relative XPath (//)</h6>
+                                    <p class="text-gray-700 text-sm">Starts from anywhere in document</p>
+                                    <div class="code-example mt-2">
+                                        <code class="text-white text-sm">//input[@name='email']</code>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">Absolute vs Relative XPath</h4>
+                    
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>Aspect</th>
+                                <th>Absolute XPath</th>
+                                <th>Relative XPath</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Starts with</strong></td>
+                                <td>/ (single forward slash)</td>
+                                <td>// (double forward slash)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Path</strong></td>
+                                <td>Complete path from root element</td>
+                                <td>Starts from anywhere in document</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Example</strong></td>
+                                <td><code>/html/body/div[1]/form/input</code></td>
+                                <td><code>//input[@id='email']</code></td>
+                            </tr>
+                            <tr>
+                                <td><strong>Reliability</strong></td>
+                                <td>❌ Breaks easily with DOM changes</td>
+                                <td>✅ More stable and reliable</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Performance</strong></td>
+                                <td>❌ Slower (traverses entire DOM)</td>
+                                <td>✅ Faster (direct location)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Readability</strong></td>
+                                <td>❌ Long and complex</td>
+                                <td>✅ Short and readable</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Best Practice</strong></td>
+                                <td>❌ Avoid in most cases</td>
+                                <td>✅ Recommended approach</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    
+                    <div class="key-point mt-8">
+                        <h5 class="font-bold mb-4">XPath Examples Explained:</h5>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <h6 class="font-medium text-gray-800 mb-2">Absolute XPath:</h6>
+                                <div class="code-example">
+                                    <div class="text-white">
+                                        <span class="text-green-400">// Complete path from root</span><br>
+                                        /html/body/div[1]/form/input[1]<br><br>
+                                        
+                                        <span class="text-yellow-400">• Starts from document node</span><br>
+                                        <span class="text-yellow-400">• Creates 'absolute' path expressions</span><br>
+                                        <span class="text-yellow-400">• Example: "/html/body/p" matches paragraph elements</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div>
+                                <h6 class="font-medium text-gray-800 mb-2">Relative XPath:</h6>
+                                <div class="code-example">
+                                    <div class="text-white">
+                                        <span class="text-green-400">// Start from element reference</span><br>
+                                        //input[@name='username']<br><br>
+                                        
+                                        <span class="text-yellow-400">• Starts matching anywhere in document</span><br>
+                                        <span class="text-yellow-400">• Creates 'relative' path expressions</span><br>
+                                        <span class="text-yellow-400">• Example: "//p" matches all paragraph elements</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">Advanced XPath Techniques</h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h5 class="font-bold text-gray-800 text-xl mb-4">XPath Functions & Axes:</h5>
+                            <div class="space-y-4">
+                                <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                                    <code class="text-green-600 font-bold">contains()</code>
+                                    <p class="text-sm text-gray-600 mt-2">Match partial attribute values</p>
+                                    <code class="text-xs text-gray-700">//input[contains(@id, 'user')]</code>
+                                </div>
+                                
+                                <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                                    <code class="text-green-600 font-bold">starts-with()</code>
+                                    <p class="text-sm text-gray-600 mt-2">Match beginning of attribute values</p>
+                                    <code class="text-xs text-gray-700">//input[starts-with(@id, 'btn_')]</code>
+                                </div>
+                                
+                                <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                                    <code class="text-green-600 font-bold">text()</code>
+                                    <p class="text-sm text-gray-600 mt-2">Match element text content</p>
+                                    <code class="text-xs text-gray-700">//button[text()='Submit']</code>
+                                </div>
+                                
+                                <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                                    <code class="text-green-600 font-bold">following::</code>
+                                    <p class="text-sm text-gray-600 mt-2">Select following siblings</p>
+                                    <code class="text-xs text-gray-700">//input[@id='field']/following::input</code>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h5 class="font-bold text-gray-800 text-xl mb-4">XPath Operators:</h5>
+                            <div class="space-y-4">
+                                <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                                    <code class="text-green-600 font-bold">and</code>
+                                    <p class="text-sm text-gray-600 mt-2">Combine multiple conditions</p>
+                                    <code class="text-xs text-gray-700">//input[@type='text' and @name='email']</code>
+                                </div>
+                                
+                                <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                                    <code class="text-green-600 font-bold">or</code>
+                                    <p class="text-sm text-gray-600 mt-2">Either condition satisfied</p>
+                                    <code class="text-xs text-gray-700">//input[@id='email' or @name='email']</code>
+                                </div>
+                                
+                                <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                                    <code class="text-green-600 font-bold">position()</code>
+                                    <p class="text-sm text-gray-600 mt-2">Select specific position</p>
+                                    <code class="text-xs text-gray-700">//input[position()=1]</code>
+                                </div>
+                                
+                                <div class="p-4 bg-white border border-gray-200 rounded-lg">
+                                    <code class="text-green-600 font-bold">last()</code>
+                                    <p class="text-sm text-gray-600 mt-2">Select last element</p>
+                                    <code class="text-xs text-gray-700">//input[last()]</code>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="key-point mt-8">
+                        <h5 class="font-bold mb-4">Best Practices for XPath:</h5>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="p-4 bg-white rounded-lg border border-green-200">
+                                <h6 class="font-bold text-green-700 mb-2">Use Relative XPath</h6>
+                                <p class="text-sm text-gray-600">Avoid absolute paths for better maintainability</p>
+                            </div>
+                            <div class="p-4 bg-white rounded-lg border border-green-200">
+                                <h6 class="font-bold text-green-700 mb-2">Prefer ID/Name</h6>
+                                <p class="text-sm text-gray-600">Use simpler locators when available</p>
+                            </div>
+                            <div class="p-4 bg-white rounded-lg border border-green-200">
+                                <h6 class="font-bold text-green-700 mb-2">Avoid Indexing</h6>
+                                <p class="text-sm text-gray-600">Minimize use of index numbers in XPath</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 12: Code Examples & Implementation -->
+            <div class="section-card" id="section12">
+                <div class="flex items-center mb-8">
+                    <div class="tech-icon"><i class="fas fa-laptop-code"></i></div>
+                    <div>
+                        <h3 class="text-4xl font-bold text-gray-800">12. Code Examples & Implementation</h3>
+                        <p class="text-gray-600 text-xl">Practical Implementation Examples</p>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">Complete Selenium WebDriver Example</h4>
+                    
+                    <div class="code-block">
+                        <pre><code class="language-java">
+// Complete Selenium WebDriver Example in Java
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import java.time.Duration;
+
+public class SeleniumExample {
+    
+    public static void main(String[] args) {
+        
+        // 1. Set the path for ChromeDriver
+        System.setProperty("webdriver.chrome.driver", "/path/to/chromedriver");
+        
+        // 2. Initialize WebDriver
+        WebDriver driver = new ChromeDriver();
+        
+        try {
+            // 3. Navigate to website
+            driver.get("https://www.facebook.com");
+            
+            // 4. Maximize browser window
+            driver.manage().window().maximize();
+            
+            // 5. Set implicit wait
+            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+            
+            // 6. Find elements using different locators
+            WebElement emailField = driver.findElement(By.id("email"));
+            WebElement passwordField = driver.findElement(By.name("pass"));
+            WebElement loginButton = driver.findElement(By.xpath("//button[@type='submit']"));
+            
+            // 7. Perform actions on elements
+            emailField.sendKeys("testuser@example.com");
+            passwordField.sendKeys("password123");
+            
+            // 8. Explicit wait example
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            wait.until(ExpectedConditions.elementToBeClickable(loginButton));
+            
+            // 9. Click the login button
+            loginButton.click();
+            
+            // 10. Get page title
+            String pageTitle = driver.getTitle();
+            System.out.println("Page Title: " + pageTitle);
+            
+            // 11. Verify navigation
+            String currentUrl = driver.getCurrentUrl();
+            System.out.println("Current URL: " + currentUrl);
+            
+        } catch (Exception e) {
+            System.out.println("Error occurred: " + e.getMessage());
+        } finally {
+            // 12. Close browser
+            driver.quit();
+        }
+    }
+}
+                        </code></pre>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">Locator Implementation Examples</h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div>
+                            <h5 class="font-bold text-gray-800 text-xl mb-4">Different Locator Examples:</h5>
+                            <div class="code-example">
+                                <div class="text-white">
+                                    <span class="text-green-400">// Using ID locator</span><br>
+                                    driver.findElement(By.id("username"));<br><br>
+                                    
+                                    <span class="text-green-400">// Using Name locator</span><br>
+                                    driver.findElement(By.name("email"));<br><br>
+                                    
+                                    <span class="text-green-400">// Using ClassName locator</span><br>
+                                    driver.findElement(By.className("btn-primary"));<br><br>
+                                    
+                                    <span class="text-green-400">// Using TagName locator</span><br>
+                                    driver.findElement(By.tagName("input"));<br><br>
+                                    
+                                    <span class="text-green-400">// Using LinkText locator</span><br>
+                                    driver.findElement(By.linkText("Click Here"));<br><br>
+                                    
+                                    <span class="text-green-400">// Using PartialLinkText locator</span><br>
+                                    driver.findElement(By.partialLinkText("Click"));
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h5 class="font-bold text-gray-800 text-xl mb-4">XPath & CSS Examples:</h5>
+                            <div class="code-example">
+                                <div class="text-white">
+                                    <span class="text-green-400">// XPath examples</span><br>
+                                    driver.findElement(By.xpath("//input[@id='email']"));<br>
+                                    driver.findElement(By.xpath("//button[text()='Submit']"));<br>
+                                    driver.findElement(By.xpath("//div[@class='container']/input[1]"));<br><br>
+                                    
+                                    <span class="text-green-400">// CSS Selector examples</span><br>
+                                    driver.findElement(By.cssSelector("#username"));<br>
+                                    driver.findElement(By.cssSelector(".btn.submit"));<br>
+                                    driver.findElement(By.cssSelector("input[type='text']"));<br>
+                                    driver.findElement(By.cssSelector("div.container > input"));
+                                </div>
+                            </div>
+                            
+                            <div class="key-point mt-6">
+                                <h6 class="font-bold mb-2">Common Methods Used:</h6>
+                                <ul class="list-disc pl-5 space-y-1 text-sm">
+                                    <li><code>click()</code> - Click on element</li>
+                                    <li><code>sendKeys()</code> - Type text</li>
+                                    <li><code>clear()</code> - Clear text field</li>
+                                    <li><code>getText()</code> - Get element text</li>
+                                    <li><code>isDisplayed()</code> - Check visibility</li>
+                                    <li><code>isEnabled()</code> - Check if enabled</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subtopic-card">
+                    <h4 class="text-2xl font-bold text-gray-800 mb-6">Practical Implementation Tips</h4>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <div class="p-6 bg-gradient-to-br from-blue-50 to-cyan-50 rounded-xl">
+                            <h5 class="font-bold text-blue-800 mb-4">Setup & Configuration</h5>
+                            <ul class="space-y-3 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                    <span>Download correct browser drivers</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                    <span>Set system properties for drivers</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                    <span>Use WebDriverManager for automatic setup</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                    <span>Configure waits properly</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="p-6 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl">
+                            <h5 class="font-bold text-green-800 mb-4">Best Practices</h5>
+                            <ul class="space-y-3 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                    <span>Use Page Object Model</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                    <span>Implement proper waits</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                    <span>Use relative locators</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-check text-green-500 mt-1 mr-2"></i>
+                                    <span>Handle exceptions properly</span>
+                                </li>
+                            </ul>
+                        </div>
+                        
+                        <div class="p-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl">
+                            <h5 class="font-bold text-purple-800 mb-4">Common Issues</h5>
+                            <ul class="space-y-3 text-sm">
+                                <li class="flex items-start">
+                                    <i class="fas fa-exclamation-triangle text-red-500 mt-1 mr-2"></i>
+                                    <span>Element not found exceptions</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-exclamation-triangle text-red-500 mt-1 mr-2"></i>
+                                    <span>Timing/synchronization issues</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-exclamation-triangle text-red-500 mt-1 mr-2"></i>
+                                    <span>Browser compatibility problems</span>
+                                </li>
+                                <li class="flex items-start">
+                                    <i class="fas fa-exclamation-triangle text-red-500 mt-1 mr-2"></i>
+                                    <span>Dynamic element handling</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="key-point mt-8">
+                        <h5 class="font-bold mb-4">Integration with Testing Frameworks:</h5>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                            <div class="text-center p-4 bg-white rounded-lg border border-blue-200">
+                                <div class="font-bold text-blue-700">TestNG</div>
+                                <div class="text-sm text-gray-600 mt-2">Annotations, assertions, reporting</div>
+                            </div>
+                            <div class="text-center p-4 bg-white rounded-lg border border-green-200">
+                                <div class="font-bold text-green-700">JUnit</div>
+                                <div class="text-sm text-gray-600 mt-2">Unit testing framework integration</div>
+                            </div>
+                            <div class="text-center p-4 bg-white rounded-lg border border-purple-200">
+                                <div class="font-bold text-purple-700">Cucumber</div>
+                                <div class="text-sm text-gray-600 mt-2">BDD framework integration</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quiz Section -->
+            <div class="quiz-section" id="quiz">
+                <h3 class="text-3xl font-bold text-gray-800 mb-8 flex items-center">
+                    <i class="fas fa-question-circle mr-4 text-green-600"></i>Selenium Knowledge Assessment Quiz
+                </h3>
+                
+                <div class="quiz-question">
+                    <h4 class="font-bold text-gray-800 text-xl mb-4">Question 1: What is the main advantage of Selenium WebDriver over Selenium RC?</h4>
+                    <div class="space-y-3">
+                        <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-green-50 cursor-pointer">
+                            <input type="radio" name="q1" class="mr-3 h-5 w-5 text-green-600">
+                            <span>WebDriver communicates directly with browser, while RC uses a server</span>
+                        </label>
+                        <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-green-50 cursor-pointer">
+                            <input type="radio" name="q1" class="mr-3 h-5 w-5 text-green-600">
+                            <span>WebDriver supports more programming languages than RC</span>
+                        </label>
+                        <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-green-50 cursor-pointer">
+                            <input type="radio" name="q1" class="mr-3 h-5 w-5 text-green-600">
+                            <span>WebDriver has built-in reporting while RC doesn't</span>
+                        </label>
+                        <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-green-50 cursor-pointer">
+                            <input type="radio" name="q1" class="mr-3 h-5 w-5 text-green-600">
+                            <span>WebDriver is free while RC is paid</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <h4 class="font-bold text-gray-800 text-xl mb-4">Question 2: Which Selenium component supports record and playback feature?</h4>
+                    <div class="space-y-3">
+                        <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-green-50 cursor-pointer">
+                            <input type="radio" name="q2" class="mr-3 h-5 w-5 text-green-600">
+                            <span>Selenium IDE</span>
+                        </label>
+                        <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-green-50 cursor-pointer">
+                            <input type="radio" name="q2" class="mr-3 h-5 w-5 text-green-600">
+                            <span>Selenium RC</span>
+                        </label>
+                        <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-green-50 cursor-pointer">
+                            <input type="radio" name="q2" class="mr-3 h-5 w-5 text-green-600">
+                            <span>Selenium WebDriver</span>
+                        </label>
+                        <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-green-50 cursor-pointer">
+                            <input type="radio" name="q2" class="mr-3 h-5 w-5 text-green-600">
+                            <span>Selenium Grid</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="quiz-question">
+                    <h4 class="font-bold text-gray-800 text-xl mb-4">Question 3: What is the difference between findElement() and findElements() methods?</h4>
+                    <div class="space-y-3">
+                        <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-green-50 cursor-pointer">
+                            <input type="radio" name="q3" class="mr-3 h-5 w-5 text-green-600">
+                            <span>findElement() returns first matching element, findElements() returns all matching elements</span>
+                        </label>
+                        <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-green-50 cursor-pointer">
+                            <input type="radio" name="q3" class="mr-3 h-5 w-5 text-green-600">
+                            <span>findElement() is faster than findElements()</span>
+                        </label>
+                        <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-green-50 cursor-pointer">
+                            <input type="radio" name="q3" class="mr-3 h-5 w-5 text-green-600">
+                            <span>findElement() works with XPath only, findElements() works with all locators</span>
+                        </label>
+                        <label class="flex items-center p-3 bg-gray-50 rounded-lg hover:bg-green-50 cursor-pointer">
+                            <input type="radio" name="q3" class="mr-3 h-5 w-5 text-green-600">
+                            <span>findElement() is for desktop browsers, findElements() is for mobile browsers</span>
+                        </label>
+                    </div>
+                </div>
+                
+                <div class="text-center mt-10">
+                    <button class="back-button px-10 py-4 text-lg">
+                        <i class="fas fa-check-circle mr-3"></i>Submit Quiz Answers
+                    </button>
+                    <p class="text-gray-600 mt-4">Review answers with detailed explanations after submission</p>
+                </div>
+            </div>
+
+            <!-- Additional Resources -->
+            <div class="table-of-contents" id="resources">
+                <h3 class="text-3xl font-bold text-gray-800 mb-8 flex items-center">
+                    <i class="fas fa-book-open mr-4 text-green-600"></i>Additional Learning Resources
+                </h3>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                    <div>
+                        <h5 class="font-bold text-gray-700 text-xl mb-6">Official Documentation & Websites:</h5>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i class="fas fa-globe text-blue-600 mt-1 mr-4 text-xl"></i>
+                                <div>
+                                    <a href="https://www.selenium.dev" class="font-medium text-gray-800 hover:text-green-600">Selenium Official Website</a>
+                                    <p class="text-sm text-gray-600 mt-1">Official documentation, downloads, and guides</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fab fa-github text-gray-800 mt-1 mr-4 text-xl"></i>
+                                <div>
+                                    <a href="https://github.com/SeleniumHQ/selenium" class="font-medium text-gray-800 hover:text-green-600">Selenium GitHub Repository</a>
+                                    <p class="text-sm text-gray-600 mt-1">Source code, issues, and contributions</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-book text-green-600 mt-1 mr-4 text-xl"></i>
+                                <div>
+                                    <a href="https://selenium.dev/documentation/" class="font-medium text-gray-800 hover:text-green-600">Selenium Documentation</a>
+                                    <p class="text-sm text-gray-600 mt-1">Comprehensive API documentation</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h5 class="font-bold text-gray-700 text-xl mb-6">Books & Courses:</h5>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i class="fas fa-graduation-cap text-purple-600 mt-1 mr-4 text-xl"></i>
+                                <div>
+                                    <div class="font-medium text-gray-800">"Selenium WebDriver with Java"</div>
+                                    <p class="text-sm text-gray-600 mt-1">Comprehensive Udemy course by Rahul Shetty</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fas fa-book text-orange-600 mt-1 mr-4 text-xl"></i>
+                                <div>
+                                    <div class="font-medium text-gray-800">"Selenium Testing Tools Cookbook"</div>
+                                    <p class="text-sm text-gray-600 mt-1">Practical recipes for Selenium automation</p>
+                                </div>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fab fa-youtube text-red-600 mt-1 mr-4 text-xl"></i>
+                                <div>
+                                    <div class="font-medium text-gray-800">Selenium Tutorial Playlist</div>
+                                    <p class="text-sm text-gray-600 mt-1">FreeCodeCamp YouTube channel</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="mt-10 p-6 bg-gradient-to-r from-green-50 to-teal-50 rounded-xl">
+                    <h5 class="font-bold text-gray-800 text-xl mb-4">Practice Projects & Exercises:</h5>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="text-center p-4 bg-white rounded-lg">
+                            <div class="font-bold text-green-700">Beginner</div>
+                            <div class="text-sm text-gray-600 mt-2">Form automation, login tests</div>
+                        </div>
+                        <div class="text-center p-4 bg-white rounded-lg">
+                            <div class="font-bold text-green-700">Intermediate</div>
+                            <div class="text-sm text-gray-600 mt-2">E-commerce site testing</div>
+                        </div>
+                        <div class="text-center p-4 bg-white rounded-lg">
+                            <div class="font-bold text-green-700">Advanced</div>
+                            <div class="text-sm text-gray-600 mt-2">Framework development</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation -->
+            <div class="flex flex-col md:flex-row justify-between items-center mt-16 pt-8 border-t border-gray-300">
+                <a href="index.html" class="back-button mb-6 md:mb-0 px-8 py-3">
+                    <i class="fas fa-home mr-3"></i>Back to Home
+                </a>
+                
+                <div class="text-center mb-6 md:mb-0">
+                    <span class="text-gray-700 text-lg">Current Module:</span>
+                    <span class="font-bold text-green-600 text-xl ml-3">Selenium Automation Testing</span>
+                    <p class="text-gray-600 text-sm mt-2">Complete Guide to Web Automation</p>
+                </div>
+                
+                <a href="playwright.html" class="back-button px-8 py-3">
+                    Next Module: Playwright Testing <i class="fas fa-arrow-right ml-3"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="max-w-7xl mx-auto">
+            <p class="mb-6 text-2xl">⚙️ <strong><a href="index.html" target="_self" class="text-green-300 hover:text-white">Train'N'GetTrained</a></strong> - Selenium Automation Testing</p>
+            <p class="mb-4 text-lg">Complete Web Automation Testing Framework • Cross-Browser Testing • Parallel Execution</p>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mt-10">
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-white mb-3">12</div>
+                    <div class="text-gray-300">Comprehensive Sections</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-white mb-3">8+</div>
+                    <div class="text-gray-300">Selenium Components</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-white mb-3">8</div>
+                    <div class="text-gray-300">Locator Types</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-4xl font-bold text-white mb-3">6</div>
+                    <div class="text-gray-300">Browser Support</div>
+                </div>
+            </div>
+            <p class="text-sm mt-12 opacity-70">© 2025 Train'N'GetTrained. All rights reserved. | For personal and educational use only.</p>
+            <p class="text-xs mt-2 opacity-50">Complete Software Testing Bootcamp - From Beginner to Professional QA Engineer</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ 
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Quiz submission handler
+        document.querySelectorAll('.back-button').forEach(button => {
+            if (button.textContent.includes('Submit Quiz')) {
+                button.addEventListener('click', function() {
+                    const selectedAnswers = [];
+                    document.querySelectorAll('input[type="radio"]:checked').forEach(radio => {
+                        selectedAnswers.push(radio.parentElement.textContent.trim());
+                    });
+                    
+                    if (selectedAnswers.length === 3) {
+                        alert('Quiz Submitted Successfully!\n\nAnswers Selected:\n1. ' + selectedAnswers[0] + 
+                              '\n2. ' + selectedAnswers[1] + '\n3. ' + selectedAnswers[2] + 
+                              '\n\nCorrect Answers:\n1. WebDriver communicates directly with browser, while RC uses a server\n' +
+                              '2. Selenium IDE\n3. findElement() returns first matching element, findElements() returns all matching elements');
+                    } else {
+                        alert('Please answer all 3 questions before submitting.');
+                    }
+                });
+            }
+        });
+
+        // Highlight current section in TOC on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.section-card');
+            const navLinks = document.querySelectorAll('.toc-list a');
+            
+            let current = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= (sectionTop - 300)) {
+                    current = section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('bg-green-100', 'text-green-800', 'font-bold');
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.classList.add('bg-green-100', 'text-green-800', 'font-bold');
+                }
+            });
+        });
+
+        // Code syntax highlighting
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize any code highlighting if needed
+            const codeBlocks = document.querySelectorAll('code');
+            codeBlocks.forEach(block => {
+                block.innerHTML = block.innerHTML
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;')
+                    .replace(/"/g, '&quot;')
+                    .replace(/'/g, '&#039;');
+            });
+        });
+
+        // Add hover effects to comparison table rows
+        document.querySelectorAll('.comparison-table tr').forEach(row => {
+            row.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.01)';
+                this.style.transition = 'transform 0.2s';
+            });
+            
+            row.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+            });
+        });
+
+        // Print friendly version
+        const printButton = document.createElement('button');
+        printButton.innerHTML = '<i class="fas fa-print mr-2"></i>Print Guide';
+        printButton.className = 'back-button fixed bottom-10 right-10 z-50';
+        printButton.addEventListener('click', function() {
+            window.print();
+        });
+        document.body.appendChild(printButton);
+    </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

@@ -5,8 +5,49 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>SDET-II Elite Roadmap – FAANG / Product Bootcamp</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#6366f1',
+            secondary: '#8b5cf6',
+            accent: '#06b6d4',
+            dark: '#0f172a',
+            'dark-lighter': '#1e293b',
+          },
+          fontFamily: {
+            'sans': ['Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'gradient': 'gradient 8s ease infinite',
+            'pulse-glow': 'pulse-glow 2s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-20px)' },
+            },
+            gradient: {
+              '0%, 100%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' },
+            },
+            'pulse-glow': {
+              '0%, 100%': { opacity: 1 },
+              '50%': { opacity: 0.7 },
+            }
+          },
+          backgroundImage: {
+            'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
+            'hero-pattern': 'linear-gradient(45deg, rgba(99, 102, 241, 0.1) 0%, rgba(139, 92, 246, 0.05) 100%)',
+          }
+        }
+      }
+    }
+  </script>
   <style>
     * {
       margin: 0;
@@ -15,667 +56,1021 @@
     }
 
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background: radial-gradient(circle at top left, #0f172a 0%, #020617 40%, #020617 100%);
-      min-height: 100vh;
-      color: #e5e7eb;
+      font-family: 'Inter', sans-serif;
+      background-color: #0f172a;
+      color: #f1f5f9;
+      overflow-x: hidden;
     }
 
-    .navbar-blur {
-      background: rgba(15, 23, 42, 0.96);
-      backdrop-filter: blur(12px);
-      box-shadow: 0 8px 30px rgba(15, 23, 42, 0.8);
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.8);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #6366f1, #8b5cf6);
+      border-radius: 5px;
     }
 
-    .hero-gradient {
-      background: radial-gradient(circle at top left, rgba(96, 165, 250, 0.18), transparent 60%),
-                  radial-gradient(circle at bottom right, rgba(236, 72, 153, 0.18), transparent 55%),
-                  linear-gradient(135deg, #020617 0%, #020617 35%, #020617 100%);
+    /* Gradient Text */
+    .gradient-text {
+      background: linear-gradient(90deg, #6366f1, #8b5cf6, #06b6d4);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 200% auto;
+      animation: gradient 3s ease infinite;
     }
 
-    .glass-panel {
-      background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.25), transparent 55%),
-                  rgba(15, 23, 42, 0.82);
-      border: 1px solid rgba(148, 163, 184, 0.25);
-      box-shadow:
-        0 18px 45px rgba(15, 23, 42, 0.9),
-        0 0 0 1px rgba(15, 23, 42, 0.8);
+    /* Glass Effect */
+    .glass {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(99, 102, 241, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
     }
 
+    /* Phase Card Hover Effects */
     .phase-card {
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-      border: 1px solid rgba(31, 41, 55, 0.85);
-      background: linear-gradient(145deg, rgba(15, 23, 42, 0.98), rgba(17, 24, 39, 0.98));
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(99, 102, 241, 0.1);
     }
-
     .phase-card:hover {
-      transform: translateY(-8px) scale(1.01);
-      box-shadow:
-        0 18px 40px rgba(15, 23, 42, 0.9),
-        0 0 0 1px rgba(79, 70, 229, 0.7);
-      border-color: rgba(129, 140, 248, 0.85);
+      transform: translateY(-10px) scale(1.02);
+      border-color: rgba(99, 102, 241, 0.5);
+      box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
     }
 
-    .badge-pill {
-      border-radius: 999px;
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      font-weight: 700;
+    /* Floating Elements */
+    .floating-element {
+      animation: float 6s ease-in-out infinite;
+    }
+
+    /* Skill Badges */
+    .skill-badge {
+      display: inline-flex;
+      align-items: center;
       padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin: 0.25rem;
     }
 
-    .badge-core {
-      background: rgba(59, 130, 246, 0.1);
-      color: #60a5fa;
-      border: 1px solid rgba(59, 130, 246, 0.6);
-    }
-
-    .badge-advanced {
-      background: rgba(236, 72, 153, 0.08);
-      color: #fb7185;
-      border: 1px solid rgba(236, 72, 153, 0.5);
-    }
-
-    .badge-systems {
-      background: rgba(52, 211, 153, 0.08);
-      color: #6ee7b7;
-      border: 1px solid rgba(52, 211, 153, 0.55);
-    }
-
-    .metric-card {
-      background: radial-gradient(circle at top, rgba(129, 140, 248, 0.35), transparent 55%),
-                  rgba(15, 23, 42, 0.9);
-      border-radius: 0.9rem;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      box-shadow: 0 16px 35px rgba(15, 23, 42, 0.95);
-    }
-
-    .roadmap-connector {
-      border-left: 2px dashed rgba(148, 163, 184, 0.5);
-    }
-
-    .roadmap-dot {
-      width: 0.9rem;
-      height: 0.9rem;
-      border-radius: 999px;
-      background: linear-gradient(135deg, #6366f1, #ec4899);
-      box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.35);
-    }
-
-    .cta-main {
-      box-shadow: 0 18px 40px rgba(79, 70, 229, 0.65);
-    }
-
-    footer {
-      background: #020617;
-      color: #9ca3af;
-    }
-
-    .nav-link-hover {
+    /* Timeline Connector */
+    .timeline-connector {
       position: relative;
     }
-
-    .nav-link-hover::after {
-      content: "";
+    .timeline-connector::before {
+      content: '';
       position: absolute;
       left: 0;
-      bottom: -4px;
-      width: 0;
-      height: 2px;
-      border-radius: 999px;
-      background: linear-gradient(to right, #6366f1, #ec4899);
-      transition: width 0.2s ease;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(180deg, #6366f1, transparent);
     }
 
-    .nav-link-hover:hover::after {
-      width: 100%;
+    /* Progress Ring */
+    .progress-ring {
+      transform: rotate(-90deg);
+    }
+    .progress-ring-circle {
+      stroke-dasharray: 283;
+      stroke-dashoffset: 283;
+      transition: stroke-dashoffset 1s ease;
+    }
+
+    /* 3D Card Tilt Effect */
+    .card-3d {
+      transform-style: preserve-3d;
+      perspective: 1000px;
+    }
+    .card-3d-inner {
+      transform: translateZ(20px);
     }
   </style>
 </head>
-<body>
-  <!-- NAVBAR -->
-  <nav class="navbar-blur sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-      <div class="flex items-center gap-3">
-        <span class="text-3xl">🧪</span>
-        <div>
-          <h1 class="text-xl md:text-2xl font-bold bg-gradient-to-r from-indigo-400 via-sky-300 to-pink-400 bg-clip-text text-transparent">
-            <a href="index.html">Train'N'GetTrained</a>
-          </h1>
-          <p class="text-[0.7rem] md:text-xs text-slate-400 tracking-wide">
-            SDET-II Elite Roadmap • FAANG / Product Ready
-          </p>
-        </div>
-      </div>
+<body class="relative">
+  <!-- Animated Background Elements -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute -top-40 -right-40 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/4 -left-20 w-60 h-60 bg-cyan-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 right-1/4 w-40 h-40 bg-indigo-500/10 rounded-full blur-3xl"></div>
+  </div>
 
-      <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-        <a href="#hero" class="text-slate-300 hover:text-indigo-300 nav-link-hover">Overview</a>
-        <a href="#phases" class="text-slate-300 hover:text-indigo-300 nav-link-hover">Phases</a>
-        <a href="#timeline" class="text-slate-300 hover:text-indigo-300 nav-link-hover">Timeline</a>
-        <a href="#metrics" class="text-slate-300 hover:text-indigo-300 nav-link-hover">Metrics</a>
+  <!-- Navigation -->
+  <nav class="relative z-50 glass sticky top-0 border-b border-slate-800/50">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+            <i class="fas fa-vial text-white text-lg"></i>
+          </div>
+          <div>
+            <h1 class="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+              SDET-II Elite
+            </h1>
+            <p class="text-xs text-slate-400">FAANG Preparation Program</p>
+          </div>
+        </div>
+        
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="#hero" class="text-slate-300 hover:text-primary transition-colors font-medium">Home</a>
+          <a href="#phases" class="text-slate-300 hover:text-primary transition-colors font-medium">Phases</a>
+          <a href="#timeline" class="text-slate-300 hover:text-primary transition-colors font-medium">Timeline</a>
+          <a href="#metrics" class="text-slate-300 hover:text-primary transition-colors font-medium">Progress</a>
+          <button class="px-5 py-2 bg-gradient-to-r from-primary to-secondary rounded-lg font-semibold text-white hover:shadow-lg hover:shadow-primary/25 transition-all">
+            Get Started
+          </button>
+        </div>
+        
+        <button class="md:hidden text-slate-300">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
       </div>
     </div>
   </nav>
 
-  <!-- HERO -->
-  <header id="hero"
-          class="hero-gradient relative overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 py-12 md:py-16 lg:py-20 grid md:grid-cols-2 gap-10 items-center">
-      <div class="animate__animated animate__fadeInLeft">
-        <p class="inline-flex items-center gap-2 text-xs font-semibold tracking-[0.18em] uppercase text-indigo-300 mb-3">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-          45–90 Day Intensive Program
-        </p>
-        <h2 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-slate-50 leading-tight mb-4">
-          Become a <span class="bg-gradient-to-r from-indigo-400 via-sky-300 to-pink-400 bg-clip-text text-transparent">
-          Senior-level SDET II</span> for FAANG & top product companies.
-        </h2>
-        <p class="text-sm md:text-base text-slate-300 max-w-xl mb-6">
-          Deep, polyglot programming refresh, professional DSA, Playwright-first UI automation, API and
-          microservices testing, CI/CD, cloud, and test system design—all structured week-by-week with
-          deliverables and interview prep. [web:38][web:40]
-        </p>
-
-        <div class="flex flex-wrap items-center gap-4 mb-6">
-          <a href="phase1-programming-foundations.html"
-             class="cta-main inline-flex items-center justify-center px-6 py-2.5 rounded-full text-sm font-semibold
-                    bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 text-white shadow-lg hover:shadow-indigo-500/60
-                    transition-transform transform hover:-translate-y-0.5">
-            Start Phase 1 – Programming
-            <span class="ml-2 text-lg">→</span>
-          </a>
-          <a href="#phases"
-             class="inline-flex items-center text-xs md:text-sm text-sky-300 hover:text-sky-200">
-            View Full Syllabus
-            <span class="ml-1 text-base">↓</span>
-          </a>
-        </div>
-
-        <div class="grid grid-cols-3 gap-4 text-xs md:text-sm">
-          <div class="metric-card p-3 md:p-4">
-            <p class="text-slate-400 uppercase tracking-[0.14em] text-[0.65rem] mb-1">Total Days</p>
-            <p class="text-lg md:text-2xl font-bold text-sky-300">45–90</p>
-            <p class="text-[0.7rem] text-slate-400 mt-1">Configurable intensity</p>
+  <!-- Hero Section -->
+  <section id="hero" class="relative pt-20 pb-32 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="relative z-10">
+          <div class="inline-flex items-center space-x-2 bg-slate-800/50 rounded-full px-4 py-2 mb-6 border border-slate-700">
+            <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+            <span class="text-sm font-medium text-emerald-400">Active Cohort: March 2024</span>
           </div>
-          <div class="metric-card p-3 md:p-4">
-            <p class="text-slate-400 uppercase tracking-[0.14em] text-[0.65rem] mb-1">DSA Problems</p>
-            <p class="text-lg md:text-2xl font-bold text-emerald-300">80–120</p>
-            <p class="text-[0.7rem] text-slate-400 mt-1">Patterns, templates, logs</p>
-          </div>
-          <div class="metric-card p-3 md:p-4">
-            <p class="text-slate-400 uppercase tracking-[0.14em] text-[0.65rem] mb-1">Framework Repos</p>
-            <p class="text-lg md:text-2xl font-bold text-pink-300">4–6</p>
-            <p class="text-[0.7rem] text-slate-400 mt-1">UI, API, hybrid, infra</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="relative animate__animated animate__fadeInRight">
-        <div class="absolute -top-10 -right-6 w-56 h-56 rounded-full bg-pink-500/10 blur-3xl"></div>
-        <div class="absolute -bottom-10 -left-10 w-64 h-64 rounded-full bg-sky-500/10 blur-3xl"></div>
-
-        <div class="glass-panel rounded-2xl p-6 md:p-7 relative overflow-hidden">
-          <p class="text-xs font-semibold tracking-[0.16em] text-sky-300 uppercase mb-3">
-            SDET-II Capabilities Covered
+          
+          <h1 class="text-5xl md:text-6xl font-black mb-6 leading-tight">
+            From Engineer to
+            <span class="gradient-text">SDET-II</span>
+            at FAANG
+          </h1>
+          
+          <p class="text-xl text-slate-300 mb-8 leading-relaxed">
+            A 45-90 day intensive program transforming experienced engineers into 
+            <span class="text-primary font-semibold">Senior SDET-II professionals</span> 
+            ready for FAANG and top product companies.
           </p>
-          <ul class="space-y-3 text-xs md:text-sm text-slate-200">
-            <li class="flex items-start gap-2">
-              <span class="mt-[3px] text-emerald-400">✔</span>
-              <span><strong>Polyglot programming:</strong> JS/TS, Python, Ruby with testable design, DI, and observability hooks for automation frameworks. [web:38]</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="mt-[3px] text-emerald-400">✔</span>
-              <span><strong>UI automation mastery:</strong> Playwright-first approach with mapping to Selenium & Cypress, flakiness mitigation, POM, fixtures, and CI integration. [web:39][web:41][web:50]</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="mt-[3px] text-emerald-400">✔</span>
-              <span><strong>API & microservices testing:</strong> REST/GraphQL, contract tests, Kafka event flows, mocks, and schema validation in real product-style setups. [web:38][web:42]</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="mt-[3px] text-emerald-400">✔</span>
-              <span><strong>DevOps & cloud awareness:</strong> CI/CD, Dockerized test stacks, and essential AWS/GCP/Azure services from an SDET perspective. [web:38][web:40]</span>
-            </li>
-            <li class="flex items-start gap-2">
-              <span class="mt-[3px] text-emerald-400">✔</span>
-              <span><strong>System design & behavioral:</strong> Test orchestration platforms, pipelines, test data systems, and STAR-based interview stories tailored for SDET-II. [web:38][web:47]</span>
-            </li>
-          </ul>
+          
+          <div class="flex flex-col sm:flex-row gap-4 mb-10">
+            <a href="phase1-programming-foundations.html" 
+               class="group relative px-8 py-4 bg-gradient-to-r from-primary via-secondary to-accent rounded-xl font-bold text-white text-center hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 overflow-hidden">
+              <div class="absolute inset-0 bg-gradient-to-r from-primary to-secondary opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <span class="relative flex items-center justify-center">
+                Start Phase 1
+                <i class="fas fa-arrow-right ml-2 group-hover:translate-x-1 transition-transform"></i>
+              </span>
+            </a>
+            
+            <button class="px-8 py-4 glass rounded-xl font-semibold text-slate-300 hover:text-white hover:border-primary/50 transition-all">
+              <i class="fas fa-play-circle mr-2"></i>
+              Watch Introduction
+            </button>
+          </div>
+          
+          <div class="grid grid-cols-3 gap-4">
+            <div class="glass p-4 rounded-xl">
+              <div class="text-2xl font-bold text-primary mb-1">90%</div>
+              <div class="text-sm text-slate-400">Interview Success</div>
+            </div>
+            <div class="glass p-4 rounded-xl">
+              <div class="text-2xl font-bold text-secondary mb-1">7</div>
+              <div class="text-sm text-slate-400">Comprehensive Phases</div>
+            </div>
+            <div class="glass p-4 rounded-xl">
+              <div class="text-2xl font-bold text-accent mb-1">120+</div>
+              <div class="text-sm text-slate-400">DSA Problems</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="relative">
+          <div class="floating-element">
+            <div class="relative">
+              <!-- Main Hero Visual -->
+              <div class="glass rounded-2xl p-1">
+                <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8">
+                  <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center space-x-3">
+                      <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                      <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                      <div class="w-3 h-3 bg-green-500 rounded-full"></div>
+                    </div>
+                    <div class="text-sm font-mono text-slate-400">SDET-II_ROADMAP</div>
+                  </div>
+                  
+                  <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                      <div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
+                        <i class="fas fa-code text-primary"></i>
+                      </div>
+                      <div>
+                        <div class="font-semibold">Polyglot Programming</div>
+                        <div class="text-sm text-slate-400">JS/TS • Python • Ruby</div>
+                      </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-3">
+                      <div class="w-8 h-8 rounded-lg bg-secondary/20 flex items-center justify-center">
+                        <i class="fas fa-robot text-secondary"></i>
+                      </div>
+                      <div>
+                        <div class="font-semibold">UI Automation</div>
+                        <div class="text-sm text-slate-400">Playwright • Selenium • Cypress</div>
+                      </div>
+                    </div>
+                    
+                    <div class="flex items-center space-x-3">
+                      <div class="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center">
+                        <i class="fas fa-server text-accent"></i>
+                      </div>
+                      <div>
+                        <div class="font-semibold">Microservices & DevOps</div>
+                        <div class="text-sm text-slate-400">Docker • CI/CD • Cloud</div>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div class="mt-8 pt-6 border-t border-slate-700">
+                    <div class="text-sm text-slate-400 mb-2">Current Progress</div>
+                    <div class="h-2 bg-slate-800 rounded-full overflow-hidden">
+                      <div class="h-full bg-gradient-to-r from-primary to-secondary" style="width: 14%"></div>
+                    </div>
+                    <div class="flex justify-between text-xs text-slate-400 mt-2">
+                      <span>Phase 1 of 7</span>
+                      <span>14% Complete</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Floating Elements Around Main Card -->
+              <div class="absolute -top-6 -left-6 w-24 h-24 glass rounded-2xl p-4">
+                <div class="text-center">
+                  <div class="text-2xl font-bold text-primary">45-90</div>
+                  <div class="text-xs text-slate-400">Days</div>
+                </div>
+              </div>
+              
+              <div class="absolute -bottom-6 -right-6 w-24 h-24 glass rounded-2xl p-4">
+                <div class="text-center">
+                  <div class="text-2xl font-bold text-secondary">6</div>
+                  <div class="text-xs text-slate-400">Repos</div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </header>
+  </section>
 
-  <!-- PHASES / MODULE CARDS -->
-  <section id="phases" class="py-12 md:py-16">
-    <div class="max-w-7xl mx-auto px-4">
-      <div class="text-center mb-10 md:mb-12">
-        <h2 class="text-2xl md:text-3xl font-extrabold text-slate-50 mb-3">
-          📚 Complete SDET-II Curriculum
+  <!-- Trusted By Section -->
+  <section class="py-12 bg-slate-900/50">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-10">
+        <h3 class="text-sm font-semibold text-slate-400 uppercase tracking-wider mb-2">PREPARING FOR</h3>
+        <div class="flex flex-wrap justify-center items-center gap-8 md:gap-12">
+          <div class="text-2xl font-bold text-slate-300 opacity-80">FAANG</div>
+          <div class="text-xl font-semibold text-slate-300 opacity-80">Microsoft</div>
+          <div class="text-xl font-semibold text-slate-300 opacity-80">Netflix</div>
+          <div class="text-xl font-semibold text-slate-300 opacity-80">Uber</div>
+          <div class="text-xl font-semibold text-slate-300 opacity-80">Airbnb</div>
+          <div class="text-xl font-semibold text-slate-300 opacity-80">Stripe</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Phases Section -->
+  <section id="phases" class="py-20">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">
+          The Complete <span class="gradient-text">Learning Path</span>
         </h2>
-        <p class="text-sm md:text-base text-slate-400 max-w-2xl mx-auto">
-          7 intensive phases that mirror expectations at modern QA/SDET roles in FAANG and high-growth product
-          companies—each with weekly projects, repos, and interview question banks. [web:38][web:40]
+        <p class="text-xl text-slate-400 max-w-3xl mx-auto">
+          Seven intensive phases designed to transform you into a senior SDET-II professional, 
+          with hands-on projects, interview preparation, and portfolio development.
         </p>
       </div>
-
-      <div class="grid gap-5 md:gap-6 lg:gap-7 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+      
+      <!-- Phase Cards Grid -->
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         <!-- Phase 1 -->
-        <article class="phase-card rounded-2xl p-5 flex flex-col justify-between">
-          <div>
-            <span class="badge-pill badge-core mb-3 inline-flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-sky-400"></span>
-              Phase 1 • Weeks 1–3
-            </span>
-            <h3 class="text-base md:text-lg font-bold text-slate-50 mb-2">
-              Deep Programming Rebuild (JS/TS, Python, Ruby)
-            </h3>
-            <p class="text-xs md:text-sm text-slate-300 mb-3">
-              Rebuild fluency in JavaScript/TypeScript, Python, and Ruby with SDET-grade habits:
-              testable design, DI, logging, and error handling patterns that map directly into automation frameworks. [web:38]
-            </p>
-            <ul class="text-[0.75rem] md:text-xs text-slate-400 space-y-1.5">
-              <li>• Multi-language utility libs and CLI tools aligned with UI/API test needs.</li>
-              <li>• TDD exercises for retry helpers, wait utilities, and assertion wrappers.</li>
-              <li>• 2–3 language-specific repos + cross-language comparison docs.</li>
-            </ul>
+        <div class="phase-card glass rounded-2xl p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <div class="inline-flex items-center px-3 py-1 rounded-full bg-primary/10 text-primary text-sm font-semibold mb-2">
+                <span class="w-2 h-2 bg-primary rounded-full mr-2"></span>
+                Phase 1
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">Programming Foundations</h3>
+            </div>
+            <div class="text-3xl text-primary/30">
+              <i class="fas fa-code"></i>
+            </div>
           </div>
-          <div class="mt-4">
-            <a href="phase1-programming-foundations.html"
-               class="inline-flex justify-center items-center w-full text-xs md:text-sm font-semibold
-                      bg-gradient-to-r from-sky-500 to-indigo-500 text-white py-2.5 rounded-xl
-                      hover:from-sky-400 hover:to-indigo-400">
-              Open Phase 1 →
+          <p class="text-slate-400 mb-6">
+            Deep rebuild of JS/TS, Python, Ruby with SDET-grade habits: testable design, DI, and observability patterns.
+          </p>
+          <div class="mb-6">
+            <div class="text-sm font-semibold text-slate-300 mb-2">Skills Covered:</div>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-badge bg-primary/10 text-primary">JavaScript/TS</span>
+              <span class="skill-badge bg-primary/10 text-primary">Python</span>
+              <span class="skill-badge bg-primary/10 text-primary">Ruby</span>
+              <span class="skill-badge bg-primary/10 text-primary">OOP</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="text-sm text-slate-500">
+              <i class="far fa-clock mr-1"></i>
+              3 weeks
+            </div>
+            <a href="phase1-programming-foundations.html" class="text-primary font-semibold hover:text-primary/80 transition-colors">
+              Start Phase →
             </a>
           </div>
-        </article>
+        </div>
 
         <!-- Phase 2 -->
-        <article class="phase-card rounded-2xl p-5 flex flex-col justify-between">
-          <div>
-            <span class="badge-pill badge-core mb-3 inline-flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-              Phase 2 • Weeks 4–5
-            </span>
-            <h3 class="text-base md:text-lg font-bold text-slate-50 mb-2">
-              Professional-level DSA & Patterns
-            </h3>
-            <p class="text-xs md:text-sm text-slate-300 mb-3">
-              FAANG-style arrays, strings, hashing, trees, and graphs with reusable templates
-              and a tracked problem log focused on patterns rather than brute-force memorization. [web:40]
-            </p>
-            <ul class="text-[0.75rem] md:text-xs text-slate-400 space-y-1.5">
-              <li>• Sliding window, two pointers, BFS/DFS, prefix sums, union-find basics.</li>
-              <li>• Weekly LeetCode/HackerRank sets with “pattern notebooks” in GitHub.</li>
-              <li>• Timed coding drills + code review checklists for clean solutions.</li>
-            </ul>
+        <div class="phase-card glass rounded-2xl p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <div class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-semibold mb-2">
+                <span class="w-2 h-2 bg-emerald-400 rounded-full mr-2"></span>
+                Phase 2
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">DSA & Patterns</h3>
+            </div>
+            <div class="text-3xl text-emerald-500/30">
+              <i class="fas fa-sitemap"></i>
+            </div>
           </div>
-          <div class="mt-4">
-            <a href="phase2-dsa.html"
-               class="inline-flex justify-center items-center w-full text-xs md:text-sm font-semibold
-                      bg-gradient-to-r from-emerald-500 to-cyan-500 text-white py-2.5 rounded-xl">
-              Open Phase 2 →
+          <p class="text-slate-400 mb-6">
+            FAANG-style data structures and algorithms with reusable templates and tracked problem logs.
+          </p>
+          <div class="mb-6">
+            <div class="text-sm font-semibold text-slate-300 mb-2">Skills Covered:</div>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-badge bg-emerald-500/10 text-emerald-400">Arrays</span>
+              <span class="skill-badge bg-emerald-500/10 text-emerald-400">Trees</span>
+              <span class="skill-badge bg-emerald-500/10 text-emerald-400">Graphs</span>
+              <span class="skill-badge bg-emerald-500/10 text-emerald-400">DP</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="text-sm text-slate-500">
+              <i class="far fa-clock mr-1"></i>
+              2 weeks
+            </div>
+            <a href="phase2-dsa.html" class="text-emerald-400 font-semibold hover:text-emerald-400/80 transition-colors">
+              Start Phase →
             </a>
           </div>
-        </article>
+        </div>
 
         <!-- Phase 3 -->
-        <article class="phase-card rounded-2xl p-5 flex flex-col justify-between">
-          <div>
-            <span class="badge-pill badge-advanced mb-3 inline-flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-pink-400"></span>
-              Phase 3 • Weeks 6–7
-            </span>
-            <h3 class="text-base md:text-lg font-bold text-slate-50 mb-2">
-              UI Automation Mastery – Playwright First
-            </h3>
-            <p class="text-xs md:text-sm text-slate-300 mb-3">
-              Playwright-focused UI automation including selectors, fixtures, POM, test data management,
-              flakiness mitigation, tracing, and CI execution, with mapping to Selenium and Cypress. [web:39][web:41][web:50]
-            </p>
-            <ul class="text-[0.75rem] md:text-xs text-slate-400 space-y-1.5">
-              <li>• Locator strategies, waits, retries, screenshots, trace viewer usage.</li>
-              <li>• POM + service layer design and cross-browser runs in pipelines.</li>
-              <li>• A full UI framework repo with reports and GitHub Actions workflow.</li>
-            </ul>
+        <div class="phase-card glass rounded-2xl p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <div class="inline-flex items-center px-3 py-1 rounded-full bg-pink-500/10 text-pink-400 text-sm font-semibold mb-2">
+                <span class="w-2 h-2 bg-pink-400 rounded-full mr-2"></span>
+                Phase 3
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">UI Automation</h3>
+            </div>
+            <div class="text-3xl text-pink-500/30">
+              <i class="fas fa-window-maximize"></i>
+            </div>
           </div>
-          <div class="mt-4">
-            <a href="phase3-ui-automation.html"
-               class="inline-flex justify-center items-center w-full text-xs md:text-sm font-semibold
-                      bg-gradient-to-r from-fuchsia-500 to-pink-500 text-white py-2.5 rounded-xl">
-              Open Phase 3 →
+          <p class="text-slate-400 mb-6">
+            Playwright-focused UI automation with POM, fixtures, flakiness mitigation, and CI integration.
+          </p>
+          <div class="mb-6">
+            <div class="text-sm font-semibold text-slate-300 mb-2">Skills Covered:</div>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-badge bg-pink-500/10 text-pink-400">Playwright</span>
+              <span class="skill-badge bg-pink-500/10 text-pink-400">Selenium</span>
+              <span class="skill-badge bg-pink-500/10 text-pink-400">Cypress</span>
+              <span class="skill-badge bg-pink-500/10 text-pink-400">POM</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="text-sm text-slate-500">
+              <i class="far fa-clock mr-1"></i>
+              2 weeks
+            </div>
+            <a href="phase3-ui-automation.html" class="text-pink-400 font-semibold hover:text-pink-400/80 transition-colors">
+              Start Phase →
             </a>
           </div>
-        </article>
+        </div>
 
         <!-- Phase 4 -->
-        <article class="phase-card rounded-2xl p-5 flex flex-col justify-between">
-          <div>
-            <span class="badge-pill badge-advanced mb-3 inline-flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-amber-400"></span>
-              Phase 4 • Week 8
-            </span>
-            <h3 class="text-base md:text-lg font-bold text-slate-50 mb-2">
-              API Testing & Automation (REST / Microservices)
-            </h3>
-            <p class="text-xs md:text-sm text-slate-300 mb-3">
-              API test design and automation using Playwright API, SuperTest (Node), Python
-              <code class="text-[0.7rem] bg-slate-800 px-1 rounded">requests</code>, schema validation, mocks, and intro to contract testing. [web:38][web:42]
-            </p>
-            <ul class="text-[0.75rem] md:text-xs text-slate-400 space-y-1.5">
-              <li>• REST fundamentals, idempotency, status codes, error contracts.</li>
-              <li>• Data-driven API test suites with negative and edge-case coverage.</li>
-              <li>• API automation repo with mock server + contract test samples.</li>
-            </ul>
+        <div class="phase-card glass rounded-2xl p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <div class="inline-flex items-center px-3 py-1 rounded-full bg-amber-500/10 text-amber-400 text-sm font-semibold mb-2">
+                <span class="w-2 h-2 bg-amber-400 rounded-full mr-2"></span>
+                Phase 4
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">API Testing</h3>
+            </div>
+            <div class="text-3xl text-amber-500/30">
+              <i class="fas fa-plug"></i>
+            </div>
           </div>
-          <div class="mt-4">
-            <a href="phase4-api-automation.html"
-               class="inline-flex justify-center items-center w-full text-xs md:text-sm font-semibold
-                      bg-gradient-to-r from-amber-500 to-orange-500 text-white py-2.5 rounded-xl">
-              Open Phase 4 →
+          <p class="text-slate-400 mb-6">
+            REST/GraphQL API testing, contract testing, mocks, and schema validation in production setups.
+          </p>
+          <div class="mb-6">
+            <div class="text-sm font-semibold text-slate-300 mb-2">Skills Covered:</div>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-badge bg-amber-500/10 text-amber-400">REST API</span>
+              <span class="skill-badge bg-amber-500/10 text-amber-400">GraphQL</span>
+              <span class="skill-badge bg-amber-500/10 text-amber-400">Postman</span>
+              <span class="skill-badge bg-amber-500/10 text-amber-400">Mocking</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="text-sm text-slate-500">
+              <i class="far fa-clock mr-1"></i>
+              1 week
+            </div>
+            <a href="phase4-api-automation.html" class="text-amber-400 font-semibold hover:text-amber-400/80 transition-colors">
+              Start Phase →
             </a>
           </div>
-        </article>
+        </div>
 
         <!-- Phase 5 -->
-        <article class="phase-card rounded-2xl p-5 flex flex-col justify-between">
-          <div>
-            <span class="badge-pill badge-systems mb-3 inline-flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-green-400"></span>
-              Phase 5 • Week 9
-            </span>
-            <h3 class="text-base md:text-lg font-bold text-slate-50 mb-2">
-              Automation Framework Design (UI, API, Hybrid)
-            </h3>
-            <p class="text-xs md:text-sm text-slate-300 mb-3">
-              End-to-end framework architecture including runners, layers, configuration, dependency
-              injection, reporting, and extensibility, with ASCII diagrams and whiteboard-ready designs. [web:38][web:44]
-            </p>
-            <ul class="text-[0.75rem] md:text-xs text-slate-400 space-y-1.5">
-              <li>• Test runner orchestration and environment config strategies.</li>
-              <li>• Plug-in style reporter and integration hooks for CI and dashboards.</li>
-              <li>• One consolidated hybrid framework repo with design docs.</li>
-            </ul>
+        <div class="phase-card glass rounded-2xl p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <div class="inline-flex items-center px-3 py-1 rounded-full bg-teal-500/10 text-teal-400 text-sm font-semibold mb-2">
+                <span class="w-2 h-2 bg-teal-400 rounded-full mr-2"></span>
+                Phase 5
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">Framework Design</h3>
+            </div>
+            <div class="text-3xl text-teal-500/30">
+              <i class="fas fa-project-diagram"></i>
+            </div>
           </div>
-          <div class="mt-4">
-            <a href="phase5-framework-design.html"
-               class="inline-flex justify-center items-center w-full text-xs md:text-sm font-semibold
-                      bg-gradient-to-r from-emerald-500 to-teal-500 text-white py-2.5 rounded-xl">
-              Open Phase 5 →
+          <p class="text-slate-400 mb-6">
+            End-to-end framework architecture with runners, DI, reporting, and extensibility patterns.
+          </p>
+          <div class="mb-6">
+            <div class="text-sm font-semibold text-slate-300 mb-2">Skills Covered:</div>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-badge bg-teal-500/10 text-teal-400">Architecture</span>
+              <span class="skill-badge bg-teal-500/10 text-teal-400">DI</span>
+              <span class="skill-badge bg-teal-500/10 text-teal-400">Reporting</span>
+              <span class="skill-badge bg-teal-500/10 text-teal-400">Scaling</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="text-sm text-slate-500">
+              <i class="far fa-clock mr-1"></i>
+              1 week
+            </div>
+            <a href="phase5-framework-design.html" class="text-teal-400 font-semibold hover:text-teal-400/80 transition-colors">
+              Start Phase →
             </a>
           </div>
-        </article>
+        </div>
 
         <!-- Phase 6 -->
-        <article class="phase-card rounded-2xl p-5 flex flex-col justify-between">
-          <div>
-            <span class="badge-pill badge-systems mb-3 inline-flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span>
-              Phase 6 • Weeks 10–11
-            </span>
-            <h3 class="text-base md:text-lg font-bold text-slate-50 mb-2">
-              Microservices, Kafka, CI/CD, Docker & Cloud
-            </h3>
-            <p class="text-xs md:text-sm text-slate-300 mb-3">
-              Testing microservices with queues and events, contract tests, Dockerized test stacks,
-              and CI/CD integration, plus essential AWS/GCP/Azure services for SDETs. [web:38][web:40][web:42]
-            </p>
-            <ul class="text-[0.75rem] md:text-xs text-slate-400 space-y-1.5">
-              <li>• Kafka/queue-centric testing and event validation strategies.</li>
-              <li>• GitHub Actions / Jenkins pipelines running UI + API suites in Docker.</li>
-              <li>• Cloud basics: S3/storage, logs/monitoring, IAM and secrets handling.</li>
-            </ul>
+        <div class="phase-card glass rounded-2xl p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <div class="inline-flex items-center px-3 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-sm font-semibold mb-2">
+                <span class="w-2 h-2 bg-cyan-400 rounded-full mr-2"></span>
+                Phase 6
+              </div>
+              <h3 class="text-xl font-bold text-white mb-2">DevOps & Cloud</h3>
+            </div>
+            <div class="text-3xl text-cyan-500/30">
+              <i class="fas fa-cloud"></i>
+            </div>
           </div>
-          <div class="mt-4">
-            <a href="phase6-microservices-devops-cloud.html"
-               class="inline-flex justify-center items-center w-full text-xs md:text-sm font-semibold
-                      bg-gradient-to-r from-cyan-500 to-sky-500 text-white py-2.5 rounded-xl">
-              Open Phase 6 →
+          <p class="text-slate-400 mb-6">
+            Microservices testing, Kafka, Docker, CI/CD, and essential cloud services for SDETs.
+          </p>
+          <div class="mb-6">
+            <div class="text-sm font-semibold text-slate-300 mb-2">Skills Covered:</div>
+            <div class="flex flex-wrap gap-2">
+              <span class="skill-badge bg-cyan-500/10 text-cyan-400">Docker</span>
+              <span class="skill-badge bg-cyan-500/10 text-cyan-400">Kafka</span>
+              <span class="skill-badge bg-cyan-500/10 text-cyan-400">CI/CD</span>
+              <span class="skill-badge bg-cyan-500/10 text-cyan-400">AWS/GCP</span>
+            </div>
+          </div>
+          <div class="flex items-center justify-between">
+            <div class="text-sm text-slate-500">
+              <i class="far fa-clock mr-1"></i>
+              2 weeks
+            </div>
+            <a href="phase6-microservices-devops-cloud.html" class="text-cyan-400 font-semibold hover:text-cyan-400/80 transition-colors">
+              Start Phase →
             </a>
           </div>
-        </article>
-
-        <!-- Phase 7 -->
-        <article class="phase-card rounded-2xl p-5 flex flex-col justify-between">
-          <div>
-            <span class="badge-pill badge-advanced mb-3 inline-flex items-center gap-1">
-              <span class="w-1.5 h-1.5 rounded-full bg-violet-400"></span>
-              Phase 7 • Week 12
-            </span>
-            <h3 class="text-base md:text-lg font-bold text-slate-50 mb-2">
-              System Design & Behavioral Mastery
-            </h3>
-            <p class="text-xs md:text-sm text-slate-300 mb-3">
-              Design test orchestration systems, reporting platforms, and robust pipelines,
-              then close with behavioral interview mastery and a final readiness checklist. [web:38][web:47]
-            </p>
-            <ul class="text-[0.75rem] md:text-xs text-slate-400 space-y-1.5">
-              <li>• Whiteboard-ready designs for test infra and tooling.</li>
-              <li>• STAR stories mapped to ownership, debugging, and influence scenarios.</li>
-              <li>• Final “SDET-II readiness” rubric and portfolio review checklist.</li>
-            </ul>
-          </div>
-          <div class="mt-4">
-            <a href="phase7-system-design-behavioral.html"
-               class="inline-flex justify-center items-center w-full text-xs md:text-sm font-semibold
-                      bg-gradient-to-r from-violet-500 to-indigo-500 text-white py-2.5 rounded-xl">
-              Open Phase 7 →
-            </a>
-          </div>
-        </article>
+        </div>
+      </div>
+      
+      <!-- View All Button -->
+      <div class="text-center mt-12">
+        <a href="#timeline" class="inline-flex items-center text-lg font-semibold text-primary hover:text-primary/80 transition-colors">
+          View Complete Timeline
+          <i class="fas fa-arrow-down ml-2"></i>
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- 45–90 DAY TIMELINE -->
-  <section id="timeline" class="py-10 md:py-14 bg-gradient-to-b from-slate-950/70 via-slate-900/80 to-black/90">
-    <div class="max-w-5xl mx-auto px-4">
-      <div class="text-center mb-8">
-        <h2 class="text-xl md:text-2xl font-extrabold text-slate-50 mb-2">
-          🗺️ 45–90 Day Execution Timeline
+  <!-- Timeline Section -->
+  <section id="timeline" class="py-20 bg-slate-900/30">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4">
+          Your <span class="gradient-text">90-Day Journey</span>
         </h2>
-        <p class="text-xs md:text-sm text-slate-400">
-          Run the track in “intense” (45-day) or “standard” (90-day) mode by adjusting how many days you allocate per week.
-          Each phase page breaks this down into days, tasks, hands-on labs, and evaluation checklists. [web:38][web:40]
+        <p class="text-xl text-slate-400 max-w-3xl mx-auto">
+          Follow this structured timeline to transform from engineer to SDET-II professional
         </p>
       </div>
-
-      <div class="flex flex-col md:flex-row gap-6">
-        <div class="md:w-1/2 space-y-6">
-          <!-- Roadmap items -->
-          <div class="flex gap-3">
-            <div class="flex flex-col items-center">
-              <div class="roadmap-dot mt-1"></div>
-              <div class="roadmap-connector flex-1 mt-1"></div>
-            </div>
-            <div class="pb-6">
-              <h3 class="text-sm md:text-base font-semibold text-indigo-200 mb-1">
-                Weeks 1–3: Programming Deep Rebuild
-              </h3>
-              <p class="text-xs md:text-sm text-slate-400">
-                Rebuild fluency in JS/TS, Python, Ruby, focusing on testable design, utilities, and small tools used
-                directly inside UI and API frameworks. Each day has “what/why/sub-topics/examples/tasks/outputs/checklist”.
+      
+      <div class="relative">
+        <!-- Timeline Connector -->
+        <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-primary via-secondary to-accent hidden lg:block"></div>
+        
+        <!-- Timeline Items -->
+        <div class="space-y-12">
+          <!-- Month 1 -->
+          <div class="relative lg:grid lg:grid-cols-2 gap-8 items-center">
+            <div class="lg:text-right lg:pr-12 mb-8 lg:mb-0">
+              <div class="inline-flex items-center px-4 py-2 rounded-full bg-primary/10 text-primary font-semibold mb-3">
+                <i class="fas fa-calendar-alt mr-2"></i>
+                Month 1 • Foundations
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-3">Programming & DSA Mastery</h3>
+              <p class="text-slate-400 mb-4">
+                Rebuild core programming skills across JS/TS, Python, Ruby and master data structures 
+                and algorithms with FAANG interview patterns.
               </p>
-            </div>
-          </div>
-
-          <div class="flex gap-3">
-            <div class="flex flex-col items-center">
-              <div class="roadmap-dot mt-1"></div>
-              <div class="roadmap-connector flex-1 mt-1"></div>
-            </div>
-            <div class="pb-6">
-              <h3 class="text-sm md:text-base font-semibold text-indigo-200 mb-1">
-                Weeks 4–5: DSA & Coding Interviews
-              </h3>
-              <p class="text-xs md:text-sm text-slate-400">
-                Systematic patterns for arrays, strings, trees, graphs, dynamic programming, and problem log tracking,
-                with weekly timed mocks and code review notes to sharpen interview performance. [web:40]
-              </p>
-            </div>
-          </div>
-
-          <div class="flex gap-3">
-            <div class="flex flex-col items-center">
-              <div class="roadmap-dot mt-1"></div>
-              <div class="roadmap-connector flex-1 mt-1"></div>
-            </div>
-            <div class="pb-6">
-              <h3 class="text-sm md:text-base font-semibold text-indigo-200 mb-1">
-                Weeks 6–8: UI + API Automation
-              </h3>
-              <p class="text-xs md:text-sm text-slate-400">
-                Build production-style Playwright UI framework + API automation suites, integrate with CI, add reporting,
-                and exercise advanced scenarios (auth flows, test data strategies, negative cases). [web:39][web:41][web:50]
-              </p>
-            </div>
-          </div>
-
-          <div class="flex gap-3">
-            <div class="flex flex-col items-center">
-              <div class="roadmap-dot mt-1"></div>
-              <div class="roadmap-connector flex-1 mt-1"></div>
-            </div>
-            <div class="pb-6">
-              <h3 class="text-sm md:text-base font-semibold text-indigo-200 mb-1">
-                Weeks 9–12: Framework Design, Microservices, DevOps & Interview Prep
-              </h3>
-              <p class="text-xs md:text-sm text-slate-400">
-                Design hybrid automation frameworks, test microservices (including Kafka/queues), Dockerize your stacks,
-                connect to the cloud, then finish with system design and behavioral interview training. [web:38][web:42][web:47]
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Short “intense vs standard” box -->
-        <div class="md:w-1/2">
-          <div class="glass-panel rounded-2xl p-5 h-full flex flex-col justify-between">
-            <div>
-              <h3 class="text-sm md:text-base font-semibold text-sky-200 mb-2">
-                Choose Your Pace: Intense vs Standard
-              </h3>
-              <p class="text-xs md:text-sm text-slate-300 mb-3">
-                The same phases can be compressed or expanded depending on your available time while keeping all
-                deliverables, exercises, and interview drills intact. [web:38][web:40]
-              </p>
-              <table class="w-full text-[0.7rem] md:text-xs text-slate-300 border border-slate-700 rounded-lg overflow-hidden">
-                <thead class="bg-slate-900/90">
-                  <tr>
-                    <th class="px-2 py-1 text-left">Mode</th>
-                    <th class="px-2 py-1 text-left">Daily Commitment</th>
-                    <th class="px-2 py-1 text-left">Total Duration</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-slate-800">
-                  <tr>
-                    <td class="px-2 py-1 font-semibold text-emerald-300">Intense</td>
-                    <td class="px-2 py-1">3.5–5 hrs/day, 6 days/week</td>
-                    <td class="px-2 py-1">~45 days</td>
-                  </tr>
-                  <tr>
-                    <td class="px-2 py-1 font-semibold text-sky-300">Standard</td>
-                    <td class="px-2 py-1">2–3 hrs/day, 5–6 days/week</td>
-                    <td class="px-2 py-1">~90 days</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div class="mt-4 text-[0.7rem] md:text-xs text-slate-400">
-              <p class="mb-1">
-                Each phase page includes:
-              </p>
-              <ul class="list-disc list-inside space-y-1">
-                <li>Daily “what/why/theory/examples/tasks/output/checklist”.</li>
-                <li>Weekly coding and automation exercises + interview questions mapped to topics.</li>
-                <li>Phase-end portfolio deliverables and GitHub repo expectations.</li>
+              <ul class="space-y-2 text-slate-300">
+                <li class="flex items-center">
+                  <i class="fas fa-check-circle text-primary mr-2"></i>
+                  3 languages, testable design patterns
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-check-circle text-primary mr-2"></i>
+                  80+ DSA problems with templates
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-check-circle text-primary mr-2"></i>
+                  Utility libraries and CLI tools
+                </li>
               </ul>
             </div>
+            
+            <div class="relative">
+              <div class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-primary rounded-full border-4 border-slate-900 lg:left-0 lg:-translate-x-1/2 z-10"></div>
+              <div class="glass rounded-2xl p-6 lg:ml-12">
+                <h4 class="text-lg font-semibold text-white mb-3">Deliverables</h4>
+                <div class="space-y-3">
+                  <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center mr-3">
+                      <i class="fas fa-code text-primary"></i>
+                    </div>
+                    <div>
+                      <div class="font-medium text-white">Polyglot Utilities</div>
+                      <div class="text-sm text-slate-400">JS/TS, Python, Ruby libraries</div>
+                    </div>
+                  </div>
+                  <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center mr-3">
+                      <i class="fas fa-sort-amount-up text-primary"></i>
+                    </div>
+                    <div>
+                      <div class="font-medium text-white">DSA Pattern Notebook</div>
+                      <div class="text-sm text-slate-400">80+ solved problems</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Month 2 -->
+          <div class="relative lg:grid lg:grid-cols-2 gap-8 items-center">
+            <div class="lg:order-2 lg:pl-12 mb-8 lg:mb-0">
+              <div class="inline-flex items-center px-4 py-2 rounded-full bg-secondary/10 text-secondary font-semibold mb-3">
+                <i class="fas fa-calendar-alt mr-2"></i>
+                Month 2 • Automation
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-3">UI & API Automation</h3>
+              <p class="text-slate-400 mb-4">
+                Build production-grade UI automation with Playwright and comprehensive API testing 
+                suites with contract testing and mocks.
+              </p>
+              <ul class="space-y-2 text-slate-300">
+                <li class="flex items-center">
+                  <i class="fas fa-check-circle text-secondary mr-2"></i>
+                  Playwright UI framework with POM
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-check-circle text-secondary mr-2"></i>
+                  REST/GraphQL API testing suites
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-check-circle text-secondary mr-2"></i>
+                  CI/CD integration & reporting
+                </li>
+              </ul>
+            </div>
+            
+            <div class="relative lg:order-1">
+              <div class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-secondary rounded-full border-4 border-slate-900 lg:right-0 lg:translate-x-1/2 z-10"></div>
+              <div class="glass rounded-2xl p-6 lg:mr-12">
+                <h4 class="text-lg font-semibold text-white mb-3">Deliverables</h4>
+                <div class="space-y-3">
+                  <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-lg bg-secondary/20 flex items-center justify-center mr-3">
+                      <i class="fas fa-robot text-secondary"></i>
+                    </div>
+                    <div>
+                      <div class="font-medium text-white">UI Framework</div>
+                      <div class="text-sm text-slate-400">Playwright with POM</div>
+                    </div>
+                  </div>
+                  <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-lg bg-secondary/20 flex items-center justify-center mr-3">
+                      <i class="fas fa-plug text-secondary"></i>
+                    </div>
+                    <div>
+                      <div class="font-medium text-white">API Testing Suite</div>
+                      <div class="text-sm text-slate-400">REST/GraphQL with mocks</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Month 3 -->
+          <div class="relative lg:grid lg:grid-cols-2 gap-8 items-center">
+            <div class="lg:text-right lg:pr-12 mb-8 lg:mb-0">
+              <div class="inline-flex items-center px-4 py-2 rounded-full bg-accent/10 text-accent font-semibold mb-3">
+                <i class="fas fa-calendar-alt mr-2"></i>
+                Month 3 • Advanced
+              </div>
+              <h3 class="text-2xl font-bold text-white mb-3">Framework & System Design</h3>
+              <p class="text-slate-400 mb-4">
+                Design scalable test frameworks, implement microservices testing, and master 
+                system design for SDET interviews.
+              </p>
+              <ul class="space-y-2 text-slate-300">
+                <li class="flex items-center">
+                  <i class="fas fa-check-circle text-accent mr-2"></i>
+                  Hybrid framework architecture
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-check-circle text-accent mr-2"></i>
+                  Microservices & Kafka testing
+                </li>
+                <li class="flex items-center">
+                  <i class="fas fa-check-circle text-accent mr-2"></i>
+                  System design & behavioral prep
+                </li>
+              </ul>
+            </div>
+            
+            <div class="relative">
+              <div class="absolute left-1/2 transform -translate-x-1/2 w-6 h-6 bg-accent rounded-full border-4 border-slate-900 lg:left-0 lg:-translate-x-1/2 z-10"></div>
+              <div class="glass rounded-2xl p-6 lg:ml-12">
+                <h4 class="text-lg font-semibold text-white mb-3">Deliverables</h4>
+                <div class="space-y-3">
+                  <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center mr-3">
+                      <i class="fas fa-project-diagram text-accent"></i>
+                    </div>
+                    <div>
+                      <div class="font-medium text-white">Hybrid Framework</div>
+                      <div class="text-sm text-slate-400">UI + API + Performance</div>
+                    </div>
+                  </div>
+                  <div class="flex items-center">
+                    <div class="w-8 h-8 rounded-lg bg-accent/20 flex items-center justify-center mr-3">
+                      <i class="fas fa-comments text-accent"></i>
+                    </div>
+                    <div>
+                      <div class="font-medium text-white">Interview Portfolio</div>
+                      <div class="text-sm text-slate-400">System design + STAR stories</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-
     </div>
   </section>
 
-  <!-- METRICS / TRACKING -->
-  <section id="metrics" class="py-10 md:py-14">
-    <div class="max-w-6xl mx-auto px-4">
-      <div class="text-center mb-8">
-        <h2 class="text-xl md:text-2xl font-extrabold text-slate-50 mb-2">
-          📊 Learning Metrics & Progress Tracking
+  <!-- Metrics Section -->
+  <section id="metrics" class="py-20">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold mb-4">
+          Track Your <span class="gradient-text">Progress</span>
         </h2>
-        <p class="text-xs md:text-sm text-slate-400 max-w-2xl mx-auto">
-          Track your progress like a production system: visibility over days completed, DSA problems,
-          test cases authored, frameworks built, and interview drills completed. [web:38][web:40]
+        <p class="text-xl text-slate-400 max-w-3xl mx-auto">
+          Monitor your journey with clear metrics and measurable outcomes
         </p>
       </div>
-
-      <div class="grid gap-5 md:gap-6 grid-cols-1 md:grid-cols-3">
-        <div class="metric-card p-4">
-          <h3 class="text-sm font-semibold text-slate-100 mb-2">
-            Daily Checklist
-          </h3>
-          <p class="text-xs text-slate-300 mb-2">
-            Every day has:
-          </p>
-          <ul class="text-[0.7rem] text-slate-400 space-y-1">
-            <li>• Topic goals and sub-topics.</li>
-            <li>• Must-know theory and code examples.</li>
-            <li>• Hands-on tasks + expected outputs.</li>
-            <li>• Self-evaluation and interview questions.</li>
-          </ul>
+      
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div class="glass rounded-2xl p-6 text-center">
+          <div class="text-5xl font-bold text-primary mb-3">120+</div>
+          <div class="text-lg font-semibold text-white mb-2">DSA Problems</div>
+          <div class="text-slate-400">Pattern-based with solutions</div>
         </div>
-
-        <div class="metric-card p-4">
-          <h3 class="text-sm font-semibold text-slate-100 mb-2">
-            Weekly Targets
-          </h3>
-          <ul class="text-[0.7rem] text-slate-400 space-y-1">
-            <li>• DSA problems solved (10–15/week typical).</li>
-            <li>• UI/API tests authored or refactored (10–25/week).</li>
-            <li>• GitHub commits (≥5/week) across framework repos.</li>
-            <li>• At least one mini-interview drill (coding or system). [web:38]</li>
-          </ul>
+        
+        <div class="glass rounded-2xl p-6 text-center">
+          <div class="text-5xl font-bold text-secondary mb-3">6</div>
+          <div class="text-lg font-semibold text-white mb-2">GitHub Repos</div>
+          <div class="text-slate-400">Portfolio-ready projects</div>
         </div>
-
-        <div class="metric-card p-4">
-          <h3 class="text-sm font-semibold text-slate-100 mb-2">
-            Phase Deliverables
-          </h3>
-          <ul class="text-[0.7rem] text-slate-400 space-y-1">
-            <li>• New or extended automation frameworks (Playwright, API, hybrid).</li>
-            <li>• Architecture and design docs (ASCII/diagrams) per framework.</li>
-            <li>• STAR story bank and final readiness checklist by Phase 7. [web:47]</li>
-          </ul>
+        
+        <div class="glass rounded-2xl p-6 text-center">
+          <div class="text-5xl font-bold text-accent mb-3">200+</div>
+          <div class="text-lg font-semibold text-white mb-2">Test Cases</div>
+          <div class="text-slate-400">UI & API automation</div>
+        </div>
+        
+        <div class="glass rounded-2xl p-6 text-center">
+          <div class="text-5xl font-bold text-pink-500 mb-3">50+</div>
+          <div class="text-lg font-semibold text-white mb-2">Interview Q&A</div>
+          <div class="text-slate-400">With detailed answers</div>
+        </div>
+      </div>
+      
+      <!-- Progress Visualization -->
+      <div class="glass rounded-2xl p-8">
+        <h3 class="text-2xl font-bold text-white mb-6">Learning Progress Dashboard</h3>
+        
+        <div class="space-y-6">
+          <!-- Phase Progress -->
+          <div>
+            <div class="flex justify-between mb-2">
+              <span class="font-semibold text-white">Phase Completion</span>
+              <span class="text-primary font-bold">14%</span>
+            </div>
+            <div class="h-3 bg-slate-800 rounded-full overflow-hidden">
+              <div class="h-full bg-gradient-to-r from-primary to-secondary" style="width: 14%"></div>
+            </div>
+          </div>
+          
+          <!-- Skills Matrix -->
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 class="font-semibold text-white mb-4">Technical Skills</h4>
+              <div class="space-y-4">
+                <div>
+                  <div class="flex justify-between text-sm mb-1">
+                    <span>Programming</span>
+                    <span>25%</span>
+                  </div>
+                  <div class="h-2 bg-slate-800 rounded-full">
+                    <div class="h-full bg-primary rounded-full" style="width: 25%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-sm mb-1">
+                    <span>UI Automation</span>
+                    <span>0%</span>
+                  </div>
+                  <div class="h-2 bg-slate-800 rounded-full">
+                    <div class="h-full bg-secondary rounded-full" style="width: 0%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-sm mb-1">
+                    <span>API Testing</span>
+                    <span>0%</span>
+                  </div>
+                  <div class="h-2 bg-slate-800 rounded-full">
+                    <div class="h-full bg-accent rounded-full" style="width: 0%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div>
+              <h4 class="font-semibold text-white mb-4">Interview Readiness</h4>
+              <div class="space-y-4">
+                <div>
+                  <div class="flex justify-between text-sm mb-1">
+                    <span>DSA</span>
+                    <span>10%</span>
+                  </div>
+                  <div class="h-2 bg-slate-800 rounded-full">
+                    <div class="h-full bg-emerald-500 rounded-full" style="width: 10%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-sm mb-1">
+                    <span>System Design</span>
+                    <span>0%</span>
+                  </div>
+                  <div class="h-2 bg-slate-800 rounded-full">
+                    <div class="h-full bg-amber-500 rounded-full" style="width: 0%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-sm mb-1">
+                    <span>Behavioral</span>
+                    <span>0%</span>
+                  </div>
+                  <div class="h-2 bg-slate-800 rounded-full">
+                    <div class="h-full bg-pink-500 rounded-full" style="width: 0%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="mt-6 border-t border-slate-800">
-    <div class="max-w-6xl mx-auto px-4 py-6 text-center">
-      <p class="text-xs text-slate-400 mb-1">
-        🧪 <strong class="text-slate-200">Train'N'GetTrained – SDET-II Elite Roadmap</strong>
+  <!-- CTA Section -->
+  <section class="py-20 bg-gradient-to-br from-slate-900 via-primary/5 to-slate-900">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6">
+        Ready to Transform Your <span class="gradient-text">Career?</span>
+      </h2>
+      <p class="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
+        Join engineers who've successfully transitioned to senior SDET roles at top tech companies
       </p>
-      <p class="text-[0.65rem] text-slate-500">
-        From experienced engineer to FAANG-ready SDET II • 45–90 day intensive • Polyglot automation, microservices, DevOps, and system design focus. [web:38][web:40]
-      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="phase1-programming-foundations.html" 
+           class="group px-8 py-4 bg-gradient-to-r from-primary to-secondary rounded-xl font-bold text-white text-lg hover:shadow-2xl hover:shadow-primary/30 transition-all duration-300">
+          <span class="flex items-center justify-center">
+            Start Phase 1 Now
+            <i class="fas fa-rocket ml-3 group-hover:translate-x-1 transition-transform"></i>
+          </span>
+        </a>
+        
+        <button class="px-8 py-4 glass rounded-xl font-semibold text-slate-300 hover:text-white hover:border-primary/50 transition-all text-lg">
+          <i class="fas fa-download mr-2"></i>
+          Download Syllabus
+        </button>
+      </div>
+      
+      <div class="mt-12 grid sm:grid-cols-3 gap-6 text-center">
+        <div class="glass rounded-xl p-4">
+          <div class="text-2xl font-bold text-primary mb-2">7-Day</div>
+          <div class="text-slate-400">Free Trial</div>
+        </div>
+        <div class="glass rounded-xl p-4">
+          <div class="text-2xl font-bold text-secondary mb-2">1:1</div>
+          <div class="text-slate-400">Mentorship Available</div>
+        </div>
+        <div class="glass rounded-xl p-4">
+          <div class="text-2xl font-bold text-accent mb-2">90%</div>
+          <div class="text-slate-400">Success Rate</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-8 md:mb-0">
+          <div class="flex items-center space-x-3 mb-4">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center">
+              <i class="fas fa-vial text-white text-lg"></i>
+            </div>
+            <div>
+              <h2 class="text-xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                SDET-II Elite
+              </h2>
+              <p class="text-sm text-slate-400">FAANG Preparation Program</p>
+            </div>
+          </div>
+          <p class="text-slate-500 max-w-md">
+            A comprehensive 45-90 day program transforming engineers into senior SDET-II professionals ready for FAANG and top product companies.
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-8">
+          <div>
+            <h3 class="font-semibold text-white mb-4">Program</h3>
+            <ul class="space-y-2">
+              <li><a href="#phases" class="text-slate-400 hover:text-primary transition-colors">Phases</a></li>
+              <li><a href="#timeline" class="text-slate-400 hover:text-primary transition-colors">Timeline</a></li>
+              <li><a href="#metrics" class="text-slate-400 hover:text-primary transition-colors">Progress</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 class="font-semibold text-white mb-4">Resources</h3>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-slate-400 hover:text-primary transition-colors">Blog</a></li>
+              <li><a href="#" class="text-slate-400 hover:text-primary transition-colors">Case Studies</a></li>
+              <li><a href="#" class="text-slate-400 hover:text-primary transition-colors">FAQs</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 class="font-semibold text-white mb-4">Connect</h3>
+            <ul class="space-y-2">
+              <li><a href="#" class="text-slate-400 hover:text-primary transition-colors">LinkedIn</a></li>
+              <li><a href="#" class="text-slate-400 hover:text-primary transition-colors">GitHub</a></li>
+              <li><a href="#" class="text-slate-400 hover:text-primary transition-colors">Twitter</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-t border-slate-800 mt-12 pt-8 text-center text-slate-500 text-sm">
+        <p>© 2024 SDET-II Elite Roadmap. All rights reserved. Designed for educational purposes.</p>
+        <p class="mt-2">FAANG is a registered trademark of their respective companies.</p>
+      </div>
     </div>
   </footer>
 
   <script>
-    // Smooth scroll for internal links
+    // Smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
       anchor.addEventListener('click', function (e) {
+        e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         if (target) {
-          e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
         }
       });
+    });
+
+    // Update progress indicators (demo)
+    function updateProgress() {
+      const phaseProgress = document.querySelector('.phase-progress');
+      const skillBars = document.querySelectorAll('.skill-progress');
+      
+      // Simulate progress updates
+      setTimeout(() => {
+        if (phaseProgress) phaseProgress.style.width = '14%';
+      }, 500);
+      
+      skillBars.forEach((bar, index) => {
+        setTimeout(() => {
+          const widths = ['25%', '0%', '0%', '10%', '0%', '0%'];
+          if (index < widths.length) {
+            bar.style.width = widths[index];
+          }
+        }, 300 * (index + 1));
+      });
+    }
+
+    // Initialize on page load
+    document.addEventListener('DOMContentLoaded', updateProgress);
+
+    // Phase card hover effects enhancement
+    document.querySelectorAll('.phase-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        const icon = this.querySelector('.fa');
+        if (icon) {
+          icon.style.transform = 'scale(1.1) rotate(5deg)';
+          icon.style.transition = 'transform 0.3s ease';
+        }
+      });
+      
+      card.addEventListener('mouseleave', function() {
+        const icon = this.querySelector('.fa');
+        if (icon) {
+          icon.style.transform = 'scale(1) rotate(0deg)';
+        }
+      });
+    });
+
+    // Floating elements animation
+    const floatingElements = document.querySelectorAll('.floating-element');
+    floatingElements.forEach((el, index) => {
+      el.style.animationDelay = `${index * 0.5}s`;
     });
   </script>
 </body>

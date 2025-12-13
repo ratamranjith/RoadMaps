@@ -309,6 +309,26 @@
                 transform: translateY(0);
             }
         }
+        
+        /* New styles for selenium highlight */
+        .selenium-highlight {
+            position: relative;
+            border: 3px solid #43a047;
+            box-shadow: 0 0 20px rgba(67, 160, 71, 0.3);
+        }
+        
+        .selenium-highlight::after {
+            content: "NEW";
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #43a047;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
     </style>
 </head>
 <body>
@@ -334,13 +354,14 @@
     <div class="hero" style="background-image: url(./images/train.jpg);background-position: right;background-repeat: no-repeat; background-color: rgb(30, 0, 31); padding: 50px">
         <h1>Master Software Testing</h1>
         <p>Complete Bootcamp: From Beginner to Professional QA Engineer</p>
+        <p class="text-xl mt-4">Now with <span class="font-bold text-green-300">Selenium WebDriver</span> for comprehensive web automation!</p>
         <a href="#modules" class="cta-button">Start Learning Now</a>
     </div>
 
     <!-- Learning Journey Section -->
     <div class="stats-section" id="roadmap">
         <div class="max-w-1000px mx-auto mb-12">
-            <h2 class="text-3xl font-bold text-center mb-8">Your 26-Week Learning Path</h2>
+            <h2 class="text-3xl font-bold text-center mb-8">Your 30-Week Learning Path</h2>
             <div class="stats-grid">
                 <div class="stat-card">
                     <div class="stat-number">4</div>
@@ -351,11 +372,11 @@
                     <div class="stat-label">Beginner Weeks</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">8</div>
+                    <div class="stat-number">10</div>
                     <div class="stat-label">Intermediate Weeks</div>
                 </div>
                 <div class="stat-card">
-                    <div class="stat-number">6</div>
+                    <div class="stat-number">8</div>
                     <div class="stat-label">Advanced Weeks</div>
                 </div>
             </div>
@@ -366,7 +387,7 @@
     <div id="modules">
         <div class="max-w-7xl mx-auto px-4 py-12">
             <h2 class="text-4xl font-bold text-white text-center mb-4">📚 Complete Curriculum</h2>
-            <p class="text-white text-center mb-12 text-lg">11 Comprehensive Modules + Portfolio Projects</p>
+            <p class="text-white text-center mb-12 text-lg">12 Comprehensive Modules + Portfolio Projects</p>
         </div>
 
         <div class="module-grid">
@@ -424,7 +445,16 @@
                 <a href="pytest.html">Start Module →</a>
             </div>
 
-            <!-- Module 6 -->
+            <!-- Module 6 - Selenium (New) -->
+            <div class="module-card selenium-highlight">
+                <span class="level-badge level-intermediate">Intermediate</span>
+                <div class="icon">🚀</div>
+                <h3>Selenium WebDriver</h3>
+                <p>Master Selenium for web automation. Learn locators, waits, actions, and cross-browser testing with Java/Python.</p>
+                <a href="selenium.html">Start Module →</a>
+            </div>
+
+            <!-- Module 7 -->
             <div class="module-card">
                 <span class="level-badge level-intermediate">Intermediate</span>
                 <div class="icon">🔌</div>
@@ -433,7 +463,7 @@
                 <a href="api-testing.html">Start Module →</a>
             </div>
 
-            <!-- Module 7 -->
+            <!-- Module 8 -->
             <div class="module-card">
                 <span class="level-badge level-advanced">Advanced</span>
                 <div class="icon">🎭</div>
@@ -442,7 +472,7 @@
                 <a href="playwright.html">Start Module →</a>
             </div>
 
-            <!-- Module 8 -->
+            <!-- Module 9 -->
             <div class="module-card">
                 <span class="level-badge level-advanced">Advanced</span>
                 <div class="icon">⚙️</div>
@@ -451,7 +481,7 @@
                 <a href="performance.html">Start Module →</a>
             </div>
 
-            <!-- Module 9 -->
+            <!-- Module 10 -->
             <div class="module-card">
                 <span class="level-badge level-advanced">Advanced</span>
                 <div class="icon">🏆</div>
@@ -460,13 +490,40 @@
                 <a href="projects.html">View Projects →</a>
             </div>
 
-            <!-- Module 10 -->
+            <!-- Module 11 -->
             <div class="module-card">
                 <span class="level-badge level-advanced">Advanced</span>
                 <div class="icon">💼</div>
-                <h3>Career & Resources - <span class="text-green-400">Coming Soon</span></h3>
+                <h3>Career & Resources</h3>
                 <p>Interview prep, career paths, GitHub portfolio ideas, tools, and glossary.</p>
-                <a href="#">Explore →</a>
+                <a href="career.html">Explore →</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="features-section" id="features">
+        <h2 class="text-3xl font-bold text-center mb-12">🌟 Why Learn Selenium With Us?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="icon">🌐</div>
+                <h4>Industry Standard</h4>
+                <p>Selenium is the most widely used web automation tool in the industry with massive community support.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🔤</div>
+                <h4>Multiple Languages</h4>
+                <p>Learn Selenium with both Java and Python - choose your preferred programming language.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">🧩</div>
+                <h4>Real-World Projects</h4>
+                <p>Build practical automation frameworks from scratch with Page Object Model design pattern.</p>
+            </div>
+            <div class="feature-card">
+                <div class="icon">📊</div>
+                <h4>Cross-Browser Testing</h4>
+                <p>Master automation across Chrome, Firefox, Edge, and Safari with Selenium Grid.</p>
             </div>
         </div>
     </div>
@@ -499,21 +556,21 @@
             <div class="roadmap-item">
                 <div class="number">4</div>
                 <div class="content">
-                    <h4>Week 13-16: JavaScript & Python Automation</h4>
-                    <p>Build automation tests with Jest and Pytest, understand testing frameworks</p>
+                    <h4>Week 13-18: Test Automation Foundations</h4>
+                    <p>Build automation tests with Jest, Pytest, and Selenium - master web automation fundamentals</p>
                 </div>
             </div>
             <div class="roadmap-item">
                 <div class="number">5</div>
                 <div class="content">
-                    <h4>Week 17-20: API & UI Automation</h4>
-                    <p>Master API testing with Postman, Playwright for cross-browser testing</p>
+                    <h4>Week 19-22: API & Advanced UI Automation</h4>
+                    <p>Master API testing with Postman, advanced UI testing with Playwright</p>
                 </div>
             </div>
             <div class="roadmap-item">
                 <div class="number">6</div>
                 <div class="content">
-                    <h4>Week 21-26: Capstone & Career</h4>
+                    <h4>Week 23-30: Capstone & Career</h4>
                     <p>Build enterprise projects, performance testing, interview prep, portfolio development</p>
                 </div>
             </div>
@@ -523,7 +580,8 @@
     <!-- Footer -->
     <footer>
         <p class="mb-2">🧪 <strong><a href="index.html" target="_self">Train'N'GetTrained</a></strong> - Complete Software Testing Bootcamp</p>
-        <p class="text-sm">From Beginner to Professional QA Engineer | 26 Weeks | 100+ Hours | Real Projects</p>
+        <p class="text-sm">From Beginner to Professional QA Engineer | 30 Weeks | 120+ Hours | Real Projects</p>
+        <p class="mt-4"><span class="text-green-300 font-bold">NEW:</span> Now includes comprehensive Selenium WebDriver training!</p>
         <p class="text-xs mt-4 opacity-70">© 2025 <a href="index.html" target="_self">Train'N'GetTrained</a>. All rights reserved. | For personal and educational use only. No commercial use allowed.</p>
     </footer>
 
@@ -537,6 +595,22 @@
                     target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
+        });
+        
+        // Highlight Selenium module on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const seleniumCard = document.querySelector('.selenium-highlight');
+            if (seleniumCard) {
+                setTimeout(() => {
+                    seleniumCard.style.transform = 'scale(1.03)';
+                    seleniumCard.style.boxShadow = '0 0 30px rgba(67, 160, 71, 0.5)';
+                    
+                    setTimeout(() => {
+                        seleniumCard.style.transform = '';
+                        seleniumCard.style.boxShadow = '0 15px 40px rgba(102, 126, 234, 0.3)';
+                    }, 1000);
+                }, 1500);
+            }
         });
     </script>
 </body>

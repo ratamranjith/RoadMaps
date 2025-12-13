@@ -1,0 +1,1822 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Phase 2: Professional DSA & Patterns – SDET-II Elite Roadmap</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#10b981',    // Emerald
+            secondary: '#3b82f6',  // Blue
+            accent: '#8b5cf6',     // Purple
+            dark: '#0f172a',
+            'dark-lighter': '#1e293b',
+          },
+          fontFamily: {
+            'sans': ['Inter', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'float': 'float 6s ease-in-out infinite',
+            'gradient': 'gradient 3s ease infinite',
+            'pulse-slow': 'pulse 3s ease-in-out infinite',
+          },
+          keyframes: {
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-10px)' },
+            },
+            gradient: {
+              '0%, 100%': { backgroundPosition: '0% 50%' },
+              '50%': { backgroundPosition: '100% 50%' },
+            }
+          },
+        }
+      }
+    }
+  </script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0f172a;
+      color: #f1f5f9;
+      overflow-x: hidden;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.8);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #10b981, #3b82f6);
+      border-radius: 5px;
+    }
+
+    /* Glass Effect */
+    .glass {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Gradient Text */
+    .gradient-text {
+      background: linear-gradient(90deg, #10b981, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      background-size: 200% auto;
+      animation: gradient 3s ease infinite;
+    }
+
+    /* Code Block Styling */
+    pre {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      overflow-x: auto;
+    }
+
+    code {
+      font-family: 'Courier New', monospace;
+      font-size: 0.9em;
+    }
+
+    .code-keyword { color: #60a5fa; }
+    .code-function { color: #fbbf24; }
+    .code-string { color: #34d399; }
+    .code-number { color: #f87171; }
+    .code-comment { color: #94a3b8; }
+
+    /* Tab Styling */
+    .tab-button {
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .tab-button.active {
+      color: #10b981;
+      border-bottom: 3px solid #10b981;
+    }
+    .tab-button:hover:not(.active) {
+      color: #60a5fa;
+    }
+
+    /* Progress Ring Animation */
+    .progress-ring {
+      transform: rotate(-90deg);
+    }
+    .progress-ring-circle {
+      stroke-dasharray: 283;
+      stroke-dashoffset: 283;
+      transition: stroke-dashoffset 1s ease;
+    }
+
+    /* Algorithm Visualization */
+    .algo-visualization {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 20px;
+      background: rgba(30, 41, 59, 0.8);
+      border-radius: 8px;
+      border: 1px solid #334155;
+    }
+    .algo-box {
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #3b82f6;
+      color: white;
+      font-weight: bold;
+      border-radius: 6px;
+      transition: all 0.3s ease;
+    }
+    .algo-box.active {
+      background: #10b981;
+      transform: scale(1.1);
+    }
+    .algo-box.pointer {
+      background: #f59e0b;
+    }
+    .algo-box.comparison {
+      background: #ef4444;
+    }
+    .algo-box.sorted {
+      background: #10b981;
+      opacity: 0.7;
+    }
+
+    /* Pattern Cards */
+    .pattern-card {
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      border: 1px solid rgba(30, 41, 59, 0.8);
+    }
+    .pattern-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(16, 185, 129, 0.5);
+      box-shadow: 0 10px 25px rgba(16, 185, 129, 0.1);
+    }
+
+    /* Question Difficulty Badges */
+    .difficulty-badge {
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .difficulty-easy {
+      background: rgba(34, 197, 94, 0.2);
+      color: #22c55e;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+    }
+    .difficulty-medium {
+      background: rgba(245, 158, 11, 0.2);
+      color: #f59e0b;
+      border: 1px solid rgba(245, 158, 11, 0.4);
+    }
+    .difficulty-hard {
+      background: rgba(239, 68, 68, 0.2);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.4);
+    }
+  </style>
+</head>
+<body class="relative">
+  <!-- Animated Background Elements -->
+  <div class="fixed inset-0 overflow-hidden pointer-events-none">
+    <div class="absolute -top-40 -right-40 w-80 h-80 bg-emerald-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute top-1/4 -left-20 w-60 h-60 bg-blue-500/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-20 right-1/4 w-40 h-40 bg-purple-500/10 rounded-full blur-3xl"></div>
+  </div>
+
+  <!-- Navigation -->
+  <nav class="relative z-50 glass sticky top-0 border-b border-slate-800/50">
+    <div class="max-w-7xl mx-auto px-6 py-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <a href="index.html" class="flex items-center space-x-3">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-blue-500 flex items-center justify-center">
+              <i class="fas fa-vial text-white text-lg"></i>
+            </div>
+            <div>
+              <h1 class="text-xl font-bold bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
+                SDET-II Elite
+              </h1>
+              <p class="text-xs text-slate-400">Phase 2: DSA & Patterns</p>
+            </div>
+          </a>
+        </div>
+        
+        <div class="hidden md:flex items-center space-x-8">
+          <a href="index.html" class="text-slate-300 hover:text-emerald-400 transition-colors font-medium">
+            <i class="fas fa-home mr-2"></i>Home
+          </a>
+          <a href="phase1-programming-foundations.html" class="text-slate-300 hover:text-emerald-400 transition-colors font-medium">
+            <i class="fas fa-arrow-left mr-2"></i>Phase 1
+          </a>
+          <a href="#cta" class="px-5 py-2 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-lg font-semibold text-white hover:shadow-lg hover:shadow-emerald-500/25 transition-all">
+            Start Phase 2
+          </a>
+        </div>
+        
+        <button class="md:hidden text-slate-300">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="relative pt-16 pb-20 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div class="relative z-10">
+          <div class="inline-flex items-center space-x-2 bg-slate-800/50 rounded-full px-4 py-2 mb-6 border border-slate-700">
+            <span class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+            <span class="text-sm font-medium text-emerald-400">Phase 2 • Weeks 4-5</span>
+          </div>
+          
+          <h1 class="text-4xl md:text-5xl font-black mb-6 leading-tight">
+            Master <span class="gradient-text">Data Structures</span> & <span class="gradient-text">Algorithms</span>
+          </h1>
+          
+          <p class="text-xl text-slate-300 mb-8 leading-relaxed">
+            FAANG-level DSA preparation with <span class="text-emerald-400 font-semibold">pattern-based learning</span>, 
+            reusable templates, and interview-focused problem solving for SDET-II roles.
+          </p>
+          
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mb-8">
+            <div class="glass p-4 rounded-xl">
+              <div class="text-2xl font-bold text-emerald-400 mb-1">80-120</div>
+              <div class="text-sm text-slate-400">Problems Solved</div>
+            </div>
+            <div class="glass p-4 rounded-xl">
+              <div class="text-2xl font-bold text-blue-400 mb-1">15+</div>
+              <div class="text-sm text-slate-400">Patterns Mastered</div>
+            </div>
+            <div class="glass p-4 rounded-xl">
+              <div class="text-2xl font-bold text-purple-400 mb-1">2</div>
+              <div class="text-sm text-slate-400">Weeks Intensive</div>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-3 mb-6">
+            <span class="px-3 py-1 bg-emerald-500/10 text-emerald-400 rounded-full text-sm">Arrays & Strings</span>
+            <span class="px-3 py-1 bg-blue-500/10 text-blue-400 rounded-full text-sm">Trees & Graphs</span>
+            <span class="px-3 py-1 bg-purple-500/10 text-purple-400 rounded-full text-sm">Dynamic Programming</span>
+            <span class="px-3 py-1 bg-yellow-500/10 text-yellow-400 rounded-full text-sm">Sliding Window</span>
+            <span class="px-3 py-1 bg-red-500/10 text-red-400 rounded-full text-sm">Two Pointers</span>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#week4" 
+               class="group relative px-8 py-4 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-xl font-bold text-white text-center hover:shadow-xl hover:shadow-emerald-500/30 transition-all duration-300">
+              <span class="relative flex items-center justify-center">
+                Start Week 4
+                <i class="fas fa-play-circle ml-2"></i>
+              </span>
+            </a>
+            
+            <a href="#patterns" 
+               class="px-8 py-4 glass rounded-xl font-semibold text-slate-300 hover:text-white hover:border-emerald-500/50 transition-all text-center">
+              <i class="fas fa-project-diagram mr-2"></i>
+              View Patterns
+            </a>
+          </div>
+        </div>
+        
+        <div class="relative">
+          <div class="glass rounded-2xl p-1">
+            <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl p-8">
+              <div class="flex items-center justify-between mb-6">
+                <div class="flex items-center space-x-3">
+                  <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                  <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                  <div class="w-3 h-3 bg-emerald-500 rounded-full"></div>
+                </div>
+                <div class="text-sm font-mono text-slate-400">DSA_PROGRESS</div>
+              </div>
+              
+              <div class="mb-6">
+                <h4 class="font-semibold text-white mb-3">Pattern Completion Status</h4>
+                <div class="space-y-4">
+                  <div>
+                    <div class="flex justify-between text-sm mb-1">
+                      <span class="text-slate-300">Sliding Window</span>
+                      <span class="text-emerald-400">0/10</span>
+                    </div>
+                    <div class="h-2 bg-slate-800 rounded-full">
+                      <div class="h-full bg-emerald-500 rounded-full" style="width: 0%"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-sm mb-1">
+                      <span class="text-slate-300">Two Pointers</span>
+                      <span class="text-blue-400">0/8</span>
+                    </div>
+                    <div class="h-2 bg-slate-800 rounded-full">
+                      <div class="h-full bg-blue-500 rounded-full" style="width: 0%"></div>
+                    </div>
+                  </div>
+                  <div>
+                    <div class="flex justify-between text-sm mb-1">
+                      <span class="text-slate-300">Tree Traversal</span>
+                      <span class="text-purple-400">0/12</span>
+                    </div>
+                    <div class="h-2 bg-slate-800 rounded-full">
+                      <div class="h-full bg-purple-500 rounded-full" style="width: 0%"></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="border-t border-slate-700 pt-6">
+                <div class="text-sm text-slate-400 mb-2">Phase Progress</div>
+                <div class="h-2 bg-slate-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-gradient-to-r from-emerald-500 to-blue-500" style="width: 0%"></div>
+                </div>
+                <div class="flex justify-between text-xs text-slate-400 mt-2">
+                  <span>Starting Phase 2</span>
+                  <span>0% Complete</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Floating Elements -->
+          <div class="absolute -top-6 -left-6 w-20 h-20 glass rounded-2xl p-4 animate-float" style="animation-delay: 0.5s">
+            <div class="text-center">
+              <div class="text-lg font-bold text-emerald-400">80+</div>
+              <div class="text-xs text-slate-400">Problems</div>
+            </div>
+          </div>
+          
+          <div class="absolute -bottom-6 -right-6 w-20 h-20 glass rounded-2xl p-4 animate-float">
+            <div class="text-center">
+              <div class="text-lg font-bold text-blue-400">15+</div>
+              <div class="text-xs text-slate-400">Patterns</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tabs Navigation -->
+  <div class="sticky top-16 z-40 bg-slate-900/80 backdrop-blur-sm border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex overflow-x-auto space-x-8 py-4">
+        <button class="tab-button py-2 font-medium text-slate-300 whitespace-nowrap active" data-tab="overview">
+          <i class="fas fa-info-circle mr-2"></i>Overview
+        </button>
+        <button class="tab-button py-2 font-medium text-slate-300 whitespace-nowrap" data-tab="week4">
+          <i class="fas fa-calendar-week mr-2"></i>Week 4 - Arrays & Strings
+        </button>
+        <button class="tab-button py-2 font-medium text-slate-300 whitespace-nowrap" data-tab="week5">
+          <i class="fas fa-calendar-week mr-2"></i>Week 5 - Trees & Graphs
+        </button>
+        <button class="tab-button py-2 font-medium text-slate-300 whitespace-nowrap" data-tab="patterns">
+          <i class="fas fa-shapes mr-2"></i>Patterns & Templates
+        </button>
+        <button class="tab-button py-2 font-medium text-slate-300 whitespace-nowrap" data-tab="problems">
+          <i class="fas fa-code mr-2"></i>Problem Bank
+        </button>
+        <button class="tab-button py-2 font-medium text-slate-300 whitespace-nowrap" data-tab="interview">
+          <i class="fas fa-comments mr-2"></i>Interview Q&A
+        </button>
+        <button class="tab-button py-2 font-medium text-slate-300 whitespace-nowrap" data-tab="quiz">
+          <i class="fas fa-question-circle mr-2"></i>Quiz
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab Content -->
+  <div class="max-w-7xl mx-auto px-6 py-12">
+    <!-- Overview Tab -->
+    <div id="overview" class="tab-content active">
+      <div class="grid lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2">
+          <h2 class="text-3xl font-bold text-white mb-6">
+            Phase 2: <span class="gradient-text">Professional DSA & Patterns</span>
+          </h2>
+          
+          <div class="glass rounded-2xl p-6 mb-8">
+            <h3 class="text-xl font-bold text-white mb-4">🎯 Phase Objective</h3>
+            <p class="text-slate-300 mb-4">
+              This phase transforms how you approach coding interviews. Instead of memorizing solutions, you'll learn 
+              <span class="text-emerald-400 font-semibold">15+ reusable patterns</span> that solve 80% of FAANG DSA questions. 
+              You'll build a personal problem log with time/space complexity analysis and create templates you can adapt to new problems.
+            </p>
+            <p class="text-slate-300">
+              For SDET-II roles, we focus particularly on problems involving <span class="text-blue-400">string manipulation</span>, 
+              <span class="text-blue-400">array transformations</span>, and <span class="text-blue-400">tree traversal</span> patterns 
+              that frequently appear in test automation scenarios.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="glass rounded-2xl p-6">
+              <h4 class="text-lg font-bold text-white mb-3 flex items-center">
+                <i class="fas fa-bullseye text-emerald-400 mr-2"></i>
+                Learning Outcomes
+              </h4>
+              <ul class="space-y-3">
+                <li class="flex items-start">
+                  <i class="fas fa-check-circle text-emerald-400 mt-1 mr-2"></i>
+                  <span class="text-slate-300">Recognize and apply 15+ DSA patterns to new problems</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check-circle text-emerald-400 mt-1 mr-2"></i>
+                  <span class="text-slate-300">Solve 80-120 LeetCode-style problems with optimal solutions</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check-circle text-emerald-400 mt-1 mr-2"></i>
+                  <span class="text-slate-300">Analyze time/space complexity for all solutions</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-check-circle text-emerald-400 mt-1 mr-2"></i>
+                  <span class="text-slate-300">Build reusable code templates for each pattern</span>
+                </li>
+              </ul>
+            </div>
+
+            <div class="glass rounded-2xl p-6">
+              <h4 class="text-lg font-bold text-white mb-3 flex items-center">
+                <i class="fas fa-chart-line text-blue-400 mr-2"></i>
+                Success Metrics
+              </h4>
+              <ul class="space-y-3">
+                <li class="flex items-start">
+                  <i class="fas fa-chart-bar text-blue-400 mt-1 mr-2"></i>
+                  <span class="text-slate-300"><strong>80%+</strong> accuracy on timed practice problems</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-clock text-blue-400 mt-1 mr-2"></i>
+                  <span class="text-slate-300"><strong>25-30 min</strong> average solve time for Medium problems</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-file-code text-blue-400 mt-1 mr-2"></i>
+                  <span class="text-slate-300"><strong>20+</strong> reusable code templates created</span>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-book text-blue-400 mt-1 mr-2"></i>
+                  <span class="text-slate-300"><strong>Complete</strong> pattern recognition for common problem types</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-6">
+          <div class="glass rounded-2xl p-6">
+            <h4 class="text-lg font-bold text-white mb-4">📅 Phase Timeline</h4>
+            <div class="space-y-4">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <div class="w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
+                    <span class="text-emerald-400 font-bold">1</span>
+                  </div>
+                  <span class="text-slate-300">Week 4</span>
+                </div>
+                <span class="text-sm text-slate-400">Arrays & Strings</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                  <div class="w-8 h-8 rounded-full bg-blue-500/20 flex items-center justify-center mr-3">
+                    <span class="text-blue-400 font-bold">2</span>
+                  </div>
+                  <span class="text-slate-300">Week 5</span>
+                </div>
+                <span class="text-sm text-slate-400">Trees & Graphs</span>
+              </div>
+            </div>
+            
+            <div class="mt-6">
+              <div class="text-sm text-slate-400 mb-2">Daily Commitment</div>
+              <div class="grid grid-cols-2 gap-3">
+                <div class="text-center p-3 bg-slate-800/50 rounded-lg">
+                  <div class="text-lg font-bold text-emerald-400">2-3 hrs</div>
+                  <div class="text-xs text-slate-400">Standard</div>
+                </div>
+                <div class="text-center p-3 bg-slate-800/50 rounded-lg">
+                  <div class="text-lg font-bold text-blue-400">4-5 hrs</div>
+                  <div class="text-xs text-slate-400">Intensive</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass rounded-2xl p-6">
+            <h4 class="text-lg font-bold text-white mb-4">🚀 Quick Start</h4>
+            <p class="text-sm text-slate-300 mb-4">
+              Begin with Week 4 Day 1 to build momentum. Complete all exercises and maintain your problem log.
+            </p>
+            <a href="#week4" class="block w-full text-center py-3 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-lg font-semibold text-white hover:shadow-lg hover:shadow-emerald-500/25 transition-all">
+              Start Week 4
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Week 4: Arrays & Strings -->
+    <div id="week4" class="tab-content hidden">
+      <div class="mb-8">
+        <h2 class="text-3xl font-bold text-white mb-2">
+          Week 4: <span class="gradient-text">Arrays, Strings & Hashing</span>
+        </h2>
+        <p class="text-xl text-slate-400">
+          Master fundamental data structures with pattern-based approaches and SDET-specific applications
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2">
+          <!-- Day 1 -->
+          <div class="glass rounded-2xl p-6 mb-6">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <div class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-semibold mb-2">
+                  <i class="fas fa-calendar-day mr-2"></i>
+                  Day 1 • Sliding Window
+                </div>
+                <h3 class="text-xl font-bold text-white">Fixed & Dynamic Windows</h3>
+              </div>
+              <div class="text-sm text-slate-400">4 problems</div>
+            </div>
+            
+            <div class="mb-6">
+              <h4 class="text-lg font-semibold text-white mb-2">🎯 Pattern Recognition</h4>
+              <p class="text-slate-300 mb-3">
+                Sliding window solves problems with contiguous subarrays or substrings. Recognize it when you need to find:
+              </p>
+              <ul class="list-disc list-inside text-slate-300 space-y-1 mb-4">
+                <li>Maximum/minimum sum of size K</li>
+                <li>Longest substring with K distinct characters</li>
+                <li>Smallest subarray with sum ≥ target</li>
+              </ul>
+            </div>
+
+            <div class="mb-6">
+              <h4 class="text-lg font-semibold text-white mb-3">📊 Algorithm Visualization</h4>
+              <div class="algo-visualization mb-4">
+                <div class="algo-box active">[2]</div>
+                <div class="algo-box">[4]</div>
+                <div class="algo-box">[1]</div>
+                <div class="algo-box">[3]</div>
+                <div class="algo-box">[2]</div>
+                <div class="algo-box pointer">[5]</div>
+                <div class="algo-box">[1]</div>
+              </div>
+              <p class="text-sm text-slate-400 text-center">Sliding window of size 3 finding maximum sum</p>
+            </div>
+
+            <div class="mb-6">
+              <h4 class="text-lg font-semibold text-white mb-3">💻 Code Template (Python)</h4>
+              <pre class="p-4 rounded-lg"><code class="text-sm">def sliding_window_template(arr, k):
+    window_start = 0
+    window_sum = 0
+    max_sum = float('-inf')
+    
+    for window_end in range(len(arr)):
+        window_sum += arr[window_end]  # Add the next element
+        
+        # Slide the window if we've hit the window size
+        if window_end >= k - 1:
+            max_sum = max(max_sum, window_sum)
+            window_sum -= arr[window_start]  # Remove element going out
+            window_start += 1  # Slide window ahead
+    
+    return max_sum</code></pre>
+            </div>
+
+            <div>
+              <h4 class="text-lg font-semibold text-white mb-3">🎯 Daily Problems</h4>
+              <div class="space-y-3">
+                <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg">
+                  <div>
+                    <span class="text-white font-medium">Maximum Sum Subarray of Size K</span>
+                    <span class="difficulty-badge difficulty-easy ml-2">Easy</span>
+                  </div>
+                  <a href="#" class="text-emerald-400 hover:text-emerald-300">
+                    <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+                <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg">
+                  <div>
+                    <span class="text-white font-medium">Longest Substring with K Distinct Characters</span>
+                    <span class="difficulty-badge difficulty-medium ml-2">Medium</span>
+                  </div>
+                  <a href="#" class="text-emerald-400 hover:text-emerald-300">
+                    <i class="fas fa-external-link-alt"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Day 2 -->
+          <div class="glass rounded-2xl p-6 mb-6">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-sm font-semibold mb-2">
+                  <i class="fas fa-calendar-day mr-2"></i>
+                  Day 2 • Two Pointers
+                </div>
+                <h3 class="text-xl font-bold text-white">Sorted Arrays & Palindromes</h3>
+              </div>
+              <div class="text-sm text-slate-400">5 problems</div>
+            </div>
+            
+            <div class="mb-6">
+              <h4 class="text-lg font-semibold text-white mb-2">🎯 Pattern Recognition</h4>
+              <p class="text-slate-300 mb-3">
+                Two pointers excel at sorted array problems and palindrome checks. Use when you need to:
+              </p>
+              <ul class="list-disc list-inside text-slate-300 space-y-1 mb-4">
+                <li>Find pairs/triplets summing to target</li>
+                <li>Remove duplicates from sorted array</li>
+                <li>Check if string is palindrome</li>
+                <li>Merge sorted arrays</li>
+              </ul>
+            </div>
+
+            <div class="mb-6">
+              <h4 class="text-lg font-semibold text-white mb-3">💻 Code Template (JavaScript)</h4>
+              <pre class="p-4 rounded-lg"><code class="text-sm">// Two pointers for sorted array
+function twoPointersTemplate(arr, target) {
+    let left = 0;
+    let right = arr.length - 1;
+    
+    while (left < right) {
+        const sum = arr[left] + arr[right];
+        
+        if (sum === target) {
+            return [left, right];
+        } else if (sum < target) {
+            left++; // Need larger sum
+        } else {
+            right--; // Need smaller sum
+        }
+    }
+    
+    return [-1, -1]; // No pair found
+}
+
+// For SDET: Useful for comparing arrays or finding differences</code></pre>
+            </div>
+
+            <div>
+              <h4 class="text-lg font-semibold text-white mb-3">🔧 SDET Application</h4>
+              <p class="text-slate-300 mb-3">
+                Two pointers are useful in test automation for:
+              </p>
+              <ul class="list-disc list-inside text-slate-300 space-y-2">
+                <li><strong>Data comparison:</strong> Comparing two sorted lists of test results</li>
+                <li><strong>Validation:</strong> Checking if configuration files match expected structure</li>
+                <li><strong>Performance testing:</strong> Finding bottlenecks in sorted performance metrics</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-6">
+          <!-- Week 4 Overview -->
+          <div class="glass rounded-2xl p-6">
+            <h4 class="text-lg font-bold text-white mb-4">📋 Week 4 Schedule</h4>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded">
+                <div class="flex items-center">
+                  <div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
+                    <span class="text-emerald-400 text-sm">1</span>
+                  </div>
+                  <span class="text-slate-300">Sliding Window</span>
+                </div>
+                <span class="text-xs text-slate-400">4 problems</span>
+              </div>
+              <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded">
+                <div class="flex items-center">
+                  <div class="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center mr-3">
+                    <span class="text-blue-400 text-sm">2</span>
+                  </div>
+                  <span class="text-slate-300">Two Pointers</span>
+                </div>
+                <span class="text-xs text-slate-400">5 problems</span>
+              </div>
+              <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded">
+                <div class="flex items-center">
+                  <div class="w-6 h-6 rounded-full bg-purple-500/20 flex items-center justify-center mr-3">
+                    <span class="text-purple-400 text-sm">3</span>
+                  </div>
+                  <span class="text-slate-300">Hashing & Sets</span>
+                </div>
+                <span class="text-xs text-slate-400">6 problems</span>
+              </div>
+              <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded">
+                <div class="flex items-center">
+                  <div class="w-6 h-6 rounded-full bg-yellow-500/20 flex items-center justify-center mr-3">
+                    <span class="text-yellow-400 text-sm">4</span>
+                  </div>
+                  <span class="text-slate-300">String Manipulation</span>
+                </div>
+                <span class="text-xs text-slate-400">5 problems</span>
+              </div>
+              <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded">
+                <div class="flex items-center">
+                  <div class="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center mr-3">
+                    <span class="text-red-400 text-sm">5</span>
+                  </div>
+                  <span class="text-slate-300">Review & Mock Interview</span>
+                </div>
+                <span class="text-xs text-slate-400">Full day</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Progress Tracker -->
+          <div class="glass rounded-2xl p-6">
+            <h4 class="text-lg font-bold text-white mb-4">📈 Progress Tracker</h4>
+            <div class="space-y-4">
+              <div>
+                <div class="flex justify-between text-sm mb-1">
+                  <span class="text-slate-300">Problems Solved</span>
+                  <span class="text-emerald-400">0/20</span>
+                </div>
+                <div class="h-2 bg-slate-800 rounded-full">
+                  <div class="h-full bg-emerald-500 rounded-full" style="width: 0%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-sm mb-1">
+                  <span class="text-slate-300">Patterns Mastered</span>
+                  <span class="text-blue-400">0/4</span>
+                </div>
+                <div class="h-2 bg-slate-800 rounded-full">
+                  <div class="h-full bg-blue-500 rounded-full" style="width: 0%"></div>
+                </div>
+              </div>
+              <div>
+                <div class="flex justify-between text-sm mb-1">
+                  <span class="text-slate-300">Time Spent</span>
+                  <span class="text-purple-400">0/15 hrs</span>
+                </div>
+                <div class="h-2 bg-slate-800 rounded-full">
+                  <div class="h-full bg-purple-500 rounded-full" style="width: 0%"></div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-6">
+              <button class="w-full py-3 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-lg font-semibold text-white hover:shadow-lg hover:shadow-emerald-500/25 transition-all">
+                Update Progress
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Week 5: Trees & Graphs -->
+    <div id="week5" class="tab-content hidden">
+      <div class="mb-8">
+        <h2 class="text-3xl font-bold text-white mb-2">
+          Week 5: <span class="gradient-text">Trees, Graphs & Advanced Patterns</span>
+        </h2>
+        <p class="text-xl text-slate-400">
+          Master hierarchical data structures and complex algorithms with emphasis on SDET applications
+        </p>
+      </div>
+
+      <div class="grid lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2">
+          <!-- Day 6 -->
+          <div class="glass rounded-2xl p-6 mb-6">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <div class="inline-flex items-center px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-sm font-semibold mb-2">
+                  <i class="fas fa-calendar-day mr-2"></i>
+                  Day 6 • Tree Traversal
+                </div>
+                <h3 class="text-xl font-bold text-white">BFS, DFS & Recursion</h3>
+              </div>
+              <div class="text-sm text-slate-400">6 problems</div>
+            </div>
+            
+            <div class="mb-6">
+              <h4 class="text-lg font-semibold text-white mb-3">🌳 Tree Visualization</h4>
+              <div class="flex flex-col items-center">
+                <div class="mb-4">
+                  <div class="w-12 h-12 rounded-full bg-emerald-500/20 border-2 border-emerald-500 flex items-center justify-center mx-auto">
+                    <span class="text-emerald-400 font-bold">A</span>
+                  </div>
+                </div>
+                <div class="flex justify-center space-x-8 mb-4">
+                  <div class="text-center">
+                    <div class="w-10 h-10 rounded-full bg-blue-500/20 border-2 border-blue-500 flex items-center justify-center mx-auto mb-2">
+                      <span class="text-blue-400 font-bold">B</span>
+                    </div>
+                    <div class="flex space-x-4 mt-2">
+                      <div class="w-8 h-8 rounded-full bg-purple-500/20 border border-purple-500 flex items-center justify-center">
+                        <span class="text-purple-400 text-xs">D</span>
+                      </div>
+                      <div class="w-8 h-8 rounded-full bg-purple-500/20 border border-purple-500 flex items-center justify-center">
+                        <span class="text-purple-400 text-xs">E</span>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="text-center">
+                    <div class="w-10 h-10 rounded-full bg-blue-500/20 border-2 border-blue-500 flex items-center justify-center mx-auto mb-2">
+                      <span class="text-blue-400 font-bold">C</span>
+                    </div>
+                    <div class="flex space-x-4 mt-2">
+                      <div class="w-8 h-8 rounded-full bg-purple-500/20 border border-purple-500 flex items-center justify-center">
+                        <span class="text-purple-400 text-xs">F</span>
+                      </div>
+                      <div class="w-8 h-8 rounded-full bg-purple-500/20 border border-purple-500 flex items-center justify-center">
+                        <span class="text-purple-400 text-xs">G</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-sm text-slate-400 text-center">Binary Tree Structure (Level-order: A, B, C, D, E, F, G)</p>
+              </div>
+            </div>
+
+            <div class="mb-6">
+              <h4 class="text-lg font-semibold text-white mb-3">💻 BFS Template (Python)</h4>
+              <pre class="p-4 rounded-lg"><code class="text-sm">from collections import deque
+
+def bfs_template(root):
+    if not root:
+        return []
+    
+    result = []
+    queue = deque([root])
+    
+    while queue:
+        level_size = len(queue)
+        current_level = []
+        
+        for _ in range(level_size):
+            node = queue.popleft()
+            current_level.append(node.val)
+            
+            # Add child nodes to queue
+            if node.left:
+                queue.append(node.left)
+            if node.right:
+                queue.append(node.right)
+        
+        result.append(current_level)
+    
+    return result
+
+# SDET Use Case: Traversing test result hierarchy
+# or navigating DOM tree in UI automation</code></pre>
+            </div>
+
+            <div>
+              <h4 class="text-lg font-semibold text-white mb-3">🔧 SDET Applications</h4>
+              <div class="grid grid-cols-2 gap-4">
+                <div class="bg-slate-800/50 p-4 rounded-lg">
+                  <h5 class="font-semibold text-white mb-2">UI Test Navigation</h5>
+                  <p class="text-sm text-slate-300">BFS for exploring all elements in a web page hierarchy</p>
+                </div>
+                <div class="bg-slate-800/50 p-4 rounded-lg">
+                  <h5 class="font-semibold text-white mb-2">Test Dependency</h5>
+                  <p class="text-sm text-slate-300">DFS for resolving test execution order dependencies</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Day 7 -->
+          <div class="glass rounded-2xl p-6">
+            <div class="flex items-center justify-between mb-4">
+              <div>
+                <div class="inline-flex items-center px-3 py-1 rounded-full bg-blue-500/10 text-blue-400 text-sm font-semibold mb-2">
+                  <i class="fas fa-calendar-day mr-2"></i>
+                  Day 7 • Graph Algorithms
+                </div>
+                <h3 class="text-xl font-bold text-white">Dijkstra, DFS & Topological Sort</h3>
+              </div>
+              <div class="text-sm text-slate-400">4 problems</div>
+            </div>
+            
+            <div class="mb-6">
+              <h4 class="text-lg font-semibold text-white mb-3">🎯 Pattern Recognition</h4>
+              <p class="text-slate-300 mb-3">
+                Graph problems often appear in dependency resolution, network analysis, and pathfinding. Recognize when to use:
+              </p>
+              <ul class="list-disc list-inside text-slate-300 space-y-1">
+                <li><strong>BFS/DFS:</strong> Connectivity, cycle detection</li>
+                <li><strong>Dijkstra:</strong> Shortest path with positive weights</li>
+                <li><strong>Topological Sort:</strong> Dependency resolution, task scheduling</li>
+                <li><strong>Union-Find:</strong> Connected components, network connectivity</li>
+              </ul>
+            </div>
+
+            <div class="mb-6">
+              <h4 class="text-lg font-semibold text-white mb-3">📊 Graph Visualization</h4>
+              <div class="flex justify-center space-x-8">
+                <div class="text-center">
+                  <div class="w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-500 flex items-center justify-center mx-auto mb-2">
+                    <span class="text-emerald-400 font-bold">API</span>
+                  </div>
+                  <div class="flex justify-center space-x-4">
+                    <div class="w-12 h-12 rounded-full bg-blue-500/20 border border-blue-500 flex items-center justify-center">
+                      <span class="text-blue-400 text-sm">DB</span>
+                    </div>
+                    <div class="w-12 h-12 rounded-full bg-purple-500/20 border border-purple-500 flex items-center justify-center">
+                      <span class="text-purple-400 text-sm">Cache</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <p class="text-sm text-slate-400 text-center mt-4">Service dependency graph for microservices testing</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="space-y-6">
+          <!-- Week 5 Overview -->
+          <div class="glass rounded-2xl p-6">
+            <h4 class="text-lg font-bold text-white mb-4">📋 Week 5 Schedule</h4>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded">
+                <div class="flex items-center">
+                  <div class="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center mr-3">
+                    <span class="text-emerald-400 text-sm">6</span>
+                  </div>
+                  <span class="text-slate-300">Tree Traversal</span>
+                </div>
+                <span class="text-xs text-slate-400">6 problems</span>
+              </div>
+              <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded">
+                <div class="flex items-center">
+                  <div class="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center mr-3">
+                    <span class="text-blue-400 text-sm">7</span>
+                  </div>
+                  <span class="text-slate-300">Graph Algorithms</span>
+                </div>
+                <span class="text-xs text-slate-400">4 problems</span>
+              </div>
+              <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded">
+                <div class="flex items-center">
+                  <div class="w-6 h-6 rounded-full bg-purple-500/20 flex items-center justify-center mr-3">
+                    <span class="text-purple-400 text-sm">8</span>
+                  </div>
+                  <span class="text-slate-300">Backtracking</span>
+                </div>
+                <span class="text-xs text-slate-400">5 problems</span>
+              </div>
+              <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded">
+                <div class="flex items-center">
+                  <div class="w-6 h-6 rounded-full bg-yellow-500/20 flex items-center justify-center mr-3">
+                    <span class="text-yellow-400 text-sm">9</span>
+                  </div>
+                  <span class="text-slate-300">Dynamic Programming</span>
+                </div>
+                <span class="text-xs text-slate-400">4 problems</span>
+              </div>
+              <div class="flex items-center justify-between p-3 bg-slate-800/50 rounded">
+                <div class="flex items-center">
+                  <div class="w-6 h-6 rounded-full bg-red-500/20 flex items-center justify-center mr-3">
+                    <span class="text-red-400 text-sm">10</span>
+                  </div>
+                  <span class="text-slate-300">Mock Interviews</span>
+                </div>
+                <span class="text-xs text-slate-400">Full day</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Problem Log Template -->
+          <div class="glass rounded-2xl p-6">
+            <h4 class="text-lg font-bold text-white mb-4">📝 Problem Log Template</h4>
+            <div class="space-y-4">
+              <div class="text-sm text-slate-300">
+                Maintain this log for every problem solved:
+              </div>
+              <div class="space-y-2">
+                <div class="text-sm">
+                  <span class="text-emerald-400">• Problem:</span>
+                  <span class="text-slate-300">Two Sum</span>
+                </div>
+                <div class="text-sm">
+                  <span class="text-emerald-400">• Pattern:</span>
+                  <span class="text-slate-300">Hashing</span>
+                </div>
+                <div class="text-sm">
+                  <span class="text-emerald-400">• Time:</span>
+                  <span class="text-slate-300">O(n)</span>
+                </div>
+                <div class="text-sm">
+                  <span class="text-emerald-400">• Space:</span>
+                  <span class="text-slate-300">O(n)</span>
+                </div>
+                <div class="text-sm">
+                  <span class="text-emerald-400">• Insights:</span>
+                  <span class="text-slate-300">Use hash map for O(1) lookups</span>
+                </div>
+              </div>
+              
+              <div class="mt-4">
+                <button class="w-full py-3 bg-gradient-to-r from-blue-500 to-purple-500 rounded-lg font-semibold text-white hover:shadow-lg hover:shadow-blue-500/25 transition-all">
+                  Download Log Template
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Patterns & Templates -->
+    <div id="patterns" class="tab-content hidden">
+      <div class="mb-8">
+        <h2 class="text-3xl font-bold text-white mb-2">
+          <span class="gradient-text">DSA Patterns & Templates</span>
+        </h2>
+        <p class="text-xl text-slate-400">
+          15+ reusable patterns that solve 80% of FAANG DSA questions
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <!-- Pattern 1 -->
+        <div class="pattern-card glass rounded-2xl p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center">
+              <i class="fas fa-window-maximize text-emerald-400 text-xl"></i>
+            </div>
+            <span class="difficulty-badge difficulty-medium">Medium</span>
+          </div>
+          <h4 class="text-xl font-bold text-white mb-3">Sliding Window</h4>
+          <p class="text-slate-300 mb-4">
+            Fixed or dynamic window for contiguous subarray/substring problems
+          </p>
+          <div class="mb-4">
+            <div class="text-sm text-slate-400 mb-2">Key Problems:</div>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-300">Max Sum Subarray</span>
+              <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-300">Longest Substring</span>
+              <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-300">Fruit Basket</span>
+            </div>
+          </div>
+          <a href="#" class="text-emerald-400 font-semibold hover:text-emerald-300">
+            View Template →
+          </a>
+        </div>
+
+        <!-- Pattern 2 -->
+        <div class="pattern-card glass rounded-2xl p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center">
+              <i class="fas fa-hand-point-up text-blue-400 text-xl"></i>
+            </div>
+            <span class="difficulty-badge difficulty-easy">Easy</span>
+          </div>
+          <h4 class="text-xl font-bold text-white mb-3">Two Pointers</h4>
+          <p class="text-slate-300 mb-4">
+            Paired pointers for sorted arrays, palindromes, and pair finding
+          </p>
+          <div class="mb-4">
+            <div class="text-sm text-slate-400 mb-2">Key Problems:</div>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-300">Two Sum II</span>
+              <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-300">Remove Duplicates</span>
+              <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-300">Container Water</span>
+            </div>
+          </div>
+          <a href="#" class="text-blue-400 font-semibold hover:text-blue-300">
+            View Template →
+          </a>
+        </div>
+
+        <!-- Pattern 3 -->
+        <div class="pattern-card glass rounded-2xl p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center">
+              <i class="fas fa-sitemap text-purple-400 text-xl"></i>
+            </div>
+            <span class="difficulty-badge difficulty-medium">Medium</span>
+          </div>
+          <h4 class="text-xl font-bold text-white mb-3">BFS/DFS Traversal</h4>
+          <p class="text-slate-300 mb-4">
+            Tree and graph traversal for hierarchical data and connectivity
+          </p>
+          <div class="mb-4">
+            <div class="text-sm text-slate-400 mb-2">Key Problems:</div>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-300">Level Order</span>
+              <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-300">Course Schedule</span>
+              <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-300">Number Islands</span>
+            </div>
+          </div>
+          <a href="#" class="text-purple-400 font-semibold hover:text-purple-300">
+            View Template →
+          </a>
+        </div>
+
+        <!-- Pattern 4 -->
+        <div class="pattern-card glass rounded-2xl p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-yellow-500/20 flex items-center justify-center">
+              <i class="fas fa-undo text-yellow-400 text-xl"></i>
+            </div>
+            <span class="difficulty-badge difficulty-hard">Hard</span>
+          </div>
+          <h4 class="text-xl font-bold text-white mb-3">Backtracking</h4>
+          <p class="text-slate-300 mb-4">
+            Recursive exploration for permutations, combinations, and constraint satisfaction
+          </p>
+          <div class="mb-4">
+            <div class="text-sm text-slate-400 mb-2">Key Problems:</div>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-300">N-Queens</span>
+              <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-300">Subsets</span>
+              <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-300">Permutations</span>
+            </div>
+          </div>
+          <a href="#" class="text-yellow-400 font-semibold hover:text-yellow-300">
+            View Template →
+          </a>
+        </div>
+
+        <!-- Pattern 5 -->
+        <div class="pattern-card glass rounded-2xl p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center">
+              <i class="fas fa-project-diagram text-red-400 text-xl"></i>
+            </div>
+            <span class="difficulty-badge difficulty-hard">Hard</span>
+          </div>
+          <h4 class="text-xl font-bold text-white mb-3">Dynamic Programming</h4>
+          <p class="text-slate-300 mb-4">
+            Optimal substructure and overlapping subproblems for optimization
+          </p>
+          <div class="mb-4">
+            <div class="text-sm text-slate-400 mb-2">Key Problems:</div>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-300">Knapsack</span>
+              <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-300">LCS</span>
+              <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-300">Coin Change</span>
+            </div>
+          </div>
+          <a href="#" class="text-red-400 font-semibold hover:text-red-300">
+            View Template →
+          </a>
+        </div>
+
+        <!-- Pattern 6 -->
+        <div class="pattern-card glass rounded-2xl p-6">
+          <div class="flex items-center justify-between mb-4">
+            <div class="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center">
+              <i class="fas fa-hashtag text-cyan-400 text-xl"></i>
+            </div>
+            <span class="difficulty-badge difficulty-medium">Medium</span>
+          </div>
+          <h4 class="text-xl font-bold text-white mb-3">Hashing & Sets</h4>
+          <p class="text-slate-300 mb-4">
+            O(1) lookups for duplicate detection, frequency counting, and set operations
+          </p>
+          <div class="mb-4">
+            <div class="text-sm text-slate-400 mb-2">Key Problems:</div>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-300">Group Anagrams</span>
+              <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-300">Longest Consecutive</span>
+              <span class="px-2 py-1 bg-slate-800 rounded text-xs text-slate-300">First Missing Positive</span>
+            </div>
+          </div>
+          <a href="#" class="text-cyan-400 font-semibold hover:text-cyan-300">
+            View Template →
+          </a>
+        </div>
+      </div>
+
+      <!-- Template Library -->
+      <div class="glass rounded-2xl p-8 mt-12">
+        <h3 class="text-2xl font-bold text-white mb-6">📚 Template Library</h3>
+        <div class="grid md:grid-cols-2 gap-6">
+          <div>
+            <h4 class="text-lg font-semibold text-white mb-4">Python Templates</h4>
+            <div class="space-y-3">
+              <a href="#" class="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg hover:bg-slate-800 transition-colors">
+                <span class="text-slate-300">Sliding Window Template</span>
+                <i class="fas fa-download text-emerald-400"></i>
+              </a>
+              <a href="#" class="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg hover:bg-slate-800 transition-colors">
+                <span class="text-slate-300">BFS/DFS Template</span>
+                <i class="fas fa-download text-blue-400"></i>
+              </a>
+              <a href="#" class="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg hover:bg-slate-800 transition-colors">
+                <span class="text-slate-300">Backtracking Template</span>
+                <i class="fas fa-download text-purple-400"></i>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h4 class="text-lg font-semibold text-white mb-4">JavaScript Templates</h4>
+            <div class="space-y-3">
+              <a href="#" class="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg hover:bg-slate-800 transition-colors">
+                <span class="text-slate-300">Two Pointers Template</span>
+                <i class="fas fa-download text-yellow-400"></i>
+              </a>
+              <a href="#" class="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg hover:bg-slate-800 transition-colors">
+                <span class="text-slate-300">Dynamic Programming Template</span>
+                <i class="fas fa-download text-red-400"></i>
+              </a>
+              <a href="#" class="flex items-center justify-between p-3 bg-slate-800/50 rounded-lg hover:bg-slate-800 transition-colors">
+                <span class="text-slate-300">Hashing Template</span>
+                <i class="fas fa-download text-cyan-400"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Problem Bank -->
+    <div id="problems" class="tab-content hidden">
+      <div class="mb-8">
+        <h2 class="text-3xl font-bold text-white mb-2">
+          <span class="gradient-text">Problem Bank</span>
+        </h2>
+        <p class="text-xl text-slate-400">
+          80-120 curated problems with pattern categorization and SDET relevance
+        </p>
+      </div>
+
+      <div class="glass rounded-2xl p-6 mb-8">
+        <div class="flex flex-wrap gap-4 mb-6">
+          <button class="px-4 py-2 bg-emerald-500 text-white rounded-lg font-semibold">All Problems</button>
+          <button class="px-4 py-2 bg-slate-800 text-slate-300 rounded-lg font-semibold hover:bg-slate-700">Easy</button>
+          <button class="px-4 py-2 bg-slate-800 text-slate-300 rounded-lg font-semibold hover:bg-slate-700">Medium</button>
+          <button class="px-4 py-2 bg-slate-800 text-slate-300 rounded-lg font-semibold hover:bg-slate-700">Hard</button>
+          <button class="px-4 py-2 bg-slate-800 text-slate-300 rounded-lg font-semibold hover:bg-slate-700">SDET Focus</button>
+        </div>
+
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="border-b border-slate-700">
+                <th class="text-left py-3 px-4 text-slate-300">Problem</th>
+                <th class="text-left py-3 px-4 text-slate-300">Pattern</th>
+                <th class="text-left py-3 px-4 text-slate-300">Difficulty</th>
+                <th class="text-left py-3 px-4 text-slate-300">SDET Relevance</th>
+                <th class="text-left py-3 px-4 text-slate-300">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="border-b border-slate-800/50">
+                <td class="py-3 px-4">
+                  <div class="font-medium text-white">Two Sum</div>
+                  <div class="text-sm text-slate-400">Find indices that sum to target</div>
+                </td>
+                <td class="py-3 px-4">
+                  <span class="px-2 py-1 bg-emerald-500/10 text-emerald-400 rounded text-xs">Hashing</span>
+                </td>
+                <td class="py-3 px-4">
+                  <span class="difficulty-badge difficulty-easy">Easy</span>
+                </td>
+                <td class="py-3 px-4">
+                  <span class="text-sm text-slate-300">High - Data validation</span>
+                </td>
+                <td class="py-3 px-4">
+                  <span class="text-sm text-yellow-400">Pending</span>
+                </td>
+              </tr>
+              <tr class="border-b border-slate-800/50">
+                <td class="py-3 px-4">
+                  <div class="font-medium text-white">Longest Substring Without Repeating</div>
+                  <div class="text-sm text-slate-400">Find longest unique substring</div>
+                </td>
+                <td class="py-3 px-4">
+                  <span class="px-2 py-1 bg-blue-500/10 text-blue-400 rounded text-xs">Sliding Window</span>
+                </td>
+                <td class="py-3 px-4">
+                  <span class="difficulty-badge difficulty-medium">Medium</span>
+                </td>
+                <td class="py-3 px-4">
+                  <span class="text-sm text-slate-300">Medium - String processing</span>
+                </td>
+                <td class="py-3 px-4">
+                  <span class="text-sm text-yellow-400">Pending</span>
+                </td>
+              </tr>
+              <tr class="border-b border-slate-800/50">
+                <td class="py-3 px-4">
+                  <div class="font-medium text-white">Binary Tree Level Order Traversal</div>
+                  <div class="text-sm text-slate-400">Traverse tree level by level</div>
+                </td>
+                <td class="py-3 px-4">
+                  <span class="px-2 py-1 bg-purple-500/10 text-purple-400 rounded text-xs">BFS</span>
+                </td>
+                <td class="py-3 px-4">
+                  <span class="difficulty-badge difficulty-medium">Medium</span>
+                </td>
+                <td class="py-3 px-4">
+                  <span class="text-sm text-slate-300">High - Test hierarchy navigation</span>
+                </td>
+                <td class="py-3 px-4">
+                  <span class="text-sm text-yellow-400">Pending</span>
+                </td>
+              </tr>
+              <tr class="border-b border-slate-800/50">
+                <td class="py-3 px-4">
+                  <div class="font-medium text-white">Course Schedule</div>
+                  <div class="text-sm text-slate-400">Check if course prerequisites are valid</div>
+                </td>
+                <td class="py-3 px-4">
+                  <span class="px-2 py-1 bg-red-500/10 text-red-400 rounded text-xs">Topological Sort</span>
+                </td>
+                <td class="py-3 px-4">
+                  <span class="difficulty-badge difficulty-medium">Medium</span>
+                </td>
+                <td class="py-3 px-4">
+                  <span class="text-sm text-slate-300">High - Test dependency resolution</span>
+                </td>
+                <td class="py-3 px-4">
+                  <span class="text-sm text-yellow-400">Pending</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="glass rounded-2xl p-6">
+          <h3 class="text-xl font-bold text-white mb-4">🎯 SDET-Focused Problems</h3>
+          <ul class="space-y-3">
+            <li class="flex items-center">
+              <i class="fas fa-check-circle text-emerald-400 mr-3"></i>
+              <span class="text-slate-300">String manipulation for test data generation</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-check-circle text-emerald-400 mr-3"></i>
+              <span class="text-slate-300">Tree traversal for DOM navigation</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-check-circle text-emerald-400 mr-3"></i>
+              <span class="text-slate-300">Graph algorithms for service dependency</span>
+            </li>
+            <li class="flex items-center">
+              <i class="fas fa-check-circle text-emerald-400 mr-3"></i>
+              <span class="text-slate-300">Array transformations for test results</span>
+            </li>
+          </ul>
+        </div>
+
+        <div class="glass rounded-2xl p-6">
+          <h3 class="text-xl font-bold text-white mb-4">📈 Problem Statistics</h3>
+          <div class="space-y-4">
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-slate-300">Total Problems</span>
+                <span class="text-emerald-400">120</span>
+              </div>
+              <div class="h-2 bg-slate-800 rounded-full">
+                <div class="h-full bg-emerald-500 rounded-full" style="width: 100%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-slate-300">Easy Problems</span>
+                <span class="text-blue-400">40</span>
+              </div>
+              <div class="h-2 bg-slate-800 rounded-full">
+                <div class="h-full bg-blue-500 rounded-full" style="width: 33%"></div>
+              </div>
+            </div>
+            <div>
+              <div class="flex justify-between text-sm mb-1">
+                <span class="text-slate-300">SDET-Focused</span>
+                <span class="text-purple-400">35</span>
+              </div>
+              <div class="h-2 bg-slate-800 rounded-full">
+                <div class="h-full bg-purple-500 rounded-full" style="width: 29%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interview Q&A -->
+    <div id="interview" class="tab-content hidden">
+      <div class="mb-8">
+        <h2 class="text-3xl font-bold text-white mb-2">
+          <span class="gradient-text">Interview Q&A</span>
+        </h2>
+        <p class="text-xl text-slate-400">
+          Common DSA interview questions with detailed explanations and SDET context
+        </p>
+      </div>
+
+      <div class="space-y-6">
+        <!-- Question 1 -->
+        <div class="glass rounded-2xl p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <span class="difficulty-badge difficulty-medium mb-2">Medium</span>
+              <h3 class="text-xl font-bold text-white">How would you find the longest substring without repeating characters?</h3>
+            </div>
+            <div class="text-sm text-slate-400">Time: 25 min</div>
+          </div>
+          
+          <div class="mb-6">
+            <h4 class="text-lg font-semibold text-white mb-2">🎯 Expected Approach</h4>
+            <p class="text-slate-300 mb-3">
+              Use a sliding window with a hash map to track character positions. Expand the window until you find a duplicate, 
+              then shrink from the left until the duplicate is removed.
+            </p>
+            <div class="bg-slate-800/50 p-4 rounded-lg">
+              <h5 class="font-semibold text-white mb-2">Pattern: Sliding Window with Hashing</h5>
+              <p class="text-sm text-slate-300">Time: O(n), Space: O(min(n, m)) where m is character set size</p>
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <h4 class="text-lg font-semibold text-white mb-2">💻 Solution (Python)</h4>
+            <pre class="p-4 rounded-lg"><code class="text-sm">def length_of_longest_substring(s: str) -> int:
+    char_index = {}  # Stores last index of each character
+    left = 0
+    max_length = 0
+    
+    for right in range(len(s)):
+        # If character exists in window, move left pointer
+        if s[right] in char_index and char_index[s[right]] >= left:
+            left = char_index[s[right]] + 1
+        
+        # Update character's last seen index
+        char_index[s[right]] = right
+        
+        # Update max length
+        max_length = max(max_length, right - left + 1)
+    
+    return max_length</code></pre>
+          </div>
+
+          <div>
+            <h4 class="text-lg font-semibold text-white mb-2">🔧 SDET Application</h4>
+            <p class="text-slate-300">
+              This pattern is useful for validating unique identifiers, checking for duplicate test case names, 
+              or analyzing log sequences for patterns in test automation.
+            </p>
+          </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="glass rounded-2xl p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <span class="difficulty-badge difficulty-hard mb-2">Hard</span>
+              <h3 class="text-xl font-bold text-white">Design an autocomplete system for test case names.</h3>
+            </div>
+            <div class="text-sm text-slate-400">Time: 35 min</div>
+          </div>
+          
+          <div class="mb-6">
+            <h4 class="text-lg font-semibold text-white mb-2">🎯 Expected Approach</h4>
+            <p class="text-slate-300 mb-3">
+              Use a Trie (prefix tree) data structure to store test case names. Each node represents a character, 
+              and leaf nodes mark complete test case names. Include frequency tracking for sorting suggestions.
+            </p>
+            <div class="bg-slate-800/50 p-4 rounded-lg">
+              <h5 class="font-semibold text-white mb-2">Pattern: Trie + DFS</h5>
+              <p class="text-sm text-slate-300">Time: O(L) for insertion, O(L + klogk) for suggestions</p>
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <h4 class="text-lg font-semibold text-white mb-2">📊 System Design Components</h4>
+            <div class="grid grid-cols-2 gap-4">
+              <div class="bg-slate-800/50 p-4 rounded-lg">
+                <h5 class="font-semibold text-white mb-2">Trie Structure</h5>
+                <p class="text-sm text-slate-300">Store characters, is_end flag, frequency count</p>
+              </div>
+              <div class="bg-slate-800/50 p-4 rounded-lg">
+                <h5 class="font-semibold text-white mb-2">Search Algorithm</h5>
+                <p class="text-sm text-slate-300">DFS from prefix node, collect all completions</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Quiz -->
+    <div id="quiz" class="tab-content hidden">
+      <div class="mb-8">
+        <h2 class="text-3xl font-bold text-white mb-2">
+          <span class="gradient-text">Knowledge Assessment</span>
+        </h2>
+        <p class="text-xl text-slate-400">
+          Test your understanding of DSA concepts and patterns
+        </p>
+      </div>
+
+      <div class="glass rounded-2xl p-8">
+        <div class="mb-8">
+          <div class="flex items-center justify-between mb-2">
+            <h3 class="text-2xl font-bold text-white">Pattern Recognition Quiz</h3>
+            <div class="text-sm text-slate-400">5 questions • 15 minutes</div>
+          </div>
+          <p class="text-slate-300">Identify the optimal pattern for each problem scenario</p>
+        </div>
+
+        <!-- Question 1 -->
+        <div class="mb-8 p-6 bg-slate-800/50 rounded-xl">
+          <h4 class="text-lg font-semibold text-white mb-4">1. You need to find the smallest subarray with sum ≥ target in an array of positive integers. Which pattern is most appropriate?</h4>
+          <div class="space-y-3">
+            <label class="flex items-center p-3 bg-slate-900/50 rounded-lg cursor-pointer hover:bg-slate-900">
+              <input type="radio" name="q1" class="mr-3">
+              <span class="text-slate-300">Binary Search</span>
+            </label>
+            <label class="flex items-center p-3 bg-slate-900/50 rounded-lg cursor-pointer hover:bg-slate-900">
+              <input type="radio" name="q1" class="mr-3">
+              <span class="text-slate-300">Sliding Window</span>
+            </label>
+            <label class="flex items-center p-3 bg-slate-900/50 rounded-lg cursor-pointer hover:bg-slate-900">
+              <input type="radio" name="q1" class="mr-3">
+              <span class="text-slate-300">Dynamic Programming</span>
+            </label>
+            <label class="flex items-center p-3 bg-slate-900/50 rounded-lg cursor-pointer hover:bg-slate-900">
+              <input type="radio" name="q1" class="mr-3">
+              <span class="text-slate-300">Two Pointers</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div class="mb-8 p-6 bg-slate-800/50 rounded-xl">
+          <h4 class="text-lg font-semibold text-white mb-4">2. You have a sorted array and need to find a pair of numbers that sum to a target value. What's the optimal approach?</h4>
+          <div class="space-y-3">
+            <label class="flex items-center p-3 bg-slate-900/50 rounded-lg cursor-pointer hover:bg-slate-900">
+              <input type="radio" name="q2" class="mr-3">
+              <span class="text-slate-300">Nested loops checking all pairs</span>
+            </label>
+            <label class="flex items-center p-3 bg-slate-900/50 rounded-lg cursor-pointer hover:bg-slate-900">
+              <input type="radio" name="q2" class="mr-3">
+              <span class="text-slate-300">Two pointers from both ends</span>
+            </label>
+            <label class="flex items-center p-3 bg-slate-900/50 rounded-lg cursor-pointer hover:bg-slate-900">
+              <input type="radio" name="q2" class="mr-3">
+              <span class="text-slate-300">Hashing all elements first</span>
+            </label>
+            <label class="flex items-center p-3 bg-slate-900/50 rounded-lg cursor-pointer hover:bg-slate-900">
+              <input type="radio" name="q2" class="mr-3">
+              <span class="text-slate-300">Binary search for complement</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Submit Button -->
+        <div class="text-center">
+          <button class="px-8 py-3 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-xl font-bold text-white text-lg hover:shadow-lg hover:shadow-emerald-500/25 transition-all">
+            Submit Quiz
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA Section -->
+  <section id="cta" class="py-20 bg-gradient-to-br from-slate-900 via-emerald-500/5 to-slate-900">
+    <div class="max-w-4xl mx-auto px-6 text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6">
+        Ready to <span class="gradient-text">Master DSA?</span>
+      </h2>
+      <p class="text-xl text-slate-400 mb-10 max-w-2xl mx-auto">
+        Start Phase 2 today and build the DSA foundation needed for FAANG SDET-II interviews
+      </p>
+      
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+        <a href="#week4" 
+           class="group px-8 py-4 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-xl font-bold text-white text-lg hover:shadow-2xl hover:shadow-emerald-500/30 transition-all duration-300">
+          <span class="flex items-center justify-center">
+            Start Week 4 Now
+            <i class="fas fa-play ml-3 group-hover:translate-x-1 transition-transform"></i>
+          </span>
+        </a>
+        
+        <a href="phase3-ui-automation.html" 
+           class="px-8 py-4 glass rounded-xl font-semibold text-slate-300 hover:text-white hover:border-emerald-500/50 transition-all text-lg">
+          <i class="fas fa-arrow-right mr-2"></i>
+          Preview Phase 3
+        </a>
+      </div>
+      
+      <div class="grid sm:grid-cols-3 gap-6 text-center">
+        <div class="glass rounded-xl p-4">
+          <div class="text-2xl font-bold text-emerald-400 mb-2">2 Weeks</div>
+          <div class="text-slate-400">Focused Learning</div>
+        </div>
+        <div class="glass rounded-xl p-4">
+          <div class="text-2xl font-bold text-blue-400 mb-2">15+</div>
+          <div class="text-slate-400">Patterns Mastered</div>
+        </div>
+        <div class="glass rounded-xl p-4">
+          <div class="text-2xl font-bold text-purple-400 mb-2">80-120</div>
+          <div class="text-slate-400">Problems Solved</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-12 border-t border-slate-800">
+    <div class="max-w-7xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-8 md:mb-0">
+          <div class="flex items-center space-x-3 mb-4">
+            <a href="index.html" class="flex items-center space-x-3">
+              <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-blue-500 flex items-center justify-center">
+                <i class="fas fa-vial text-white text-lg"></i>
+              </div>
+              <div>
+                <h2 class="text-xl font-bold bg-gradient-to-r from-emerald-400 to-blue-400 bg-clip-text text-transparent">
+                  SDET-II Elite
+                </h2>
+                <p class="text-sm text-slate-400">Phase 2: DSA & Patterns</p>
+              </div>
+            </a>
+          </div>
+          <p class="text-slate-500 max-w-md">
+            Master 15+ DSA patterns and solve 80-120 problems in 2 weeks. Build the foundation for FAANG SDET-II interviews.
+          </p>
+        </div>
+        
+        <div class="grid grid-cols-2 gap-8">
+          <div>
+            <h3 class="font-semibold text-white mb-4">Navigation</h3>
+            <ul class="space-y-2">
+              <li><a href="index.html" class="text-slate-400 hover:text-emerald-400 transition-colors">Home</a></li>
+              <li><a href="phase1-programming-foundations.html" class="text-slate-400 hover:text-emerald-400 transition-colors">Phase 1</a></li>
+              <li><a href="phase3-ui-automation.html" class="text-slate-400 hover:text-emerald-400 transition-colors">Phase 3</a></li>
+            </ul>
+          </div>
+          
+          <div>
+            <h3 class="font-semibold text-white mb-4">Resources</h3>
+            <ul class="space-y-2">
+              <li><a href="#patterns" class="text-slate-400 hover:text-emerald-400 transition-colors">Patterns</a></li>
+              <li><a href="#problems" class="text-slate-400 hover:text-emerald-400 transition-colors">Problem Bank</a></li>
+              <li><a href="#interview" class="text-slate-400 hover:text-emerald-400 transition-colors">Interview Q&A</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <div class="border-t border-slate-800 mt-12 pt-8 text-center text-slate-500 text-sm">
+        <p>© 2024 SDET-II Elite Roadmap. Phase 2: Professional DSA & Patterns.</p>
+        <p class="mt-2">Designed for FAANG SDET-II interview preparation.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Tab switching functionality
+    document.querySelectorAll('.tab-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const tabId = button.getAttribute('data-tab');
+        
+        // Update active tab button
+        document.querySelectorAll('.tab-button').forEach(btn => {
+          btn.classList.remove('active');
+        });
+        button.classList.add('active');
+        
+        // Show selected tab content
+        document.querySelectorAll('.tab-content').forEach(content => {
+          content.classList.remove('active');
+          content.classList.add('hidden');
+        });
+        
+        const activeTab = document.getElementById(tabId);
+        activeTab.classList.remove('hidden');
+        activeTab.classList.add('active');
+        
+        // Smooth scroll to top of tab content
+        window.scrollTo({
+          top: activeTab.offsetTop - 100,
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Quiz functionality
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        const question = this.name;
+        const selectedLabel = this.parentElement;
+        
+        // Remove any existing selection styling
+        document.querySelectorAll(`input[name="${question}"]`).forEach(input => {
+          input.parentElement.classList.remove('bg-emerald-500/20', 'border-emerald-500');
+        });
+        
+        // Add selection styling
+        selectedLabel.classList.add('bg-emerald-500/20', 'border', 'border-emerald-500');
+      });
+    });
+
+    // Submit quiz handler
+    document.querySelector('button').addEventListener('click', function() {
+      const correctAnswers = {
+        q1: 1,  // Sliding Window (index 1)
+        q2: 1   // Two pointers from both ends (index 1)
+      };
+      
+      let score = 0;
+      let total = Object.keys(correctAnswers).length;
+      
+      // Check answers
+      for (const [question, correctIndex] of Object.entries(correctAnswers)) {
+        const radios = document.querySelectorAll(`input[name="${question}"]`);
+        const selectedIndex = Array.from(radios).findIndex(radio => radio.checked);
+        
+        if (selectedIndex === correctIndex) {
+          score++;
+        }
+      }
+      
+      // Show result
+      alert(`You scored ${score} out of ${total} (${Math.round(score/total*100)}%)`);
+      
+      // Reset quiz
+      document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.checked = false;
+        radio.parentElement.classList.remove('bg-emerald-500/20', 'border-emerald-500');
+      });
+      
+      this.textContent = 'Try Again?';
+    });
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Animate algorithm visualization
+    function animateAlgorithm() {
+      const boxes = document.querySelectorAll('.algo-box');
+      let index = 0;
+      
+      const interval = setInterval(() => {
+        if (index > 0) {
+          boxes[index - 1].classList.remove('active');
+        }
+        
+        if (index < boxes.length) {
+          boxes[index].classList.add('active');
+          index++;
+        } else {
+          clearInterval(interval);
+          // Reset after delay
+          setTimeout(() => {
+            boxes.forEach(box => box.classList.remove('active'));
+            setTimeout(animateAlgorithm, 1000);
+          }, 2000);
+        }
+      }, 500);
+    }
+    
+    // Start animation when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      animateAlgorithm();
+    });
+  </script>
+</body>
+</html>
